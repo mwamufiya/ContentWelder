@@ -1,0 +1,19 @@
+.tools{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    border:1px solid #ccc;
+    background:white;
+    padding:.25em .5em;
+    margin:.25em;
+}
+.tools li{
+    margin:.25em 0;
+    padding:.25em;
+    font-size:10pt;
+    border:1px solid #CCC;
+    text-align: center;
+}
+.tools li:hover{
+    cursor:pointer;
+}

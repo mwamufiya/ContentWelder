@@ -1,0 +1,14 @@
+.workingArea{
+display:flex;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+}
+.stage{
+    background:white;
+    border:1px solid #CCC;
+    box-shadow: 3px 3px 3px #CCC;
+    width: 75%;
+    height:90%;
+    margin-top:1em;
+}
