@@ -6,10 +6,8 @@ import { Router } from '@angular/router';
   templateUrl: 'app/designer-tools.component.html',
   styleUrls: ['app/designer-tools.component.css']
 })
-export class DesignerToolsComponent implements OnInit {
+export class DesignerToolsComponent{
     constructor(
     private router: Router){}
 
-    ngOnInit() {
-    }
 }

@@ -1,8 +1,9 @@
 <div class="workingArea">
     <div class="header"></div>
     <div designerDroppable (widgetAdded)="childModified($event)" class="stage">
+        <template #container></template>
         <!--<template #vcr></template>-->
-        <designer-TextWidget *ngFor="let widget of childWidgets"></designer-TextWidget>
+        <!--<designer-TextWidget *ngFor="let widget of childWidgets"></designer-TextWidget>-->
     </div>
     <div class="footer"></div>
 </div>

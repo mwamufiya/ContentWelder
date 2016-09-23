@@ -4,22 +4,22 @@ import { Router } from '@angular/router';
 import { MakeDraggable } from './make-draggable.directive'
 import { Widget } from './widget.component'
 import { DesignerDroppable } from './designer-droppable.directive'
+import {WidgetFactory} from './widget-factory';
 
 
 @Component({
-  selector: 'designer-TextWidget',
-  templateUrl: 'app/widget.component.html',
+  selector: 'designer-ImageWidget',
+  templateUrl: 'app/image-widget.component.html',
   styles:[`
-    div{
-        display: flex;
-        border: 2px dotted red;
-        background:white;
-        padding:1em;
-        resize:both;
+    img[src='']{
+        border: 1px dotted yellow;
+        background-image: url("http://placehold.it/350x150");
+        width:350px;
+        height:150px;
     }
   `]
 })
-export class TextWidget extends Widget{
+export class ImageWidget extends Widget{
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
@@ -32,13 +32,5 @@ export class TextWidget extends Widget{
 
     @HostListener('click') onclick(){
         //TODO
-    }
-    
-    childModified(event):void {
-        let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
-        let ref = this.container.createComponent(componentFactory);
-        //console.log(ref);
-        
-        //this.childWidgets.push(JSON.parse('{}'));
     }
 }

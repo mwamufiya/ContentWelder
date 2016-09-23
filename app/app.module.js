@@ -23,11 +23,12 @@ var hero_detail_component_1 = require('./hero-detail.component');
 var designer_component_1 = require('./designer.component');
 var designer_tools_component_1 = require('./designer-tools.component');
 var designer_stage_component_1 = require('./designer-stage.component');
-var make_draggable_directive_1 = require('./make-draggable.directive');
-var make_droppable_directive_1 = require('./make-droppable.directive');
 var designer_droppable_directive_1 = require('./designer-droppable.directive');
+var designer_draggable_directive_1 = require('./designer-draggable.directive');
 var widget_component_1 = require('./widget.component');
 var text_widget_component_1 = require('./text-widget.component');
+var image_widget_component_1 = require('./image-widget.component');
+var designer_globals_service_1 = require('./designer-globals.service');
 var hero_service_1 = require('./hero.service');
 var AppModule = (function () {
     function AppModule() {
@@ -48,11 +49,12 @@ var AppModule = (function () {
                 designer_component_1.DesignerComponent,
                 designer_tools_component_1.DesignerToolsComponent,
                 designer_stage_component_1.DesignerStageComponent,
-                make_draggable_directive_1.MakeDraggable,
-                make_droppable_directive_1.MakeDroppable,
-                designer_droppable_directive_1.DesignerDroppable, text_widget_component_1.TextWidget, widget_component_1.Widget
+                designer_draggable_directive_1.DesignerDraggable, designer_droppable_directive_1.DesignerDroppable,
+                text_widget_component_1.TextWidget, widget_component_1.Widget,
+                image_widget_component_1.ImageWidget
             ],
             providers: [
+                designer_globals_service_1.DesignerGlobalsService,
                 hero_service_1.HeroService,
                 { provide: http_1.XHRBackend, useClass: angular2_in_memory_web_api_1.InMemoryBackendService },
                 { provide: angular2_in_memory_web_api_1.SEED_DATA, useClass: in_memory_data_service_1.InMemoryDataService } // in-mem server data

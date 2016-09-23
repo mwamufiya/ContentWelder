@@ -7,7 +7,7 @@ var designer_component_1 = require('./designer.component');
 var appRoutes = [
     {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/designer',
         pathMatch: 'full'
     },
     {

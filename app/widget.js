@@ -10,7 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var Widget = (function () {
-    function Widget() {
+    function Widget(componentFactoryResolver, viewContainer) {
+        this.componentFactoryResolver = componentFactoryResolver;
+        this.viewContainer = viewContainer;
     }
     Widget = __decorate([
         core_1.Component({
@@ -18,7 +20,7 @@ var Widget = (function () {
             templateUrl: 'widget.component.html',
             styles: ["\n    :host{\n        display: flex;\n        border: 1px solid #CCC;\n        border-radius:3px;\n        padding:.25em;\n    }\n  "]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef])
     ], Widget);
     return Widget;
 }());

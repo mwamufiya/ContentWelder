@@ -9,20 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var DesignerToolsComponent = (function () {
-    function DesignerToolsComponent(router) {
-        this.router = router;
+var http_1 = require('@angular/http');
+var DesignerGlobalsService = (function () {
+    function DesignerGlobalsService(http) {
+        this.http = http;
     }
-    DesignerToolsComponent = __decorate([
-        core_1.Component({
-            selector: 'designer-tools',
-            templateUrl: 'app/designer-tools.component.html',
-            styleUrls: ['app/designer-tools.component.css']
-        }), 
-        __metadata('design:paramtypes', [router_1.Router])
-    ], DesignerToolsComponent);
-    return DesignerToolsComponent;
+    DesignerGlobalsService.prototype.getDraggedObject = function () {
+        return this.draggedObject;
+    };
+    DesignerGlobalsService.prototype.setDraggedObject = function (obj) {
+        this.draggedObject = obj;
+    };
+    DesignerGlobalsService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], DesignerGlobalsService);
+    return DesignerGlobalsService;
 }());
-exports.DesignerToolsComponent = DesignerToolsComponent;
-//# sourceMappingURL=designer-tools.component.js.map
+exports.DesignerGlobalsService = DesignerGlobalsService;
+//# sourceMappingURL=designer-globals.service.js.map

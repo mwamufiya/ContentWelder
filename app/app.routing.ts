@@ -10,7 +10,7 @@ import { DesignerComponent } from './designer.component';
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/designer',
     pathMatch: 'full'
   },
   {

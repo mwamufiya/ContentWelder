@@ -10,8 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var widget_component_1 = require('./widget.component');
+var widget_factory_1 = require('./widget-factory');
 var text_widget_component_1 = require('./text-widget.component');
+var image_widget_component_1 = require('./image-widget.component');
 var DesignerStageComponent = (function () {
     function DesignerStageComponent(viewContainer, componentFactoryResolver, router) {
         this.viewContainer = viewContainer;
@@ -27,20 +28,22 @@ var DesignerStageComponent = (function () {
         //this.viewContainer.createEmbeddedView(this.vcr.createComponent(new TextWidget()));
     };
     DesignerStageComponent.prototype.childModified = function (event) {
-        console.log(event);
-        var tw = new text_widget_component_1.TextWidget(this.componentFactoryResolver, this.viewContainer);
-        this.childWidgets.push(JSON.parse('{}'));
+        //console.log(event);
+        //let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
+        var componentFactory = new widget_factory_1.WidgetFactory().createWidget(this.viewContainer, this.componentFactoryResolver, event.widgetType, JSON.parse('{}'));
+        var ref = this.container.createComponent(componentFactory);
+        //this.childWidgets.push(JSON.parse('{}'));
     };
     __decorate([
-        core_1.ViewChild('vcr', { read: core_1.ViewContainerRef }), 
+        core_1.ViewChild('container', { read: core_1.ViewContainerRef }), 
         __metadata('design:type', core_1.ViewContainerRef)
-    ], DesignerStageComponent.prototype, "vcr", void 0);
+    ], DesignerStageComponent.prototype, "container", void 0);
     DesignerStageComponent = __decorate([
         core_1.Component({
             selector: 'designer-stage',
             templateUrl: 'app/designer-stage.component.html',
             styleUrls: ['app/designer-stage.component.css'],
-            entryComponents: [text_widget_component_1.TextWidget, widget_component_1.Widget],
+            entryComponents: [text_widget_component_1.TextWidget, image_widget_component_1.ImageWidget]
         }), 
         __metadata('design:paramtypes', [core_1.ViewContainerRef, core_1.ComponentFactoryResolver, router_1.Router])
     ], DesignerStageComponent);

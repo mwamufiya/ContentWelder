@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, HostListener } from '@angular/core';
+import { Component, OnInit, TemplateRef, HostListener, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MakeDraggable } from './make-draggable.directive'
 import { DesignerDroppable } from './designer-droppable.directive'
@@ -25,6 +25,9 @@ export class Widget {
     layer:number;
     widgets:Array<Widget>;
 
-    constructor(){}
+    constructor(private componentFactoryResolver:ComponentFactoryResolver,
+        private viewContainer:ViewContainerRef){
+          
+        }
 
 }

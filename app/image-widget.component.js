@@ -15,42 +15,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var widget_component_1 = require('./widget.component');
-var TextWidget = (function (_super) {
-    __extends(TextWidget, _super);
-    function TextWidget(componentFactoryResolver, viewContainer) {
+var ImageWidget = (function (_super) {
+    __extends(ImageWidget, _super);
+    function ImageWidget(componentFactoryResolver, viewContainer) {
         _super.call(this, componentFactoryResolver, viewContainer);
         this.componentFactoryResolver = componentFactoryResolver;
         this.viewContainer = viewContainer;
         this.name = 'helloWorld';
     }
-    TextWidget.prototype.onclick = function () {
+    ImageWidget.prototype.onclick = function () {
         //TODO
-    };
-    TextWidget.prototype.childModified = function (event) {
-        var componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
-        var ref = this.container.createComponent(componentFactory);
-        //console.log(ref);
-        //this.childWidgets.push(JSON.parse('{}'));
     };
     __decorate([
         core_1.ViewChild('container', { read: core_1.ViewContainerRef }), 
         __metadata('design:type', core_1.ViewContainerRef)
-    ], TextWidget.prototype, "container", void 0);
+    ], ImageWidget.prototype, "container", void 0);
     __decorate([
         core_1.HostListener('click'), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', []), 
         __metadata('design:returntype', void 0)
-    ], TextWidget.prototype, "onclick", null);
-    TextWidget = __decorate([
+    ], ImageWidget.prototype, "onclick", null);
+    ImageWidget = __decorate([
         core_1.Component({
-            selector: 'designer-TextWidget',
-            templateUrl: 'app/widget.component.html',
-            styles: ["\n    div{\n        display: flex;\n        border: 2px dotted red;\n        background:white;\n        padding:1em;\n        resize:both;\n    }\n  "]
+            selector: 'designer-ImageWidget',
+            templateUrl: 'app/image-widget.component.html',
+            styles: ["\n    img[src='']{\n        border: 1px dotted yellow;\n        background-image: url(\"http://placehold.it/350x150\");\n        width:350px;\n        height:150px;\n    }\n  "]
         }), 
         __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef])
-    ], TextWidget);
-    return TextWidget;
+    ], ImageWidget);
+    return ImageWidget;
 }(widget_component_1.Widget));
-exports.TextWidget = TextWidget;
-//# sourceMappingURL=text-widget.component.js.map
+exports.ImageWidget = ImageWidget;
+//# sourceMappingURL=image-widget.component.js.map

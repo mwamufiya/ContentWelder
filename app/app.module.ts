@@ -17,11 +17,12 @@ import { HeroDetailComponent }  from './hero-detail.component';
 import { DesignerComponent }  from './designer.component';
 import { DesignerToolsComponent }  from './designer-tools.component';
 import { DesignerStageComponent }  from './designer-stage.component';
-import { MakeDraggable }  from './make-draggable.directive';
-import { MakeDroppable }  from './make-droppable.directive';
 import { DesignerDroppable }  from './designer-droppable.directive';
+import { DesignerDraggable }  from './designer-draggable.directive';
 import { Widget } from './widget.component';
 import { TextWidget } from './text-widget.component';
+import { ImageWidget } from './image-widget.component';
+import { DesignerGlobalsService } from './designer-globals.service';
 
 import { HeroService }  from './hero.service';
 
@@ -40,11 +41,12 @@ import { HeroService }  from './hero.service';
     DesignerComponent,
     DesignerToolsComponent,
     DesignerStageComponent,
-    MakeDraggable,
-    MakeDroppable,
-    DesignerDroppable, TextWidget, Widget
+    DesignerDraggable, DesignerDroppable, 
+    TextWidget, Widget,
+    ImageWidget
   ],
   providers: [
+    DesignerGlobalsService,
     HeroService,
     { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
     { provide: SEED_DATA,  useClass: InMemoryDataService }     // in-mem server data
