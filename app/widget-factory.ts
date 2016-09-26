@@ -14,7 +14,6 @@ import { Component,
             widgetType:string,
             config:JSON):ComponentFactory<Widget>{
             let componentFactory;
-            console.log(widgetType);
             switch(widgetType){
                 case "textbox":
                     componentFactory = componentFactoryResolver.resolveComponentFactory(TextWidget);
@@ -24,7 +23,6 @@ import { Component,
                     break;
                 default:
             }
-            console.log(componentFactory);
             return componentFactory;
         }
     }

@@ -24,10 +24,15 @@ export class Widget {
     opacity:number;
     layer:number;
     widgets:Array<Widget>;
+    isActive:boolean = false;
 
     constructor(private componentFactoryResolver:ComponentFactoryResolver,
         private viewContainer:ViewContainerRef){
-          
+
         }
 
+    @HostListener('click', ['$event']) onclick(event){
+      this.viewContainer.element.nativeElement.classList.add('activeWidget');
+      console.log('hello');
+    }
 }

@@ -17,6 +17,9 @@ import {WidgetFactory} from './widget-factory';
         width:350px;
         height:150px;
     }
+    .activeWidget img{
+        border:30px double orange;
+    }
   `]
 })
 export class ImageWidget extends Widget{
@@ -24,13 +27,13 @@ export class ImageWidget extends Widget{
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
     constructor(
-        private componentFactoryResolver:ComponentFactoryResolver,
-        private viewContainer:ViewContainerRef){
+        componentFactoryResolver:ComponentFactoryResolver,
+        viewContainer:ViewContainerRef){
         super(componentFactoryResolver, viewContainer);
         this.name = 'helloWorld';
     }
 
-    @HostListener('click') onclick(){
-        //TODO
+    @HostListener('click', ['$event']) onclick(event){
+        super.onclick(event);
     }
 }

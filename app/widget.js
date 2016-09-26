@@ -13,7 +13,18 @@ var Widget = (function () {
     function Widget(componentFactoryResolver, viewContainer) {
         this.componentFactoryResolver = componentFactoryResolver;
         this.viewContainer = viewContainer;
+        this.isActive = false;
     }
+    Widget.prototype.onclick = function (event) {
+        this.viewContainer.element.nativeElement.classList.add('activeWidget');
+        console.log('hello');
+    };
+    __decorate([
+        core_1.HostListener('click', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], Widget.prototype, "onclick", null);
     Widget = __decorate([
         core_1.Component({
             selector: '[widget]',

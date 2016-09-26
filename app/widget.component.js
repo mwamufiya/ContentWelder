@@ -18,9 +18,17 @@ var Widget = (function () {
         //console.log(this.placeholder);
     }
     Widget.prototype.childModified = function (event) {
-        console.log(event);
-        this.childWidgets.push(JSON.parse('{}'));
     };
+    Widget.prototype.onclick = function (event) {
+        this.viewCont.element.nativeElement.classList.add('activeWidget');
+        console.log('hello');
+    };
+    __decorate([
+        core_1.HostListener('click', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], Widget.prototype, "onclick", null);
     Widget = __decorate([
         core_1.Component({
             selector: 'designerWidget',

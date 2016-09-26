@@ -49,8 +49,10 @@ export class Widget{
     }
 
     childModified(event):void {
-        console.log(event);
-        
-        this.childWidgets.push(JSON.parse('{}'));
+    }
+    
+    @HostListener('click', ['$event']) onclick(event){
+      this.viewCont.element.nativeElement.classList.add('activeWidget');
+      console.log('hello');
     }
 }

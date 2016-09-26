@@ -6,7 +6,6 @@ var WidgetFactory = (function () {
     }
     WidgetFactory.prototype.createWidget = function (viewContainer, componentFactoryResolver, widgetType, config) {
         var componentFactory;
-        console.log(widgetType);
         switch (widgetType) {
             case "textbox":
                 componentFactory = componentFactoryResolver.resolveComponentFactory(text_widget_component_1.TextWidget);
@@ -16,7 +15,6 @@ var WidgetFactory = (function () {
                 break;
             default:
         }
-        console.log(componentFactory);
         return componentFactory;
     };
     return WidgetFactory;

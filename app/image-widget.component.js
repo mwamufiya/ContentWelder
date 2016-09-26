@@ -19,28 +19,26 @@ var ImageWidget = (function (_super) {
     __extends(ImageWidget, _super);
     function ImageWidget(componentFactoryResolver, viewContainer) {
         _super.call(this, componentFactoryResolver, viewContainer);
-        this.componentFactoryResolver = componentFactoryResolver;
-        this.viewContainer = viewContainer;
         this.name = 'helloWorld';
     }
-    ImageWidget.prototype.onclick = function () {
-        //TODO
+    ImageWidget.prototype.onclick = function (event) {
+        _super.prototype.onclick.call(this, event);
     };
     __decorate([
         core_1.ViewChild('container', { read: core_1.ViewContainerRef }), 
         __metadata('design:type', core_1.ViewContainerRef)
     ], ImageWidget.prototype, "container", void 0);
     __decorate([
-        core_1.HostListener('click'), 
+        core_1.HostListener('click', ['$event']), 
         __metadata('design:type', Function), 
-        __metadata('design:paramtypes', []), 
+        __metadata('design:paramtypes', [Object]), 
         __metadata('design:returntype', void 0)
     ], ImageWidget.prototype, "onclick", null);
     ImageWidget = __decorate([
         core_1.Component({
             selector: 'designer-ImageWidget',
             templateUrl: 'app/image-widget.component.html',
-            styles: ["\n    img[src='']{\n        border: 1px dotted yellow;\n        background-image: url(\"http://placehold.it/350x150\");\n        width:350px;\n        height:150px;\n    }\n  "]
+            styles: ["\n    img[src='']{\n        border: 1px dotted yellow;\n        background-image: url(\"http://placehold.it/350x150\");\n        width:350px;\n        height:150px;\n    }\n    .activeWidget img{\n        border:30px double orange;\n    }\n  "]
         }), 
         __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef])
     ], ImageWidget);
