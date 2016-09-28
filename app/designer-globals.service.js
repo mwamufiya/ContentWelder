@@ -20,6 +20,18 @@ var DesignerGlobalsService = (function () {
     DesignerGlobalsService.prototype.setDraggedObject = function (obj) {
         this.draggedObject = obj;
     };
+    DesignerGlobalsService.prototype.getDraggedWidgetType = function () {
+        return this.draggedWidgetType;
+    };
+    DesignerGlobalsService.prototype.setDraggedWidgetType = function (type) {
+        this.draggedWidgetType = type || 'text';
+    };
+    DesignerGlobalsService.prototype.setDraggedWidgetJSON = function (json) {
+        this.draggedWidgetConfig = json;
+    };
+    DesignerGlobalsService.prototype.getDraggedWidgetJSON = function () {
+        return this.draggedWidgetConfig;
+    };
     DesignerGlobalsService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

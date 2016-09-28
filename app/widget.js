@@ -19,6 +19,9 @@ var Widget = (function () {
         this.viewContainer.element.nativeElement.classList.add('activeWidget');
         console.log('hello');
     };
+    Widget.prototype.getChildren = function () {
+        return this.children;
+    };
     __decorate([
         core_1.HostListener('click', ['$event']), 
         __metadata('design:type', Function), 

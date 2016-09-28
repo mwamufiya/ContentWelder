@@ -23,7 +23,7 @@ export class Widget {
     desc:string;
     opacity:number;
     layer:number;
-    widgets:Array<Widget>;
+    children:Array<Widget>;
     isActive:boolean = false;
 
     constructor(private componentFactoryResolver:ComponentFactoryResolver,
@@ -34,5 +34,9 @@ export class Widget {
     @HostListener('click', ['$event']) onclick(event){
       this.viewContainer.element.nativeElement.classList.add('activeWidget');
       console.log('hello');
+    }
+
+    getChildren():Array<Widget>{
+      return this.children;
     }
 }

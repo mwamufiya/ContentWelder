@@ -13,8 +13,6 @@ var Widget = (function () {
     function Widget(componentResolver, viewCont) {
         this.componentResolver = componentResolver;
         this.viewCont = viewCont;
-        //Initialize the child widget array        
-        this.childWidgets = [];
         //console.log(this.placeholder);
     }
     Widget.prototype.childModified = function (event) {
@@ -22,6 +20,9 @@ var Widget = (function () {
     Widget.prototype.onclick = function (event) {
         this.viewCont.element.nativeElement.classList.add('activeWidget');
         console.log('hello');
+    };
+    Widget.prototype.getChildren = function () {
+        return this.children;
     };
     __decorate([
         core_1.HostListener('click', ['$event']), 

@@ -4,9 +4,10 @@ var image_widget_component_1 = require('./image-widget.component');
 var WidgetFactory = (function () {
     function WidgetFactory() {
     }
-    WidgetFactory.prototype.createWidget = function (viewContainer, componentFactoryResolver, widgetType, config) {
+    //TODO: make the WidgetJson user an interface so that the definition is known and can be used in IDE
+    WidgetFactory.prototype.createWidget = function (viewContainer, componentFactoryResolver, widgetJson) {
         var componentFactory;
-        switch (widgetType) {
+        switch (widgetJson.widgetConfig.type) {
             case "textbox":
                 componentFactory = componentFactoryResolver.resolveComponentFactory(text_widget_component_1.TextWidget);
                 break;

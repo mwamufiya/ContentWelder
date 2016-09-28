@@ -21,6 +21,9 @@ var MakeDraggable = (function () {
     MakeDraggable.prototype.ondragend = function (event) {
         //console.log(`I'm done dragging`)
     };
+    MakeDraggable.prototype.getDomElement = function () {
+        return this.el;
+    };
     __decorate([
         core_1.HostListener('dragstart', ['$event']), 
         __metadata('design:type', Function), 

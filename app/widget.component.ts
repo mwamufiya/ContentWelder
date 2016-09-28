@@ -1,6 +1,5 @@
 import { Component,
    OnInit,
-   TemplateRef,
    HostListener,
    ViewContainerRef,
    ViewChild,
@@ -33,7 +32,7 @@ export class Widget{
     desc:string;
     opacity:number;
     layer:number;
-    childWidgets:Array<JSON>;  //array of child widgets
+    children:Array<ComponentRef<any>>;  //array of child widgets
     config:JSON;            //JSON configuration for the widget
     componentResolver:ComponentFactoryResolver;
     viewCont:ViewContainerRef;
@@ -43,8 +42,6 @@ export class Widget{
       viewCont:ViewContainerRef){
         this.componentResolver = componentResolver;
         this.viewCont = viewCont;
-      //Initialize the child widget array        
-      this.childWidgets = [];
       //console.log(this.placeholder);
     }
 
@@ -54,5 +51,9 @@ export class Widget{
     @HostListener('click', ['$event']) onclick(event){
       this.viewCont.element.nativeElement.classList.add('activeWidget');
       console.log('hello');
+    }
+    
+    getChildren():Array<ComponentRef<any>>{
+      return this.children;
     }
 }

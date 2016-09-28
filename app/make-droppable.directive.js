@@ -16,8 +16,8 @@ var MakeDroppable = (function () {
     }
     MakeDroppable.prototype.ondragover = function (event) {
         event.stopPropagation();
-        //if(String(event.srcElement) != String(this.el.nativeElement))
         this.el.nativeElement.style.backgroundColor = "yellow";
+        //this.el.nativeElement
         //Return false to prevent event propogation
         return false;
     };

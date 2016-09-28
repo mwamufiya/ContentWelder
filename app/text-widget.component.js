@@ -15,6 +15,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var widget_component_1 = require('./widget.component');
+var widget_factory_1 = require('./widget-factory');
 var TextWidget = (function (_super) {
     __extends(TextWidget, _super);
     function TextWidget(componentFactoryResolver, viewContainer) {
@@ -26,11 +27,12 @@ var TextWidget = (function (_super) {
     TextWidget.prototype.onclick = function () {
         //TODO
     };
-    TextWidget.prototype.childModified = function (event) {
-        var componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
-        var ref = this.container.createComponent(componentFactory);
-        //console.log(ref);
-        //this.childWidgets.push(JSON.parse('{}'));
+    TextWidget.prototype.childModified = function (widgetJSON) {
+        /*let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
+        let ref = this.container.createComponent(componentFactory);*/
+        var componentFactory = new widget_factory_1.WidgetFactory().createWidget(this.viewContainer, this.componentFactoryResolver, widgetJSON);
+        var ref = this.container.createComponent(componentFactory, 0);
+        //super.getChildren().push(ref);
     };
     __decorate([
         core_1.ViewChild('container', { read: core_1.ViewContainerRef }), 
@@ -45,8 +47,8 @@ var TextWidget = (function (_super) {
     TextWidget = __decorate([
         core_1.Component({
             selector: 'designer-TextWidget',
-            templateUrl: 'app/widget.component.html',
-            styles: ["\n    div{\n        display: flex;\n        border: 2px dotted red;\n        background:white;\n        padding:1em;\n        resize:both;\n    }\n  "]
+            templateUrl: 'app/text-widget.component.html',
+            styles: ["\n    div{\n        border: 2px dotted red;\n        background:white;\n        padding:1em;\n        resize:both;\n    }\n  "]
         }), 
         __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef])
     ], TextWidget);

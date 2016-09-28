@@ -18,4 +18,8 @@ export class MakeDraggable {
         //console.log(`I'm done dragging`)
 
     }
+
+    getDomElement(): ElementRef{
+        return this.el;
+    }
 }

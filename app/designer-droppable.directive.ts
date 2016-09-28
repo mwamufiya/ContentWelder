@@ -34,8 +34,17 @@ export class DesignerDroppable extends MakeDroppable{
         super(el);
     }
     @HostListener('dragover', ['$event']) ondragover(event){
-        if(this.isElligable(event))
+        if(this.isElligable(event)){
             super.ondragover(event);
+
+            //let dropCont = super.getEl();
+            //get the position of the Drop Element
+            //let dropIndex = dropCont.nativeElement.parentNode.children().indexOf(dropCont.nativeElement);
+            //console.log('--------------------');
+            //console.log(dropIndex);
+            //insert a temporary copy of the "Dragged" element to insert it.
+
+        }
         //Return false to prevent event propogation
         return false;
     }
@@ -47,17 +56,17 @@ export class DesignerDroppable extends MakeDroppable{
         super.ondrop(event);
         //Only add an child if a it meets our elligability rules
         if(this.isElligable(event))
-            this.addWidget(event);
+            this.addWidget(event, this.designerGlobals.getDraggedWidgetJSON());
 
         //Return false to prevent event propogation
         return false;
     }
     //Notify parent that a new child has been added
-    addWidget(event){
+    addWidget(event, widgetConfig: JSON){
         this.widgetAdded.emit({
             value: 'add',
             templateRef: this.el,
-            widgetType: event.dataTransfer.getData('Text')
+            widgetConfig: widgetConfig            
         });
         //console.log(this.childModified);
     }

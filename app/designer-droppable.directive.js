@@ -29,8 +29,9 @@ var DesignerDroppable = (function (_super) {
         this.widgetAdded = new core_1.EventEmitter();
     }
     DesignerDroppable.prototype.ondragover = function (event) {
-        if (this.isElligable(event))
+        if (this.isElligable(event)) {
             _super.prototype.ondragover.call(this, event);
+        }
         //Return false to prevent event propogation
         return false;
     };
@@ -42,16 +43,16 @@ var DesignerDroppable = (function (_super) {
         _super.prototype.ondrop.call(this, event);
         //Only add an child if a it meets our elligability rules
         if (this.isElligable(event))
-            this.addWidget(event);
+            this.addWidget(event, this.designerGlobals.getDraggedWidgetJSON());
         //Return false to prevent event propogation
         return false;
     };
     //Notify parent that a new child has been added
-    DesignerDroppable.prototype.addWidget = function (event) {
+    DesignerDroppable.prototype.addWidget = function (event, widgetConfig) {
         this.widgetAdded.emit({
             value: 'add',
             templateRef: this.el,
-            widgetType: event.dataTransfer.getData('Text')
+            widgetConfig: widgetConfig
         });
         //console.log(this.childModified);
     };

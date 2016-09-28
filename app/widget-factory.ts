@@ -8,13 +8,14 @@ import { Component,
     import {ImageWidget} from './image-widget.component';
 
     export class WidgetFactory{
+        //TODO: make the WidgetJson user an interface so that the definition is known and can be used in IDE
         createWidget(
             viewContainer:ViewContainerRef,
             componentFactoryResolver: ComponentFactoryResolver,
-            widgetType:string,
-            config:JSON):ComponentFactory<Widget>{
+            widgetJson:any):ComponentFactory<Widget>{
+
             let componentFactory;
-            switch(widgetType){
+            switch(widgetJson.widgetConfig.type){
                 case "textbox":
                     componentFactory = componentFactoryResolver.resolveComponentFactory(TextWidget);
                     break;

@@ -27,10 +27,10 @@ var DesignerStageComponent = (function () {
         console.log(event);
         //this.viewContainer.createEmbeddedView(this.vcr.createComponent(new TextWidget()));
     };
-    DesignerStageComponent.prototype.childModified = function (event) {
+    DesignerStageComponent.prototype.childModified = function (widgetJSON) {
         //console.log(event);
         //let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
-        var componentFactory = new widget_factory_1.WidgetFactory().createWidget(this.viewContainer, this.componentFactoryResolver, event.widgetType, JSON.parse('{}'));
+        var componentFactory = new widget_factory_1.WidgetFactory().createWidget(this.viewContainer, this.componentFactoryResolver, widgetJSON);
         var ref = this.container.createComponent(componentFactory);
         //this.childWidgets.push(JSON.parse('{}'));
     };

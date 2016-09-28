@@ -42,12 +42,11 @@ export class DesignerStageComponent implements OnInit {
         //this.viewContainer.createEmbeddedView(this.vcr.createComponent(new TextWidget()));
     }
 
-    childModified(event){
+    childModified(widgetJSON){
         //console.log(event);
         
         //let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
-        let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, event.widgetType,JSON.parse('{}'));
-        
+        let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, widgetJSON);
         let ref = this.container.createComponent(componentFactory);
 
         //this.childWidgets.push(JSON.parse('{}'));
