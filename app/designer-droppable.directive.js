@@ -54,7 +54,7 @@ var DesignerDroppable = (function (_super) {
     DesignerDroppable.prototype.addWidget = function (event, widgetConfig) {
         //get the index position of the current item to pass it along.
         //let index = Array.from(this.prvDraggedOverEl.parentNode.childNodes).indexOf(this.prvDraggedOverEl);
-        console.clear();
+        //console.clear();
         console.log("Requested Index: " + this.reqInsertionPoint);
         this.widgetAdded.emit({
             value: 'add',
@@ -121,17 +121,19 @@ var DesignerDroppable = (function (_super) {
         //}
         //Create the placeholderItem
         this.draggOverHelper = document.createElement("hr");
+        var insertionPoint = null;
+        console.clear();
         if (insertAfter == false) {
             var targetEl = draggedOverEl;
             //if the item is being dragged over the current drop zone, 
             //find the first child of this container and insert it before it.
             if (draggedOverEl === dropEl) {
                 dropEl.insertBefore(this.draggOverHelper, dropEl.childNodes[0]);
-                this.reqInsertionPoint = 0;
+                insertionPoint = 0;
             }
             else {
                 parentNode.insertBefore(this.draggOverHelper, targetEl);
-                this.reqInsertionPoint = validNonTextNodes.indexOf(targetEl);
+                insertionPoint = validNonTextNodes.indexOf(targetEl);
             }
         }
         else {
@@ -140,18 +142,30 @@ var DesignerDroppable = (function (_super) {
             var targetEl = dropEl;
             if (draggedOverEl === dropEl) {
                 dropEl.appendChild(this.draggOverHelper);
+                insertionPoint = null;
             }
             else {
-                var lastSibling = draggedOverEl.nextSibling;
-                if (lastSibling == null) {
+                //TODO: review dependency on "template" tag.
+                //Because the "template" element is used in templates, we need to go one level above the current item to find the next sibling
+                //This does place a dependency on the "Template" tag.
+                //Given that Angular uses templates underneath the covers, should be low impact.
+                //however developers adding new component will need to be aware of this.
+                var nextEl = draggedOverEl.parentNode.nextSibling;
+                console.log(draggedOverEl);
+                console.log(nextEl);
+                //If the next sibling is null, that means we can simply append the item to insert it as the last item.
+                if (nextEl == null) {
                     parentNode.appendChild(this.draggOverHelper);
+                    insertionPoint = null;
                 }
                 else {
-                    parentNode.insertBefore(this.draggOverHelper, lastSibling);
-                    this.reqInsertionPoint = validNonTextNodes.indexOf(lastSibling);
+                    console.log("you should be getting here");
+                    nextEl.parentNode.insertBefore(this.draggOverHelper, nextEl);
+                    insertionPoint = Array.from(nextEl.parentNode.childNodes).filter(function (n) { return n.nodeType == 1; }).indexOf(nextEl) - 1;
                 }
             }
         }
+        this.reqInsertionPoint = insertionPoint;
     };
     DesignerDroppable.prototype.removeDragOverHelper = function () {
         if (this.draggOverHelper) {
