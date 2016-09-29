@@ -31,11 +31,10 @@ export class DesignerDraggable extends MakeDraggable{
         //This may be a solution for mutlti touch solutions if multiple items can be dragged at the same time
         //CONCERN: this may be a performance bottleneck for documents that have very deep levels of nesting
         this.designerGlobals.setDraggedObject(event.path);
-        //this.designerGlobals.setDraggedWidgetType(this.widgetType);
         this.designerGlobals.setDraggedWidgetJSON(JSON.parse(super.getDomElement().nativeElement.getAttribute('data-widgetConfig')));
     }
-    @HostListener('dragend',['$event']) ondragend(event){
+    /*@HostListener('dragend',['$event']) ondragend(event){
         super.ondragend(event);
-    }
+    }*/
 
 }

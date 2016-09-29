@@ -15,10 +15,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var widget_component_1 = require('./widget.component');
+var designer_globals_service_1 = require('./designer-globals.service');
 var ImageWidget = (function (_super) {
     __extends(ImageWidget, _super);
-    function ImageWidget(componentFactoryResolver, viewContainer) {
-        _super.call(this, componentFactoryResolver, viewContainer);
+    function ImageWidget(componentFactoryResolver, viewContainer, designerGlobals) {
+        _super.call(this, componentFactoryResolver, viewContainer, designerGlobals);
+        this.componentFactoryResolver = componentFactoryResolver;
+        this.viewContainer = viewContainer;
         this.name = 'helloWorld';
     }
     ImageWidget.prototype.onclick = function (event) {
@@ -38,9 +41,9 @@ var ImageWidget = (function (_super) {
         core_1.Component({
             selector: 'designer-ImageWidget',
             templateUrl: 'app/image-widget.component.html',
-            styles: ["\n    img[src='']{\n        border: 1px dotted yellow;\n        background-image: url(\"http://placehold.it/350x150\");\n        width:350px;\n        height:150px;\n    }\n    .activeWidget img{\n        border:30px double orange;\n    }\n  "]
+            styles: ["\n    img[src='']{\n        border: 1px dotted yellow;\n        background-image: url(\"http://placehold.it/140x100\");\n        width:100px;\n        height:100px;\n    }\n    .activeWidget img{\n        border:30px double orange;\n    }\n  "]
         }), 
-        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef])
+        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, designer_globals_service_1.DesignerGlobalsService])
     ], ImageWidget);
     return ImageWidget;
 }(widget_component_1.Widget));

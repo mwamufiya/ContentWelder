@@ -15,12 +15,12 @@ var MakeDraggable = (function () {
         el.nativeElement.draggable = 'true';
     }
     MakeDraggable.prototype.ondragstart = function (event) {
+        event.stopPropagation();
         var rect = this.el.nativeElement.getBoundingClientRect();
-        //console.log(event.dataTransfer.getData('Text'));
     };
-    MakeDraggable.prototype.ondragend = function (event) {
-        //console.log(`I'm done dragging`)
-    };
+    /*@HostListener('dragend',['$event']) ondragend(event){
+        event.stopPropagation();
+    }*/
     MakeDraggable.prototype.getDomElement = function () {
         return this.el;
     };
@@ -30,12 +30,6 @@ var MakeDraggable = (function () {
         __metadata('design:paramtypes', [Object]), 
         __metadata('design:returntype', void 0)
     ], MakeDraggable.prototype, "ondragstart", null);
-    __decorate([
-        core_1.HostListener('dragend', ['$event']), 
-        __metadata('design:type', Function), 
-        __metadata('design:paramtypes', [Object]), 
-        __metadata('design:returntype', void 0)
-    ], MakeDraggable.prototype, "ondragend", null);
     MakeDraggable = __decorate([
         core_1.Directive({
             selector: '[makeDraggable]',

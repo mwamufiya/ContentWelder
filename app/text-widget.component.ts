@@ -5,6 +5,7 @@ import { MakeDraggable } from './make-draggable.directive'
 import { Widget } from './widget.component'
 import { DesignerDroppable } from './designer-droppable.directive'
 import {WidgetFactory} from './widget-factory';
+import { DesignerGlobalsService } from './designer-globals.service';
 
 @Component({
   selector: 'designer-TextWidget',
@@ -24,22 +25,29 @@ export class TextWidget extends Widget{
 
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,
-        private viewContainer:ViewContainerRef){
-        super(componentFactoryResolver, viewContainer);
+        private viewContainer:ViewContainerRef,
+        designerGlobals: DesignerGlobalsService){
+        super(componentFactoryResolver, viewContainer, designerGlobals);
         this.name = 'helloWorld';
     }
 
     @HostListener('click') onclick(){
-        //TODO
-    }
+        console.log('you clicked something');
+    }    
     
     childModified(widgetJSON):void {
         /*let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
         let ref = this.container.createComponent(componentFactory);*/
-        
+        //console.clear();
+        console.log(`----------------`)
+        console.log(widgetJSON.insertionPoint);
         let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, widgetJSON);
-        let ref = this.container.createComponent(componentFactory,0);
-    
-        //super.getChildren().push(ref);
+        console.log(widgetJSON.insertionPoint);
+        let ref = this.container.createComponent(componentFactory,widgetJSON.insertionPoint);
+        
+        super.addChild(ref);
+        console.log(super.getChildren().length);
+        console.log(this.container.length);
+        
     }
 }

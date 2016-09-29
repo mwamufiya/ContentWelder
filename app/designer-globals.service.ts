@@ -6,6 +6,7 @@ export class DesignerGlobalsService {
     private draggedObject: Array<ElementRef>;
     private draggedWidgetType: string;
     private draggedWidgetConfig: JSON;
+    private draggedOverObject: Node;
     constructor(private http: Http) {
 
     }
@@ -30,5 +31,12 @@ export class DesignerGlobalsService {
 
     getDraggedWidgetJSON():JSON{
         return this.draggedWidgetConfig;
+    }
+
+    setDraggedOverObject(node:Node){
+        this.draggedOverObject = node;
+    }
+    getDraggedOverObject():Node{
+        return this.draggedOverObject;
     }
 }

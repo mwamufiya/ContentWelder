@@ -8,7 +8,8 @@ import { Component,
     import {ImageWidget} from './image-widget.component';
 
     export class WidgetFactory{
-        //TODO: make the WidgetJson user an interface so that the definition is known and can be used in IDE
+        //TODO: make the WidgetJson an interface so that the definition is known and can be used in IDE
+        //Might have to make it an Object, couldn't figure out a way to export an Interface for re-use
         createWidget(
             viewContainer:ViewContainerRef,
             componentFactoryResolver: ComponentFactoryResolver,

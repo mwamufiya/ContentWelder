@@ -35,11 +35,7 @@ var DesignerDraggable = (function (_super) {
         //This may be a solution for mutlti touch solutions if multiple items can be dragged at the same time
         //CONCERN: this may be a performance bottleneck for documents that have very deep levels of nesting
         this.designerGlobals.setDraggedObject(event.path);
-        //this.designerGlobals.setDraggedWidgetType(this.widgetType);
         this.designerGlobals.setDraggedWidgetJSON(JSON.parse(_super.prototype.getDomElement.call(this).nativeElement.getAttribute('data-widgetConfig')));
-    };
-    DesignerDraggable.prototype.ondragend = function (event) {
-        _super.prototype.ondragend.call(this, event);
     };
     __decorate([
         core_1.HostListener('dragstart', ['$event']), 
@@ -47,12 +43,6 @@ var DesignerDraggable = (function (_super) {
         __metadata('design:paramtypes', [Object]), 
         __metadata('design:returntype', void 0)
     ], DesignerDraggable.prototype, "ondragstart", null);
-    __decorate([
-        core_1.HostListener('dragend', ['$event']), 
-        __metadata('design:type', Function), 
-        __metadata('design:paramtypes', [Object]), 
-        __metadata('design:returntype', void 0)
-    ], DesignerDraggable.prototype, "ondragend", null);
     DesignerDraggable = __decorate([
         core_1.Directive({
             selector: '[designerDraggable]',

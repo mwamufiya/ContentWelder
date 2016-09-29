@@ -15,9 +15,7 @@ export class MakeDroppable{
     }
     @HostListener('dragover', ['$event']) ondragover(event){
         event.stopPropagation();
-        
         this.el.nativeElement.style.backgroundColor = "yellow";
-        //this.el.nativeElement
 
         //Return false to prevent event propogation
         return false;

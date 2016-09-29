@@ -16,23 +16,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var widget_component_1 = require('./widget.component');
 var widget_factory_1 = require('./widget-factory');
+var designer_globals_service_1 = require('./designer-globals.service');
 var TextWidget = (function (_super) {
     __extends(TextWidget, _super);
-    function TextWidget(componentFactoryResolver, viewContainer) {
-        _super.call(this, componentFactoryResolver, viewContainer);
+    function TextWidget(componentFactoryResolver, viewContainer, designerGlobals) {
+        _super.call(this, componentFactoryResolver, viewContainer, designerGlobals);
         this.componentFactoryResolver = componentFactoryResolver;
         this.viewContainer = viewContainer;
         this.name = 'helloWorld';
     }
     TextWidget.prototype.onclick = function () {
-        //TODO
+        console.log('you clicked something');
     };
     TextWidget.prototype.childModified = function (widgetJSON) {
         /*let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
         let ref = this.container.createComponent(componentFactory);*/
+        //console.clear();
+        console.log("----------------");
+        console.log(widgetJSON.insertionPoint);
         var componentFactory = new widget_factory_1.WidgetFactory().createWidget(this.viewContainer, this.componentFactoryResolver, widgetJSON);
-        var ref = this.container.createComponent(componentFactory, 0);
-        //super.getChildren().push(ref);
+        console.log(widgetJSON.insertionPoint);
+        var ref = this.container.createComponent(componentFactory, widgetJSON.insertionPoint);
+        _super.prototype.addChild.call(this, ref);
+        console.log(_super.prototype.getChildren.call(this).length);
+        console.log(this.container.length);
     };
     __decorate([
         core_1.ViewChild('container', { read: core_1.ViewContainerRef }), 
@@ -50,7 +57,7 @@ var TextWidget = (function (_super) {
             templateUrl: 'app/text-widget.component.html',
             styles: ["\n    div{\n        border: 2px dotted red;\n        background:white;\n        padding:1em;\n        resize:both;\n    }\n  "]
         }), 
-        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef])
+        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, designer_globals_service_1.DesignerGlobalsService])
     ], TextWidget);
     return TextWidget;
 }(widget_component_1.Widget));

@@ -4,7 +4,8 @@ var image_widget_component_1 = require('./image-widget.component');
 var WidgetFactory = (function () {
     function WidgetFactory() {
     }
-    //TODO: make the WidgetJson user an interface so that the definition is known and can be used in IDE
+    //TODO: make the WidgetJson an interface so that the definition is known and can be used in IDE
+    //Might have to make it an Object, couldn't figure out a way to export an Interface for re-use
     WidgetFactory.prototype.createWidget = function (viewContainer, componentFactoryResolver, widgetJson) {
         var componentFactory;
         switch (widgetJson.widgetConfig.type) {

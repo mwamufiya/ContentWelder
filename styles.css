@@ -9,6 +9,12 @@ body {
 dragHandle{
   cursor: crosshair;
 }
+hr{
+  margin:0;
+  height:4px;
+  background:navy;
+  border:0;
+}
 
  /*
   * See https://github.com/angular/angular.io/blob/master/public/docs/_examples/styles.css

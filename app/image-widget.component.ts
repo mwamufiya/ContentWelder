@@ -5,7 +5,7 @@ import { MakeDraggable } from './make-draggable.directive'
 import { Widget } from './widget.component'
 import { DesignerDroppable } from './designer-droppable.directive'
 import {WidgetFactory} from './widget-factory';
-
+import { DesignerGlobalsService } from './designer-globals.service';
 
 @Component({
   selector: 'designer-ImageWidget',
@@ -13,9 +13,9 @@ import {WidgetFactory} from './widget-factory';
   styles:[`
     img[src='']{
         border: 1px dotted yellow;
-        background-image: url("http://placehold.it/350x150");
-        width:350px;
-        height:150px;
+        background-image: url("http://placehold.it/140x100");
+        width:100px;
+        height:100px;
     }
     .activeWidget img{
         border:30px double orange;
@@ -27,9 +27,10 @@ export class ImageWidget extends Widget{
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
     constructor(
-        componentFactoryResolver:ComponentFactoryResolver,
-        viewContainer:ViewContainerRef){
-        super(componentFactoryResolver, viewContainer);
+        private componentFactoryResolver:ComponentFactoryResolver,
+        private viewContainer:ViewContainerRef,
+        designerGlobals: DesignerGlobalsService){
+        super(componentFactoryResolver, viewContainer, designerGlobals);
         this.name = 'helloWorld';
     }
 

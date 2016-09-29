@@ -32,6 +32,12 @@ var DesignerGlobalsService = (function () {
     DesignerGlobalsService.prototype.getDraggedWidgetJSON = function () {
         return this.draggedWidgetConfig;
     };
+    DesignerGlobalsService.prototype.setDraggedOverObject = function (node) {
+        this.draggedOverObject = node;
+    };
+    DesignerGlobalsService.prototype.getDraggedOverObject = function () {
+        return this.draggedOverObject;
+    };
     DesignerGlobalsService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

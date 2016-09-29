@@ -31,12 +31,14 @@ var DesignerDroppable = (function (_super) {
     DesignerDroppable.prototype.ondragover = function (event) {
         if (this.isElligable(event)) {
             _super.prototype.ondragover.call(this, event);
+            this.addDragOverHelper(event);
         }
         //Return false to prevent event propogation
         return false;
     };
     DesignerDroppable.prototype.ondragleave = function (event) {
         _super.prototype.ondragleave.call(this, event);
+        this.removeDragOverHelper();
         return false;
     };
     DesignerDroppable.prototype.onDrop = function (event) {
@@ -44,14 +46,20 @@ var DesignerDroppable = (function (_super) {
         //Only add an child if a it meets our elligability rules
         if (this.isElligable(event))
             this.addWidget(event, this.designerGlobals.getDraggedWidgetJSON());
+        this.removeDragOverHelper();
         //Return false to prevent event propogation
         return false;
     };
     //Notify parent that a new child has been added
     DesignerDroppable.prototype.addWidget = function (event, widgetConfig) {
+        //get the index position of the current item to pass it along.
+        //let index = Array.from(this.prvDraggedOverEl.parentNode.childNodes).indexOf(this.prvDraggedOverEl);
+        console.clear();
+        console.log("Requested Index: " + this.reqInsertionPoint);
         this.widgetAdded.emit({
             value: 'add',
             templateRef: this.el,
+            insertionPoint: this.reqInsertionPoint,
             widgetConfig: widgetConfig
         });
         //console.log(this.childModified);
@@ -82,6 +90,84 @@ var DesignerDroppable = (function (_super) {
             }
         }
         return isValid;
+    };
+    //Helper method to display a helper dom element when something is being dragged over.
+    DesignerDroppable.prototype.addDragOverHelper = function (event) {
+        //do nothing if we're already displaying an item
+        var dropCont = _super.prototype.getEl.call(this);
+        var dropEl = dropCont.nativeElement;
+        //get the position of the Drop Element
+        //let dropIndex = dropCont.nativeElement.parentNode.children().indexOf(dropCont.nativeElement); 
+        //Get the position of the current item being dragged on
+        var children = Array.from(dropCont.nativeElement.parentNode.childNodes);
+        var position = children.indexOf(dropCont.nativeElement);
+        children = null;
+        //insert a temporary copy of the "Dragged" element to insert it.
+        var draggedOverEl = document.elementFromPoint(event.clientX, event.clientY);
+        var parentNode = draggedOverEl.parentNode;
+        var validNonTextNodes = Array.from(parentNode.childNodes).filter(function (n) { return n.nodeType == 1; });
+        //Determine if we're inserting before or after the currently dragged over object
+        var insertAfter = this.isInsertionPointAfter(draggedOverEl, event.clientX, event.clientY);
+        //do nothing if the current Helper is still avlid based on mouse position 
+        //Else, remove the previous one, and update the new position.
+        //If the item currently being dragged over is teh drop target, then we must adjust where the helper is shown
+        /*if(this.prvDraggedOverEl === draggedOverEl && insertAfter == this.prvInsertionPoint){
+            console.log('no creating new helper');
+            return;
+        }else{*/
+        this.removeDragOverHelper();
+        this.prvInsertionPoint = insertAfter;
+        this.prvDraggedOverEl = (draggedOverEl === dropEl) ? dropEl : draggedOverEl;
+        //}
+        //Create the placeholderItem
+        this.draggOverHelper = document.createElement("hr");
+        if (insertAfter == false) {
+            var targetEl = draggedOverEl;
+            //if the item is being dragged over the current drop zone, 
+            //find the first child of this container and insert it before it.
+            if (draggedOverEl === dropEl) {
+                dropEl.insertBefore(this.draggOverHelper, dropEl.childNodes[0]);
+                this.reqInsertionPoint = 0;
+            }
+            else {
+                parentNode.insertBefore(this.draggOverHelper, targetEl);
+                this.reqInsertionPoint = validNonTextNodes.indexOf(targetEl);
+            }
+        }
+        else {
+            //IF there is no next sibling, then we must append this item as the last child in the parent container
+            //ELSE we must get the next sibling in order to user "node.InsertBeore()" method
+            var targetEl = dropEl;
+            if (draggedOverEl === dropEl) {
+                dropEl.appendChild(this.draggOverHelper);
+            }
+            else {
+                var lastSibling = draggedOverEl.nextSibling;
+                if (lastSibling == null) {
+                    parentNode.appendChild(this.draggOverHelper);
+                }
+                else {
+                    parentNode.insertBefore(this.draggOverHelper, lastSibling);
+                    this.reqInsertionPoint = validNonTextNodes.indexOf(lastSibling);
+                }
+            }
+        }
+    };
+    DesignerDroppable.prototype.removeDragOverHelper = function () {
+        if (this.draggOverHelper) {
+            this.draggOverHelper.parentNode.removeChild(this.draggOverHelper);
+            this.draggOverHelper = null;
+        }
+    };
+    //Returns the "After or before" based on the position of the 
+    DesignerDroppable.prototype.isInsertionPointAfter = function (el, eventX, eventY) {
+        var rect = el.getBoundingClientRect();
+        var insertionPoint = true;
+        //We will only insert before if the 'X' is to the left of the horizontal center
+        //AND the 'y' is above the vertical center.
+        if ((eventX < rect.left + (rect.width / 2)) && (eventY < rect.top + (rect.height / 2)))
+            insertionPoint = false;
+        return insertionPoint;
     };
     __decorate([
         core_1.HostListener('dragover', ['$event']), 

@@ -10,7 +10,7 @@ import { Component,
 import { Router } from '@angular/router';
 import { MakeDraggable } from './make-draggable.directive'
 import { DesignerDroppable } from './designer-droppable.directive'
-
+import { DesignerGlobalsService } from './designer-globals.service';
 
 @Component({
   selector: 'designerWidget',
@@ -36,24 +36,29 @@ export class Widget{
     config:JSON;            //JSON configuration for the widget
     componentResolver:ComponentFactoryResolver;
     viewCont:ViewContainerRef;
+    designerGlobals: DesignerGlobalsService;
 
     constructor(
       componentResolver:ComponentFactoryResolver,
-      viewCont:ViewContainerRef){
+      viewCont:ViewContainerRef,
+      designerGlobals: DesignerGlobalsService){
         this.componentResolver = componentResolver;
         this.viewCont = viewCont;
-      //console.log(this.placeholder);
+        this.designerGlobals = designerGlobals;
+        this.children = new Array;
     }
 
     childModified(event):void {
     }
     
     @HostListener('click', ['$event']) onclick(event){
-      this.viewCont.element.nativeElement.classList.add('activeWidget');
-      console.log('hello');
+      this.viewCont.element.nativeElement.classList.add('activeWidget');;
     }
     
     getChildren():Array<ComponentRef<any>>{
       return this.children;
+    }
+    addChild(child:ComponentRef<any>){
+      this.children.push(child);
     }
 }

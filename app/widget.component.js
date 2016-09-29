@@ -9,20 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var designer_globals_service_1 = require('./designer-globals.service');
 var Widget = (function () {
-    function Widget(componentResolver, viewCont) {
+    function Widget(componentResolver, viewCont, designerGlobals) {
         this.componentResolver = componentResolver;
         this.viewCont = viewCont;
-        //console.log(this.placeholder);
+        this.designerGlobals = designerGlobals;
+        this.children = new Array;
     }
     Widget.prototype.childModified = function (event) {
     };
     Widget.prototype.onclick = function (event) {
         this.viewCont.element.nativeElement.classList.add('activeWidget');
-        console.log('hello');
+        ;
     };
     Widget.prototype.getChildren = function () {
         return this.children;
+    };
+    Widget.prototype.addChild = function (child) {
+        this.children.push(child);
     };
     __decorate([
         core_1.HostListener('click', ['$event']), 
@@ -36,7 +41,7 @@ var Widget = (function () {
             templateUrl: 'app/widget.component.html',
             styles: ["\n    :host{\n        display: flex;\n        border: 2px dotted red;\n        padding:2em;\n    }\n  "]
         }), 
-        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef])
+        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, designer_globals_service_1.DesignerGlobalsService])
     ], Widget);
     return Widget;
 }());
