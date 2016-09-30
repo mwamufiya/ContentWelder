@@ -5,12 +5,13 @@ import { Component,
    ViewChild,
    ComponentFactoryResolver, 
    AfterViewInit,
-   ComponentRef
+   ComponentRef, OnDestroy
       } from '@angular/core';
 import { Router } from '@angular/router';
 import { MakeDraggable } from './make-draggable.directive'
 import { DesignerDroppable } from './designer-droppable.directive'
 import { DesignerGlobalsService } from './designer-globals.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'designerWidget',
@@ -37,6 +38,7 @@ export class Widget{
     componentResolver:ComponentFactoryResolver;
     viewCont:ViewContainerRef;
     designerGlobals: DesignerGlobalsService;
+    private _selectedItemSubscription: Subscription;
 
     constructor(
       componentResolver:ComponentFactoryResolver,
@@ -46,6 +48,12 @@ export class Widget{
         this.viewCont = viewCont;
         this.designerGlobals = designerGlobals;
         this.children = new Array;
+
+        //subscript to the locally selected item
+        this._selectedItemSubscription = this.designerGlobals.getSelectedItemsObservable().subscribe(
+          value => this.checkIfCurrentlySelected(value),
+          err => this.displayError(`Error encountered when subscribing to observable`)
+        );
     }
 
     childModified(event):void {
@@ -60,5 +68,15 @@ export class Widget{
     }
     addChild(child:ComponentRef<any>){
       this.children.push(child);
+    }
+    checkIfCurrentlySelected(value:any){
+      console.log(value);
+    }
+    displayError(err:any){
+      console.log(err);
+    }
+
+    ngOnDestroy(){
+      this._selectedItemSubscription.unsubscribe();
     }
 }

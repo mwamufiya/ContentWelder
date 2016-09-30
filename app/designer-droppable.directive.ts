@@ -62,10 +62,6 @@ export class DesignerDroppable extends MakeDroppable{
     }
     //Notify parent that a new child has been added
     addWidget(event, widgetConfig: JSON){
-        //get the index position of the current item to pass it along.
-        //let index = Array.from(this.prvDraggedOverEl.parentNode.childNodes).indexOf(this.prvDraggedOverEl);
-        //console.clear();
-        console.log(`Requested Index: ${this.reqInsertionPoint}`);
         this.widgetAdded.emit({
             value: 'add',
             templateRef: this.el,
@@ -143,7 +139,6 @@ export class DesignerDroppable extends MakeDroppable{
         //Create the placeholderItem
         this.draggOverHelper = document.createElement(`hr`);
         let insertionPoint = null;
-        console.clear();
         if(insertAfter==false){
             let targetEl = draggedOverEl;
             //if the item is being dragged over the current drop zone, 
@@ -170,8 +165,6 @@ export class DesignerDroppable extends MakeDroppable{
                 //Given that Angular uses templates underneath the covers, should be low impact.
                 //however developers adding new component will need to be aware of this.
                 let nextEl = draggedOverEl.parentNode.nextSibling;
-                console.log(draggedOverEl);
-                console.log(nextEl);
                 //If the next sibling is null, that means we can simply append the item to insert it as the last item.
                 if(nextEl==null){
                     parentNode.appendChild(this.draggOverHelper);

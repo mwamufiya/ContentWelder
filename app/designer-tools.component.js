@@ -14,6 +14,13 @@ var DesignerToolsComponent = (function () {
     function DesignerToolsComponent(router) {
         this.router = router;
     }
+    //set activeToolSelection
+    DesignerToolsComponent.prototype.setActiveToolSelection = function (selection) {
+        if (this.activeToolSelection != selection)
+            this.activeToolSelection = selection;
+        else
+            this.activeToolSelection = null;
+    };
     DesignerToolsComponent = __decorate([
         core_1.Component({
             selector: 'designer-tools',

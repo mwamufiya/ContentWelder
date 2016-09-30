@@ -12,10 +12,13 @@ var core_1 = require('@angular/core');
 var designer_globals_service_1 = require('./designer-globals.service');
 var Widget = (function () {
     function Widget(componentResolver, viewCont, designerGlobals) {
+        var _this = this;
         this.componentResolver = componentResolver;
         this.viewCont = viewCont;
         this.designerGlobals = designerGlobals;
         this.children = new Array;
+        //subscript to the locally selected item
+        this._selectedItemSubscription = this.designerGlobals.getSelectedItemsObservable().subscribe(function (value) { return _this.checkIfCurrentlySelected(value); }, function (err) { return _this.displayError("Error encountered when subscribing to observable"); });
     }
     Widget.prototype.childModified = function (event) {
     };
@@ -28,6 +31,15 @@ var Widget = (function () {
     };
     Widget.prototype.addChild = function (child) {
         this.children.push(child);
+    };
+    Widget.prototype.checkIfCurrentlySelected = function (value) {
+        console.log(value);
+    };
+    Widget.prototype.displayError = function (err) {
+        console.log(err);
+    };
+    Widget.prototype.ngOnDestroy = function () {
+        this._selectedItemSubscription.unsubscribe();
     };
     __decorate([
         core_1.HostListener('click', ['$event']), 

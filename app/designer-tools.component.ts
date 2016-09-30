@@ -7,7 +7,15 @@ import { Router } from '@angular/router';
   styleUrls: ['app/designer-tools.component.css']
 })
 export class DesignerToolsComponent{
-    constructor(
-    private router: Router){}
+  private activeToolSelection: string;
+  constructor(
+  private router: Router){}
 
+  //set activeToolSelection
+  setActiveToolSelection(selection:string):void{
+    if(this.activeToolSelection != selection)
+      this.activeToolSelection = selection;
+    else
+      this.activeToolSelection = null;
+  }
 }

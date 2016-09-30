@@ -1,19 +1,92 @@
 .tools{
-    list-style-type:none;
+    display:none;
+}
+@media screen and (min-width: 768px){
+    .tools{
+        position:absolute;
+        display:flex;
+        margin-left:1em;
+        left:0;
+        transition: left 1s linear;
+    }
+}
+.basicTools{
     margin:0;
     padding:0;
-    border:1px solid #ccc;
-    background:white;
-    padding:.25em .5em;
-    margin:.25em;
 }
-.tools li{
-    margin:.25em 0;
-    padding:.25em;
+.basicTools li::first-child{
+    margin-top:0;
+    padding-top: 0;
+}
+ul{
+    list-style-type:none;
+}
+li{
+    margin:.5em 0;
+    padding:.5em;
     font-size:10pt;
-    border:1px solid #CCC;
     text-align: center;
+    background: white;
+    cursor:move;
 }
-.tools li:hover{
+.basicTools li{
+    border-radius: 1.5em;
+    border:1px solid #CCC;
+}
+li:hover{
     cursor:pointer;
+}
+.toolSelection{
+    background:white;
+    border-radius: .25em;
+    border:1px solid #CCC;
+    padding:0;
+    max-width:210px;
+    margin:.5em 0 0 1em;
+    max-height: 90%;
+}
+.closeButton{
+    text-align: right;
+    font-size:9pt;
+    padding:.25em .25em 0 0;
+}
+.closeButton span{
+    cursor:pointer;
+}
+
+.toolSelection ul{
+    margin:0;
+    padding:.25em .5em;
+    display:flex;
+    flex-wrap: wrap;
+}
+.toolSelection li{
+    border-radius: .25em;
+    border:1px dotted #CCC;
+    padding:.5em;
+    margin: .0 .5em .5em 0;
+    min-height:50px;
+    min-width:75px;
+}
+.toolSelection li[class="subGrouping"], .toolSelection li[class="subGrouping"] ul{
+    border:0;
+    padding:0;
+    margin:0;
+}
+.toolSelection li[class="subGrouping"]{
+    width:100%;
+}
+.toolSelection li[not(class="subGrouping")]:hover{
+    background:linear-gradient(white, #efefef); 
+}
+.toolSelection h1{
+    margin:.25em 0;
+    padding:0;
+    font-size:12pt;
+    border-bottom: 1px solid #CCC;
+}
+/*Temporary status indicator to keep track of what is working*/
+.statusIndicator{
+    color:green;
+    font-weight: bold;
 }

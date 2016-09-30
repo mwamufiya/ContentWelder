@@ -10,9 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var rxjs_1 = require('rxjs');
 var DesignerGlobalsService = (function () {
     function DesignerGlobalsService(http) {
+        var _this = this;
         this.http = http;
+        /*this.data = new Observable<Array<ComponentRef<Widget>>>(observer => {
+            this.selectedItemList.push(observer);
+        });*/
+        //We need to create a 'Hot' observable to allow for subscription to occur at different intervals
+        this._selItemObservable = new rxjs_1.Observable(function (observer) {
+            _this.selItemObserver = observer;
+        }).publish().refCount();
     }
     DesignerGlobalsService.prototype.getDraggedObject = function () {
         return this.draggedObject;
@@ -32,11 +41,23 @@ var DesignerGlobalsService = (function () {
     DesignerGlobalsService.prototype.getDraggedWidgetJSON = function () {
         return this.draggedWidgetConfig;
     };
-    DesignerGlobalsService.prototype.setDraggedOverObject = function (node) {
+    //this may be needed if the native "elementFromPoint" turns out to not be sufficient.
+    /*setDraggedOverObject(node:Node){
         this.draggedOverObject = node;
-    };
-    DesignerGlobalsService.prototype.getDraggedOverObject = function () {
+    }
+    getDraggedOverObject():Node{
         return this.draggedOverObject;
+    }*/
+    //if "Append" is specified it means this item should be added to the list of items.
+    DesignerGlobalsService.prototype.setSelectedComponent = function (componentRef, append) {
+        //clear the existing list of items by default, otherwiwse we will append a value.
+        /*if(!append){
+            this.selItemList = new Array<ComponentRef<Widget>>;
+        this.selItemList.push(componentRef);*/
+        this.selItemObserver.next(componentRef);
+    };
+    DesignerGlobalsService.prototype.getSelectedItemsObservable = function () {
+        return this._selItemObservable;
     };
     DesignerGlobalsService = __decorate([
         core_1.Injectable(), 

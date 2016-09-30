@@ -1,7 +1,44 @@
-<ul class="tools">
-    <li designerDraggable data-widgetConfig='{"type":"textbox"}'>TB</li>
-    <li designerDraggable data-widgetConfig='{"type":"image"}'>PB</li>
-    <li designerDraggable>SW</li>
-    <li designerDraggable>SD</li>
-    <li>TBL</li>
-</ul>
+<div class="tools">
+    <ul class="basicTools">
+        <li (click)="setActiveToolSelection('basic')">Basic <span class="statusIndicator">&#x2713;</span></li>
+        <li (click)="setActiveToolSelection('gallery')">Gallery</li>
+        <li (click)="setActiveToolSelection('media')">Media</li>
+        <li (click)="setActiveToolSelection('datasrouce')">Data</li>
+    </ul>
+    <div class="toolSelection" *ngIf="activeToolSelection!=null">
+        <div class="closeButton"><span (click)="setActiveToolSelection(null)">&#x274C;</span></div>
+        <template [ngIf]="activeToolSelection=='basic'">
+            <ul>
+                <li class="subGrouping"><h1>Text</h1>
+                    <ul>
+                        <li designerDraggable data-widgetConfig='{"type":"textbox"}'>Text Box <span class="statusIndicator">&#x2713;</span></li>
+                        <li designerDraggable data-widgetConfig='{"type":"heading"}'>Heading</li>
+                    </ul>
+                </li>                
+                <li designerDraggable data-widgetConfig='{"type":"image"}'>Image <span class="statusIndicator">&#x2713;</span></li>
+                <li class="subGrouping"><h1>Container</h1>
+                    <ul>
+                        <li designerDraggable data-widgetConfig='{"type":"div"}'>Div</li>
+                    </ul>
+                </li> 
+            </ul>
+        </template>
+        <template [ngIf]="activeToolSelection=='media'">
+            <ul>
+                <li designerDraggable data-widgetConfig='{"type":"video", "source":"youtube"}'>youtube</li>
+                <li designerDraggable data-widgetConfig='{"type":"video", "source":"vimeo"}'>vimeo</li>
+            </ul>
+        </template>
+        <template [ngIf]="activeToolSelection=='datasrouce'">
+            <ul>
+                <li designerDraggable data-widgetConfig='{"type":"internalDataSource"}'>internal</li>
+                <li designerDraggable data-widgetConfig='{"type":"externalDataSource"}'>external</li>
+            </ul>
+        </template>
+        <template [ngIf]="activeToolSelection=='gallery'">
+            <ul>
+                <li designerDraggable data-widgetConfig='{"type":"gallery"}'>slideshow</li>
+            </ul>
+        </template>
+    </div>
+</div>
