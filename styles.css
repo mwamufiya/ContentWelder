@@ -11,13 +11,40 @@ dragHandle{
 }
 hr{
   margin:0;
-  height:4px;
+  width:5px;
+  size:150px;
+  display:inline;
+  /*height:4px;
   background:navy;
   width:25%;
-  border:0;
+  border:0;*/
 }
 
- /*
-  * See https://github.com/angular/angular.io/blob/master/public/docs/_examples/styles.css
-  * for the full set of master styles used by the documentation samples
-  */
+ /**********Widget**************/
+.widgetOutline{
+  padding:0;
+  margin:0;
+  border:0;
+  background:none;
+}
+.activeWidget{
+  border: 1px solid #4f99ff;
+}
+.widgetMenu{
+  margin:0;
+  padding:.25em;
+  border:1px solid #CCC;
+  border-bottom:0;
+  background:white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  list-style-type: none;
+  top:25;
+  position:relative;
+  top:-2.2em;
+  font-size:.75em;
+}
+.widgetMenu li{
+  display:inline;
+  padding:.25em;
+}

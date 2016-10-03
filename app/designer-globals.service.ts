@@ -1,25 +1,27 @@
 import { Injectable,ElementRef, ComponentRef }     from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable, Observer } from 'rxjs';
 import { Widget } from './widget.component';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+import 'rxjs/add/operator/share';
+
 @Injectable()
 export class DesignerGlobalsService {
     private draggedObject: Array<ElementRef>;
     private draggedWidgetType: string;
     private draggedWidgetConfig: JSON;
     //private draggedOverObject: Node;
-    private _selItemObservable: Observable<Array<ComponentRef<Widget>>>; //The currently selected component
+    private _selItemObservable: Observable<Array<Widget>>; //The currently selected component
     private selItemObserver: Observer<any>;
-    private selItemList: Array<ComponentRef<Widget>>;
+    private selItemList: Array<Widget>;
 
     constructor(private http: Http) {
-        /*this.data = new Observable<Array<ComponentRef<Widget>>>(observer => {
-            this.selectedItemList.push(observer);
-        });*/
         //We need to create a 'Hot' observable to allow for subscription to occur at different intervals
-        this._selItemObservable = new Observable<Array<ComponentRef<Widget>>>(observer => {
+        this.selItemList = [];
+        
+        this._selItemObservable = new Observable<Array<Widget>>(observer => {
             this.selItemObserver = observer;
-        }).publish().refCount();
+        }).share();
     }
     
     getDraggedObject():Array<ElementRef>{
@@ -52,14 +54,16 @@ export class DesignerGlobalsService {
         return this.draggedOverObject;
     }*/
     //if "Append" is specified it means this item should be added to the list of items.
-    setSelectedComponent(componentRef:ComponentRef<Widget>, append?:boolean){
+    setSelectedComponent(widget:Widget, append?:boolean){
         //clear the existing list of items by default, otherwiwse we will append a value.
-        /*if(!append){
-            this.selItemList = new Array<ComponentRef<Widget>>;
-        this.selItemList.push(componentRef);*/
-        this.selItemObserver.next(componentRef);
+        if(append==true)
+            this.selItemList.push(widget);
+        else
+            this.selItemList = [widget];
+
+        this.selItemObserver.next(this.selItemList);
     }
-    getSelectedItemsObservable():Observable<Array<ComponentRef<Widget>>>{
+    getSelectedItemsObservable():Observable<Array<Widget>>{
         return this._selItemObservable;
     }
 }

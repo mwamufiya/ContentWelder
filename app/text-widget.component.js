@@ -23,39 +23,41 @@ var TextWidget = (function (_super) {
         _super.call(this, componentFactoryResolver, viewContainer, designerGlobals);
         this.componentFactoryResolver = componentFactoryResolver;
         this.viewContainer = viewContainer;
-        this.name = 'helloWorld';
     }
-    TextWidget.prototype.onclick = function () {
-        console.log('you clicked something');
+    TextWidget.prototype.onclick = function (event) {
+        return _super.prototype.onclick.call(this, event);
     };
     TextWidget.prototype.childModified = function (widgetJSON) {
         /*let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
         let ref = this.container.createComponent(componentFactory);*/
         //console.clear();
-        console.log("----------------");
-        console.log(widgetJSON.insertionPoint);
+        /*console.log(`----------------`)
+        console.log(widgetJSON.insertionPoint);*/
         var componentFactory = new widget_factory_1.WidgetFactory().createWidget(this.viewContainer, this.componentFactoryResolver, widgetJSON);
-        console.log(widgetJSON.insertionPoint);
+        //console.log(widgetJSON.insertionPoint);
         var ref = this.container.createComponent(componentFactory, widgetJSON.insertionPoint);
         _super.prototype.addChild.call(this, ref);
-        console.log(_super.prototype.getChildren.call(this).length);
-        console.log(this.container.length);
+        /*console.log(super.getChildren().length);
+        console.log(this.container.length);*/
+    };
+    TextWidget.prototype.ngOnDestroy = function () {
+        _super.prototype.ngOnDestroy.call(this);
     };
     __decorate([
         core_1.ViewChild('container', { read: core_1.ViewContainerRef }), 
         __metadata('design:type', core_1.ViewContainerRef)
     ], TextWidget.prototype, "container", void 0);
     __decorate([
-        core_1.HostListener('click'), 
+        core_1.HostListener('click', ['$event']), 
         __metadata('design:type', Function), 
-        __metadata('design:paramtypes', []), 
+        __metadata('design:paramtypes', [Object]), 
         __metadata('design:returntype', void 0)
     ], TextWidget.prototype, "onclick", null);
     TextWidget = __decorate([
         core_1.Component({
             selector: 'designer-TextWidget',
             templateUrl: 'app/text-widget.component.html',
-            styles: ["\n    div{\n        border: 2px dotted red;\n        background:white;\n        padding:1em;\n        resize:both;\n    }\n  "]
+            styles: ["\n    div[data-widgetType=\"textbox\"]:blank, div[data-widgetType=\"textbox\"]:-moz-only-whitespace{\n       \n    }\n    div[data-widgetType=\"textbox\"]{\n        background:white;\n         padding:.25em;\n    }\n  "]
         }), 
         __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, designer_globals_service_1.DesignerGlobalsService])
     ], TextWidget);

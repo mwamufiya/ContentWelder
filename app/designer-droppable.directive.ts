@@ -25,7 +25,7 @@ export class DesignerDroppable extends MakeDroppable{
     draggOverHelper: Node;          //Dom element displayed when something is dragged over
     prvDraggedOverEl: Element       //Previously draged over element
     prvInsertionPoint: boolean      //insert item before or afte item being dragged over
-    widgetAdded = new EventEmitter();
+    widgetAdded: EventEmitter<any>;
     reqInsertionPoint:Number;
 
     constructor(
@@ -36,6 +36,7 @@ export class DesignerDroppable extends MakeDroppable{
         private designerGlobals: DesignerGlobalsService
         ){
         super(el);
+        this.widgetAdded = new EventEmitter();
     }
     @HostListener('dragover', ['$event']) ondragover(event){
         if(this.isElligable(event)){

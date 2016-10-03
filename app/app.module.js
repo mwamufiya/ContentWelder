@@ -13,8 +13,6 @@ var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 // Imports for loading & configuring the in-memory web api
 var http_1 = require('@angular/http');
-var angular2_in_memory_web_api_1 = require('angular2-in-memory-web-api');
-var in_memory_data_service_1 = require('./in-memory-data.service');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 var heroes_component_1 = require('./heroes.component');
@@ -25,6 +23,7 @@ var designer_tools_component_1 = require('./designer-tools.component');
 var designer_stage_component_1 = require('./designer-stage.component');
 var designer_droppable_directive_1 = require('./designer-droppable.directive');
 var designer_draggable_directive_1 = require('./designer-draggable.directive');
+var resizeable_directive_1 = require('./resizeable.directive');
 var widget_component_1 = require('./widget.component');
 var text_widget_component_1 = require('./text-widget.component');
 var image_widget_component_1 = require('./image-widget.component');
@@ -39,7 +38,7 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 app_routing_1.routing,
-                http_1.HttpModule
+                http_1.HttpModule,
             ],
             declarations: [
                 app_component_1.AppComponent,
@@ -49,15 +48,13 @@ var AppModule = (function () {
                 designer_component_1.DesignerComponent,
                 designer_tools_component_1.DesignerToolsComponent,
                 designer_stage_component_1.DesignerStageComponent,
-                designer_draggable_directive_1.DesignerDraggable, designer_droppable_directive_1.DesignerDroppable,
+                designer_draggable_directive_1.DesignerDraggable, designer_droppable_directive_1.DesignerDroppable, resizeable_directive_1.Resizeable,
                 text_widget_component_1.TextWidget, widget_component_1.Widget,
                 image_widget_component_1.ImageWidget
             ],
             providers: [
                 designer_globals_service_1.DesignerGlobalsService,
-                hero_service_1.HeroService,
-                { provide: http_1.XHRBackend, useClass: angular2_in_memory_web_api_1.InMemoryBackendService },
-                { provide: angular2_in_memory_web_api_1.SEED_DATA, useClass: in_memory_data_service_1.InMemoryDataService } // in-mem server data
+                hero_service_1.HeroService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

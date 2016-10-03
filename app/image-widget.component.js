@@ -25,7 +25,10 @@ var ImageWidget = (function (_super) {
         this.name = 'helloWorld';
     }
     ImageWidget.prototype.onclick = function (event) {
-        _super.prototype.onclick.call(this, event);
+        return _super.prototype.onclick.call(this, event);
+    };
+    ImageWidget.prototype.ngOnDestroy = function () {
+        _super.prototype.ngOnDestroy.call(this);
     };
     __decorate([
         core_1.ViewChild('container', { read: core_1.ViewContainerRef }), 
@@ -41,7 +44,7 @@ var ImageWidget = (function (_super) {
         core_1.Component({
             selector: 'designer-ImageWidget',
             templateUrl: 'app/image-widget.component.html',
-            styles: ["\n    img[src='']{\n        border: 1px dotted yellow;\n        background-image: url(\"http://placehold.it/140x100\");\n        width:100px;\n        height:100px;\n    }\n    .activeWidget img{\n        border:30px double orange;\n    }\n  "]
+            styles: ["\n    img[src='']{\n        border: 1px dotted yellow;\n        background-image: url(\"http://placehold.it/140x100\");\n        width:100px;\n        height:100px;\n    }\n  "]
         }), 
         __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, designer_globals_service_1.DesignerGlobalsService])
     ], ImageWidget);

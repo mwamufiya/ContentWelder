@@ -1,7 +1,7 @@
 import { Directive, 
     ElementRef, 
     Input, 
-    HostListener, OnInit } from '@angular/core';
+    HostListener, OnInit, EventEmitter } from '@angular/core';
 import { MakeDraggable} from './make-draggable.directive';
 import { DesignerGlobalsService } from './designer-globals.service';
 
@@ -11,7 +11,7 @@ import { DesignerGlobalsService } from './designer-globals.service';
 })
 
 export class DesignerDraggable extends MakeDraggable{
-    
+
     constructor(el: ElementRef, private designerGlobals: DesignerGlobalsService){
         super(el);
     }
@@ -36,5 +36,6 @@ export class DesignerDraggable extends MakeDraggable{
     /*@HostListener('dragend',['$event']) ondragend(event){
         super.ondragend(event);
     }*/
+
 
 }

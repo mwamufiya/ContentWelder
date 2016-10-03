@@ -5,7 +5,7 @@ import { FormsModule }    from '@angular/forms';
 // Imports for loading & configuring the in-memory web api
 import { HttpModule, XHRBackend } from '@angular/http';
 
-import { InMemoryBackendService, SEED_DATA } from 'angular2-in-memory-web-api';
+import { InMemoryBackendService } from 'angular-in-memory-web-api';
 import { InMemoryDataService }               from './in-memory-data.service';
 
 import { AppComponent }   from './app.component';
@@ -19,6 +19,7 @@ import { DesignerToolsComponent }  from './designer-tools.component';
 import { DesignerStageComponent }  from './designer-stage.component';
 import { DesignerDroppable }  from './designer-droppable.directive';
 import { DesignerDraggable }  from './designer-draggable.directive';
+import { Resizeable }  from './resizeable.directive';
 import { Widget } from './widget.component';
 import { TextWidget } from './text-widget.component';
 import { ImageWidget } from './image-widget.component';
@@ -31,7 +32,7 @@ import { HeroService }  from './hero.service';
     BrowserModule,
     FormsModule,
     routing,
-    HttpModule
+    HttpModule,
   ],
   declarations: [
     AppComponent,
@@ -41,15 +42,13 @@ import { HeroService }  from './hero.service';
     DesignerComponent,
     DesignerToolsComponent,
     DesignerStageComponent,
-    DesignerDraggable, DesignerDroppable, 
+    DesignerDraggable, DesignerDroppable, Resizeable,
     TextWidget, Widget,
     ImageWidget
   ],
   providers: [
     DesignerGlobalsService,
-    HeroService,
-    { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
-    { provide: SEED_DATA,  useClass: InMemoryDataService }     // in-mem server data
+    HeroService
   ],
   bootstrap: [ AppComponent ]
 })

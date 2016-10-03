@@ -11,11 +11,12 @@ import { DesignerGlobalsService } from './designer-globals.service';
   selector: 'designer-TextWidget',
   templateUrl: 'app/text-widget.component.html',
   styles:[`
-    div{
-        border: 2px dotted red;
+    div[data-widgetType="textbox"]:blank, div[data-widgetType="textbox"]:-moz-only-whitespace{
+       
+    }
+    div[data-widgetType="textbox"]{
         background:white;
-        padding:1em;
-        resize:both;
+         padding:.25em;
     }
   `]
 })
@@ -28,26 +29,28 @@ export class TextWidget extends Widget{
         private viewContainer:ViewContainerRef,
         designerGlobals: DesignerGlobalsService){
         super(componentFactoryResolver, viewContainer, designerGlobals);
-        this.name = 'helloWorld';
     }
 
-    @HostListener('click') onclick(){
-        console.log('you clicked something');
+    @HostListener('click', ['$event']) onclick(event){
+        return super.onclick(event);
     }    
     
     childModified(widgetJSON):void {
         /*let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
         let ref = this.container.createComponent(componentFactory);*/
         //console.clear();
-        console.log(`----------------`)
-        console.log(widgetJSON.insertionPoint);
+        /*console.log(`----------------`)
+        console.log(widgetJSON.insertionPoint);*/
         let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, widgetJSON);
-        console.log(widgetJSON.insertionPoint);
+        //console.log(widgetJSON.insertionPoint);
         let ref = this.container.createComponent(componentFactory,widgetJSON.insertionPoint);
         
         super.addChild(ref);
-        console.log(super.getChildren().length);
-        console.log(this.container.length);
+        /*console.log(super.getChildren().length);
+        console.log(this.container.length);*/
         
     }
+    ngOnDestroy(){
+        super.ngOnDestroy();
+    } 
 }

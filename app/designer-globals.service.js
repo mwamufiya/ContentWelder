@@ -10,18 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-var rxjs_1 = require('rxjs');
+var Observable_1 = require('rxjs/Observable');
+require('rxjs/add/operator/share');
 var DesignerGlobalsService = (function () {
     function DesignerGlobalsService(http) {
         var _this = this;
         this.http = http;
-        /*this.data = new Observable<Array<ComponentRef<Widget>>>(observer => {
-            this.selectedItemList.push(observer);
-        });*/
         //We need to create a 'Hot' observable to allow for subscription to occur at different intervals
-        this._selItemObservable = new rxjs_1.Observable(function (observer) {
+        this.selItemList = [];
+        this._selItemObservable = new Observable_1.Observable(function (observer) {
             _this.selItemObserver = observer;
-        }).publish().refCount();
+        }).share();
     }
     DesignerGlobalsService.prototype.getDraggedObject = function () {
         return this.draggedObject;
@@ -49,12 +48,13 @@ var DesignerGlobalsService = (function () {
         return this.draggedOverObject;
     }*/
     //if "Append" is specified it means this item should be added to the list of items.
-    DesignerGlobalsService.prototype.setSelectedComponent = function (componentRef, append) {
+    DesignerGlobalsService.prototype.setSelectedComponent = function (widget, append) {
         //clear the existing list of items by default, otherwiwse we will append a value.
-        /*if(!append){
-            this.selItemList = new Array<ComponentRef<Widget>>;
-        this.selItemList.push(componentRef);*/
-        this.selItemObserver.next(componentRef);
+        if (append == true)
+            this.selItemList.push(widget);
+        else
+            this.selItemList = [widget];
+        this.selItemObserver.next(this.selItemList);
     };
     DesignerGlobalsService.prototype.getSelectedItemsObservable = function () {
         return this._selItemObservable;

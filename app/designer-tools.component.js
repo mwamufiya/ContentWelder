@@ -10,8 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var designer_globals_service_1 = require('./designer-globals.service');
 var DesignerToolsComponent = (function () {
-    function DesignerToolsComponent(router) {
+    function DesignerToolsComponent(router, designerGlobals) {
         this.router = router;
     }
     //set activeToolSelection
@@ -27,7 +28,7 @@ var DesignerToolsComponent = (function () {
             templateUrl: 'app/designer-tools.component.html',
             styleUrls: ['app/designer-tools.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, designer_globals_service_1.DesignerGlobalsService])
     ], DesignerToolsComponent);
     return DesignerToolsComponent;
 }());

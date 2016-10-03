@@ -23,8 +23,9 @@ var Widget = (function () {
     Widget.prototype.childModified = function (event) {
     };
     Widget.prototype.onclick = function (event) {
-        this.viewCont.element.nativeElement.classList.add('activeWidget');
-        ;
+        event.stopPropagation();
+        this.designerGlobals.setSelectedComponent(this, event.shiftKey ? true : null);
+        return false;
     };
     Widget.prototype.getChildren = function () {
         return this.children;
@@ -32,8 +33,9 @@ var Widget = (function () {
     Widget.prototype.addChild = function (child) {
         this.children.push(child);
     };
-    Widget.prototype.checkIfCurrentlySelected = function (value) {
-        console.log(value);
+    Widget.prototype.checkIfCurrentlySelected = function (selectedArray) {
+        //if this item exists in the list of currently selected items, mark it as such.
+        this.isSelected = selectedArray.indexOf(this) != -1 ? true : false;
     };
     Widget.prototype.displayError = function (err) {
         console.log(err);

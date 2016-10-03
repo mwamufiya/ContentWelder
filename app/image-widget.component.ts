@@ -17,9 +17,6 @@ import { DesignerGlobalsService } from './designer-globals.service';
         width:100px;
         height:100px;
     }
-    .activeWidget img{
-        border:30px double orange;
-    }
   `]
 })
 export class ImageWidget extends Widget{
@@ -35,6 +32,9 @@ export class ImageWidget extends Widget{
     }
 
     @HostListener('click', ['$event']) onclick(event){
-        super.onclick(event);
+        return super.onclick(event);
     }
+    ngOnDestroy(){
+        super.ngOnDestroy();
+    }        
 }

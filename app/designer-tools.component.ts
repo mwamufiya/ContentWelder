@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DesignerGlobalsService } from './designer-globals.service';
 
 @Component({
   selector: 'designer-tools',
@@ -9,7 +10,10 @@ import { Router } from '@angular/router';
 export class DesignerToolsComponent{
   private activeToolSelection: string;
   constructor(
-  private router: Router){}
+    private router: Router,
+    designerGlobals: DesignerGlobalsService){
+      
+    }
 
   //set activeToolSelection
   setActiveToolSelection(selection:string):void{
