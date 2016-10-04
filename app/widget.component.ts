@@ -5,7 +5,7 @@ import { Component,
    ViewChild,
    ComponentFactoryResolver, 
    AfterViewInit,
-   ComponentRef, OnDestroy
+   ComponentRef, OnDestroy, EventEmitter, Output
       } from '@angular/core';
 import { Router } from '@angular/router';
 import { MakeDraggable } from './make-draggable.directive'
@@ -34,6 +34,7 @@ export class Widget{
     opacity:number;
     layer:number;
     children:Array<ComponentRef<any>>;  //array of child widgets
+    infants:Array<JSON>;     //JSON array of children.
     config:JSON;            //JSON configuration for the widget
     componentResolver:ComponentFactoryResolver;
     viewCont:ViewContainerRef;
@@ -49,6 +50,8 @@ export class Widget{
         this.viewCont = viewCont;
         this.designerGlobals = designerGlobals;
         this.children = new Array;
+        this.infants = new Array;
+
         //subscript to the locally selected item
         this._selectedItemSubscription = this.designerGlobals.getSelectedItemsObservable().subscribe(
           value => this.checkIfCurrentlySelected(value),
@@ -68,8 +71,12 @@ export class Widget{
     getChildren():Array<ComponentRef<any>>{
       return this.children;
     }
-    addChild(child:ComponentRef<any>){
+    addChild(child:ComponentRef<any>, widgetJSON){
       this.children.push(child);
+      this.addChildViaJSON(widgetJSON);
+    }
+    addChildViaJSON(widgetJSON){
+      this.infants.push(widgetJSON);
     }
     checkIfCurrentlySelected(selectedArray:Array<Widget>){
       //if this item exists in the list of currently selected items, mark it as such.
@@ -77,6 +84,15 @@ export class Widget{
     }
     displayError(err:any){
       console.log(err);
+    }
+    removeSelf(event){
+      console.log('event to be emmitted');
+    }
+    removeChild(ref:ComponentRef<Widget>){
+      let index = this.children.indexOf(ref);
+
+      if(index != -1)
+        this.children.splice(index, 1);
     }
 
     ngOnDestroy(){

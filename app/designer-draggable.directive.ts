@@ -10,7 +10,8 @@ import { DesignerGlobalsService } from './designer-globals.service';
     inputs:['widgetType']
 })
 
-export class DesignerDraggable extends MakeDraggable{
+export class DesignerDraggable extends MakeDraggable implements OnInit{
+    widgetType: string;
 
     constructor(el: ElementRef, private designerGlobals: DesignerGlobalsService){
         super(el);
@@ -33,9 +34,9 @@ export class DesignerDraggable extends MakeDraggable{
         this.designerGlobals.setDraggedObject(event.path);
         this.designerGlobals.setDraggedWidgetJSON(JSON.parse(super.getDomElement().nativeElement.getAttribute('data-widgetConfig')));
     }
-    /*@HostListener('dragend',['$event']) ondragend(event){
-        super.ondragend(event);
-    }*/
+    ngOnInit(){
+        this.widgetType = this.widgetType;
+    }
 
 
 }

@@ -49,7 +49,12 @@ var DesignerGlobalsService = (function () {
     }*/
     //if "Append" is specified it means this item should be added to the list of items.
     DesignerGlobalsService.prototype.setSelectedComponent = function (widget, append) {
-        //clear the existing list of items by default, otherwiwse we will append a value.
+        //If the item being added already exists in the selected list do nothing
+        var alreadyExists = (this.selItemList.indexOf(widget) == -1) ? false : true;
+        if ((alreadyExists == true && append == true)
+            || (this.selItemList.length == 1 && alreadyExists == true))
+            return;
+        //clear the existing list of items by default, otherwiwse we will append a value.    
         if (append == true)
             this.selItemList.push(widget);
         else

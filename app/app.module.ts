@@ -11,9 +11,6 @@ import { InMemoryDataService }               from './in-memory-data.service';
 import { AppComponent }   from './app.component';
 import { routing }        from './app.routing';
 
-import { HeroesComponent }      from './heroes.component';
-import { DashboardComponent }   from './dashboard.component';
-import { HeroDetailComponent }  from './hero-detail.component';
 import { DesignerComponent }  from './designer.component';
 import { DesignerToolsComponent }  from './designer-tools.component';
 import { DesignerStageComponent }  from './designer-stage.component';
@@ -25,8 +22,6 @@ import { TextWidget } from './text-widget.component';
 import { ImageWidget } from './image-widget.component';
 import { DesignerGlobalsService } from './designer-globals.service';
 
-import { HeroService }  from './hero.service';
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -36,9 +31,6 @@ import { HeroService }  from './hero.service';
   ],
   declarations: [
     AppComponent,
-    HeroesComponent,
-    DashboardComponent,
-    HeroDetailComponent,
     DesignerComponent,
     DesignerToolsComponent,
     DesignerStageComponent,
@@ -47,8 +39,7 @@ import { HeroService }  from './hero.service';
     ImageWidget
   ],
   providers: [
-    DesignerGlobalsService,
-    HeroService
+    DesignerGlobalsService
   ],
   bootstrap: [ AppComponent ]
 })

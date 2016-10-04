@@ -1,7 +1,7 @@
-<div [class.activeWidget]="isSelected==true">
+<div class="widgetContainer" [class.activeWidget]="isSelected==true">
     <ul *ngIf="isSelected==true" class="widgetMenu">
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <img designerDraggable [widgetType]='image' data-widgetConfig='{"type":"image"}' src="http://placehold.it/140x100"/>
+    <img designerDraggable data-widgetConfig='{"type":"image"}' src="http://placehold.it/140x100"/>
 </div>

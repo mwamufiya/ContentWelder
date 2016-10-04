@@ -22,10 +22,16 @@ var ImageWidget = (function (_super) {
         _super.call(this, componentFactoryResolver, viewContainer, designerGlobals);
         this.componentFactoryResolver = componentFactoryResolver;
         this.viewContainer = viewContainer;
-        this.name = 'helloWorld';
+        this.parentActionReq = new core_1.EventEmitter();
     }
     ImageWidget.prototype.onclick = function (event) {
         return _super.prototype.onclick.call(this, event);
+    };
+    ImageWidget.prototype.removeSelf = function (event) {
+        console.log("******INSIDE Image WIDGET*******");
+        console.log(event);
+        //super.removeSelf(event);
+        this.parentActionReq.emit({ type: "delete" });
     };
     ImageWidget.prototype.ngOnDestroy = function () {
         _super.prototype.ngOnDestroy.call(this);
@@ -44,7 +50,8 @@ var ImageWidget = (function (_super) {
         core_1.Component({
             selector: 'designer-ImageWidget',
             templateUrl: 'app/image-widget.component.html',
-            styles: ["\n    img[src='']{\n        border: 1px dotted yellow;\n        background-image: url(\"http://placehold.it/140x100\");\n        width:100px;\n        height:100px;\n    }\n  "]
+            styles: ["\n    img[src='']{\n        border: 1px dotted yellow;\n        background-image: url(\"http://placehold.it/140x100\");\n        width:100px;\n        height:100px;\n    }\n    .widgetContainer{\n        display:inline-block;\n        /*temporary until actual image loading and resizing workds*/\n        width:140px;\n        height:100px;\n    }\n  "],
+            outputs: ['parentActionReq']
         }), 
         __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, designer_globals_service_1.DesignerGlobalsService])
     ], ImageWidget);

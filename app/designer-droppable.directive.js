@@ -152,7 +152,6 @@ var DesignerDroppable = (function (_super) {
                     insertionPoint = null;
                 }
                 else {
-                    console.log("you should be getting here");
                     nextEl.parentNode.insertBefore(this.draggOverHelper, nextEl);
                     insertionPoint = Array.from(nextEl.parentNode.childNodes).filter(function (n) { return n.nodeType == 1; }).indexOf(nextEl) - 1;
                 }

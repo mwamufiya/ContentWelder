@@ -8,6 +8,7 @@
         margin-left:1em;
         left:0;
         transition: left 1s linear;
+        z-index: 100;
     }
 }
 .basicTools{

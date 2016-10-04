@@ -17,6 +17,7 @@ var Widget = (function () {
         this.viewCont = viewCont;
         this.designerGlobals = designerGlobals;
         this.children = new Array;
+        this.infants = new Array;
         //subscript to the locally selected item
         this._selectedItemSubscription = this.designerGlobals.getSelectedItemsObservable().subscribe(function (value) { return _this.checkIfCurrentlySelected(value); }, function (err) { return _this.displayError("Error encountered when subscribing to observable"); });
     }
@@ -30,8 +31,12 @@ var Widget = (function () {
     Widget.prototype.getChildren = function () {
         return this.children;
     };
-    Widget.prototype.addChild = function (child) {
+    Widget.prototype.addChild = function (child, widgetJSON) {
         this.children.push(child);
+        this.addChildViaJSON(widgetJSON);
+    };
+    Widget.prototype.addChildViaJSON = function (widgetJSON) {
+        this.infants.push(widgetJSON);
     };
     Widget.prototype.checkIfCurrentlySelected = function (selectedArray) {
         //if this item exists in the list of currently selected items, mark it as such.
@@ -39,6 +44,14 @@ var Widget = (function () {
     };
     Widget.prototype.displayError = function (err) {
         console.log(err);
+    };
+    Widget.prototype.removeSelf = function (event) {
+        console.log('event to be emmitted');
+    };
+    Widget.prototype.removeChild = function (ref) {
+        var index = this.children.indexOf(ref);
+        if (index != -1)
+            this.children.splice(index, 1);
     };
     Widget.prototype.ngOnDestroy = function () {
         this._selectedItemSubscription.unsubscribe();

@@ -15,6 +15,7 @@ import { Compiler} from '@angular/core';
 import {WidgetFactory} from './widget-factory';
 import {TextWidget} from './text-widget.component';
 import {ImageWidget} from './image-widget.component';
+import { DesignerGlobalsService } from './designer-globals.service';
 
 @Component({
   selector: 'designer-stage',
@@ -22,20 +23,17 @@ import {ImageWidget} from './image-widget.component';
   styleUrls: ['app/designer-stage.component.css'],
   entryComponents: [TextWidget, ImageWidget]
 })
-export class DesignerStageComponent implements OnInit {
+export class DesignerStageComponent extends Widget{
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
     childWidgets:Array<JSON>;
 
     constructor(
-        private viewContainer: ViewContainerRef,
         private componentFactoryResolver: ComponentFactoryResolver,
+        private viewContainer: ViewContainerRef,
+        designerGlobals: DesignerGlobalsService,
         private router: Router){
-        this.childWidgets = [];
+            super(componentFactoryResolver, viewContainer, designerGlobals);
     }
-
-    ngOnInit() {
-    }
-
     addObject(event: any){
         alert('hello');
         console.log(event);
@@ -49,7 +47,13 @@ export class DesignerStageComponent implements OnInit {
         let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, widgetJSON);
         let ref = this.container.createComponent(componentFactory);
 
-        //this.childWidgets.push(JSON.parse('{}'));
+        super.addChild(ref, widgetJSON.widgetConfig);
+        //super.addChildViaJSON(widgetJSON.widgetConfig);
+    }
+    childActionInitiated(event){
+        console.log(`*************`)
+        console.log(event);
+        super.removeChild(event);
     }
 
 }

@@ -30,21 +30,27 @@ hr{
 .activeWidget{
   border: 1px solid #4f99ff;
 }
+.widgetContainer{
+  position: relative;
+}
 .widgetMenu{
   margin:0;
   padding:.25em;
-  border:1px solid #CCC;
   border-bottom:0;
   background:white;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   list-style-type: none;
-  top:25;
-  position:relative;
-  top:-2.2em;
+  position:absolute;
+  top:-2em;
   font-size:.75em;
 }
 .widgetMenu li{
   display:inline;
   padding:.25em;
+  cursor: pointer;
+}
+.emptyContainer{
+  padding:.25em;
+  min-height:50px;
 }

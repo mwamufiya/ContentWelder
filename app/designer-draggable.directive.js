@@ -37,6 +37,9 @@ var DesignerDraggable = (function (_super) {
         this.designerGlobals.setDraggedObject(event.path);
         this.designerGlobals.setDraggedWidgetJSON(JSON.parse(_super.prototype.getDomElement.call(this).nativeElement.getAttribute('data-widgetConfig')));
     };
+    DesignerDraggable.prototype.ngOnInit = function () {
+        this.widgetType = this.widgetType;
+    };
     __decorate([
         core_1.HostListener('dragstart', ['$event']), 
         __metadata('design:type', Function), 

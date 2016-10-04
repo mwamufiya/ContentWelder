@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, HostListener,
-    ComponentFactoryResolver, ViewContainerRef, AfterViewInit, ViewChild } from '@angular/core';
+    ComponentFactoryResolver, ViewContainerRef, AfterViewInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MakeDraggable } from './make-draggable.directive'
 import { Widget } from './widget.component'
@@ -16,11 +16,12 @@ import { DesignerGlobalsService } from './designer-globals.service';
     }
     div[data-widgetType="textbox"]{
         background:white;
-         padding:.25em;
     }
-  `]
+  `],
+  outputs: ['parentActionReq']
 })
 export class TextWidget extends Widget{
+    parentActionReq: EventEmitter<any>;
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
@@ -29,9 +30,11 @@ export class TextWidget extends Widget{
         private viewContainer:ViewContainerRef,
         designerGlobals: DesignerGlobalsService){
         super(componentFactoryResolver, viewContainer, designerGlobals);
+        this.parentActionReq = new EventEmitter();
     }
 
     @HostListener('click', ['$event']) onclick(event){
+        console.log('you were clicked!!');
         return super.onclick(event);
     }    
     
@@ -42,15 +45,23 @@ export class TextWidget extends Widget{
         /*console.log(`----------------`)
         console.log(widgetJSON.insertionPoint);*/
         let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, widgetJSON);
-        //console.log(widgetJSON.insertionPoint);
         let ref = this.container.createComponent(componentFactory,widgetJSON.insertionPoint);
         
-        super.addChild(ref);
+        super.addChild(ref, widgetJSON.widgetConfig);
         /*console.log(super.getChildren().length);
         console.log(this.container.length);*/
         
     }
+    removeSelf(event){
+        console.log(`******INSIDE TEXT WIDGET*******`)
+        console.log(event);
+        //super.removeSelf(event);
+        this.parentActionReq.emit({type:"delete"});
+    }
     ngOnDestroy(){
         super.ngOnDestroy();
     } 
+    childActionInitiated(event){
+        super.removeChild(event);
+    }
 }

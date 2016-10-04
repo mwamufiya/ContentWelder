@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, HostListener,
-    ComponentFactoryResolver, ViewContainerRef, AfterViewInit, ViewChild } from '@angular/core';
+    ComponentFactoryResolver, ViewContainerRef, AfterViewInit, ViewChild, EventEmitter,Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MakeDraggable } from './make-draggable.directive'
 import { Widget } from './widget.component'
@@ -17,9 +17,17 @@ import { DesignerGlobalsService } from './designer-globals.service';
         width:100px;
         height:100px;
     }
-  `]
+    .widgetContainer{
+        display:inline-block;
+        /*temporary until actual image loading and resizing workds*/
+        width:140px;
+        height:100px;
+    }
+  `],
+  outputs: ['parentActionReq']
 })
 export class ImageWidget extends Widget{
+    parentActionReq: EventEmitter<any>;
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
@@ -28,11 +36,17 @@ export class ImageWidget extends Widget{
         private viewContainer:ViewContainerRef,
         designerGlobals: DesignerGlobalsService){
         super(componentFactoryResolver, viewContainer, designerGlobals);
-        this.name = 'helloWorld';
+        this.parentActionReq = new EventEmitter();
     }
 
     @HostListener('click', ['$event']) onclick(event){
         return super.onclick(event);
+    }
+    removeSelf(event){
+        console.log(`******INSIDE Image WIDGET*******`)
+        console.log(event);
+        //super.removeSelf(event);
+        this.parentActionReq.emit({type:"delete"});
     }
     ngOnDestroy(){
         super.ngOnDestroy();

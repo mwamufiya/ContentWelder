@@ -15,9 +15,6 @@ var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
-var heroes_component_1 = require('./heroes.component');
-var dashboard_component_1 = require('./dashboard.component');
-var hero_detail_component_1 = require('./hero-detail.component');
 var designer_component_1 = require('./designer.component');
 var designer_tools_component_1 = require('./designer-tools.component');
 var designer_stage_component_1 = require('./designer-stage.component');
@@ -28,7 +25,6 @@ var widget_component_1 = require('./widget.component');
 var text_widget_component_1 = require('./text-widget.component');
 var image_widget_component_1 = require('./image-widget.component');
 var designer_globals_service_1 = require('./designer-globals.service');
-var hero_service_1 = require('./hero.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -42,9 +38,6 @@ var AppModule = (function () {
             ],
             declarations: [
                 app_component_1.AppComponent,
-                heroes_component_1.HeroesComponent,
-                dashboard_component_1.DashboardComponent,
-                hero_detail_component_1.HeroDetailComponent,
                 designer_component_1.DesignerComponent,
                 designer_tools_component_1.DesignerToolsComponent,
                 designer_stage_component_1.DesignerStageComponent,
@@ -53,8 +46,7 @@ var AppModule = (function () {
                 image_widget_component_1.ImageWidget
             ],
             providers: [
-                designer_globals_service_1.DesignerGlobalsService,
-                hero_service_1.HeroService
+                designer_globals_service_1.DesignerGlobalsService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 
