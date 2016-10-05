@@ -12,6 +12,7 @@ import { MakeDraggable } from './make-draggable.directive'
 import { DesignerDroppable } from './designer-droppable.directive'
 import { DesignerGlobalsService } from './designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
+import { WidgetComs } from './widgetJSON.interface';
 
 @Component({
   selector: 'designerWidget',
@@ -33,7 +34,7 @@ export class Widget{
     desc:string;
     opacity:number;
     layer:number;
-    children:Array<ComponentRef<any>>;  //array of child widgets
+    children:Array<Widget>;  //array of child widgets
     infants:Array<JSON>;     //JSON array of children.
     config:JSON;            //JSON configuration for the widget
     componentResolver:ComponentFactoryResolver;
@@ -41,6 +42,9 @@ export class Widget{
     designerGlobals: DesignerGlobalsService;
     private _selectedItemSubscription: Subscription;
     isSelected: boolean;
+    removeCurrent:boolean = false; //marked to true when current item is requested to be removed;
+    parentActionReq: EventEmitter<any> = new EventEmitter();
+    curCompRef:ComponentRef<Widget>;
 
     constructor(
       componentResolver:ComponentFactoryResolver,
@@ -68,11 +72,20 @@ export class Widget{
       return false;
     }
     
-    getChildren():Array<ComponentRef<any>>{
+    getChildren():Array<Widget>{
       return this.children;
     }
-    addChild(child:ComponentRef<any>, widgetJSON){
-      this.children.push(child);
+    addChild(compRef:ComponentRef<Widget>, widgetJSON){
+      //Because Dynamically created components cannot leverage angular's Input/Ouput, 
+      //we must subscript to the EventEmitter manually
+      compRef.instance.parentActionReq.subscribe(compRef => this.removeChild(compRef));
+      //Set the ComponentRef for use down the line.
+      compRef.instance.curCompRef = compRef;
+
+      //Add the the item to our list of children for future use
+      this.children.push(compRef.instance);
+      //There is potential use for this in the future. especially around automatin testing.
+      //uncertain at this time.
       this.addChildViaJSON(widgetJSON);
     }
     addChildViaJSON(widgetJSON){
@@ -85,17 +98,31 @@ export class Widget{
     displayError(err:any){
       console.log(err);
     }
+    //Emit an ouput event so that parent components can remove the current item
     removeSelf(event){
-      console.log('event to be emmitted');
+      this.parentActionReq.emit({
+        action:"delete",
+        item: this
+      });
     }
-    removeChild(ref:ComponentRef<Widget>){
-      let index = this.children.indexOf(ref);
-
-      if(index != -1)
+    //Called upon receiving a parentActionReq.emit event requesting deletion of the current item. 
+    removeChild(eventJSON:WidgetComs){
+      let targetItem = eventJSON.item
+      let index = this.children.indexOf(targetItem);
+      //if the item exists in the array, remove it.
+      if(index != -1){
         this.children.splice(index, 1);
+        targetItem.curCompRef.destroy();
+      }
     }
 
     ngOnDestroy(){
+      //unsubscribe for performance gains.
       this._selectedItemSubscription.unsubscribe();
+      this.parentActionReq.unsubscribe();
+      //Remove any children of this component.
+      for(let child of this.children){
+        child.curCompRef.destroy();
+      }
     }
 }

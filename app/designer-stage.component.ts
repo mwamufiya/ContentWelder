@@ -40,14 +40,13 @@ export class DesignerStageComponent extends Widget{
         //this.viewContainer.createEmbeddedView(this.vcr.createComponent(new TextWidget()));
     }
 
-    childModified(widgetJSON){
-        //console.log(event);
-        
+    childModified(widgetJSON){       
         //let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
-        let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, widgetJSON);
+        let widgetConfig = widgetJSON.widgetConfig;
+        let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, widgetConfig);
         let ref = this.container.createComponent(componentFactory);
-
-        super.addChild(ref, widgetJSON.widgetConfig);
+        
+        super.addChild(ref, widgetConfig);
         //super.addChildViaJSON(widgetJSON.widgetConfig);
     }
     childActionInitiated(event){

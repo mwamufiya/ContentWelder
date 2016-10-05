@@ -8,7 +8,9 @@
     'app':                        'app', // 'dist',
     '@angular':                   'node_modules/@angular',
     'angular2-in-memory-web-api': 'node_modules/angular-in-memory-web-api',
-    'rxjs':                       'node_modules/rxjs'
+    'rxjs':                       'node_modules/rxjs',
+    'jquery':                     'node_modules/jquery/dist/jquery.min.js',
+    'jqueryui':                   'node_modules/jquery/dist/jquery-ui.min.js'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {

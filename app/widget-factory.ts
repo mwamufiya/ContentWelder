@@ -3,7 +3,7 @@ import { Component,
     ComponentFactory, 
     ComponentRef,
     ViewContainerRef} from '@angular/core';
-    import {Widget} from './widget';
+    import {Widget} from './widget.component';
     import {TextWidget} from './text-widget.component';
     import {ImageWidget} from './image-widget.component';
 
@@ -16,7 +16,7 @@ import { Component,
             widgetJson:any):ComponentFactory<Widget>{
 
             let componentFactory;
-            switch(widgetJson.widgetConfig.type){
+            switch(widgetJson.type){
                 case "textbox":
                     componentFactory = componentFactoryResolver.resolveComponentFactory(TextWidget);
                     break;

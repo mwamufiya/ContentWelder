@@ -23,29 +23,21 @@ var TextWidget = (function (_super) {
         _super.call(this, componentFactoryResolver, viewContainer, designerGlobals);
         this.componentFactoryResolver = componentFactoryResolver;
         this.viewContainer = viewContainer;
-        this.parentActionReq = new core_1.EventEmitter();
     }
     TextWidget.prototype.onclick = function (event) {
-        console.log('you were clicked!!');
         return _super.prototype.onclick.call(this, event);
     };
     TextWidget.prototype.childModified = function (widgetJSON) {
-        /*let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
-        let ref = this.container.createComponent(componentFactory);*/
-        //console.clear();
-        /*console.log(`----------------`)
-        console.log(widgetJSON.insertionPoint);*/
-        var componentFactory = new widget_factory_1.WidgetFactory().createWidget(this.viewContainer, this.componentFactoryResolver, widgetJSON);
+        //console.log(widgetJSON.insertionPoint);
+        var widgetConfig = widgetJSON.widgetConfig;
+        var componentFactory = new widget_factory_1.WidgetFactory().createWidget(this.viewContainer, this.componentFactoryResolver, widgetConfig);
         var ref = this.container.createComponent(componentFactory, widgetJSON.insertionPoint);
-        _super.prototype.addChild.call(this, ref, widgetJSON.widgetConfig);
+        _super.prototype.addChild.call(this, ref, widgetConfig);
         /*console.log(super.getChildren().length);
         console.log(this.container.length);*/
     };
     TextWidget.prototype.removeSelf = function (event) {
-        console.log("******INSIDE TEXT WIDGET*******");
-        console.log(event);
-        //super.removeSelf(event);
-        this.parentActionReq.emit({ type: "delete" });
+        _super.prototype.removeSelf.call(this, event);
     };
     TextWidget.prototype.ngOnDestroy = function () {
         _super.prototype.ngOnDestroy.call(this);
@@ -67,8 +59,7 @@ var TextWidget = (function (_super) {
         core_1.Component({
             selector: 'designer-TextWidget',
             templateUrl: 'app/text-widget.component.html',
-            styles: ["\n    div[data-widgetType=\"textbox\"]:blank, div[data-widgetType=\"textbox\"]:-moz-only-whitespace{\n       \n    }\n    div[data-widgetType=\"textbox\"]{\n        background:white;\n    }\n  "],
-            outputs: ['parentActionReq']
+            styles: ["\n    div[data-widgetType=\"textbox\"]:blank, div[data-widgetType=\"textbox\"]:-moz-only-whitespace{\n       \n    }\n    div[data-widgetType=\"textbox\"]{\n        background:white;\n    }\n  "]
         }), 
         __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, designer_globals_service_1.DesignerGlobalsService])
     ], TextWidget);

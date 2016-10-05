@@ -1,15 +1,12 @@
 <div class="workingArea">
-    <div designerDroppable (widgetAdded)="childModified($event)" (parentActionReq)="childActionInitiated($event)" class="stage" >
+    <div designerDroppable (widgetAdded)="childModified($event)" class="stage" >
         <template #container></template>
         <!--<template #vcr></template>-->
         <!--<designer-TextWidget *ngFor="let widget of childWidgets"></designer-TextWidget>-->
     </div>
     <div class="stage">
     <template ngFor let-widget [ngForOf]="infants">
-        <ng-container [ngSwitch]="widget.type">
-            <designer-TextWidget *ngSwitchCase="'textbox'" (widgetAdded)="childModified($event)" (parentActionReq)="childActionInitiated($event)"></designer-TextWidget>
-            <designer-ImageWidget *ngSwitchCase="'image'" (widgetAdded)="childModified($event)" (parentActionReq)="childActionInitiated($event)"></designer-ImageWidget>
-        </ng-container>
+        <ng-container widgetFactory [widgetConfig]="widget" (widgetAdded)="childModified($event)"></ng-container>
     </template>
     </div>
 </div>

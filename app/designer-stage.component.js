@@ -34,11 +34,11 @@ var DesignerStageComponent = (function (_super) {
         //this.viewContainer.createEmbeddedView(this.vcr.createComponent(new TextWidget()));
     };
     DesignerStageComponent.prototype.childModified = function (widgetJSON) {
-        //console.log(event);
         //let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
-        var componentFactory = new widget_factory_1.WidgetFactory().createWidget(this.viewContainer, this.componentFactoryResolver, widgetJSON);
+        var widgetConfig = widgetJSON.widgetConfig;
+        var componentFactory = new widget_factory_1.WidgetFactory().createWidget(this.viewContainer, this.componentFactoryResolver, widgetConfig);
         var ref = this.container.createComponent(componentFactory);
-        _super.prototype.addChild.call(this, ref, widgetJSON.widgetConfig);
+        _super.prototype.addChild.call(this, ref, widgetConfig);
         //super.addChildViaJSON(widgetJSON.widgetConfig);
     };
     DesignerStageComponent.prototype.childActionInitiated = function (event) {

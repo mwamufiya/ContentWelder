@@ -23,11 +23,9 @@ import { DesignerGlobalsService } from './designer-globals.service';
         width:140px;
         height:100px;
     }
-  `],
-  outputs: ['parentActionReq']
+  `]
 })
 export class ImageWidget extends Widget{
-    parentActionReq: EventEmitter<any>;
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
@@ -36,17 +34,13 @@ export class ImageWidget extends Widget{
         private viewContainer:ViewContainerRef,
         designerGlobals: DesignerGlobalsService){
         super(componentFactoryResolver, viewContainer, designerGlobals);
-        this.parentActionReq = new EventEmitter();
     }
 
     @HostListener('click', ['$event']) onclick(event){
         return super.onclick(event);
     }
     removeSelf(event){
-        console.log(`******INSIDE Image WIDGET*******`)
-        console.log(event);
-        //super.removeSelf(event);
-        this.parentActionReq.emit({type:"delete"});
+        super.removeSelf(event);
     }
     ngOnDestroy(){
         super.ngOnDestroy();

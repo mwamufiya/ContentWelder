@@ -17,11 +17,9 @@ import { DesignerGlobalsService } from './designer-globals.service';
     div[data-widgetType="textbox"]{
         background:white;
     }
-  `],
-  outputs: ['parentActionReq']
+  `]
 })
 export class TextWidget extends Widget{
-    parentActionReq: EventEmitter<any>;
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
@@ -30,33 +28,26 @@ export class TextWidget extends Widget{
         private viewContainer:ViewContainerRef,
         designerGlobals: DesignerGlobalsService){
         super(componentFactoryResolver, viewContainer, designerGlobals);
-        this.parentActionReq = new EventEmitter();
     }
 
     @HostListener('click', ['$event']) onclick(event){
-        console.log('you were clicked!!');
         return super.onclick(event);
     }    
     
     childModified(widgetJSON):void {
-        /*let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
-        let ref = this.container.createComponent(componentFactory);*/
-        //console.clear();
-        /*console.log(`----------------`)
-        console.log(widgetJSON.insertionPoint);*/
-        let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, widgetJSON);
+
+        //console.log(widgetJSON.insertionPoint);
+        let widgetConfig = widgetJSON.widgetConfig;
+        let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, widgetConfig);
         let ref = this.container.createComponent(componentFactory,widgetJSON.insertionPoint);
         
-        super.addChild(ref, widgetJSON.widgetConfig);
+        super.addChild(ref, widgetConfig );
         /*console.log(super.getChildren().length);
         console.log(this.container.length);*/
         
     }
     removeSelf(event){
-        console.log(`******INSIDE TEXT WIDGET*******`)
-        console.log(event);
-        //super.removeSelf(event);
-        this.parentActionReq.emit({type:"delete"});
+        super.removeSelf(event);
     }
     ngOnDestroy(){
         super.ngOnDestroy();

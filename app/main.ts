@@ -1,6 +1,8 @@
 // main entry point
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app.module';
+import 'jquery';
+import 'jqueryui';
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 

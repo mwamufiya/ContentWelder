@@ -13,6 +13,8 @@ var designer_globals_service_1 = require('./designer-globals.service');
 var Widget = (function () {
     function Widget(componentResolver, viewCont, designerGlobals) {
         var _this = this;
+        this.removeCurrent = false; //marked to true when current item is requested to be removed;
+        this.parentActionReq = new core_1.EventEmitter();
         this.componentResolver = componentResolver;
         this.viewCont = viewCont;
         this.designerGlobals = designerGlobals;
@@ -31,8 +33,17 @@ var Widget = (function () {
     Widget.prototype.getChildren = function () {
         return this.children;
     };
-    Widget.prototype.addChild = function (child, widgetJSON) {
-        this.children.push(child);
+    Widget.prototype.addChild = function (compRef, widgetJSON) {
+        var _this = this;
+        //Because Dynamically created components cannot leverage angular's Input/Ouput, 
+        //we must subscript to the EventEmitter manually
+        compRef.instance.parentActionReq.subscribe(function (compRef) { return _this.removeChild(compRef); });
+        //Set the ComponentRef for use down the line.
+        compRef.instance.curCompRef = compRef;
+        //Add the the item to our list of children for future use
+        this.children.push(compRef.instance);
+        //There is potential use for this in the future. especially around automatin testing.
+        //uncertain at this time.
         this.addChildViaJSON(widgetJSON);
     };
     Widget.prototype.addChildViaJSON = function (widgetJSON) {
@@ -45,16 +56,32 @@ var Widget = (function () {
     Widget.prototype.displayError = function (err) {
         console.log(err);
     };
+    //Emit an ouput event so that parent components can remove the current item
     Widget.prototype.removeSelf = function (event) {
-        console.log('event to be emmitted');
+        this.parentActionReq.emit({
+            action: "delete",
+            item: this
+        });
     };
-    Widget.prototype.removeChild = function (ref) {
-        var index = this.children.indexOf(ref);
-        if (index != -1)
+    //Called upon receiving a parentActionReq.emit event requesting deletion of the current item. 
+    Widget.prototype.removeChild = function (eventJSON) {
+        var targetItem = eventJSON.item;
+        var index = this.children.indexOf(targetItem);
+        //if the item exists in the array, remove it.
+        if (index != -1) {
             this.children.splice(index, 1);
+            targetItem.curCompRef.destroy();
+        }
     };
     Widget.prototype.ngOnDestroy = function () {
+        //unsubscribe for performance gains.
         this._selectedItemSubscription.unsubscribe();
+        this.parentActionReq.unsubscribe();
+        //Remove any children of this component.
+        for (var _i = 0, _a = this.children; _i < _a.length; _i++) {
+            var child = _a[_i];
+            child.curCompRef.destroy();
+        }
     };
     __decorate([
         core_1.HostListener('click', ['$event']), 

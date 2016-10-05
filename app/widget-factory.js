@@ -8,7 +8,7 @@ var WidgetFactory = (function () {
     //Might have to make it an Object, couldn't figure out a way to export an Interface for re-use
     WidgetFactory.prototype.createWidget = function (viewContainer, componentFactoryResolver, widgetJson) {
         var componentFactory;
-        switch (widgetJson.widgetConfig.type) {
+        switch (widgetJson.type) {
             case "textbox":
                 componentFactory = componentFactoryResolver.resolveComponentFactory(text_widget_component_1.TextWidget);
                 break;
