@@ -1,12 +1,6 @@
-import { Component,
-   OnInit,
-   HostListener,
-   ViewContainerRef,
-   ViewChild,
-   ComponentFactoryResolver, 
-   AfterViewInit,
-   ComponentRef, OnDestroy, EventEmitter, Output
-      } from '@angular/core';
+import { Component, HostListener, ViewContainerRef, ViewChild, ComponentFactoryResolver, 
+   AfterViewInit, ComponentRef, OnDestroy, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { MakeDraggable } from './make-draggable.directive'
 import { DesignerDroppable } from './designer-droppable.directive'
@@ -27,7 +21,8 @@ import { WidgetComs } from './widgetJSON.interface';
 })
 export class Widget{
     //@ViewChild('placeholder', {read: ViewContainerRef}) placeholder;
-
+    width:number;
+    height:number;
     x:number;
     y:number;
     name:string;
@@ -45,13 +40,16 @@ export class Widget{
     removeCurrent:boolean = false; //marked to true when current item is requested to be removed;
     parentActionReq: EventEmitter<any> = new EventEmitter();
     curCompRef:ComponentRef<Widget>;
+    changeDetectoRef:ChangeDetectorRef;
 
     constructor(
       componentResolver:ComponentFactoryResolver,
       viewCont:ViewContainerRef,
+      changeDetectorRef: ChangeDetectorRef,
       designerGlobals: DesignerGlobalsService){
         this.componentResolver = componentResolver;
         this.viewCont = viewCont;
+        this.changeDetectoRef = changeDetectorRef;
         this.designerGlobals = designerGlobals;
         this.children = new Array;
         this.infants = new Array;
@@ -65,6 +63,8 @@ export class Widget{
 
     childModified(event):void {
     }
+    getWidth(withUnits?:boolean){ return this.width + ((withUnits==true)?'px':''); }
+    getHeight(withUnits?:boolean){ return this.height +((withUnits==true)?'px':''); }
     
     @HostListener('click', ['$event']) onclick(event){
       event.stopPropagation();
@@ -115,7 +115,28 @@ export class Widget{
         targetItem.curCompRef.destroy();
       }
     }
+    //Makes call to appropriate dimension handling method
+    handleResize(eventJSON){
+      this.changeDimensions(eventJSON.height, eventJSON.width);
+    }
+    //update the dimensions of this widget upon completion of resize
+    changeDimensions(height:number, width:number){
+      let markForChange = false;
+      if(height != null && this.height !== height){
+        this.height = height;
+        markForChange = true;
+      }
+      if(width != null && this.width !== width){
+        this.width = width;
+        markForChange = true;
+      }
+      //Only request a ChangeDetection if we actually changed something.
+      if(markForChange == true)
+        this.changeDetectoRef.markForCheck();
+    }    
 
+    //called by Angular when a component is destroyed
+    //Handle cleanup for better performance. 
     ngOnDestroy(){
       //unsubscribe for performance gains.
       this._selectedItemSubscription.unsubscribe();

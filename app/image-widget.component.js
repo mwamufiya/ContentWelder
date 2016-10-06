@@ -18,19 +18,16 @@ var widget_component_1 = require('./widget.component');
 var designer_globals_service_1 = require('./designer-globals.service');
 var ImageWidget = (function (_super) {
     __extends(ImageWidget, _super);
-    function ImageWidget(componentFactoryResolver, viewContainer, designerGlobals) {
-        _super.call(this, componentFactoryResolver, viewContainer, designerGlobals);
+    function ImageWidget(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals) {
+        _super.call(this, componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
         this.componentFactoryResolver = componentFactoryResolver;
         this.viewContainer = viewContainer;
+        this.changeDetectorRef = changeDetectorRef;
+        this.defaultImgUrl = "http://placehold.it/140x100";
+        this.imgPath = this.defaultImgUrl;
     }
     ImageWidget.prototype.onclick = function (event) {
         return _super.prototype.onclick.call(this, event);
-    };
-    ImageWidget.prototype.removeSelf = function (event) {
-        _super.prototype.removeSelf.call(this, event);
-    };
-    ImageWidget.prototype.ngOnDestroy = function () {
-        _super.prototype.ngOnDestroy.call(this);
     };
     __decorate([
         core_1.ViewChild('container', { read: core_1.ViewContainerRef }), 
@@ -46,9 +43,9 @@ var ImageWidget = (function (_super) {
         core_1.Component({
             selector: 'designer-ImageWidget',
             templateUrl: 'app/image-widget.component.html',
-            styles: ["\n    img[src='']{\n        border: 1px dotted yellow;\n        background-image: url(\"http://placehold.it/140x100\");\n        width:100px;\n        height:100px;\n    }\n    .widgetContainer{\n        display:inline-block;\n        /*temporary until actual image loading and resizing workds*/\n        width:140px;\n        height:100px;\n    }\n  "]
+            styles: ["\n    img{\n        height:100%;\n        width:100%;\n    }\n    .widgetContainer{\n        display:inline-block;\n        /*temporary until actual image loading and resizing workds*/\n        width:140px;\n        height:100px;\n    }\n  "]
         }), 
-        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, designer_globals_service_1.DesignerGlobalsService])
+        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, core_1.ChangeDetectorRef, designer_globals_service_1.DesignerGlobalsService])
     ], ImageWidget);
     return ImageWidget;
 }(widget_component_1.Widget));

@@ -11,12 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var designer_globals_service_1 = require('./designer-globals.service');
 var Widget = (function () {
-    function Widget(componentResolver, viewCont, designerGlobals) {
+    function Widget(componentResolver, viewCont, changeDetectorRef, designerGlobals) {
         var _this = this;
         this.removeCurrent = false; //marked to true when current item is requested to be removed;
         this.parentActionReq = new core_1.EventEmitter();
         this.componentResolver = componentResolver;
         this.viewCont = viewCont;
+        this.changeDetectoRef = changeDetectorRef;
         this.designerGlobals = designerGlobals;
         this.children = new Array;
         this.infants = new Array;
@@ -25,6 +26,8 @@ var Widget = (function () {
     }
     Widget.prototype.childModified = function (event) {
     };
+    Widget.prototype.getWidth = function (withUnits) { return this.width + ((withUnits == true) ? 'px' : ''); };
+    Widget.prototype.getHeight = function (withUnits) { return this.height + ((withUnits == true) ? 'px' : ''); };
     Widget.prototype.onclick = function (event) {
         event.stopPropagation();
         this.designerGlobals.setSelectedComponent(this, event.shiftKey ? true : null);
@@ -73,6 +76,27 @@ var Widget = (function () {
             targetItem.curCompRef.destroy();
         }
     };
+    //Makes call to appropriate dimension handling method
+    Widget.prototype.handleResize = function (eventJSON) {
+        this.changeDimensions(eventJSON.height, eventJSON.width);
+    };
+    //update the dimensions of this widget upon completion of resize
+    Widget.prototype.changeDimensions = function (height, width) {
+        var markForChange = false;
+        if (height != null && this.height !== height) {
+            this.height = height;
+            markForChange = true;
+        }
+        if (width != null && this.width !== width) {
+            this.width = width;
+            markForChange = true;
+        }
+        //Only request a ChangeDetection if we actually changed something.
+        if (markForChange == true)
+            this.changeDetectoRef.markForCheck();
+    };
+    //called by Angular when a component is destroyed
+    //Handle cleanup for better performance. 
     Widget.prototype.ngOnDestroy = function () {
         //unsubscribe for performance gains.
         this._selectedItemSubscription.unsubscribe();
@@ -95,7 +119,7 @@ var Widget = (function () {
             templateUrl: 'app/widget.component.html',
             styles: ["\n    :host{\n        display: flex;\n        border: 2px dotted red;\n        padding:2em;\n    }\n  "]
         }), 
-        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, designer_globals_service_1.DesignerGlobalsService])
+        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, core_1.ChangeDetectorRef, designer_globals_service_1.DesignerGlobalsService])
     ], Widget);
     return Widget;
 }());

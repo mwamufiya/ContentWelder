@@ -11,18 +11,19 @@ import { InMemoryDataService }               from './in-memory-data.service';
 import { AppComponent }   from './app.component';
 import { routing }        from './app.routing';
 
+/**********Application Specific********************** */
 import { DesignerComponent }  from './designer.component';
 import { DesignerToolsComponent }  from './designer-tools.component';
 import { DesignerStageComponent }  from './designer-stage.component';
 import { DesignerDroppable }  from './designer-droppable.directive';
 import { DesignerDraggable }  from './designer-draggable.directive';
-import { Resizeable }  from './resizeable.directive';
-import { ResizeHandle }  from './resize.directive';
+import { Resize }  from './resize.directive';
 import { Widget } from './widget.component';
 import { TextWidget } from './text-widget.component';
 import { ImageWidget } from './image-widget.component';
 import { DesignerGlobalsService } from './designer-globals.service';
 import { WidgetTemplateFactory } from './widget-Template-factory.directive';
+import { ResizeHandles } from './resizeHandles.component';
 
 @NgModule({
   imports: [
@@ -36,8 +37,13 @@ import { WidgetTemplateFactory } from './widget-Template-factory.directive';
     DesignerComponent,
     DesignerToolsComponent,
     DesignerStageComponent,
-    DesignerDraggable, DesignerDroppable, Resizeable,WidgetTemplateFactory, ResizeHandle,
-    TextWidget, Widget,
+    DesignerDraggable,
+    DesignerDroppable,
+    WidgetTemplateFactory,
+    Resize,
+    ResizeHandles,
+    TextWidget,
+    Widget,
     ImageWidget
   ],
   providers: [

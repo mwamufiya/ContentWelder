@@ -15,18 +15,19 @@ var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
+/**********Application Specific********************** */
 var designer_component_1 = require('./designer.component');
 var designer_tools_component_1 = require('./designer-tools.component');
 var designer_stage_component_1 = require('./designer-stage.component');
 var designer_droppable_directive_1 = require('./designer-droppable.directive');
 var designer_draggable_directive_1 = require('./designer-draggable.directive');
-var resizeable_directive_1 = require('./resizeable.directive');
 var resize_directive_1 = require('./resize.directive');
 var widget_component_1 = require('./widget.component');
 var text_widget_component_1 = require('./text-widget.component');
 var image_widget_component_1 = require('./image-widget.component');
 var designer_globals_service_1 = require('./designer-globals.service');
 var widget_Template_factory_directive_1 = require('./widget-Template-factory.directive');
+var resizeHandles_component_1 = require('./resizeHandles.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -43,8 +44,13 @@ var AppModule = (function () {
                 designer_component_1.DesignerComponent,
                 designer_tools_component_1.DesignerToolsComponent,
                 designer_stage_component_1.DesignerStageComponent,
-                designer_draggable_directive_1.DesignerDraggable, designer_droppable_directive_1.DesignerDroppable, resizeable_directive_1.Resizeable, widget_Template_factory_directive_1.WidgetTemplateFactory, resize_directive_1.ResizeHandle,
-                text_widget_component_1.TextWidget, widget_component_1.Widget,
+                designer_draggable_directive_1.DesignerDraggable,
+                designer_droppable_directive_1.DesignerDroppable,
+                widget_Template_factory_directive_1.WidgetTemplateFactory,
+                resize_directive_1.Resize,
+                resizeHandles_component_1.ResizeHandles,
+                text_widget_component_1.TextWidget,
+                widget_component_1.Widget,
                 image_widget_component_1.ImageWidget
             ],
             providers: [

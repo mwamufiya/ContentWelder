@@ -1,5 +1,5 @@
-import { Component, OnInit, TemplateRef, HostListener,
-    ComponentFactoryResolver, ViewContainerRef, AfterViewInit, ViewChild, EventEmitter,Output } from '@angular/core';
+import { Component, OnInit, TemplateRef, HostListener, ChangeDetectorRef, ChangeDetectionStrategy,
+    ComponentFactoryResolver, ViewContainerRef, AfterViewInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MakeDraggable } from './make-draggable.directive'
 import { Widget } from './widget.component'
@@ -11,11 +11,9 @@ import { DesignerGlobalsService } from './designer-globals.service';
   selector: 'designer-ImageWidget',
   templateUrl: 'app/image-widget.component.html',
   styles:[`
-    img[src='']{
-        border: 1px dotted yellow;
-        background-image: url("http://placehold.it/140x100");
-        width:100px;
-        height:100px;
+    img{
+        height:100%;
+        width:100%;
     }
     .widgetContainer{
         display:inline-block;
@@ -28,21 +26,18 @@ import { DesignerGlobalsService } from './designer-globals.service';
 export class ImageWidget extends Widget{
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
+    defaultImgUrl:string = `http://placehold.it/140x100`;
+    imgPath:string = this.defaultImgUrl;
 
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,
         private viewContainer:ViewContainerRef,
+        private changeDetectorRef: ChangeDetectorRef,
         designerGlobals: DesignerGlobalsService){
-        super(componentFactoryResolver, viewContainer, designerGlobals);
+        super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
     }
 
     @HostListener('click', ['$event']) onclick(event){
         return super.onclick(event);
     }
-    removeSelf(event){
-        super.removeSelf(event);
-    }
-    ngOnDestroy(){
-        super.ngOnDestroy();
-    }        
 }

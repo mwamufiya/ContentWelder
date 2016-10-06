@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, HostListener,
+import { Component, OnInit, TemplateRef, HostListener, ChangeDetectorRef,
     ComponentFactoryResolver, ViewContainerRef, AfterViewInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MakeDraggable } from './make-draggable.directive'
@@ -15,7 +15,10 @@ import { DesignerGlobalsService } from './designer-globals.service';
        
     }
     div[data-widgetType="textbox"]{
-        background:white;
+        
+    }
+    .emptyContainer{
+        min-height:50px;
     }
   `]
 })
@@ -26,8 +29,9 @@ export class TextWidget extends Widget{
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,
         private viewContainer:ViewContainerRef,
+        private changeDetectorRef: ChangeDetectorRef,
         designerGlobals: DesignerGlobalsService){
-        super(componentFactoryResolver, viewContainer, designerGlobals);
+        super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
     }
 
     @HostListener('click', ['$event']) onclick(event){
@@ -46,12 +50,6 @@ export class TextWidget extends Widget{
         console.log(this.container.length);*/
         
     }
-    removeSelf(event){
-        super.removeSelf(event);
-    }
-    ngOnDestroy(){
-        super.ngOnDestroy();
-    } 
     childActionInitiated(event){
         super.removeChild(event);
     }

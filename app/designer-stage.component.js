@@ -22,10 +22,11 @@ var image_widget_component_1 = require('./image-widget.component');
 var designer_globals_service_1 = require('./designer-globals.service');
 var DesignerStageComponent = (function (_super) {
     __extends(DesignerStageComponent, _super);
-    function DesignerStageComponent(componentFactoryResolver, viewContainer, designerGlobals, router) {
-        _super.call(this, componentFactoryResolver, viewContainer, designerGlobals);
+    function DesignerStageComponent(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals, router) {
+        _super.call(this, componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
         this.componentFactoryResolver = componentFactoryResolver;
         this.viewContainer = viewContainer;
+        this.changeDetectorRef = changeDetectorRef;
         this.router = router;
     }
     DesignerStageComponent.prototype.addObject = function (event) {
@@ -57,7 +58,7 @@ var DesignerStageComponent = (function (_super) {
             styleUrls: ['app/designer-stage.component.css'],
             entryComponents: [text_widget_component_1.TextWidget, image_widget_component_1.ImageWidget]
         }), 
-        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, designer_globals_service_1.DesignerGlobalsService, router_1.Router])
+        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, core_1.ChangeDetectorRef, designer_globals_service_1.DesignerGlobalsService, router_1.Router])
     ], DesignerStageComponent);
     return DesignerStageComponent;
 }(widget_component_1.Widget));

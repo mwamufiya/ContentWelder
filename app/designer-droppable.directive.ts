@@ -1,13 +1,6 @@
-import { Directive, 
-    ElementRef, 
-    Input, 
-    HostListener, 
-    ComponentFactoryResolver, 
-    ComponentFactory, 
-    ComponentRef,
-    EmbeddedViewRef,
-    TemplateRef,
-EventEmitter, Output } from '@angular/core';
+import { Directive, ElementRef, Input, HostListener, ComponentFactoryResolver, 
+    ComponentFactory, ComponentRef, EmbeddedViewRef, TemplateRef, EventEmitter, Output
+ } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
 import { MakeDroppable} from './make-droppable.directive';
 import { TextWidget } from './text-widget.component';
@@ -194,20 +187,4 @@ export class DesignerDroppable extends MakeDroppable{
                 insertionPoint = false;
         return insertionPoint;
     }
-    /*addWidget(textWidget: { new(): TextWidget }): ComponentRef<TextWidget>{
-        //this.viewContainer.
-        let dialogComponentFactory = 
-            this.componentFactoryResolver.resolveComponentFactory(textWidget);
-        
-        let tw = this.componentFactoryResolver.resolveComponentFactory(textWidget);
-        
-        //
-
-        let dialogComponentRef = this.viewContainer.createComponent(dialogComponentFactory, this.viewContainer.length);
-        //this.viewContainer.createEmbeddedView();
-        //let tw = TemplateRef<{new(): TextWidget}>;
-        //let dialogComponentRef = this.viewContainer.createEmbeddedView(@Query(textWidget));
-
-        return dialogComponentRef;
-    }*/
 }

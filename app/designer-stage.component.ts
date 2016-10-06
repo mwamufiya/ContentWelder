@@ -1,13 +1,6 @@
-import { Component,
-    OnInit,
-    ViewChild,
-    EventEmitter,
-    ComponentFactoryResolver,
-    ComponentFactory, 
-    ComponentRef,
-    EmbeddedViewRef,
-    TemplateRef,
-    ViewContainerRef} from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, ComponentFactoryResolver, ComponentFactory, 
+    ComponentRef, EmbeddedViewRef, TemplateRef, ViewContainerRef, ChangeDetectorRef
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {Widget} from './widget.component'
 import {DesignerDroppable} from './designer-droppable.directive';
@@ -30,9 +23,10 @@ export class DesignerStageComponent extends Widget{
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
         private viewContainer: ViewContainerRef,
+        private changeDetectorRef: ChangeDetectorRef,
         designerGlobals: DesignerGlobalsService,
         private router: Router){
-            super(componentFactoryResolver, viewContainer, designerGlobals);
+            super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
     }
     addObject(event: any){
         alert('hello');

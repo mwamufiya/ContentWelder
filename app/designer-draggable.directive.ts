@@ -26,8 +26,16 @@ export class DesignerDraggable extends MakeDraggable implements OnInit{
     
     @HostListener('dragstart',['$event']) ondragstart(event){
         super.ondragstart(event);
-        
         event.dataTransfer.setData('text/html', super.getDomElement().nativeElement.innerHTML);
+        this._dragStart(event);
+    }
+    //TODO: add support for mobile touch events
+    //will most likely defer to 3rd party tools to as not to re-invent the wheel here.
+    @HostListener('touchstart',['$event']) ontouchstart(event){
+        super.ondragstart(event);
+        this._dragStart(event);
+    } 
+    _dragStart(event){
         //Maintain a reference to the item being dragged because Event Drop does not have access
         //This may be a solution for mutlti touch solutions if multiple items can be dragged at the same time
         //CONCERN: this may be a performance bottleneck for documents that have very deep levels of nesting

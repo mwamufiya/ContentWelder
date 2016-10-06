@@ -31,6 +31,15 @@ var DesignerDraggable = (function (_super) {
     DesignerDraggable.prototype.ondragstart = function (event) {
         _super.prototype.ondragstart.call(this, event);
         event.dataTransfer.setData('text/html', _super.prototype.getDomElement.call(this).nativeElement.innerHTML);
+        this._dragStart(event);
+    };
+    //TODO: add support for mobile touch events
+    //will most likely defer to 3rd party tools to as not to re-invent the wheel here.
+    DesignerDraggable.prototype.ontouchstart = function (event) {
+        _super.prototype.ondragstart.call(this, event);
+        this._dragStart(event);
+    };
+    DesignerDraggable.prototype._dragStart = function (event) {
         //Maintain a reference to the item being dragged because Event Drop does not have access
         //This may be a solution for mutlti touch solutions if multiple items can be dragged at the same time
         //CONCERN: this may be a performance bottleneck for documents that have very deep levels of nesting
@@ -46,6 +55,12 @@ var DesignerDraggable = (function (_super) {
         __metadata('design:paramtypes', [Object]), 
         __metadata('design:returntype', void 0)
     ], DesignerDraggable.prototype, "ondragstart", null);
+    __decorate([
+        core_1.HostListener('touchstart', ['$event']), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Object]), 
+        __metadata('design:returntype', void 0)
+    ], DesignerDraggable.prototype, "ontouchstart", null);
     DesignerDraggable = __decorate([
         core_1.Directive({
             selector: '[designerDraggable]',

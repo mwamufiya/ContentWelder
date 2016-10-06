@@ -1,7 +1,20 @@
-<div class="widgetContainer" [class.activeWidget]="isSelected==true">
+<div class="widgetContainer" 
+[class.activeWidget]="isSelected==true" 
+resizeHandle [enableResize]="isSelected" 
+(resizeDone)="handleResize($event)"
+[ngStyle]="{'height':getHeight(true),'width':getWidth(true)}">
+    <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
     <ul *ngIf="isSelected==true" class="widgetMenu">
+        <li>Change <span class="downArrow">&#x2771;</span>
+            <ul>
+                <li>Pixabay</li>
+                <li>Instagram</li>
+                <li>Facebook</li>
+                <li>Personal Library</li>
+            </ul>
+        </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <img designerDraggable data-widgetConfig='{"type":"image"}' src="http://placehold.it/140x100"/>
+    <img designerDraggable mwlResizable data-widgetConfig='{"type":"image"}' src="{{imgPath}}"/>
 </div>

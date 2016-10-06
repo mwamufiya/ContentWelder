@@ -19,10 +19,11 @@ var widget_factory_1 = require('./widget-factory');
 var designer_globals_service_1 = require('./designer-globals.service');
 var TextWidget = (function (_super) {
     __extends(TextWidget, _super);
-    function TextWidget(componentFactoryResolver, viewContainer, designerGlobals) {
-        _super.call(this, componentFactoryResolver, viewContainer, designerGlobals);
+    function TextWidget(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals) {
+        _super.call(this, componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
         this.componentFactoryResolver = componentFactoryResolver;
         this.viewContainer = viewContainer;
+        this.changeDetectorRef = changeDetectorRef;
     }
     TextWidget.prototype.onclick = function (event) {
         return _super.prototype.onclick.call(this, event);
@@ -35,12 +36,6 @@ var TextWidget = (function (_super) {
         _super.prototype.addChild.call(this, ref, widgetConfig);
         /*console.log(super.getChildren().length);
         console.log(this.container.length);*/
-    };
-    TextWidget.prototype.removeSelf = function (event) {
-        _super.prototype.removeSelf.call(this, event);
-    };
-    TextWidget.prototype.ngOnDestroy = function () {
-        _super.prototype.ngOnDestroy.call(this);
     };
     TextWidget.prototype.childActionInitiated = function (event) {
         _super.prototype.removeChild.call(this, event);
@@ -59,9 +54,9 @@ var TextWidget = (function (_super) {
         core_1.Component({
             selector: 'designer-TextWidget',
             templateUrl: 'app/text-widget.component.html',
-            styles: ["\n    div[data-widgetType=\"textbox\"]:blank, div[data-widgetType=\"textbox\"]:-moz-only-whitespace{\n       \n    }\n    div[data-widgetType=\"textbox\"]{\n        background:white;\n    }\n  "]
+            styles: ["\n    div[data-widgetType=\"textbox\"]:blank, div[data-widgetType=\"textbox\"]:-moz-only-whitespace{\n       \n    }\n    div[data-widgetType=\"textbox\"]{\n        \n    }\n    .emptyContainer{\n        min-height:50px;\n    }\n  "]
         }), 
-        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, designer_globals_service_1.DesignerGlobalsService])
+        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ViewContainerRef, core_1.ChangeDetectorRef, designer_globals_service_1.DesignerGlobalsService])
     ], TextWidget);
     return TextWidget;
 }(widget_component_1.Widget));

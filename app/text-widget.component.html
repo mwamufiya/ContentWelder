@@ -1,10 +1,11 @@
-<div class="widgetContainer" [class.activeWidget]="isSelected==true">    
+<div class="widgetContainer" [class.activeWidget]="isSelected==true" resizeHandle [enableResize]="isSelected" resizeContain>
+    <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>       
     <ul *ngIf="isSelected==true" class="widgetMenu">
         <li (click)="removeSelf($event)">&#x2716;</li>
-        <li>&#2753;</li>
+        <li>&#x2753;</li>
     </ul>
     <div [class.emptyContainer]="children.length==0"
-         designerDroppable designerDraggable resizeHandle data-widgetType='textbox' (widgetAdded)="childModified($event)" 
+         designerDroppable designerDraggable data-widgetType='textbox' (widgetAdded)="childModified($event)" 
          (parentActionReq)="childActionInitiated($event)" data-widgetConfig='{"type":"textbox"}'>
         <template #container></template>
         <designer-TextWidget *ngFor="let widget of childWidgets" ></designer-TextWidget>
