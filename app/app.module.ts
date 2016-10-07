@@ -2,6 +2,9 @@ import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 
+import { ModalModule } from 'ng2-bootstrap/components/modal';
+import { NgSemanticModule } from 'ng-semantic';
+
 // Imports for loading & configuring the in-memory web api
 import { HttpModule, XHRBackend } from '@angular/http';
 
@@ -30,7 +33,9 @@ import { ResizeHandles } from './resizeHandles.component';
     BrowserModule,
     FormsModule,
     routing,
-    HttpModule
+    HttpModule,
+    ModalModule,
+    NgSemanticModule
   ],
   declarations: [
     AppComponent,
@@ -40,6 +45,7 @@ import { ResizeHandles } from './resizeHandles.component';
     DesignerDraggable,
     DesignerDroppable,
     WidgetTemplateFactory,
+
     Resize,
     ResizeHandles,
     TextWidget,

@@ -25,7 +25,9 @@
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
       'jquery':                     'node_modules/jquery/dist/jquery.min.js',
-      'jqueryui':                   'node_modules/jquery/dist/jquery-ui.min.js'
+      'jqueryui':                   'node_modules/jquery/dist/jquery-ui.min.js',
+      'ng2-bootstrap':              'node_modules/ng2-bootstrap',
+      'ng-semantic':                'node_modules/ng-semantic'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -36,9 +38,16 @@
       rxjs: {
         defaultExtension: 'js'
       },
-      'angular-in-memory-web-api': {
+      'angular2-in-memory-web-api': {
         main: './index.js',
         defaultExtension: 'js'
+      },
+      'ng2-bootstrap':{
+        defaultExtension: 'js'
+      },
+      'ng-semantic': {
+          main: 'ng-semantic',
+          defaultExtension: 'js'
       }
     }
   });
