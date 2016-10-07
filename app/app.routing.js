@@ -1,6 +1,6 @@
 "use strict";
 var router_1 = require('@angular/router');
-var designer_component_1 = require('./designer.component');
+var designer_component_1 = require('./components/designer.component');
 var appRoutes = [
     {
         path: '',

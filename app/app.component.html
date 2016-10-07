@@ -1,0 +1,10 @@
+<sm-menu title="Angular2" class="inverted teal" logo="/assets/images/semantic.png">
+    <a sm-item *ngFor="let item of menuItems" routerLink="{{item.url}}" [icon]="item.icon">{{item?.title}}</a>
+
+    <sm-menu class="menu right secondary">
+        <a sm-item href="designer" routerLink="designer"
+            image="http://semantic-ui.com/images/avatar/small/stevie.jpg">Elliot Fu</a>
+        <a sm-item icon="sidebar big"></a>
+    </sm-menu>
+</sm-menu>
+<router-outlet></router-outlet>

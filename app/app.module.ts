@@ -1,4 +1,4 @@
-import { NgModule }       from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 
@@ -9,24 +9,24 @@ import { NgSemanticModule } from 'ng-semantic';
 import { HttpModule, XHRBackend } from '@angular/http';
 
 import { InMemoryBackendService } from 'angular-in-memory-web-api';
-import { InMemoryDataService }               from './in-memory-data.service';
+import { InMemoryDataService }    from './services/in-memory-data.service';
 
 import { AppComponent }   from './app.component';
 import { routing }        from './app.routing';
 
 /**********Application Specific********************** */
-import { DesignerComponent }  from './designer.component';
-import { DesignerToolsComponent }  from './designer-tools.component';
-import { DesignerStageComponent }  from './designer-stage.component';
-import { DesignerDroppable }  from './designer-droppable.directive';
-import { DesignerDraggable }  from './designer-draggable.directive';
-import { Resize }  from './resize.directive';
-import { Widget } from './widget.component';
-import { TextWidget } from './text-widget.component';
-import { ImageWidget } from './image-widget.component';
-import { DesignerGlobalsService } from './designer-globals.service';
-import { WidgetTemplateFactory } from './widget-Template-factory.directive';
-import { ResizeHandles } from './resizeHandles.component';
+import { DesignerComponent }  from './components/designer.component';
+import { DesignerToolsComponent }  from './components/designer-tools.component';
+import { DesignerStageComponent }  from './components/designer-stage.component';
+import { DesignerDroppable }  from './directives/designer-droppable.directive';
+import { DesignerDraggable }  from './directives/designer-draggable.directive';
+import { Resize }  from './directives/resize.directive';
+import { Widget } from './components/widget.component';
+import { TextWidget } from './components/text-widget.component';
+import { ImageWidget } from './components/image-widget.component';
+import { DesignerGlobalsService } from './services/designer-globals.service';
+import { WidgetTemplateFactory } from './directives/widget-Template-factory.directive';
+import { ResizeHandles } from './components/resizeHandles.component';
 
 @NgModule({
   imports: [
@@ -45,7 +45,6 @@ import { ResizeHandles } from './resizeHandles.component';
     DesignerDraggable,
     DesignerDroppable,
     WidgetTemplateFactory,
-
     Resize,
     ResizeHandles,
     TextWidget,
@@ -55,7 +54,8 @@ import { ResizeHandles } from './resizeHandles.component';
   providers: [
     DesignerGlobalsService
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
 }

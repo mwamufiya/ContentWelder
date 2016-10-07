@@ -14,11 +14,23 @@ require('jqueryui');
 require('semantic');
 var AppComponent = (function () {
     function AppComponent() {
+        this.menuItems = this.getMenu();
     }
+    AppComponent.prototype.getMenu = function () {
+        //TODO: this should be obtained from a service
+        var menuArr = [
+            {
+                title: "designer",
+                icon: "",
+                url: "designer"
+            }
+        ];
+        return menuArr;
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n    <div class=\"container\">\n    <nav>\n      <div>\n        <a routerLink=\"designer\" routerLinkActive=\"active\">Designer</a>\n      </div>\n    </nav>\n    <router-outlet></router-outlet>\n    </div>\n    <span class=\"com\"></span>\n  ",
+            templateUrl: "app/app.component.html",
             styleUrls: ['app/app.component.css'],
         }), 
         __metadata('design:paramtypes', [])

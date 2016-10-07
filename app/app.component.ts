@@ -6,21 +6,25 @@ import 'semantic';
 
 @Component({
   selector: 'my-app',
-  template: `
-    <div class="container">
-    <nav>
-      <div>
-        <a routerLink="designer" routerLinkActive="active">Designer</a>
-      </div>
-    </nav>
-    <router-outlet></router-outlet>
-    </div>
-    <span class="com"></span>
-  `,
+  templateUrl: `app/app.component.html`,
   styleUrls: ['app/app.component.css'],
 })
 export class AppComponent {
-  
+  menuItems:Array<any>;
+  constructor(){
+    this.menuItems = this.getMenu();
+  }
+  getMenu():Array<any>{
+    //TODO: this should be obtained from a service
+    let menuArr = [
+      {
+        title:`designer`,
+        icon:``,
+        url:`designer`
+      }
+    ];
+    return menuArr;
+  }
 }
 
 

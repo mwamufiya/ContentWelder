@@ -18,18 +18,18 @@ var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 /**********Application Specific********************** */
-var designer_component_1 = require('./designer.component');
-var designer_tools_component_1 = require('./designer-tools.component');
-var designer_stage_component_1 = require('./designer-stage.component');
-var designer_droppable_directive_1 = require('./designer-droppable.directive');
-var designer_draggable_directive_1 = require('./designer-draggable.directive');
-var resize_directive_1 = require('./resize.directive');
-var widget_component_1 = require('./widget.component');
-var text_widget_component_1 = require('./text-widget.component');
-var image_widget_component_1 = require('./image-widget.component');
-var designer_globals_service_1 = require('./designer-globals.service');
-var widget_Template_factory_directive_1 = require('./widget-Template-factory.directive');
-var resizeHandles_component_1 = require('./resizeHandles.component');
+var designer_component_1 = require('./components/designer.component');
+var designer_tools_component_1 = require('./components/designer-tools.component');
+var designer_stage_component_1 = require('./components/designer-stage.component');
+var designer_droppable_directive_1 = require('./directives/designer-droppable.directive');
+var designer_draggable_directive_1 = require('./directives/designer-draggable.directive');
+var resize_directive_1 = require('./directives/resize.directive');
+var widget_component_1 = require('./components/widget.component');
+var text_widget_component_1 = require('./components/text-widget.component');
+var image_widget_component_1 = require('./components/image-widget.component');
+var designer_globals_service_1 = require('./services/designer-globals.service');
+var widget_Template_factory_directive_1 = require('./directives/widget-Template-factory.directive');
+var resizeHandles_component_1 = require('./components/resizeHandles.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -60,7 +60,8 @@ var AppModule = (function () {
             providers: [
                 designer_globals_service_1.DesignerGlobalsService
             ],
-            bootstrap: [app_component_1.AppComponent]
+            bootstrap: [app_component_1.AppComponent],
+            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);
