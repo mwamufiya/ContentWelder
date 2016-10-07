@@ -1,0 +1,43 @@
+.imageChooser{
+    padding:1em;
+}
+.searchOptions{
+    padding:0;
+    margin:0;
+    list-style-type: none;
+}
+.searchOptions li{
+    display:inline-block;;
+}
+.imageSearchBox{
+    width:50%;
+    margin-left: 2em;
+}
+.searchOptions img{
+    max-height:25px;
+}
+.searchResults{
+    margin:0;
+    padding:0;
+    list-style-type: none;
+}
+.imageCard{
+    width:150px;
+    height:200px;
+    display:inline-block;
+    margin:0 1em;
+    cursor:pointer;
+} 
+.imageCard img{
+    max-width:150px;
+    max-height:150px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.imageCard .description{
+    font-size:12pt;
+    color:#666;
+    border:1px solid #CCC;
+    border-top:0;
+    padding:.5em;
+}

@@ -2,6 +2,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DesignerComponent } from './components/designer.component';
+import { ImageChooser } from './components/image/image-chooser.component';
 
 
 const appRoutes: Routes = [
@@ -13,6 +14,10 @@ const appRoutes: Routes = [
   {
     path:'designer',
     component: DesignerComponent
+  },
+  {
+    path:'image-chooser',
+    component: ImageChooser
   }
 ];
 

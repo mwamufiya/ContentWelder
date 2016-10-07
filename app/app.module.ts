@@ -15,18 +15,26 @@ import { AppComponent }   from './app.component';
 import { routing }        from './app.routing';
 
 /**********Application Specific********************** */
+/************Components************/
 import { DesignerComponent }  from './components/designer.component';
 import { DesignerToolsComponent }  from './components/designer-tools.component';
 import { DesignerStageComponent }  from './components/designer-stage.component';
-import { DesignerDroppable }  from './directives/designer-droppable.directive';
-import { DesignerDraggable }  from './directives/designer-draggable.directive';
-import { Resize }  from './directives/resize.directive';
 import { Widget } from './components/widget.component';
 import { TextWidget } from './components/text-widget.component';
 import { ImageWidget } from './components/image-widget.component';
-import { DesignerGlobalsService } from './services/designer-globals.service';
-import { WidgetTemplateFactory } from './directives/widget-Template-factory.directive';
 import { ResizeHandles } from './components/resizeHandles.component';
+import { ImageChooser } from './components/image/image-chooser.component';
+
+/*************Directives***********/
+import { DesignerDroppable }  from './directives/designer-droppable.directive';
+import { DesignerDraggable }  from './directives/designer-draggable.directive';
+import { Resize }  from './directives/resize.directive';
+import { WidgetTemplateFactory } from './directives/widget-Template-factory.directive';
+
+/*************Services************* */
+import { DesignerGlobalsService } from './services/designer-globals.service';
+
+
 
 @NgModule({
   imports: [
@@ -49,7 +57,8 @@ import { ResizeHandles } from './components/resizeHandles.component';
     ResizeHandles,
     TextWidget,
     Widget,
-    ImageWidget
+    ImageWidget,
+    ImageChooser
   ],
   providers: [
     DesignerGlobalsService

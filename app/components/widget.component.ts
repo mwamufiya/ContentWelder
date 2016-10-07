@@ -7,6 +7,7 @@ import { DesignerDroppable } from '../directives/designer-droppable.directive'
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
 import { WidgetComs } from '../interfaces/widgetJSON.interface';
+import { WidgetResize } from '../interfaces/WidgetResize.interface';
 
 @Component({
   selector: 'designerWidget',
@@ -116,7 +117,7 @@ export class Widget{
       }
     }
     //Makes call to appropriate dimension handling method
-    handleResize(eventJSON){
+    handleResize(eventJSON:WidgetResize){
       this.changeDimensions(eventJSON.height, eventJSON.width);
     }
     //update the dimensions of this widget upon completion of resize

@@ -19,8 +19,13 @@ export class AppComponent {
     let menuArr = [
       {
         title:`designer`,
-        icon:``,
+        icon:`paint brush`,
         url:`designer`
+      },
+      {
+        title:`image-chooser`,
+        icon:`image`,
+        url:`image-chooser`
       }
     ];
     return menuArr;
