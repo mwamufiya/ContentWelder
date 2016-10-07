@@ -39,14 +39,10 @@ export class Resize implements OnInit{
         //as such jQuery is being used outside the zone to minimize impact on events
         if(state==true){
             let containmentEL = this.getResizeConstrainingElement();
-            /*this._ngZone.runOutsideAngular(() => jQuery(e).resizable({
+            this._ngZone.runOutsideAngular(() => jQuery(e).resizable({
                 containment: containmentEL,
                 stop: (event, ui) => this.resizeComplete(event, ui)
-            }));*/
-            jQuery(e).resizable({
-                containment: containmentEL,
-                stop: (event, ui) => this.resizeComplete(event, ui)
-            });
+            }));
             
             this.jqueryResizeEnabled = true;
         }

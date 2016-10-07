@@ -30,12 +30,12 @@ import { ResizeHandles } from './resizeHandles.component';
 
 @NgModule({
   imports: [
+    NgSemanticModule,
     BrowserModule,
     FormsModule,
     routing,
     HttpModule,
-    ModalModule,
-    NgSemanticModule
+    ModalModule
   ],
   declarations: [
     AppComponent,

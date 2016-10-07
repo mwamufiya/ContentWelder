@@ -9,13 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+require('jquery');
+require('jqueryui');
+require('semantic');
 var AppComponent = (function () {
     function AppComponent() {
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n    <div class=\"container\">\n    <nav>\n      <div>\n        <a routerLink=\"designer\" routerLinkActive=\"active\">Designer</a>\n      </div>\n    </nav>\n    <router-outlet></router-outlet>\n    </div>\n  ",
+            template: "\n    <div class=\"container\">\n    <nav>\n      <div>\n        <a routerLink=\"designer\" routerLinkActive=\"active\">Designer</a>\n      </div>\n    </nav>\n    <router-outlet></router-outlet>\n    </div>\n    <span class=\"com\"></span>\n  ",
             styleUrls: ['app/app.component.css'],
         }), 
         __metadata('design:paramtypes', [])

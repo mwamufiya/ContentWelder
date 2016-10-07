@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
+var modal_1 = require('ng2-bootstrap/components/modal');
+var ng_semantic_1 = require('ng-semantic');
 // Imports for loading & configuring the in-memory web api
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
@@ -34,10 +36,12 @@ var AppModule = (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [
+                ng_semantic_1.NgSemanticModule,
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 app_routing_1.routing,
-                http_1.HttpModule
+                http_1.HttpModule,
+                modal_1.ModalModule
             ],
             declarations: [
                 app_component_1.AppComponent,

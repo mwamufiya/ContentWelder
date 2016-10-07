@@ -34,15 +34,11 @@ var Resize = (function () {
         //the current state of Angular frameworks don't yet have a resizable module
         //as such jQuery is being used outside the zone to minimize impact on events
         if (state == true) {
-            var containmentEL = this.getResizeConstrainingElement();
-            /*this._ngZone.runOutsideAngular(() => jQuery(e).resizable({
-                containment: containmentEL,
-                stop: (event, ui) => this.resizeComplete(event, ui)
-            }));*/
-            jQuery(e).resizable({
-                containment: containmentEL,
+            var containmentEL_1 = this.getResizeConstrainingElement();
+            this._ngZone.runOutsideAngular(function () { return jQuery(e).resizable({
+                containment: containmentEL_1,
                 stop: function (event, ui) { return _this.resizeComplete(event, ui); }
-            });
+            }); });
             this.jqueryResizeEnabled = true;
         }
         else if (this.jqueryResizeEnabled == true) {
