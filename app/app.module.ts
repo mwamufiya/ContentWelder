@@ -33,7 +33,7 @@ import { WidgetTemplateFactory } from './directives/widget-Template-factory.dire
 
 /*************Services************* */
 import { DesignerGlobalsService } from './services/designer-globals.service';
-
+import { ImageService } from './services/image.service';
 
 
 @NgModule({
@@ -61,7 +61,8 @@ import { DesignerGlobalsService } from './services/designer-globals.service';
     ImageChooser
   ],
   providers: [
-    DesignerGlobalsService
+    DesignerGlobalsService,
+    ImageService
   ],
   bootstrap: [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

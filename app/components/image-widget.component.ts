@@ -3,10 +3,12 @@ import { Component, OnInit, TemplateRef, HostListener, ChangeDetectorRef, Change
 import { Router } from '@angular/router';
 import { MakeDraggable } from '../directives/make-draggable.directive'
 import { Widget } from './widget.component'
+import { Image } from '../components/Image';
 import { DesignerDroppable } from '../directives/designer-droppable.directive'
 import {WidgetFactory} from './widget-factory';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
-import { SemanticModalComponent } from 'ng-semantic';
+//import { SemanticModalComponent } from 'ng-semantic';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'designer-ImageWidget',
@@ -29,6 +31,8 @@ export class ImageWidget extends Widget{
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
     defaultImgUrl:string = `http://placehold.it/140x100`;
     imgPath:string = this.defaultImgUrl;
+    private _selectedImageSubscription: Subscription;
+    image:Image;
 
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,
@@ -36,9 +40,22 @@ export class ImageWidget extends Widget{
         private changeDetectorRef: ChangeDetectorRef,
         designerGlobals: DesignerGlobalsService){
         super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
+        //subscript to the selected Image
+        this._selectedImageSubscription = this.designerGlobals.getSelectedImageObservable().subscribe(
+          image => this.setImage(image),
+          err => super.displayError(`Error encountered when subscribing to observable`)
+        );
     }
 
     @HostListener('click', ['$event']) onclick(event){
         return super.onclick(event);
+    }
+    setImage(image:Image){
+        //Do nothing if this image isn't the currently selected image.
+        if(!this.isSelected)
+            return;
+
+        this.image = image;
+        this.imgPath = this.image.medResLink;
     }
 }

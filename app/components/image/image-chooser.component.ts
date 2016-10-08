@@ -1,37 +1,56 @@
-import { Component, OnInit, ViewChild, EventEmitter, ComponentFactoryResolver, ComponentFactory, 
-    ComponentRef, EmbeddedViewRef, TemplateRef, ViewContainerRef, ChangeDetectorRef
+import { Component, OnInit, ViewChild, EventEmitter, 
+    ComponentRef, TemplateRef, ViewContainerRef, ChangeDetectorRef
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Compiler} from '@angular/core';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
+import { ImageService } from '../../services/image.service';
 import {Image} from '../image';
 
 @Component({
   selector: 'image-chooser',
   templateUrl: './app/components/image/image-chooser.component.html',
-  styleUrls: ['./app/components/image/image-chooser.component.css']
-  //entryComponents: [TextWidget, ImageWidget]
+  styleUrls: ['./app/components/image/image-chooser.component.css'],
+  outputs: ['imageChosen']
 })
-export class ImageChooser{
+export class ImageChooser implements OnInit{
   imageSources:Array<any> = new Array();
   searchCategories:Array<any> = new Array();
   imageList:Array<Image> = new Array();
   imageSource:string;
   searchTerm:string;
-  constructor( private componentFactoryResolver:ComponentFactoryResolver,
-        private viewContainer:ViewContainerRef,
+  imageChosen:EventEmitter<any> = new EventEmitter();
+
+  constructor( private viewContainer:ViewContainerRef,
         private changeDetectorRef: ChangeDetectorRef,
-        private designerGlobals: DesignerGlobalsService){
+        private designerGlobals: DesignerGlobalsService,
+        private imageService: ImageService){
           
         this.getImageSources();
         this.getSearchCategories();
   }
-  getImageSources(){
+  //fetch the starting set of images
+  ngOnInit(){
+    this.imageSource = 'google';
+    this.performSearch();
+  }
+  //Set list of image sources
+  getImageSources():void{
     this.imageSources = [
       {
         name: 'Pixabay',
         value: 'pixabay',
         icon: 'https://pixabay.com/apple-touch-icon-144x144.png'
+      },
+      {
+        name: 'google',
+        value: 'google',
+        icon: 'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Google-Search-icon.png'
+      },
+      {
+        name: 'Image Library',
+        value: 'internal',
+        icon: 'images/instagram.png'
       },
       {
         name: 'instagram',
@@ -42,15 +61,12 @@ export class ImageChooser{
         name: 'facebook',
         value: 'fb',
         icon: 'images/facebook.png'
-      },
-      {
-        name: 'Image Library',
-        value: 'internal',
-        icon: ''
       }
     ];
   }
-  getSearchCategories(){
+  //list of media type "Video/Image"
+  //Since this is imagechooser, perhaps this can be moved out.
+  getSearchCategories():void{
     this.searchCategories = [
       {
         name: 'Images',
@@ -65,30 +81,36 @@ export class ImageChooser{
     ];
   }
   //Change the source of images upon user action
-  changeImageSource(event){
-    console.log(event);
-    //this.imageSource = event.
+  changeImageSource(imageSource:string):void{
+    this.imageSource = imageSource;
   }
   //Perform search upon user action
-  performSearch(searchTerm:string){
-    this.searchTerm = searchTerm.trim();
-    //Display error if the search is empty
-    if(!this.searchTerm.length){
-      //TODO display error
+  performSearch(searchTerm?:string):void{
+    //update current search term, and perform data cleansing.
+    this.setSearchTerm(searchTerm);
+
+    this.imageService.getImages(this.imageSource, this.searchTerm)
+      .then(images => this.imageList = images)
+      .catch(e => this.handleImageSearchError(e));
+  }
+  handleImageSearchError(e):void{
+    //TODO:inform the user that an error occured.
+    console.log(e);    
+  }
+  setSearchTerm(searchTerm?:string):void{
+    //If there is not search term set the value to null and do nothing further.
+    if(!searchTerm){
+      this.searchTerm = null;
       return;
     }
-
-    //Now that we've cleansed the search, let's shoot for the stars.
-    //console.log(searchTerm);
-    this.imageList = this.fetchImages(searchTerm);
+    this.searchTerm = searchTerm.trim();
+    //TODO add additional data clensing to keyword search
   }
-  fetchImages(searchTerm):Array<Image>{
-    let arr = new Array();
-    let index = 0;
-    for(let i=1; i<6; i++){
-      arr.push(new Image(`baloon`, `http://www.bestmotherofthegroomspeeches.com/wp-content/themes/thesis/rotator/sample-${i}.jpg`));
-    }
-
-    return arr;
+  //alert appropriate liteners that image was selected
+  imageSelected(imageIndex){
+    this.designerGlobals.setSelectedImage(this.imageList[imageIndex]);
+    this.imageChosen.emit({
+      "chosen": true
+    });
   }
 }

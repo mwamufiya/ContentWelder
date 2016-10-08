@@ -6,20 +6,20 @@ resizeHandle [enableResize]="isSelected"
     <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
     <ul *ngIf="isSelected==true" class="widgetMenu">
         <li>
-            <button class="mini ui button green" (click)="myModal.show()">Large modal</button>
+            <button class="mini ui button green" (click)="imageChooser.show()">Large modal</button>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
     <img designerDraggable data-widgetConfig='{"type":"image"}' src="{{imgPath}}"/>
 </div>
-<sm-modal title="Hello from Modal" class="" #myModal>
+<sm-modal title="Hello from Modal" class="" #imageChooser>
     <modal-content>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        <image-chooser (imageChosen)="imageChooser.hide()"></image-chooser>
     </modal-content>
     <modal-actions>
         <div class="ui buttons">
-            <div class="ui button primary" (click)="myModalNormal.hide()">Close modal</div>
+            <div class="ui button primary" (click)="imageChooser.hide()">Close modal</div>
         </div>
     </modal-actions>
 </sm-modal>

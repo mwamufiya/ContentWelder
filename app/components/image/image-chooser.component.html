@@ -2,23 +2,18 @@
     <ul class="searchOptions">
         <li>
             <sm-dropdown title="Image Sources" class="pointing floating labeled icon button">
-                <sm-item *ngFor="let item of imageSources" (click)="changeImageSource($event)" source="{{item.value}}"><img src="{{item.icon}}"> {{item.name}}</sm-item>
+                <sm-item *ngFor="let item of imageSources" (click)="changeImageSource(item.value)"><img src="{{item.icon}}"> {{item.name}}</sm-item>
             </sm-dropdown>
         </li>
         <li class="imageSearchBox">
             <sm-search placeholder="Search..." (onSearch)="performSearch($event)" [icon]="true" class="fluid" [debounce]="500"></sm-search>
         </li>
-        <li>
-            <sm-dropdown title="Search Type" class="pointing floating labeled icon button">
-                <sm-item *ngFor="let item of searchCategories"><i class="{{item.icon}}" (click)="changeCategory($event)"></i> {{item.name}}</sm-item>
-            </sm-dropdown>
-        </li>
     </ul>
     <div class="resultPanel">
-        <h3 *ngIf="searchTerm && searchTerm!=''">Search for "{{searchTerm}}"</h3>
+        <h3 *ngIf="searchTerm!=''">Search for "{{searchTerm}}"</h3>
         <ul class="searchResults">
-            <li class="imageCard" *ngFor="let image of imageList" (click)="imageChosen($event)" title="{{image.name}}">
-                <img src="{{image.url}}">
+            <li class="imageCard" *ngFor="let image of imageList; let i=index;" (click)="imageSelected(i)" title="{{image.name}}">
+                <img src="{{image.lowResLink}}">
                 <div class="description">{{image.name}}</div>
             </li>
         </ul>
