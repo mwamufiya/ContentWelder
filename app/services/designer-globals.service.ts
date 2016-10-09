@@ -1,14 +1,15 @@
 import { Injectable,ElementRef, ComponentRef }     from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Widget } from '../components/widget.component';
-import { Image } from '../components/Image';
+import { Image } from '../components/image';
+import { Video } from '../components/video';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/operator/share';
 
 @Injectable()
 export class DesignerGlobalsService {
-    private draggedObject: Array<ElementRef>;
+    private draggedObject: ElementRef;
     private draggedWidgetType: string;
     private draggedWidgetConfig: JSON;
     //private draggedOverObject: Node;
@@ -32,7 +33,7 @@ export class DesignerGlobalsService {
         }).share();
     }
     
-    getDraggedObject():Array<ElementRef>{
+    getDraggedObject():ElementRef{
         return this.draggedObject;
     }
     setDraggedObject(obj){
@@ -82,11 +83,16 @@ export class DesignerGlobalsService {
     }
     /************Communication between components of the currently selected Image****************** */
     setSelectedImage(image:Image){
-        console.log(this.selImageObserver);
-        console.log(image);
         this.selImageObserver.next(image);
     }
     getSelectedImageObservable():Observable<Image>{
         return this._selImageObservable;
     }
+    /************Communication between components of the currently selected Video****************** */
+    /*setSelectedVideo(video:Video){
+        this.selImageObserver.next(video);
+    }
+    getSelectedVideoObservable():Observable<Video>{
+        return this._selImageObservable;
+    }*/
 }

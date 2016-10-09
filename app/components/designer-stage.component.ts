@@ -38,6 +38,8 @@ export class DesignerStageComponent extends Widget{
         let componentFactory = new WidgetFactory().createWidget(this.componentFactoryResolver, widgetConfig.type);
         let ref = this.container.createComponent(componentFactory);
         
+        //Mark this item as selected.
+        this.designerGlobals.setSelectedComponent(ref.instance);
         super.addChild(ref, widgetConfig);
         //super.addChildViaJSON(widgetJSON.widgetConfig);
     }

@@ -16,16 +16,16 @@
         <h3 *ngIf="searchTerm!=''">Search for "{{searchTerm}}"</h3>
         <!-- Image result Display -->
         <ul class="imageResults" *ngIf="searchType=='image'">
-            <li class="card" *ngFor="let image of imageList; let i=index;" (click)="imageSelected(i)" title="{{image.name}}">
+            <li class="card" *ngFor="let image of imageList; let i=index;" (click)="mediaSelected(i)" title="{{image.name}}">
                 <img src="{{image.lowResLink}}">
                 <div class="description">{{image.name}}</div>
             </li>
         </ul>
         <!-- Video result Display -->
         <ul class="videoResults" *ngIf="searchType=='video'">
-            <li class="card" *ngFor="let video of videoList; let i=index;" (click)="imageSelected(i)">
+            <li class="card" *ngFor="let video of videoList; let i=index;" (click)="mediaSelected(i)">
                 <!--<img src="{{video.thumbnailLink}}">-->
-                <video width="300px" height="200px" controls>
+                <video width="300px" height="200px" (mouseover)="toggleVideo(i)" (mouseout)="toggleVideo(i)" loop>
                     <source src="{{video.smallLink.url}}" type="video/mp4">
                     <source src="{{video.smallLink.url}}" type="video/ogg">
                     Your browser does not support the video tag.

@@ -8,7 +8,7 @@ import { VideoWidget } from './components/video-widget.component';
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/video',
+    redirectTo: '/designer',
     pathMatch: 'full'
   },
   {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter, 
+import { Component, OnInit, ViewChild, EventEmitter,
     ComponentRef, TemplateRef, ViewContainerRef, ChangeDetectorRef
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -120,10 +120,23 @@ export class ImageChooser implements OnInit{
     //TODO add additional data clensing to keyword search
   }
   //alert appropriate liteners that image was selected
-  imageSelected(imageIndex){
-    this.designerGlobals.setSelectedImage(this.imageList[imageIndex]);
-    this.imageChosen.emit({
-      "chosen": true
-    });
+  mediaSelected(selectedIndex){
+    if(this.searchType==`image`){
+      this.designerGlobals.setSelectedImage(this.imageList[selectedIndex]);
+      this.imageChosen.emit({
+        "chosen": true
+      });
+    }else if(this.searchType==`video`){
+      
+    }
+  }
+  //Toggles between playing and pausing a video
+  toggleVideo(index:string){
+    //add +1 to index because DOM arrays start at 1, but javascript starts at 0
+    let video = document.querySelectorAll(`.videoResults li:nth-child(${index+1}) video`)[0] as HTMLVideoElement;
+    if(!video.paused && !video.ended && video.currentTime>0)
+      video.pause();
+    else
+      video.play();
   }
 }

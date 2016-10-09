@@ -44,7 +44,6 @@ export class PixabayVideoSearchService implements VideoSearchServiceInterface{
         if(resultJson.hits){
             for(let i=0; i < resultJson.hits.length; i++){
                 let item = resultJson.hits[i];
-                console.log(item);
                 let jsonConfig = {
                     id: item.id,
                     views: item.views,

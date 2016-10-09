@@ -6,10 +6,16 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
         <li>
             <button class="mini ui button green" (click)="imageChooser.show()"><i class="image icon"></i>Choose Video</button>
         </li>
+        <li>
+            <sm-button class="" icon="play" (click)="console.log('test')"></sm-button>
+        </li>
+        <li>
+            <sm-button class="" icon="pause"></sm-button>   
+        </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <video [ngStyle]="{'height':getHeight(true), 'width':getWidth(true)}" controls designerDraggable data-widgetConfig='{"type":"video"}'>  
+    <video [ngStyle]="{'height':getHeight(true), 'width':getWidth(true)}" designerDraggable data-widgetConfig='{"type":"video"}'>  
         <ng-container *ngFor="let source of videoSources">
             <source src="{{source.src}}" type="{{source.type}}">
         </ng-container>
