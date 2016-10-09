@@ -13,18 +13,17 @@ import {Video} from '../video';
   selector: 'image-chooser',
   templateUrl: './app/components/image/image-chooser.component.html',
   styleUrls: ['./app/components/image/image-chooser.component.css'],
-  outputs: ['imageChosen'],
+  outputs: ['mediaChosen'],
   inputs:['searchType']
 })
 export class ImageChooser implements OnInit{
   imageSources:Array<any> = new Array();
   videoSources:Array<any> = new Array();
-  imageList:Array<Image> = new Array();
-  videoList:Array<Video> = new Array();
+  mediaList:Array<Image | Video> = new Array();
   mediaSource:string;
   searchTerm:string;
   searchType:string;                                      //Video or Image
-  imageChosen:EventEmitter<any> = new EventEmitter();
+  mediaChosen:EventEmitter<any> = new EventEmitter();
 
   constructor( private viewContainer:ViewContainerRef,
         private changeDetectorRef: ChangeDetectorRef,
@@ -98,11 +97,11 @@ export class ImageChooser implements OnInit{
 
     if(this.searchType=='image'){
       this.imageService.search(this.mediaSource, this.searchTerm)
-        .then(images => this.imageList = images)
+        .then(media => this.mediaList = media)
         .catch(e => this.handleImageSearchError(e));
     }else if(this.searchType=='video'){
       this.videoService.search(this.mediaSource, this.searchTerm)
-        .then(videos => this.videoList = videos)
+        .then(media => this.mediaList = media)
         .catch(e => this.handleImageSearchError(e));
     }
   }
@@ -121,22 +120,39 @@ export class ImageChooser implements OnInit{
   }
   //alert appropriate liteners that image was selected
   mediaSelected(selectedIndex){
+    /*this.designerGlobals.setSelectedMedia(this.mediaList[selectedIndex]);
+      this.mediaChosen.emit({
+        "mediaType": this.searchType
+      });*/
+    //While having a single Observable for both images and Video makes code cleaner
+    //the downside to this approach is that images will be listening to video events and vice versa. this increases overhead 
+    //Therefore, two separate observables will be required
     if(this.searchType==`image`){
-      this.designerGlobals.setSelectedImage(this.imageList[selectedIndex]);
-      this.imageChosen.emit({
+      this.designerGlobals.setSelectedImage(this.mediaList[selectedIndex] as Image);
+      this.mediaChosen.emit({
         "chosen": true
       });
     }else if(this.searchType==`video`){
-      
+      this.designerGlobals.setSelectedVideo(this.mediaList[selectedIndex] as Video);
+      this.mediaChosen.emit({
+        "chosen": true
+      });
     }
   }
   //Toggles between playing and pausing a video
   toggleVideo(index:string){
-    //add +1 to index because DOM arrays start at 1, but javascript starts at 0
-    let video = document.querySelectorAll(`.videoResults li:nth-child(${index+1}) video`)[0] as HTMLVideoElement;
-    if(!video.paused && !video.ended && video.currentTime>0)
-      video.pause();
-    else
-      video.play();
+    let videoList = document.querySelectorAll(`.videoResults li video`);
+    for(let i=0; i<videoList.length; i++){
+      let video = videoList[i] as HTMLVideoElement;
+      if(i==parseInt(index)){
+        if(!video.paused && !video.ended && video.currentTime>0)
+          video.pause();
+        else
+          video.play();
+      }else{
+        if(!video.paused)
+          video.pause();    
+      }
+    }
   }
 }

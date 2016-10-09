@@ -58,4 +58,7 @@ export class ImageWidget extends Widget{
         this.image = image;
         this.imgPath = this.image.medResLink;
     }
+    launchImageChooser(){
+        this.designerGlobals.launchMediaChooser('image');
+    }
 }

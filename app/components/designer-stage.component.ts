@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, EventEmitter, ComponentFactoryResolver, ComponentFactory, 
-    ComponentRef, EmbeddedViewRef, TemplateRef, ViewContainerRef, ChangeDetectorRef
+import { Component, OnInit, ViewChild, ViewChildren, EventEmitter, ComponentFactoryResolver, ComponentFactory, 
+    ComponentRef, EmbeddedViewRef, TemplateRef, ViewContainerRef, ChangeDetectorRef,
+    QueryList, Query
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {Widget} from './widget.component'
@@ -9,6 +10,8 @@ import {WidgetFactory} from './widget-factory';
 import {TextWidget} from './text-widget.component';
 import {ImageWidget} from './image-widget.component';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
+import { Subscription } from 'rxjs/Subscription';
+import { SemanticModalComponent } from 'ng-semantic';
 
 @Component({
   selector: 'designer-stage',
@@ -28,9 +31,6 @@ export class DesignerStageComponent extends Widget{
         private router: Router){
             super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
     }
-    addObject(event: any){
-        //this.viewContainer.createEmbeddedView(this.vcr.createComponent(new TextWidget()));
-    }
 
     childModified(widgetJSON){       
         //let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
@@ -46,5 +46,7 @@ export class DesignerStageComponent extends Widget{
     childActionInitiated(event){
         super.removeChild(event);
     }
+
+
 
 }

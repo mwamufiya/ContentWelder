@@ -4,20 +4,10 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
     <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
     <ul *ngIf="isSelected==true" class="widgetMenu">
         <li>
-            <button class="mini ui button green" (click)="imageChooser.show()"><i class="image icon"></i> Change Picture</button>
+            <button class="mini ui button green" (click)="launchImageChooser()"><i class="image icon"></i> Change Picture</button>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
     <img designerDraggable data-widgetConfig='{"type":"image"}' src="{{imgPath}}"/>
 </div>
-<sm-modal title="Choose an Image" class="" #imageChooser>
-    <modal-content>
-        <image-chooser (imageChosen)="imageChooser.hide()" [searchType]="'image'"></image-chooser>
-    </modal-content>
-    <modal-actions>
-        <div class="ui buttons">
-            <div class="ui button primary" (click)="imageChooser.hide()">Close modal</div>
-        </div>
-    </modal-actions>
-</sm-modal>

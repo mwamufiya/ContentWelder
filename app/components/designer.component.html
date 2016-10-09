@@ -1,3 +1,23 @@
+<sm-modal title="Choose Video" #videoChooser>
+    <modal-content>
+        <image-chooser (mediaChosen)="videoChooser.hide()" [searchType]="'video'"></image-chooser>
+    </modal-content>
+    <modal-actions>
+        <div class="ui buttons">
+            <div class="ui button primary" (click)="videoChooser.hide()">Close modal</div>
+        </div>
+    </modal-actions>
+</sm-modal>
+<sm-modal title="Choose an Image" #imageChooser>
+    <modal-content>
+        <image-chooser (mediaChosen)="imageChooser.hide()" [searchType]="'image'"></image-chooser>
+    </modal-content>
+    <modal-actions>
+        <div class="ui buttons">
+            <div class="ui button primary" (click)="imageChooser.hide()">Close modal</div>
+        </div>
+    </modal-actions>
+</sm-modal>
 <div class="designer">
     <div class="mainVenu">
         <!-- Disable the page navigation fow now. it may be re-activated once it's functioning' -->

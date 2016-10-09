@@ -4,30 +4,22 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
     <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
     <ul *ngIf="isSelected==true" class="widgetMenu">
         <li>
-            <button class="mini ui button green" (click)="imageChooser.show()"><i class="image icon"></i>Choose Video</button>
+            <button class="mini ui button green" (click)="launchVideoChooser()"><i class="image icon"></i>Choose Video</button>
         </li>
-        <li>
-            <sm-button class="" icon="play" (click)="console.log('test')"></sm-button>
+        <li *ngIf="video" class=".zoom75">
+            <sm-button class="" icon="play" (click)="play(this)"></sm-button>
         </li>
-        <li>
-            <sm-button class="" icon="pause"></sm-button>   
+        <li *ngIf="video" class=".zoom75">
+            <sm-button class="" icon="pause" (click)="pause(this)"></sm-button>   
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <video [ngStyle]="{'height':getHeight(true), 'width':getWidth(true)}" designerDraggable data-widgetConfig='{"type":"video"}'>  
-        <ng-container *ngFor="let source of videoSources">
-            <source src="{{source.src}}" type="{{source.type}}">
-        </ng-container>
-    </video>
+    <ng-container #videoContainer *ngIf="video">    
+        <video [ngStyle]="{'height':height+'px', 'width':width+'px'}" designerDraggable data-widgetConfig='{"type":"video"}' controls>  
+            <source src="{{video.smallLink.url}}"  type="video/mp4">
+            <source src="{{video.smallLink.url}}"  type="video/ogg">
+            Your browser does not support the video tag.
+        </video>
+    </ng-container>
 </div>
-<sm-modal title="Choose Video" class="" #imageChooser>
-    <modal-content>
-        <image-chooser (imageChosen)="imageChooser.hide()" [searchType]="'video'"></image-chooser>
-    </modal-content>
-    <modal-actions>
-        <div class="ui buttons">
-            <div class="ui button primary" (click)="imageChooser.hide()">Close modal</div>
-        </div>
-    </modal-actions>
-</sm-modal>

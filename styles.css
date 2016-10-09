@@ -19,7 +19,13 @@ hr{
   width:25%;
   border:0;*/
 }
-
+/*****************************/
+.zoom50{
+  zoom:75%;
+}
+.zoom75{
+  zoom:75%;
+}
  /**********Widget**************/
 .widgetOutline{
   padding:0;

@@ -9,31 +9,45 @@ import 'rxjs/add/operator/share';
 
 @Injectable()
 export class DesignerGlobalsService {
-    private draggedObject: ElementRef;
+    private draggedObject:Array<ElementRef>;
     private draggedWidgetType: string;
     private draggedWidgetConfig: JSON;
     //private draggedOverObject: Node;
     private _selItemObservable: Observable<Array<Widget>>; //The currently selected component
     private selItemObserver: Observer<any>;
     private selItemList: Array<Widget>;
-
-    private _selImageObservable: Observable<Image>; //The currently selected Image
+    //The currently selected Image
+    private _selImageObservable: Observable<Image>; 
     private selImageObserver: Observer<any>;
-
+    //The currently selected Video
+    private _selVideoObservable: Observable<Video>; 
+    private selVideoObserver: Observer<any>;
+    //Allow communications between components and a single Media-chooser
+    private _mediaChooserObservable: Observable<string>; 
+    private mediaChooserObserver: Observer<any>;
+    
     constructor(private http: Http) {
         //We need to create a 'Hot' observable to allow for subscription to occur at different intervals
         this.selItemList = [];
-        
+        //The currently selected component
         this._selItemObservable = new Observable<Array<Widget>>(observer => {
             this.selItemObserver = observer;
         }).share();
-
+        //The currently selected Image
         this._selImageObservable = new Observable<Image>(observer => {
             this.selImageObserver = observer;
         }).share();
+        //The currently selected Video
+        this._selVideoObservable = new Observable<Video>(observer => {
+            this.selVideoObserver = observer;
+        }).share();
+        //Allow communications between components and a single Media-chooser
+         this._mediaChooserObservable = new Observable<string>(observer => {
+            this.mediaChooserObserver = observer;
+        }).share();
     }
     
-    getDraggedObject():ElementRef{
+    getDraggedObject():Array<ElementRef>{
         return this.draggedObject;
     }
     setDraggedObject(obj){
@@ -82,17 +96,32 @@ export class DesignerGlobalsService {
         return this._selItemObservable;
     }
     /************Communication between components of the currently selected Image****************** */
+    //While having a single Observable for both images and Video makes code cleaner
+    //the downside to this approach is that images will be listening to video events and vice versa. this increases overhead 
+    //Therefore the, two separate observables will be required
+    /*setSelectedMedia(media:Image | Video){
+        this.selMediaObserver.next(media);
+    }
+    getSelectedMediaObservable():Observable<Image | Video>{
+        return this._selMediaObservable;
+    }*/
     setSelectedImage(image:Image){
         this.selImageObserver.next(image);
     }
     getSelectedImageObservable():Observable<Image>{
         return this._selImageObservable;
     }
-    /************Communication between components of the currently selected Video****************** */
-    /*setSelectedVideo(video:Video){
-        this.selImageObserver.next(video);
+    setSelectedVideo(video:Video){
+        this.selVideoObserver.next(video);
     }
     getSelectedVideoObservable():Observable<Video>{
-        return this._selImageObservable;
-    }*/
+        return this._selVideoObservable;
+    }
+    /*********Media Chooser****************/
+    launchMediaChooser(mediaType:string){
+        this.mediaChooserObserver.next(mediaType);
+    }
+    getMediaChooserObservable():Observable<string>{
+        return this._mediaChooserObservable;
+    }
 }
