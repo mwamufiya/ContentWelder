@@ -15,7 +15,6 @@ import { Component,
             componentType:string):ComponentFactory<Widget>{
 
             let componentFactory;
-            console.log(`~~~~~~~${componentType.toLocaleLowerCase()}`);
             switch(componentType.toLocaleLowerCase()){
                 case "textbox":
                     componentFactory = componentFactoryResolver.resolveComponentFactory(TextWidget);
@@ -28,7 +27,6 @@ import { Component,
                     break;
                 default:
             }
-            console.log(`________________`);
             return componentFactory;
         }
     }

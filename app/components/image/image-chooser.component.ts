@@ -5,33 +5,40 @@ import { Router } from '@angular/router';
 import { Compiler} from '@angular/core';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { ImageService } from '../../services/image.service';
+import { VideoService } from '../../services/video.service';
 import {Image} from '../image';
+import {Video} from '../video';
 
 @Component({
   selector: 'image-chooser',
   templateUrl: './app/components/image/image-chooser.component.html',
   styleUrls: ['./app/components/image/image-chooser.component.css'],
-  outputs: ['imageChosen']
+  outputs: ['imageChosen'],
+  inputs:['searchType']
 })
 export class ImageChooser implements OnInit{
   imageSources:Array<any> = new Array();
-  searchCategories:Array<any> = new Array();
+  videoSources:Array<any> = new Array();
   imageList:Array<Image> = new Array();
-  imageSource:string;
+  videoList:Array<Video> = new Array();
+  mediaSource:string;
   searchTerm:string;
+  searchType:string;                                      //Video or Image
   imageChosen:EventEmitter<any> = new EventEmitter();
 
   constructor( private viewContainer:ViewContainerRef,
         private changeDetectorRef: ChangeDetectorRef,
         private designerGlobals: DesignerGlobalsService,
-        private imageService: ImageService){
+        private imageService: ImageService,
+        private videoService: VideoService){
           
         this.getImageSources();
-        this.getSearchCategories();
+        this.getVideoSources();
   }
   //fetch the starting set of images
   ngOnInit(){
-    this.imageSource = 'google';
+    this.searchType = this.searchType? this.searchType: 'image';
+    this.mediaSource = 'pixabay';
     this.performSearch();
   }
   //Set list of image sources
@@ -64,34 +71,40 @@ export class ImageChooser implements OnInit{
       }
     ];
   }
-  //list of media type "Video/Image"
-  //Since this is imagechooser, perhaps this can be moved out.
-  getSearchCategories():void{
-    this.searchCategories = [
+  //Set list of video sources
+  getVideoSources():void{
+    this.videoSources = [
       {
-        name: 'Images',
-        value: 'images',
-        icon: 'image icon'
+        name: 'Pixabay',
+        value: 'pixabay',
+        icon: 'https://pixabay.com/apple-touch-icon-144x144.png'
       },
       {
-        name: 'Video',
-        value: 'video',
-        icon: 'file video outline icon'
+        name: 'google',
+        value: 'google',
+        icon: 'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Google-Search-icon.png'
       }
     ];
+
   }
   //Change the source of images upon user action
-  changeImageSource(imageSource:string):void{
-    this.imageSource = imageSource;
+  changeMediaSource(imageSource:string):void{
+    this.mediaSource = imageSource;
   }
   //Perform search upon user action
   performSearch(searchTerm?:string):void{
     //update current search term, and perform data cleansing.
     this.setSearchTerm(searchTerm);
 
-    this.imageService.getImages(this.imageSource, this.searchTerm)
-      .then(images => this.imageList = images)
-      .catch(e => this.handleImageSearchError(e));
+    if(this.searchType=='image'){
+      this.imageService.search(this.mediaSource, this.searchTerm)
+        .then(images => this.imageList = images)
+        .catch(e => this.handleImageSearchError(e));
+    }else if(this.searchType=='video'){
+      this.videoService.search(this.mediaSource, this.searchTerm)
+        .then(videos => this.videoList = videos)
+        .catch(e => this.handleImageSearchError(e));
+    }
   }
   handleImageSearchError(e):void{
     //TODO:inform the user that an error occured.

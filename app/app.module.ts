@@ -37,6 +37,7 @@ import { WidgetTemplateFactory } from './directives/widget-Template-factory.dire
 /*************Services************* */
 import { DesignerGlobalsService } from './services/designer-globals.service';
 import { ImageService } from './services/image.service';
+import { VideoService } from './services/video.service';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { ImageService } from './services/image.service';
   ],
   providers: [
     DesignerGlobalsService,
-    ImageService
+    ImageService,
+    VideoService
   ],
   bootstrap: [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

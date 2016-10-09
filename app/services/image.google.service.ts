@@ -1,11 +1,11 @@
 import { Http, Headers, Response, RequestOptionsArgs, URLSearchParams, QueryEncoder } from '@angular/http';
 import { Image } from '../components/image';
-import { ImageServiceInterface } from '../interfaces/image-service.interface';
+import { ImageSearchServiceInterface } from '../interfaces/media-search-service.interface';
 import 'rxjs/add/operator/toPromise';
 
 
 
-export class GoogleImageSearchService implements ImageServiceInterface{
+export class GoogleImageSearchService implements ImageSearchServiceInterface{
     private searchTerm?:string;
     private SERVICE_URL: string = `https://www.googleapis.com/customsearch/v1`;
 
@@ -25,7 +25,7 @@ export class GoogleImageSearchService implements ImageServiceInterface{
         return params;
     }
 
-    getImages(query?:string):Promise<Image[]>{
+    search(query?:string):Promise<Image[]>{
         //Since Google doesn't return images for empty queries, don't waste the roundtrip
         if(!query || !query.length){
             let results:Promise<Image[]>;

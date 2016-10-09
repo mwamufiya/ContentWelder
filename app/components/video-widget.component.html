@@ -17,7 +17,7 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
 </div>
 <sm-modal title="Choose Video" class="" #imageChooser>
     <modal-content>
-        <image-chooser (imageChosen)="imageChooser.hide()"></image-chooser>
+        <image-chooser (imageChosen)="imageChooser.hide()" [searchType]="'video'"></image-chooser>
     </modal-content>
     <modal-actions>
         <div class="ui buttons">

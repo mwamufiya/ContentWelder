@@ -29,19 +29,13 @@ export class DesignerStageComponent extends Widget{
             super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
     }
     addObject(event: any){
-        alert('hello');
-        console.log(event);
         //this.viewContainer.createEmbeddedView(this.vcr.createComponent(new TextWidget()));
     }
 
     childModified(widgetJSON){       
         //let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
         let widgetConfig = widgetJSON.widgetConfig;
-        console.log(widgetConfig);
-        console.log(`++++++++++++++++++++`);
         let componentFactory = new WidgetFactory().createWidget(this.componentFactoryResolver, widgetConfig.type);
-        console.log(`------------------------`);
-        console.log(componentFactory);
         let ref = this.container.createComponent(componentFactory);
         
         super.addChild(ref, widgetConfig);

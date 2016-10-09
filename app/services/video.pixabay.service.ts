@@ -1,11 +1,13 @@
 import { Http, Headers, Response, RequestOptionsArgs, URLSearchParams, QueryEncoder } from '@angular/http';
-import { Image } from '../components/image';
-import { ImageSearchServiceInterface } from '../interfaces/media-search-service.interface';
+import { Video } from '../components/video';
+import { VideoSearchServiceInterface } from '../interfaces/media-search-service.interface';
 import 'rxjs/add/operator/toPromise';
 
-export class PixabayImageSearchService implements ImageSearchServiceInterface{
+export class PixabayVideoSearchService implements VideoSearchServiceInterface{
     private searchTerm?:string;
-    private SERVICE_URL: string = `https://pixabay.com/api/`;
+    //TODO: These need to be moved out of this class into a global location
+    private VIDEO_SERVICE_URL: string = `https://pixabay.com/api/videos`;
+    private IMAGE_SERVICE_URL: string = `https://pixabay.com/api/`;
 
     //TODO move the API Keys to the server
     constructor(
@@ -20,39 +22,56 @@ export class PixabayImageSearchService implements ImageSearchServiceInterface{
         return params;
     }
 
-    search(query?:string):Promise<Image[]>{
+    search(query?:string):Promise<Video[]>{
         //Since Google doesn't return images for empty queries, don't waste the roundtrip
         if(!query || !query.length){
-            let results:Promise<Image[]>;
+            let results:Promise<Video[]>;
             return Promise.resolve(results);
         }
         this.searchTerm = query;
         let params = this.generateParams();
-        return this.http.get(this.SERVICE_URL, {search: params})
+        return this.http.get(this.VIDEO_SERVICE_URL, {search: params})
             .toPromise()
             .then(response => this.handleSearchResponse(response))
             .catch(response => this.handleSearchError(response))
     }
     //Conver raw JSON to an array of Image objects
-    handleSearchResponse(response):Promise<Image[]>{
+    handleSearchResponse(response):Promise<Video[]>{
         let resultJson = JSON.parse(response._body);
-        let imageList = new Array<Image>();
+        let imageList = new Array<Video>();
 
         //process only if there are actual resutls from the search 
         if(resultJson.hits){
             for(let i=0; i < resultJson.hits.length; i++){
                 let item = resultJson.hits[i];
+                console.log(item);
                 let jsonConfig = {
                     id: item.id,
-                    width: item.imageWidth,
-                    height: item.imageHeight,
                     views: item.views,
                     favorites: item.favorites,
                     likes: item.likes,
-                    lowResLink: item.previewURL,
-                    medResLink: item.webformatURL
+                    //Pixabay videos returns an ID so the link to the specific image has to be configured
+                    thumbnailLink: `${this.IMAGE_SERVICE_URL}&id=item.picture_id`,            
+                    smallLink: {
+                        url: item.videos.small.url,
+                        width: item.videos.small.width,
+                        height: item.videos.small.height,
+                        fileSize: item.videos.small.size
+                    },
+                    mediumLink: {
+                        url: item.videos.medium.url,
+                        width: item.videos.medium.width,
+                        height: item.videos.medium.height,
+                        fileSize: item.videos.medium.size
+                    },
+                    largeLink: {
+                        url: item.videos.large.url,
+                        width: item.videos.large.width,
+                        height: item.videos.large.height,
+                        fileSize: item.videos.large.size
+                    },
                 };
-                let img = new Image(item.link, 'pixabay', jsonConfig);
+                let img = new Video(item.link, 'pixabay', jsonConfig);
 
                 imageList.push(img);
             }
@@ -62,7 +81,7 @@ export class PixabayImageSearchService implements ImageSearchServiceInterface{
     //Handle a searc error.
     handleSearchError(response){
         //TODO: add handling of search error
-        //console.log(response);
+        console.log(response);
         let status = response.status;
         let errorMessage =  `Pixabay Image Search Error: `;
         if(response._body){

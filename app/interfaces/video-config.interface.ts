@@ -1,13 +1,17 @@
 export interface VideoConfigInterface{
     url?:string;
+    fileSize?:number;
     height?:number;
     width?:number;
-    description?:string;
     id?:number;
-    fileSize?:number;
     name?:string;
     favorites?:number;
     likes?:number;
     tags?:string;                    
-    source?:string;    
+    source?:string;
+    thumbnailLink?:string;
+    smallLink?:VideoConfigInterface;
+    mediumLink?:VideoConfigInterface;
+    largeLink?:VideoConfigInterface;
+
 }
