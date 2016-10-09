@@ -13,6 +13,6 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
          (parentActionReq)="childActionInitiated($event)" data-widgetConfig='{"type":"textbox"}'
          [ngStyle]="{'border-style':borderStyle, 'height': getHeight(true), 'width': getWidth(true)}">
         <template #container></template>
-        <designer-TextWidget *ngFor="let widget of childWidgets" ></designer-TextWidget>
+        <designer-BoxWidget *ngFor="let widget of childWidgets" ></designer-BoxWidget>
     </div>
 </div>

@@ -2,16 +2,16 @@ import { Component, HostListener, ViewContainerRef, ViewChild, ComponentFactoryR
    AfterViewInit, ComponentRef, OnDestroy, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { MakeDraggable } from '../directives/make-draggable.directive'
-import { DesignerDroppable } from '../directives/designer-droppable.directive'
-import { DesignerGlobalsService } from '../services/designer-globals.service';
+import { MakeDraggable } from '../../directives/make-draggable.directive'
+import { DesignerDroppable } from '../../directives/designer-droppable.directive'
+import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
-import { WidgetComs } from '../interfaces/widgetJSON.interface';
-import { WidgetResize } from '../interfaces/WidgetResize.interface';
+import { WidgetComs } from '../../interfaces/widgetJSON.interface';
+import { WidgetResize } from '../../interfaces/WidgetResize.interface';
 
 @Component({
   selector: 'designerWidget',
-  templateUrl: './app/components/widget.component.html',
+  templateUrl: './app/components/widgets/widget.component.html',
   styles:[`
     :host{
         display: flex;

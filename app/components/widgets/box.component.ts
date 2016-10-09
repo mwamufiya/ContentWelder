@@ -1,28 +1,19 @@
-import { Component, OnInit, TemplateRef, HostListener, ChangeDetectorRef,
-    ComponentFactoryResolver, ViewContainerRef, AfterViewInit, ViewChild, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { MakeDraggable } from '../directives/make-draggable.directive'
+import { Component, HostListener, ChangeDetectorRef,
+    ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Widget } from './widget.component'
-import { DesignerDroppable } from '../directives/designer-droppable.directive'
 import {WidgetFactory} from './widget-factory';
-import { DesignerGlobalsService } from '../services/designer-globals.service';
+import { DesignerGlobalsService } from '../../services/designer-globals.service';
 
 @Component({
-  selector: 'designer-TextWidget',
-  templateUrl: './app/components/text-widget.component.html',
+  selector: 'designer-BoxWidget',
+  templateUrl: './app/components/widgets/box.component.html',
   styles:[`
-    div[data-widgetType="textbox"]:blank, div[data-widgetType="textbox"]:-moz-only-whitespace{
-       
-    }
-    div[data-widgetType="textbox"]{
-        
-    }
     .emptyContainer{
         min-height:50px;
     }
   `]
 })
-export class TextWidget extends Widget{
+export class BoxWidget extends Widget{
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
@@ -45,10 +36,7 @@ export class TextWidget extends Widget{
         let componentFactory = new WidgetFactory().createWidget(this.componentFactoryResolver, widgetConfig.type);
         let ref = this.container.createComponent(componentFactory,widgetJSON.insertionPoint);
         
-        super.addChild(ref, widgetConfig );
-        /*console.log(super.getChildren().length);
-        console.log(this.container.length);*/
-        
+        super.addChild(ref, widgetConfig );        
     }
     childActionInitiated(event){
         super.removeChild(event);

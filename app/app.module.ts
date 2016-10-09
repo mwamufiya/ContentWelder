@@ -19,10 +19,10 @@ import { routing }        from './app.routing';
 import { DesignerComponent }  from './components/designer.component';
 import { DesignerToolsComponent }  from './components/designer-tools.component';
 import { DesignerStageComponent }  from './components/designer-stage.component';
-import { Widget } from './components/widget.component';
-import { TextWidget } from './components/text-widget.component';
-import { ImageWidget } from './components/image-widget.component';
-import { VideoWidget } from './components/video-widget.component';
+import { Widget } from './components/widgets/widget.component';
+import { BoxWidget } from './components/widgets/box.component';
+import { ImageWidget } from './components/widgets/image.component';
+import { VideoWidget } from './components/widgets/video.component';
 import { ResizeHandles } from './components/resizeHandles.component';
 import { ImageChooser } from './components/image/image-chooser.component';
 import { BorderSelection } from './components/border-selection.component';
@@ -32,7 +32,7 @@ import { BorderSelection } from './components/border-selection.component';
 import { DesignerDroppable }  from './directives/designer-droppable.directive';
 import { DesignerDraggable }  from './directives/designer-draggable.directive';
 import { Resize }  from './directives/resize.directive';
-import { WidgetTemplateFactory } from './directives/widget-Template-factory.directive';
+import { WidgetTemplateFactory } from './directives/widget-template-factory.directive';
 
 /*************Services************* */
 import { DesignerGlobalsService } from './services/designer-globals.service';
@@ -59,7 +59,7 @@ import { VideoService } from './services/video.service';
     WidgetTemplateFactory,
     Resize,
     ResizeHandles,
-    TextWidget,
+    BoxWidget,
     VideoWidget,
     Widget,
     ImageWidget,

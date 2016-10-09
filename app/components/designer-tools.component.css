@@ -86,6 +86,9 @@ li:hover{
     font-size:12pt;
     border-bottom: 1px solid #CCC;
 }
+.toolSelection i{
+    font-size:3em;
+}
 /*Temporary status indicator to keep track of what is working*/
 .statusIndicator{
     color:green;

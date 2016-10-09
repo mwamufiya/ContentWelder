@@ -2,7 +2,7 @@ import { Directive,
     ElementRef, 
     Input, 
     HostListener, OnInit, EventEmitter, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
-import {WidgetFactory} from '../components/widget-factory';
+import {WidgetFactory} from '../components/widgets/widget-factory';
 
 @Directive({
     selector: '[widgetFactory]',

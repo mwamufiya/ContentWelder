@@ -1,18 +1,18 @@
 import { Component, OnInit, TemplateRef, HostListener, ChangeDetectorRef, ChangeDetectionStrategy,
     ComponentFactoryResolver, ViewContainerRef, AfterViewInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { MakeDraggable } from '../directives/make-draggable.directive'
+import { MakeDraggable } from '../../directives/make-draggable.directive'
 import { Widget } from './widget.component'
-import { Image } from '../components/Image';
-import { DesignerDroppable } from '../directives/designer-droppable.directive'
+import { Image } from '../../components/Image';
+import { DesignerDroppable } from '../../directives/designer-droppable.directive'
 import {WidgetFactory} from './widget-factory';
-import { DesignerGlobalsService } from '../services/designer-globals.service';
+import { DesignerGlobalsService } from '../../services/designer-globals.service';
 //import { SemanticModalComponent } from 'ng-semantic';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'designer-ImageWidget',
-  templateUrl: './app/components/image-widget.component.html',
+  templateUrl: './app/components/widgets/image.component.html',
   styles:[`
     img{
         height:100%;

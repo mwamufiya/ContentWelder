@@ -3,7 +3,6 @@ import { Directive, ElementRef, Input, HostListener, ComponentFactoryResolver,
  } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
 import { MakeDroppable} from './make-droppable.directive';
-import { TextWidget } from '../components/text-widget.component';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 
 @Directive({

@@ -1,6 +1,6 @@
 import { Injectable,ElementRef, ComponentRef }     from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Widget } from '../components/widget.component';
+import { Widget } from '../components/widgets/widget.component';
 import { Image } from '../components/image';
 import { Video } from '../components/video';
 import { Observable } from 'rxjs/Observable';

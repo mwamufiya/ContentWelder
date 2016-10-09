@@ -1,4 +1,4 @@
 <div designerDroppable designerDraggable [widgetType]='textbox' (widgetAdded)="childModified($event)">
     <template #container></template>
-    <designer-TextWidget *ngFor="let widget of childWidgets" ></designer-TextWidget>
+    <designer-BoxWidget *ngFor="let widget of childWidgets" ></designer-BoxWidget>
 </div>

@@ -3,9 +3,9 @@ import { Component,
     ComponentFactory, 
     ComponentRef} from '@angular/core';
     import {Widget} from './widget.component';
-    import {TextWidget} from './text-widget.component';
-    import {ImageWidget} from './image-widget.component';
-    import {VideoWidget} from './video-widget.component';
+    import { BoxWidget} from './box.component';
+    import {ImageWidget} from './image.component';
+    import {VideoWidget} from './video.component';
 
     export class WidgetFactory{
         //TODO: make the WidgetJson an interface so that the definition is known and can be used in IDE
@@ -16,14 +16,14 @@ import { Component,
 
             let componentFactory;
             switch(componentType.toLocaleLowerCase()){
-                case "textbox":
-                    componentFactory = componentFactoryResolver.resolveComponentFactory(TextWidget);
-                    break;
                 case "image":
                     componentFactory = componentFactoryResolver.resolveComponentFactory(ImageWidget);
                     break;
                 case "video":
                     componentFactory = componentFactoryResolver.resolveComponentFactory(VideoWidget);
+                    break;
+                case "box":
+                    componentFactory = componentFactoryResolver.resolveComponentFactory(BoxWidget);
                     break;
                 default:
             }

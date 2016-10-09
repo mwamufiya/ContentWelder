@@ -21,16 +21,6 @@ export class AppComponent {
         title:`designer`,
         icon:`paint brush`,
         url:`designer`
-      },
-      {
-        title:`image-chooser`,
-        icon:`image`,
-        url:`image-chooser`
-      },
-      {
-        title:`video`,
-        icon:`image`,
-        url:`video`
       }
     ];
     return menuArr;

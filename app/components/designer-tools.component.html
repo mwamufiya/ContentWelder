@@ -11,11 +11,12 @@
             <ul>
                 <li class="subGrouping"><h1>Text</h1>
                     <ul>
-                        <li designerDraggable data-widgetConfig='{"type":"textbox"}'>Text Box <span class="statusIndicator">&#x2713;</span></li>
+                        <li designerDraggable data-widgetConfig='{"type":"box"}' title="box">Container <span class="statusIndicator">&#x2713;</span></li>
+                        <li designerDraggable data-widgetConfig='{"type":"textbox"}' title="textbox">Text Box <span class="statusIndicator">&#x2713;</span></li>
                         <li designerDraggable data-widgetConfig='{"type":"heading"}'>Heading</li>
                     </ul>
                 </li>                
-                <li designerDraggable data-widgetConfig='{"type":"image"}'>Image <span class="statusIndicator">&#x2713;</span></li>
+                <li designerDraggable data-widgetConfig='{"type":"image"}' title="Image"><i class="image icon"></i><span class="statusIndicator">&#x2713;</span></li>
                 <li class="subGrouping"><h1>Container</h1>
                     <ul>
                         <li designerDraggable data-widgetConfig='{"type":"div"}'>Div</li>
@@ -25,6 +26,7 @@
         </template>
         <template [ngIf]="activeToolSelection=='media'">
             <ul>
+                <li designerDraggable data-widgetConfig='{"type":"video", "source":"youtube"}' title="video"><i class="video play outline icon"></i> <span class="statusIndicator">&#x2713;</span></li>
                 <li designerDraggable data-widgetConfig='{"type":"video", "source":"youtube"}'>youtube</li>
                 <li designerDraggable data-widgetConfig='{"type":"video", "source":"vimeo"}'>vimeo</li>
             </ul>
