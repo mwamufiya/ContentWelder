@@ -1,13 +1,9 @@
-import { Component, OnInit, ElementRef, TemplateRef, HostListener, ChangeDetectorRef, ChangeDetectionStrategy,
-    ComponentFactoryResolver, ViewContainerRef, AfterViewInit, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, HostListener, ChangeDetectorRef,
+    ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MakeDraggable } from '../../directives/make-draggable.directive'
 import { Widget } from './widget.component'
 import { Video } from '../../components/Video';
-import { DesignerDroppable } from '../../directives/designer-droppable.directive'
-import {WidgetFactory} from './widget-factory';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
-//import { SemanticModalComponent } from 'ng-semantic';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -29,7 +25,6 @@ import { Subscription } from 'rxjs/Subscription';
 export class VideoWidget extends Widget{
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
-    @ViewChild('videoContainer') videoContainer: ElementRef;
     private _selectedVideoSubscription: Subscription;
     video:Video;
     videoDomEl:HTMLVideoElement;                        //DOM element for the Video Tag
@@ -63,7 +58,6 @@ export class VideoWidget extends Widget{
 
         this.video = video;
         //get the Video Element for future Reference;
-        console.log(this.videoContainer);
         /*console.log(this.elementRef.nativeElement as HTMLBaseElement);
         this.videoDomEl = (this.elementRef.nativeElement as HTMLBaseElement).querySelector('video');
         console.log(this.videoDomEl);*/
