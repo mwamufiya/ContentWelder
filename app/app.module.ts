@@ -22,8 +22,11 @@ import { DesignerStageComponent }  from './components/designer-stage.component';
 import { Widget } from './components/widget.component';
 import { TextWidget } from './components/text-widget.component';
 import { ImageWidget } from './components/image-widget.component';
+import { VideoWidget } from './components/video-widget.component';
 import { ResizeHandles } from './components/resizeHandles.component';
 import { ImageChooser } from './components/image/image-chooser.component';
+import { BorderSelection } from './components/border-selection.component';
+
 
 /*************Directives***********/
 import { DesignerDroppable }  from './directives/designer-droppable.directive';
@@ -56,9 +59,11 @@ import { ImageService } from './services/image.service';
     Resize,
     ResizeHandles,
     TextWidget,
+    VideoWidget,
     Widget,
     ImageWidget,
-    ImageChooser
+    ImageChooser,
+    BorderSelection
   ],
   providers: [
     DesignerGlobalsService,

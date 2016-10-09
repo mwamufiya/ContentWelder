@@ -42,6 +42,8 @@ export class Widget{
     parentActionReq: EventEmitter<any> = new EventEmitter();
     curCompRef:ComponentRef<Widget>;
     changeDetectoRef:ChangeDetectorRef;
+    backgroundColor:string;             //Hexadecimal value for the background color of this item
+    borderStyle:string = 'none';
 
     constructor(
       componentResolver:ComponentFactoryResolver,
@@ -146,5 +148,13 @@ export class Widget{
       for(let child of this.children){
         child.curCompRef.destroy();
       }
+    }
+    //set the background Color
+    setBackgroundColor(value:string){
+      console.log(event);
+    }
+    //Set the border styles
+    setBorderStyle(value:string){
+      this.borderStyle = value;
     }
 }

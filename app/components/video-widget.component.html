@@ -4,14 +4,18 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
     <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
     <ul *ngIf="isSelected==true" class="widgetMenu">
         <li>
-            <button class="mini ui button green" (click)="imageChooser.show()"><i class="image icon"></i> Change Picture</button>
+            <button class="mini ui button green" (click)="imageChooser.show()"><i class="image icon"></i>Choose Video</button>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <img designerDraggable data-widgetConfig='{"type":"image"}' src="{{imgPath}}"/>
+    <video [ngStyle]="{'height':getHeight(true), 'width':getWidth(true)}" controls designerDraggable data-widgetConfig='{"type":"video"}'>  
+        <ng-container *ngFor="let source of videoSources">
+            <source src="{{source.src}}" type="{{source.type}}">
+        </ng-container>
+    </video>
 </div>
-<sm-modal title="Choose an Image" class="" #imageChooser>
+<sm-modal title="Choose Video" class="" #imageChooser>
     <modal-content>
         <image-chooser (imageChosen)="imageChooser.hide()"></image-chooser>
     </modal-content>

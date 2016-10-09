@@ -42,7 +42,7 @@ export class TextWidget extends Widget{
 
         //console.log(widgetJSON.insertionPoint);
         let widgetConfig = widgetJSON.widgetConfig;
-        let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, widgetConfig);
+        let componentFactory = new WidgetFactory().createWidget(this.componentFactoryResolver, widgetConfig.type);
         let ref = this.container.createComponent(componentFactory,widgetJSON.insertionPoint);
         
         super.addChild(ref, widgetConfig );

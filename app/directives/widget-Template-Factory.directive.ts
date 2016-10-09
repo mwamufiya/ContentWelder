@@ -10,7 +10,7 @@ import {WidgetFactory} from '../components/widget-factory';
 })
 
 export class WidgetTemplateFactory implements OnInit{
-    widgetConfig:JSON;
+    widgetConfig:any;
 
     constructor( private componentFactoryResolver:ComponentFactoryResolver,
         private viewContainerRef:ViewContainerRef){
@@ -18,7 +18,7 @@ export class WidgetTemplateFactory implements OnInit{
     }
     ngOnInit(){
         this.widgetConfig = this.widgetConfig;
-        let componentFactory = new WidgetFactory().createWidget(this.viewContainerRef,this.componentFactoryResolver, this.widgetConfig);
+        let componentFactory = new WidgetFactory().createWidget(this.componentFactoryResolver, this.widgetConfig.type);
         return this.viewContainerRef.createComponent(componentFactory, 0, this.viewContainerRef.injector);
     }
 }

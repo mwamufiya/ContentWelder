@@ -26,6 +26,11 @@ export class AppComponent {
         title:`image-chooser`,
         icon:`image`,
         url:`image-chooser`
+      },
+      {
+        title:`video`,
+        icon:`image`,
+        url:`video`
       }
     ];
     return menuArr;

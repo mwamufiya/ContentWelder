@@ -42,9 +42,12 @@ hr{
   border-top-right-radius: 5px;
   list-style-type: none;
   position:absolute;
-  top:-2.5em;
+  top:-3.5em;
   font-size:1em;
+  display:flex;
   border:1px solid #CCC;
+  font-size:9pt;
+  width:250px;
 }
 .widgetMenu li{
   display:inline;

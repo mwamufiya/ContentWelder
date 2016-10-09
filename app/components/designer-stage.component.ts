@@ -37,15 +37,17 @@ export class DesignerStageComponent extends Widget{
     childModified(widgetJSON){       
         //let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextWidget);
         let widgetConfig = widgetJSON.widgetConfig;
-        let componentFactory = new WidgetFactory().createWidget(this.viewContainer,this.componentFactoryResolver, widgetConfig);
+        console.log(widgetConfig);
+        console.log(`++++++++++++++++++++`);
+        let componentFactory = new WidgetFactory().createWidget(this.componentFactoryResolver, widgetConfig.type);
+        console.log(`------------------------`);
+        console.log(componentFactory);
         let ref = this.container.createComponent(componentFactory);
         
         super.addChild(ref, widgetConfig);
         //super.addChildViaJSON(widgetJSON.widgetConfig);
     }
     childActionInitiated(event){
-        console.log(`*************`)
-        console.log(event);
         super.removeChild(event);
     }
 

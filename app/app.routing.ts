@@ -3,12 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DesignerComponent } from './components/designer.component';
 import { ImageChooser } from './components/image/image-chooser.component';
-
+import { VideoWidget } from './components/video-widget.component';
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/designer',
+    redirectTo: '/video',
     pathMatch: 'full'
   },
   {
@@ -18,6 +18,10 @@ const appRoutes: Routes = [
   {
     path:'image-chooser',
     component: ImageChooser
+  },
+  {
+    path:'video',
+    component: VideoWidget
   }
 ];
 
