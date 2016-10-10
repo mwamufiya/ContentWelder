@@ -147,18 +147,12 @@ export class ImageChooser implements OnInit{
   }
   //Toggles between playing and pausing a video
   toggleVideo(index:string){
-    let videoList = document.querySelectorAll(`.videoResults li video`);
-    for(let i=0; i<videoList.length; i++){
-      let video = videoList[i] as HTMLVideoElement;
-      if(i==parseInt(index)){
-        if(!video.paused && !video.ended && video.currentTime>0)
-          video.pause();
-        else
-          video.play();
-      }else{
-        if(!video.paused)
-          video.pause();    
-      }
+    for(let i=0; i<this.mediaList.length; i++){
+      let vid = this.mediaList[i] as Video;
+      if(parseInt(index)==i)
+        vid.isActive=true;
+      else
+        vid.isActive=false;
     }
   }
 }

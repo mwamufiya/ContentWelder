@@ -23,13 +23,13 @@
         </ul>
         <!-- Video result Display -->
         <ul class="videoResults" *ngIf="searchType=='video'">
-            <li class="card" *ngFor="let video of mediaList; let i=index;" (click)="mediaSelected(i)">
-                <img src="{{video.thumbnailLink}}">
-                <!--<video width="300px" height="200px" (mouseover)="toggleVideo(i)" (mouseout)="toggleVideo(i)" loop>
+            <li class="card" *ngFor="let video of mediaList; let i=index;" (click)="mediaSelected(i)" (mouseover)="toggleVideo(i)" (mouseout)="toggleVideo(i)">
+                <img *ngIf="video.isActive==false" src="{{video.thumbnailLink}}">
+                <video *ngIf="video.isActive==true" width="295px" height="196px" autoplay loop>
                     <source src="{{video.smallLink.url}}" type="video/mp4">
                     <source src="{{video.smallLink.url}}" type="video/ogg">
                     Your browser does not support the video tag.
-                </video>-->
+                </video>
             </li>
         </ul>
     </div>

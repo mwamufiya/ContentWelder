@@ -7,6 +7,7 @@ export class PixabayVideoSearchService implements VideoSearchServiceInterface{
     private searchTerm?:string;
     //TODO: These need to be moved out of this class into a global location
     private VIDEO_SERVICE_URL: string = `https://pixabay.com/api/videos`;
+    private VIDEO_THUMBNAIL_URL: string = `https://i.vimeocdn.com/video/`;
     private IMAGE_SERVICE_URL: string = `https://pixabay.com/api/`;
 
     //TODO move the API Keys to the server
@@ -50,7 +51,7 @@ export class PixabayVideoSearchService implements VideoSearchServiceInterface{
                     favorites: item.favorites,
                     likes: item.likes,
                     //Pixabay videos returns an ID so the link to the specific image has to be configured
-                    thumbnailLink: `${this.IMAGE_SERVICE_URL}?key=${this.API_KEY}&id=${item.picture_id}`,            
+                    thumbnailLink: `${this.VIDEO_THUMBNAIL_URL}${item.picture_id}_295x166.jpg`,            
                     smallLink: {
                         url: item.videos.small.url,
                         width: item.videos.small.width,

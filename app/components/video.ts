@@ -14,6 +14,7 @@ export class Video implements VideoConfigInterface{
     smallLink:VideoConfigInterface;
     mediumLink:VideoConfigInterface
     largeLink:VideoConfigInterface
+    isActive:boolean = false;
     
     constructor( url:string, source:string, jsonConfig?:VideoConfigInterface){
         this.url = url;

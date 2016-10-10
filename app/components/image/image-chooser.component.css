@@ -20,7 +20,7 @@
 }
 .card{
     display:inline-block;
-    margin:0 1em;
+    margin:0 1em 1em 0;
     cursor:pointer;
 } 
 .imageResults .card{
@@ -40,7 +40,11 @@
     border-top:0;
     padding:.5em;
 }
-.videoResults .card video{
+.videoResults .card video, .videoResults .card{
     width:300px;
     height:200px;
+}
+.videoResults .card img{
+    max-width:300px;
+    max-height:200px;
 }
