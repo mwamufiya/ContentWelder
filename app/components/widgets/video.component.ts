@@ -49,6 +49,12 @@ export class VideoWidget extends Widget{
     @HostListener('click', ['$event']) onclick(event){
         return super.onclick(event);
     }
+    //Open the video Chooser on doubleclick
+    @HostListener('dblclick', ['$event']) ondblclick(event):boolean{
+        super.ondblclick(event);
+        this.launchVideoChooser();
+        return false;
+    }
     setVideo(video:Video):void{
         //Do nothing if this widget isn't currently selected
         if(!this.isSelected){

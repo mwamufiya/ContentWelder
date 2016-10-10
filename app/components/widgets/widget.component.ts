@@ -43,7 +43,7 @@ export class Widget{
     curCompRef:ComponentRef<Widget>;
     changeDetectoRef:ChangeDetectorRef;
     borderStyle:string;
-    /*********BACKGROUND************ */
+    /*********BACKGROUND************ */ 
     background:string;
     backgroundColor:string = 'transparent';             //Hexadecimal value for the background color of this item
 
@@ -72,11 +72,17 @@ export class Widget{
     getWidth(withUnits?:boolean){ return this.width + ((withUnits==true)?'px':''); }
     getHeight(withUnits?:boolean){ return this.height +((withUnits==true)?'px':''); }
     
-    @HostListener('click', ['$event']) onclick(event){
+    @HostListener('click', ['$event']) onclick(event):boolean{
       event.stopPropagation();
       this.designerGlobals.setSelectedComponent(this, event.shiftKey? true : null);
       return false;
     }
+    @HostListener('dblclick', ['$event']) ondblclick(event):boolean{
+      event.stopPropagation();
+      this.designerGlobals.setSelectedComponent(this, event.shiftKey? true : null);
+      return false;
+    }
+
     
     getChildren():Array<Widget>{
       return this.children;
@@ -154,6 +160,7 @@ export class Widget{
     }
     //set the background Color
     setBackgroundColor(value?:string){
+      console.log(`why are you being called`);
       this.backgroundColor = (value && value.length)? value: 'transparent';
     }
     getBackgroundColor():string{

@@ -19,6 +19,7 @@ export class DesignerComponent{
     private mediaChooserSubscription: Subscription;
     private _selectedImageSubscription: Subscription;
     private _selectedVideoSubscription: Subscription;
+    private _selectedItemSubscription: Subscription;
     private video:Video;
     private image:Image;
     private isSelected:boolean;
@@ -27,7 +28,7 @@ export class DesignerComponent{
       private router: Router,
       private designerGlobals: DesignerGlobalsService){
         this.mediaChooserInit();
-        this.subscribeToMediaChanges();
+        this.initializeSubscribers();
     }
     //handles subscribing to events in order to toggle the correct viewer
     mediaChooserInit():void{
@@ -44,6 +45,7 @@ export class DesignerComponent{
       this.designerGlobals.setSelectedComponent(this);
       this.isSelected = true; 
       
+      console.log(`you're here`);
       this.stageComponent.setBackgroundColor();
       let changeType = json.changeType;
       if(changeType=='video')
@@ -52,17 +54,29 @@ export class DesignerComponent{
         this.imageChooser.show();
     }
     //Subscribes to choices made for either Image or Video
-    subscribeToMediaChanges(){
+    initializeSubscribers(){
+        //subscript to the selected item
+        this._selectedItemSubscription = this.designerGlobals.getSelectedItemsObservable().subscribe(
+          value => this.checkIfCurrentlySelected(value),
+          err => console.log(`Designer Component: Selected Item Subscription Error`)
+        );
         //subscript to the selected Image
         this._selectedImageSubscription = this.designerGlobals.getSelectedImageObservable().subscribe(
           image => this.setImage(image),
-          err => console.log(`Error encountered when subscribing to observable`)
+          err => console.log(`Designer Component: Selected Image subscription Error`)
         );
         //subscript to the selected Video
         this._selectedVideoSubscription = this.designerGlobals.getSelectedVideoObservable().subscribe(
           video => this.setVideo(video),
-          err => console.log(`Error encountered when subscribing to observable`)
+          err => console.log(`Designer Component: Selected Video Subscription Error`)
         );
+    }
+    //Determines if this items is currently selected
+    checkIfCurrentlySelected(selectedArray:Array<Component>){
+      //if this item exists in the list of currently selected items, mark it as such.
+      console.log(selectedArray);
+      this.isSelected = selectedArray.indexOf(this) != -1? true: null;
+      console.log(this.isSelected);
     }
     //handles setting the background image
     setImage(image:Image){

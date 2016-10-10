@@ -24,7 +24,7 @@ export class ImageService {
         //AIzaSyAJ2HOfksKRRaJhXj0aZ1B-hpS0s7JXyyY
         switch(imageSource){
             case 'google':
-                let googleApiKey = `AIzaSyAJ2HOfksKRRaJhXj0aZ1B-hpS0s7JXyyY`;
+                let googleApiKey = `AIzaSyCMGfdDaSfjqv5zYoS0mTJnOT3e9MURWkU`;
                 let googleCustomEngineKey = `002827374348489201537:dr2ug-z_0uy`;
                 this.selectedService = new GoogleImageSearchService(this.http,  googleApiKey, googleCustomEngineKey);
                 break;

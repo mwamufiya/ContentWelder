@@ -8,7 +8,6 @@ export class PixabayVideoSearchService implements VideoSearchServiceInterface{
     //TODO: These need to be moved out of this class into a global location
     private VIDEO_SERVICE_URL: string = `https://pixabay.com/api/videos`;
     private VIDEO_THUMBNAIL_URL: string = `https://i.vimeocdn.com/video/`;
-    private IMAGE_SERVICE_URL: string = `https://pixabay.com/api/`;
 
     //TODO move the API Keys to the server
     constructor(

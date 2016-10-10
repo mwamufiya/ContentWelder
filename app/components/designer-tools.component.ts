@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
+import {MAIN_MENU } from '../services/tools-menu.service'
 
 @Component({
   selector: 'designer-tools',
@@ -13,10 +14,11 @@ export class DesignerToolsComponent implements OnInit{
   private activeToolSelection: string;
   private changeBkgEmitter:EventEmitter<any> = new EventEmitter();
   private _selectedItemSubscription: Subscription;
+  private menuJSON:JSON;                    //Holds the JSON representation of the menu 
   constructor(
     private router: Router,
     private designerGlobals: DesignerGlobalsService){
-       
+      this.menuJSON = JSON.parse(JSON.stringify(MAIN_MENU));
     }
 
   ngOnInit(){
@@ -40,5 +42,9 @@ export class DesignerToolsComponent implements OnInit{
     this.changeBkgEmitter.emit({
       changeType: changeType
     });
+  }
+  //return string version of json because Template doesn't have access to "JSON.stringify"
+  templateJsonStringify(item):string{
+    return item.widgetConfig? JSON.stringify(item.widgetConfig): '';
   }
 }

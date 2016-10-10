@@ -44,8 +44,14 @@ export class ImageWidget extends Widget{
         );
     }
 
-    @HostListener('click', ['$event']) onclick(event){
+    @HostListener('click', ['$event']) onclick(event):boolean{
         return super.onclick(event);
+    }
+    //Open the Image Chooser on doubleclick
+    @HostListener('dblclick', ['$event']) ondblclick(event):boolean{
+        super.ondblclick(event);
+        this.launchImageChooser();
+        return false;
     }
     setImage(image:Image){
         //Do nothing if this image isn't the currently selected image.

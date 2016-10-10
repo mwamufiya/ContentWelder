@@ -57,10 +57,16 @@ export class Resize implements OnInit{
         while (!containEl) {
             //Putting a temporary hard stop contain at the stage level.
             //This needs to be made more dynamic so that the directive it not tied to the stage.
-            if(e.parentElement.hasAttribute('resizeContain') || e.parentElement.nodeName.toLocaleLowerCase()=='designer-stage')
+            if(e.parentElement.hasAttribute('resizeContain')){
                 containEl=e.parentElement;
-            else
+            }else
                 e=e.parentElement;
+            //we don't care about anything outside the Designer Stage
+            //TODO: this should probably be configurable
+            if( e.parentElement.nodeName.toLocaleLowerCase()=='designer-stage'){
+                e = null;
+                break;
+            }
         }
         return containEl;
     }
