@@ -97,11 +97,17 @@ export class ImageChooser implements OnInit{
 
     if(this.searchType=='image'){
       this.imageService.search(this.mediaSource, this.searchTerm)
-        .then(media => this.mediaList = media)
+        .then(media => {
+          this.mediaList = new Array();
+          this.mediaList = media;
+        })
         .catch(e => this.handleImageSearchError(e));
     }else if(this.searchType=='video'){
       this.videoService.search(this.mediaSource, this.searchTerm)
-        .then(media => this.mediaList = media)
+        .then(media => {
+          this.mediaList = new Array();
+          this.mediaList = media;
+        })
         .catch(e => this.handleImageSearchError(e));
     }
   }

@@ -5,10 +5,14 @@ justify-content: center;
 flex-direction: column;
 }
 .stage{
-    background:white;
     min-height:80%;
     min-width:80%;
+    border:2px dotted white;
 }
+.noBackground .stage{
+    background:white;
+}
+
 /*Background VIdeo Code
 video { 
     position: fixed;

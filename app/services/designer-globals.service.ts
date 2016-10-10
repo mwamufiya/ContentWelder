@@ -1,4 +1,4 @@
-import { Injectable,ElementRef, ComponentRef }     from '@angular/core';
+import { Injectable,ElementRef, ComponentRef, Component }     from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Widget } from '../components/widgets/widget.component';
 import { Image } from '../components/image';
@@ -13,9 +13,9 @@ export class DesignerGlobalsService {
     private draggedWidgetType: string;
     private draggedWidgetConfig: JSON;
     //private draggedOverObject: Node;
-    private _selItemObservable: Observable<Array<Widget>>; //The currently selected component
+    private _selItemObservable: Observable<Array<Component>>; //The currently selected component
     private selItemObserver: Observer<any>;
-    private selItemList: Array<Widget>;
+    private selItemList: Array<Component>;
     //The currently selected Image
     private _selImageObservable: Observable<Image>; 
     private selImageObserver: Observer<any>;
@@ -30,7 +30,7 @@ export class DesignerGlobalsService {
         //We need to create a 'Hot' observable to allow for subscription to occur at different intervals
         this.selItemList = [];
         //The currently selected component
-        this._selItemObservable = new Observable<Array<Widget>>(observer => {
+        this._selItemObservable = new Observable<Array<Component>>(observer => {
             this.selItemObserver = observer;
         }).share();
         //The currently selected Image
@@ -77,7 +77,7 @@ export class DesignerGlobalsService {
         return this.draggedOverObject;
     }*/
     //if "Append" is specified it means this item should be added to the list of items.
-    setSelectedComponent(widget:Widget, append?:boolean){
+    setSelectedComponent(widget:Component, append?:boolean){
         //If the item being added already exists in the selected list do nothing
         let alreadyExists = (this.selItemList.indexOf(widget) == -1)? false : true; 
         if((alreadyExists == true && append == true)
@@ -92,7 +92,7 @@ export class DesignerGlobalsService {
 
         this.selItemObserver.next(this.selItemList);
     }
-    getSelectedItemsObservable():Observable<Array<Widget>>{
+    getSelectedItemsObservable():Observable<Array<Component>>{
         return this._selItemObservable;
     }
     /************Communication between components of the currently selected Image****************** */

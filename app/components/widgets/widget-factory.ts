@@ -4,6 +4,7 @@ import { ComponentFactoryResolver,
     import { BoxWidget} from './box.component';
     import {ImageWidget} from './image.component';
     import {VideoWidget} from './video.component';
+    import { TextboxWidget} from './textbox.component';
 
     export class WidgetFactory{
         //TODO: make the WidgetJson an interface so that the definition is known and can be used in IDE
@@ -16,10 +17,11 @@ import { ComponentFactoryResolver,
             let factoryMap = {
                 image: ImageWidget,
                 video: VideoWidget,
-                box: BoxWidget
+                box: BoxWidget,
+                textbox: TextboxWidget
             }
 
-            if(!factoryMap[componentType])
+            if(!factoryMap[componentType.toLocaleLowerCase()])
                 return;
 
             let componentFactory = componentFactoryResolver.resolveComponentFactory(factoryMap[componentType]) as ComponentFactory<Widget>;

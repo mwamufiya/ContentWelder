@@ -42,8 +42,11 @@ export class Widget{
     parentActionReq: EventEmitter<any> = new EventEmitter();
     curCompRef:ComponentRef<Widget>;
     changeDetectoRef:ChangeDetectorRef;
-    backgroundColor:string;             //Hexadecimal value for the background color of this item
-    borderStyle:string = 'none';
+    borderStyle:string;
+    /*********BACKGROUND************ */
+    background:string;
+    backgroundColor:string = 'transparent';             //Hexadecimal value for the background color of this item
+
 
     constructor(
       componentResolver:ComponentFactoryResolver,
@@ -94,7 +97,7 @@ export class Widget{
     addChildViaJSON(widgetJSON){
       this.infants.push(widgetJSON);
     }
-    checkIfCurrentlySelected(selectedArray:Array<Widget>){
+    checkIfCurrentlySelected(selectedArray:Array<Component>){
       //if this item exists in the list of currently selected items, mark it as such.
       this.isSelected = selectedArray.indexOf(this) != -1? true: false;
     }
@@ -150,8 +153,11 @@ export class Widget{
       }
     }
     //set the background Color
-    setBackgroundColor(value:string){
-      console.log(event);
+    setBackgroundColor(value?:string){
+      this.backgroundColor = (value && value.length)? value: 'transparent';
+    }
+    getBackgroundColor():string{
+      return this.backgroundColor;
     }
     //Set the border styles
     setBorderStyle(value:string){

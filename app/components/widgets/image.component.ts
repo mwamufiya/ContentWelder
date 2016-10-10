@@ -16,7 +16,8 @@ import { Subscription } from 'rxjs/Subscription';
     }
     .widgetContainer{
         display:inline-block;
-        /*temporary until actual image loading and resizing workds*/
+    }
+    .emptyContainer{
         width:140px;
         height:100px;
     }

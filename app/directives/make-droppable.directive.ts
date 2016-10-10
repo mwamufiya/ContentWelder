@@ -20,12 +20,12 @@ export class MakeDroppable{
         //Return false to prevent event propogation
         return false;
     }
-    @HostListener('dragleave', ['$event']) ondragleave(event){
+    @HostListener('dragleave', ['$event']) ondragleave(event:Event){
         event.stopPropagation();
         this.restoreBackgroundColor();
         return false;
     }
-    @HostListener('drop', ['$event']) ondrop(event){
+    @HostListener('drop', ['$event']) ondrop(event:Event){
         event.stopPropagation();
         this.restoreBackgroundColor();
         //Return false to prevent event propogation

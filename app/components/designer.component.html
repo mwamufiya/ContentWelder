@@ -18,12 +18,19 @@
         </div>
     </modal-actions>
 </sm-modal>
-<div class="designer">
+<div class="designer" [class.nobackground]="!video && !image">
     <div class="mainVenu">
         <!-- Disable the page navigation fow now. it may be re-activated once it's functioning' -->
         <!--<div class="pageNav">adfadf</div>-->
          <div class="pasteboard">
-            <designer-tools></designer-tools>
+             <ng-container *ngIf="video">
+                <video [ngStyle]="{'background': getVideoBackgroundPath()}" designerDraggable data-widgetConfig='{"type":"video"}' autoplay loop>  
+                    <source src="{{video.mediumLink.url}}"  type="video/mp4">
+                    <source src="{{video.mediumLink.url}}"  type="video/ogg">
+                    Your browser does not support the video tag.
+                </video>
+             </ng-container>
+            <designer-tools (changeBkgEmitter)="changeBackground($event)"></designer-tools>
             <designer-stage (childModified)="childModified($event);"></designer-stage>
         </div>
     </div>

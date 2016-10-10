@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -6,10 +6,12 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'designer-tools',
   templateUrl: './app/components/designer-tools.component.html',
-  styleUrls: ['./app/components/designer-tools.component.css']
+  styleUrls: ['./app/components/designer-tools.component.css'],
+  outputs: ['changeBkgEmitter']
 })
 export class DesignerToolsComponent implements OnInit{
   private activeToolSelection: string;
+  private changeBkgEmitter:EventEmitter<any> = new EventEmitter();
   private _selectedItemSubscription: Subscription;
   constructor(
     private router: Router,
@@ -26,10 +28,17 @@ export class DesignerToolsComponent implements OnInit{
   }
 
   //set activeToolSelection
-  setActiveToolSelection(selection:string):void{
+  setActiveToolSelection(selection?:string):void{
     if(this.activeToolSelection != selection)
       this.activeToolSelection = selection;
     else
       this.activeToolSelection = null;
+  }
+  //Calls for the corresponding Editor to be activated
+  editBackground(changeType){
+    this.setActiveToolSelection();
+    this.changeBkgEmitter.emit({
+      changeType: changeType
+    });
   }
 }

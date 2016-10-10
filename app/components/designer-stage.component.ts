@@ -11,8 +11,7 @@ import { VideoWidget} from './widgets/video.component';
 @Component({
   selector: 'designer-stage',
   templateUrl: './app/components/designer-stage.component.html',
-  styleUrls: ['./app/components/designer-stage.component.css'],
-  entryComponents: [BoxWidget, ImageWidget, VideoWidget]
+  styleUrls: ['./app/components/designer-stage.component.css']
 })
 export class DesignerStageComponent extends Widget{
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
@@ -25,6 +24,7 @@ export class DesignerStageComponent extends Widget{
         designerGlobals: DesignerGlobalsService,
         private router: Router){
             super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
+            super.setBackgroundColor('white');
     }
 
     childModified(widgetJSON){       

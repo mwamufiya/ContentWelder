@@ -1,5 +1,6 @@
 <div class="tools">
     <ul class="basicTools">
+        <li (click)="setActiveToolSelection('background')">Bkg<span class="statusIndicator">&#x2713;</span></li> 
         <li (click)="setActiveToolSelection('basic')">Basic <span class="statusIndicator">&#x2713;</span></li>
         <li (click)="setActiveToolSelection('gallery')">Gallery</li>
         <li (click)="setActiveToolSelection('media')">Media</li>
@@ -7,11 +8,17 @@
     </ul>
     <div class="toolSelection" *ngIf="activeToolSelection!=null">
         <div class="closeButton"><span (click)="setActiveToolSelection(null)">&#x274C;</span></div>
+        <template [ngIf]="activeToolSelection=='background'">
+            <ul>
+                <li>Color</li>
+                <li>Image</li>
+                <li (click)="editBackground('video')">Video<span class="statusIndicator">&#x2713;</span></li>                 
+            </ul>
+        </template>
         <template [ngIf]="activeToolSelection=='basic'">
             <ul>
                 <li class="subGrouping"><h1>Text</h1>
                     <ul>
-                        <li designerDraggable data-widgetConfig='{"type":"box"}' title="box">Container <span class="statusIndicator">&#x2713;</span></li>
                         <li designerDraggable data-widgetConfig='{"type":"textbox"}' title="textbox">Text Box <span class="statusIndicator">&#x2713;</span></li>
                         <li designerDraggable data-widgetConfig='{"type":"heading"}'>Heading</li>
                     </ul>
@@ -19,7 +26,7 @@
                 <li designerDraggable data-widgetConfig='{"type":"image"}' title="Image"><i class="image icon"></i><span class="statusIndicator">&#x2713;</span></li>
                 <li class="subGrouping"><h1>Container</h1>
                     <ul>
-                        <li designerDraggable data-widgetConfig='{"type":"div"}'>Div</li>
+                        <li designerDraggable data-widgetConfig='{"type":"box"}' title="box">Container <span class="statusIndicator">&#x2713;</span></li>
                     </ul>
                 </li> 
             </ul>

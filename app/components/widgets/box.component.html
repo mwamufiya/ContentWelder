@@ -9,8 +9,8 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
         <li>&#x2753;</li>
     </ul>
     <div [class.emptyContainer]="children.length==0"
-         designerDroppable designerDraggable data-widgetType='textbox' (widgetAdded)="childModified($event)" 
-         (parentActionReq)="childActionInitiated($event)" data-widgetConfig='{"type":"textbox"}'
+         designerDroppable designerDraggable data-widgetType='box' (widgetAdded)="childModified($event)" 
+         (parentActionReq)="childActionInitiated($event)" data-widgetConfig='{"type":"box"}'
          [ngStyle]="{'border-style':borderStyle, 'height': getHeight(true), 'width': getWidth(true)}">
         <template #container></template>
         <designer-BoxWidget *ngFor="let widget of childWidgets" ></designer-BoxWidget>

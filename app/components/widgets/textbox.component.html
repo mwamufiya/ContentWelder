@@ -1,0 +1,15 @@
+<div class="widgetContainer" [class.activeWidget]="isSelected==true" [class.emptyContainer]="!content"
+resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResize($event)">
+    <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>       
+    <ul *ngIf="isSelected==true" class="widgetMenu">
+        <li>
+            <border-selection (borderChanged)="setBorderStyle($event)"></border-selection>
+        </li>
+        <li (click)="removeSelf($event)">&#x2716;</li>
+        <li>&#x2753;</li>
+    </ul>
+    <div contenteditable="true" designerDraggable data-widgetType='textbox' data-widgetConfig='{"type":"textbox"}'
+         [ngStyle]="{'border-style':borderStyle, 'height': getHeight(true), 'width': getWidth(true)}" (input)="updateContent($event)">
+        <template #container></template>
+    </div>
+</div>

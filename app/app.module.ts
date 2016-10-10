@@ -23,6 +23,7 @@ import { Widget } from './components/widgets/widget.component';
 import { BoxWidget } from './components/widgets/box.component';
 import { ImageWidget } from './components/widgets/image.component';
 import { VideoWidget } from './components/widgets/video.component';
+import { TextboxWidget } from './components/widgets/textbox.component';
 import { ResizeHandles } from './components/resizeHandles.component';
 import { ImageChooser } from './components/image/image-chooser.component';
 import { BorderSelection } from './components/border-selection.component';
@@ -59,17 +60,24 @@ import { VideoService } from './services/video.service';
     WidgetTemplateFactory,
     Resize,
     ResizeHandles,
-    BoxWidget,
-    VideoWidget,
     Widget,
-    ImageWidget,
     ImageChooser,
-    BorderSelection
+    BorderSelection,
+    BoxWidget, 
+    ImageWidget,
+    VideoWidget,
+    TextboxWidget
   ],
   providers: [
     DesignerGlobalsService,
     ImageService,
     VideoService
+  ],
+  entryComponents:[
+    BoxWidget, 
+    ImageWidget,
+    VideoWidget,
+    TextboxWidget    
   ],
   bootstrap: [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

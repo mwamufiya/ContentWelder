@@ -1,5 +1,5 @@
-<div class="workingArea">
-    <div designerDroppable (widgetAdded)="childModified($event)" class="stage" >
+<div class="workingArea" [class.noBackground]="!backgroundColor">
+    <div designerDroppable (widgetAdded)="childModified($event)" class="stage" [ngStyle]="{'background-color': getBackgroundColor()}">
         <template #container></template>
     </div>
     <!--<div class="stage">
