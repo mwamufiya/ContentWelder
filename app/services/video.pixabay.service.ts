@@ -50,7 +50,7 @@ export class PixabayVideoSearchService implements VideoSearchServiceInterface{
                     favorites: item.favorites,
                     likes: item.likes,
                     //Pixabay videos returns an ID so the link to the specific image has to be configured
-                    thumbnailLink: `${this.IMAGE_SERVICE_URL}&id=item.picture_id`,            
+                    thumbnailLink: `${this.IMAGE_SERVICE_URL}?key=${this.API_KEY}&id=${item.picture_id}`,            
                     smallLink: {
                         url: item.videos.small.url,
                         width: item.videos.small.width,
