@@ -3,14 +3,15 @@ export const MAIN_MENU = [
             "value": "background",
             "label":"Bkg",
             "isActive": true,
-            "items":[
+            "children":[
                 {
                     "value": "color",
                     "label": "Color"
                 },
                 {
                     "value": "image",
-                    "label": "Image"
+                    "label": "Image",
+                    "icon": "image icon",
                 },
                 {
                     "value": "video",
@@ -25,19 +26,19 @@ export const MAIN_MENU = [
             "value":"basic",
             "label":"Basic",
             "isActive": true,
-            "items":[
+            "children":[
                 {
                     "value":"text",
                     "label": "Text",
                     "title": "Text Box",
-                    "items":[
+                    "children":[
                         {
                             "value":"textbox",
                             "label": "Text",
                             "title": "Text Box",
                             "isActive": true,
                             "draggable": true,
-                            "icon": "image icon",
+                            "icon": "font icon",
                             "widgetConfig":{
                                 "type": "image"
                             }
@@ -48,7 +49,7 @@ export const MAIN_MENU = [
                             "title": "Heading",
                             "isActive": false,
                             "draggable": true,
-                            "icon": "image icon",
+                            "icon": "header icon",
                             "widgetConfig":{
                                 "type": "heading"
                             }
@@ -69,14 +70,13 @@ export const MAIN_MENU = [
                     "value":"container",
                     "label": "Container",
                     "title": "Container",
-                    "items":[
+                    "children":[
                         {
                             "value":"box",
                             "label": "Box",
                             "title": "Box",
                             "isActive": true,
                             "draggable": true,
-                            "icon": "image icon",
                             "widgetConfig":{
                                 "type": "box"
                             }
@@ -89,7 +89,7 @@ export const MAIN_MENU = [
             "value":"media",
             "label":"Media",
             "isActive": true,
-            "items":[
+            "children":[
                 {
                     "value":"video",
                     "label": "Video",
@@ -107,7 +107,7 @@ export const MAIN_MENU = [
                     "title": "YoutTube",
                     "isActive": false,
                     "draggable": true,
-                    "icon": "video play outline icon",
+                    "icon": "youtube play icon",
                     "widgetConfig":{
                         "type": "video",
                         "source":"youtube"
@@ -119,7 +119,7 @@ export const MAIN_MENU = [
                     "title": "Vimeo",
                     "isActive": false,
                     "draggable": true,
-                    "icon": "video play outline icon",
+                    "icon": "vimeo square icon",
                     "widgetConfig":{
                         "type": "video",
                         "source":"vimeo"
@@ -131,7 +131,7 @@ export const MAIN_MENU = [
             "value":"datasource",
             "label":"Data",
             "isActive": false,
-            "items":[
+            "children":[
                 {
                     "value":"internaldata",
                     "label": "Internal",
@@ -158,7 +158,7 @@ export const MAIN_MENU = [
             "value":"gallery",
             "label":"Gallery",
             "isActive": false,
-            "items":[
+            "children":[
                 {
                     "value":"slideshow",
                     "label": "SlideShow",
@@ -175,7 +175,7 @@ export const MAIN_MENU = [
             "value":"forms",
             "label":"Forms",
             "isActive": false,
-            "items":[
+            "children":[
                 {
                     "value":"custom",
                     "label": "Custom",

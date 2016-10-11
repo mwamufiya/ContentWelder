@@ -1,6 +1,7 @@
 import { Injectable,ElementRef, ComponentRef, Component }     from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Widget } from '../components/widgets/widget.component';
+import { DesignerToolsMenu } from '../components/designer-tools-menu.component';
 import { Image } from '../components/image';
 import { Video } from '../components/video';
 import { Observable } from 'rxjs/Observable';
@@ -10,6 +11,7 @@ import 'rxjs/add/operator/share';
 @Injectable()
 export class DesignerGlobalsService {
     private draggedObject:Array<ElementRef>;
+    private draggedItems:Array<Widget | DesignerToolsMenu>;
     private draggedWidgetType: string;
     private draggedWidgetConfig: JSON;
     //private draggedOverObject: Node;
@@ -29,6 +31,7 @@ export class DesignerGlobalsService {
     constructor(private http: Http) {
         //We need to create a 'Hot' observable to allow for subscription to occur at different intervals
         this.selItemList = [];
+        this.draggedItems = [];
         //The currently selected component
         this._selItemObservable = new Observable<Array<Component>>(observer => {
             this.selItemObserver = observer;
@@ -47,6 +50,17 @@ export class DesignerGlobalsService {
         }).share();
     }
     
+    //get dragged item
+    getDraggedItem():Array<Widget | DesignerToolsMenu>{
+        return this.draggedItems;
+    }
+    setDraggeditem(item:Widget | DesignerToolsMenu, append?:boolean){
+        if(append && append==true)
+            this.draggedItems.push(item);
+        else  
+            this.draggedItems = [item];
+    }
+
     getDraggedObject():Array<ElementRef>{
         return this.draggedObject;
     }

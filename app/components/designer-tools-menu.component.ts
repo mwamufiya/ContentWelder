@@ -4,7 +4,8 @@ import { DesignerToolsMenuInterface } from '../interfaces/designer-tools-menu.in
 @Component({
   selector: 'designer-tools-menu',
   templateUrl: './app/components/designer-tools-menu.component.html',
-  inputs: ['children']
+  styleUrls: ['./app/components/designer-tools-menu.component.css'],
+  inputs: ['configJson','isRoot']
 })
 export class DesignerToolsMenu implements DesignerToolsMenuInterface, OnInit{
     value:string;
@@ -16,17 +17,34 @@ export class DesignerToolsMenu implements DesignerToolsMenuInterface, OnInit{
     draggable:boolean;
     widgetConfig:Object;
     widgetConfigString:string;
+    isRoot:boolean = false;
     //menuJson:Array<DesignerToolsMenuInterface>;
-    children:Array<DesignerToolsMenuInterface>;
+    configJson:DesignerToolsMenuInterface;
+    children:Array<DesignerToolsMenuInterface> = new Array<DesignerToolsMenuInterface>();
 
     constructor(private _changeDetectorRef:ChangeDetectorRef){}
 
     ngOnInit(){
-        //this.children = this.menuJson;
-        this.widgetConfigString = (this.widgetConfig)? JSON.stringify(this.widgetConfig) : '';
-        this._changeDetectorRef.markForCheck();
-        console.log(this.widgetConfigString);
+        //Angular Inputs only get initialized OnInit
+        if(this.configJson) this.initalizeFromJson(this.configJson)
     }
 
+    initalizeFromJson(json:DesignerToolsMenuInterface){
+        if(json.value) this.value = json.value;
+        if(json.label) this.label = json.label;
+        if(json.title) this.title = json.title;
+        if(json.isActive) this.isActive = json.isActive;
+        if(json.icon) this.icon = json.icon;
+        if(json.draggable) this.draggable = json.draggable;
+        if(json.children) this.children = json.children;
+        if(json.widgetConfig){ 
+            this.widgetConfig = json.widgetConfig;
+            this.widgetConfigString = JSON.stringify(this.widgetConfig);
+        }
+        //this._changeDetectorRef.markForCheck();
+    }
+    getWidgetConfigString():string{
+        return JSON.stringify(this.widgetConfig);
+    }
 
 }

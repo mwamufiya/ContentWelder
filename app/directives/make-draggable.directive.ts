@@ -11,11 +11,7 @@ export class MakeDraggable {
 
     @HostListener('dragstart',['$event']) ondragstart(event){
         event.stopPropagation();
-        var rect = this.el.nativeElement.getBoundingClientRect();
     }
-    /*@HostListener('dragend',['$event']) ondragend(event){
-        event.stopPropagation();
-    }*/
 
     getDomElement(): ElementRef{
         return this.el;

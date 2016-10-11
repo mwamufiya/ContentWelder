@@ -5,6 +5,7 @@ export interface DesignerToolsMenuInterface{
     isActive:boolean;
     click:string;
     icon:string;
+    isRoot:boolean;
     draggable:boolean;
     widgetConfig:Object;
     children:Array<DesignerToolsMenuInterface>;

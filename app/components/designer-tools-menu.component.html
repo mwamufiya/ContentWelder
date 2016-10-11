@@ -1,46 +1,18 @@
-<ul>
-    <ng-container *ngIf="children && children.length">
-        <li *ngFor="let item of children" (click)="item.click? item.click : ''" [class.subGrouping]="item.items">
-            <h1>{{item.label}}</h1>
-            <designer-tools-menu [menuJson]="item.children"></designer-tools-menu>
+<ng-container *ngIf="children.length">
+    <ul *ngIf="isRoot!=true">
+        <li class="subGrouping">
+            <h1>{{label}}</h1>
+            <designer-tools-menu *ngFor="let item of children" [configJson]="item"></designer-tools-menu>
         </li>
-    </ng-container>
-    <ng-container *ngIf="!children || children.length==0">
-        <li *ngFor="let item of children" (click)="item.click? item.click : ''" [class.subGrouping]="item.children" designerDraggable data-widgetConfig="widgetConfigString">
-                {{item.label}} <span *ngIf="item.isActive" class="statusIndicator">&#x2713;</span>
-        </li>
-    </ng-container>
-</ul>
-<!--
-    <div class="tools">
-        <ul class="basicTools">
-            <li *ngFor="let item of menuJSON.tools" (click)="setActiveToolSelection(item.value)">
-                {{item.label}}<span *ngIf="item.isActive" class="statusIndicator">&#x2713;</span>
-            </li>
-        </ul>
-        <div class="toolSelection" *ngIf="activeToolSelection!=null">
-        <div class="closeButton"><span (click)="setActiveToolSelection(null)">&#x274C;</span></div>
-        <ng-container *ngFor="let item of menuJSON.tools">
-            <template [ngIf]="activeToolSelection==item.value">
-                <ul>
-                    <ng-container *ngIf="item.items.items && item.items.items.length">
-                        <li *ngFor="let menu of item.items" (click)="menu.click? menu.click : ''" [class.subGrouping]="menu.items">
-                            <h1>{{item.label}}</h1>
-                            <ul>
-                                <li *ngFor="let child of menu.items" designerDraggable data-widgetConfig="JSON.stringify(child.widgetConfig)">
-                                    {{child.label}}
-                                </li>
-                            </ul>
-                        </li>
-                    </ng-container>
-                    <ng-container *ngIf="!item.items.items || item.items.items.length==0">
-                        <li *ngFor="let menu of item.items" (click)="menu.click? menu.click : ''" [class.subGrouping]="menu.items" designerDraggable data-widgetConfig="$templateJsonStringify(menu)">
-                                {{menu.label}} <span *ngIf="!menu.items && menu.isActive" class="statusIndicator">&#x2713;</span>
-                        </li>
-                    </ng-container>
-                </ul>
-            </template>
-        </ng-container>
-    </div>
-    </div>
--->
+    </ul>
+</ng-container>
+<ng-container *ngIf="!children.length">
+    <li (click)="click? click : ''" designerDraggable data-widgetConfig="widgetConfigString">
+        <i *ngIf="icon" class="{{icon}}"></i><br *ngIf="icon"/>
+        {{label}} <span *ngIf="isActive" class="statusIndicator">&#x2713;</span>
+    </li>
+</ng-container>
+
+<ng-container *ngIf="isRoot==true && children.length">
+    <designer-tools-menu *ngFor="let item of children" [configJson]="item"></designer-tools-menu>
+</ng-container>

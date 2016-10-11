@@ -9,8 +9,7 @@ import {MAIN_MENU } from '../services/tools-menu.service'
   selector: 'designer-tools',
   templateUrl: './app/components/designer-tools.component.html',
   styleUrls: ['./app/components/designer-tools.component.css'],
-  outputs: ['changeBkgEmitter'],
-  entryComponents: [DesignerToolsMenu]
+  outputs: ['changeBkgEmitter']
 })
 export class DesignerToolsComponent implements OnInit{
   private activeToolSelection: string;

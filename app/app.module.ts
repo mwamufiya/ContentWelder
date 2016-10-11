@@ -75,12 +75,6 @@ import { VideoService } from './services/video.service';
     ImageService,
     VideoService
   ],
-  entryComponents:[
-    BoxWidget, 
-    ImageWidget,
-    VideoWidget,
-    TextboxWidget    
-  ],
   bootstrap: [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

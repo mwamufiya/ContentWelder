@@ -1,0 +1,47 @@
+ul{
+    margin:0;
+    padding:.25em .5em;
+    display:flex;
+    flex-wrap: wrap;
+    list-style-type:none;
+}
+li{
+    border-radius: .25em;
+    border:1px dotted #CCC;
+    padding:.5em;
+    margin: .0 .5em .5em 0;
+    min-height:50px;
+    min-width:75px;
+    display:inline-block;
+    cursor:pointer;
+}
+li{
+    text-align: center;
+}
+li[class="subGrouping"], li[class="subGrouping"] ul{
+    border:0;
+    padding:0;
+    margin:0;
+    cursor:default;
+}
+li[class="subGrouping"]{
+    width:100%;
+}
+li:not(.subGrouping):hover{
+    background:#336699;
+    color:white;
+}
+h1{
+    margin:0 0 .25rem 0;
+    padding:0;
+    font-size:12pt;
+    border-bottom: 1px solid #CCC;
+}
+i{
+    font-size:2em;
+    margin:0 .25rem 0 0;
+}
+/*Temporary status indicator to keep track of what is working*/
+.statusIndicator{
+    font-weight: bold;
+}
