@@ -27,6 +27,7 @@ import { TextboxWidget } from './components/widgets/textbox.component';
 import { ResizeHandles } from './components/resizeHandles.component';
 import { ImageChooser } from './components/image/image-chooser.component';
 import { BorderSelection } from './components/border-selection.component';
+import { DesignerToolsMenu } from './components/designer-tools-menu.component';
 
 
 /*************Directives***********/
@@ -66,7 +67,8 @@ import { VideoService } from './services/video.service';
     BoxWidget, 
     ImageWidget,
     VideoWidget,
-    TextboxWidget
+    TextboxWidget,
+    DesignerToolsMenu
   ],
   providers: [
     DesignerGlobalsService,

@@ -1,5 +1,4 @@
-export const MAIN_MENU = {
-    "tools":[
+export const MAIN_MENU = [
         {
             "value": "background",
             "label":"Bkg",
@@ -189,5 +188,4 @@ export const MAIN_MENU = {
                 }
             ]
         }
-    ]
-};
+];
