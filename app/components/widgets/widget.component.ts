@@ -3,11 +3,12 @@ import { Component, HostListener, ViewContainerRef, ViewChild, ComponentFactoryR
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MakeDraggable } from '../../directives/make-draggable.directive'
-import { DesignerDroppable } from '../../directives/designer-droppable.directive'
+import { DesignerDroppable } from '../../directives/designer-droppable.directive';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
 import { WidgetComs, WidgetConfig } from '../../interfaces/widgetJSON.interface';
 import { WidgetResize } from '../../interfaces/WidgetResize.interface';
+import { ImageWidget } from './image.component';
 
 @Component({
   selector: 'designerWidget',

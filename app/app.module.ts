@@ -16,18 +16,19 @@ import { routing }        from './app.routing';
 
 /**********Application Specific********************** */
 /************Components************/
+import { Widget } from './components/widgets/widget.component';
 import { DesignerComponent }  from './components/designer.component';
 import { DesignerToolsComponent }  from './components/designer-tools.component';
+import { DesignerToolsMenu } from './components/designer-tools-menu.component';
+import { ResizeHandles } from './components/resizeHandles.component';
+import { WidgetContainer } from './components/widgets/widget-container.component';
+import { ImageChooser } from './components/image/image-chooser.component';
+import { BorderSelection } from './components/border-selection.component';
 import { DesignerStageComponent }  from './components/designer-stage.component';
-import { Widget } from './components/widgets/widget.component';
 import { BoxWidget } from './components/widgets/box.component';
 import { ImageWidget } from './components/widgets/image.component';
 import { VideoWidget } from './components/widgets/video.component';
 import { TextboxWidget } from './components/widgets/textbox.component';
-import { ResizeHandles } from './components/resizeHandles.component';
-import { ImageChooser } from './components/image/image-chooser.component';
-import { BorderSelection } from './components/border-selection.component';
-import { DesignerToolsMenu } from './components/designer-tools-menu.component';
 
 
 /*************Directives***********/
@@ -53,15 +54,16 @@ import { VideoService } from './services/video.service';
   ],
   declarations: [
     AppComponent,
+    Widget,
+    WidgetContainer,
     DesignerComponent,
     DesignerToolsComponent,
-    DesignerStageComponent,
     DesignerDraggable,
     DesignerDroppable,
     WidgetTemplateFactory,
     Resize,
     ResizeHandles,
-    Widget,
+    DesignerStageComponent,
     ImageChooser,
     BorderSelection,
     BoxWidget, 

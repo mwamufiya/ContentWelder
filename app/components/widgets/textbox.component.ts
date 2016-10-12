@@ -1,5 +1,5 @@
 
-import { Component, HostListener, ChangeDetectorRef, forwardRef,
+import { Component, HostListener, ChangeDetectorRef, forwardRef, Host,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Widget } from './widget.component'
 import {WidgetFactory} from './widget-factory';
@@ -16,6 +16,9 @@ import { Parent } from '../parent';
     .emptyContainer{
         min-width:140px;
         min-height:100px;
+    }
+    .widgetContainer div{
+        display:inline;
     }
   `],
   providers: [

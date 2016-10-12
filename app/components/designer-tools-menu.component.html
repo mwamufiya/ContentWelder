@@ -1,13 +1,13 @@
 <ng-container *ngIf="children.length">
     <ul *ngIf="isRoot!=true">
-        <li class="subGrouping">
+        <li class="subGrouping" title="{{label}}">
             <h1>{{label}}</h1>
             <designer-tools-menu *ngFor="let item of children" [configJson]="item"></designer-tools-menu>
         </li>
     </ul>
 </ng-container>
 <ng-container *ngIf="!children.length">
-    <li (click)="click? click : ''" designerDraggable>
+    <li (click)="click? click : ''" designerDraggable title="{{label}}">
         <i *ngIf="icon" class="{{icon}}"></i><br *ngIf="icon"/>
         {{label}} <span *ngIf="isActive" class="statusIndicator">&#x2713;</span>
     </li>

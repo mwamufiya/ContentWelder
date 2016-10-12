@@ -36,6 +36,10 @@ hr{
 .activeWidget{
   border: 1px solid #4f99ff;
 }
+/**********Display a dotted border if the current item is empty but NOT selected******************/
+.emptyContainer:hover{
+  border: 1px dotted #4f99ff;
+}
 .widgetContainer{
   position: relative;
 }
