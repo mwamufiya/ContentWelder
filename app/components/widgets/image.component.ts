@@ -1,10 +1,12 @@
-import { Component, HostListener, ChangeDetectorRef,
+import { Component, HostListener, ChangeDetectorRef, forwardRef,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Widget } from './widget.component'
 import { Image } from '../../components/Image';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
+
+import { Parent } from '../parent';
 
 @Component({
   selector: 'designer-ImageWidget',
@@ -21,7 +23,13 @@ import { Subscription } from 'rxjs/Subscription';
         width:140px;
         height:100px;
     }
-  `]
+  `],
+  providers: [
+      {
+          provide: Parent,
+          useExisting: forwardRef(() => ImageWidget)
+      }
+  ]
 })
 export class ImageWidget extends Widget{
     // Component input

@@ -45,7 +45,6 @@ export class DesignerComponent{
       this.designerGlobals.setSelectedComponent(this);
       this.isSelected = true; 
       
-      console.log(`you're here`);
       this.stageComponent.setBackgroundColor();
       let changeType = json.changeType;
       if(changeType=='video')
@@ -74,9 +73,7 @@ export class DesignerComponent{
     //Determines if this items is currently selected
     checkIfCurrentlySelected(selectedArray:Array<Component>){
       //if this item exists in the list of currently selected items, mark it as such.
-      console.log(selectedArray);
       this.isSelected = selectedArray.indexOf(this) != -1? true: null;
-      console.log(this.isSelected);
     }
     //handles setting the background image
     setImage(image:Image){

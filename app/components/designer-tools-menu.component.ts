@@ -1,11 +1,20 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, forwardRef } from '@angular/core';
 import { DesignerToolsMenuInterface } from '../interfaces/designer-tools-menu.interface';
+import { WidgetConfig} from '../interfaces/widgetJSON.interface';
+
+import { Parent } from './parent';
 
 @Component({
   selector: 'designer-tools-menu',
   templateUrl: './app/components/designer-tools-menu.component.html',
   styleUrls: ['./app/components/designer-tools-menu.component.css'],
-  inputs: ['configJson','isRoot']
+  inputs: ['configJson','isRoot'],
+  providers: [
+      {
+          provide: Parent,
+          useExisting: forwardRef(() => DesignerToolsMenu)
+      }
+  ]
 })
 export class DesignerToolsMenu implements DesignerToolsMenuInterface, OnInit{
     value:string;
@@ -15,8 +24,8 @@ export class DesignerToolsMenu implements DesignerToolsMenuInterface, OnInit{
     click:string;
     icon:string;
     draggable:boolean;
-    widgetConfig:Object;
-    widgetConfigString:string;
+    widgetConfig:WidgetConfig;
+    //widgetConfigString:string;
     isRoot:boolean = false;
     //menuJson:Array<DesignerToolsMenuInterface>;
     configJson:DesignerToolsMenuInterface;
@@ -37,14 +46,6 @@ export class DesignerToolsMenu implements DesignerToolsMenuInterface, OnInit{
         if(json.icon) this.icon = json.icon;
         if(json.draggable) this.draggable = json.draggable;
         if(json.children) this.children = json.children;
-        if(json.widgetConfig){ 
-            this.widgetConfig = json.widgetConfig;
-            this.widgetConfigString = JSON.stringify(this.widgetConfig);
-        }
-        //this._changeDetectorRef.markForCheck();
+        if(json.widgetConfig) this.widgetConfig = json.widgetConfig;
     }
-    getWidgetConfigString():string{
-        return JSON.stringify(this.widgetConfig);
-    }
-
 }

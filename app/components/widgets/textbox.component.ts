@@ -1,9 +1,10 @@
 
-import { Component, HostListener, ChangeDetectorRef,
+import { Component, HostListener, ChangeDetectorRef, forwardRef,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Widget } from './widget.component'
 import {WidgetFactory} from './widget-factory';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
+import { Parent } from '../parent';
 
 @Component({
   selector: 'designer-TextboxWidget',
@@ -16,7 +17,13 @@ import { DesignerGlobalsService } from '../../services/designer-globals.service'
         min-width:140px;
         min-height:100px;
     }
-  `]
+  `],
+  providers: [
+      {
+          provide: Parent,
+          useExisting: forwardRef(() => TextboxWidget)
+      }
+  ]
 })
 export class TextboxWidget extends Widget{
     // Component input

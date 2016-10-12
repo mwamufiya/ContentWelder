@@ -1,8 +1,9 @@
-import { Component, HostListener, ChangeDetectorRef,
+import { Component, HostListener, ChangeDetectorRef, forwardRef,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Widget } from './widget.component'
 import {WidgetFactory} from './widget-factory';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
+import { Parent } from '../parent';
 
 @Component({
   selector: 'designer-BoxWidget',
@@ -11,7 +12,13 @@ import { DesignerGlobalsService } from '../../services/designer-globals.service'
     .emptyContainer{
         min-height:50px;
     }
-  `]
+  `],
+  providers: [
+      {
+          provide: Parent,
+          useExisting: forwardRef(() => BoxWidget)
+      }
+  ]
 })
 export class BoxWidget extends Widget{
     // Component input
@@ -37,8 +44,5 @@ export class BoxWidget extends Widget{
         let ref = this.container.createComponent(componentFactory,widgetJSON.insertionPoint);
         
         super.addChild(ref, widgetConfig );        
-    }
-    childActionInitiated(event){
-        super.removeChild(event);
     }
 }

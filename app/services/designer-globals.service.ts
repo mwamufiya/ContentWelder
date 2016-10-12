@@ -7,11 +7,12 @@ import { Video } from '../components/video';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/operator/share';
+import { Parent } from '../components/parent';
 
 @Injectable()
 export class DesignerGlobalsService {
     private draggedObject:Array<ElementRef>;
-    private draggedItems:Array<Widget | DesignerToolsMenu>;
+    private draggedItems:Array<Parent>;
     private draggedWidgetType: string;
     private draggedWidgetConfig: JSON;
     //private draggedOverObject: Node;
@@ -51,20 +52,20 @@ export class DesignerGlobalsService {
     }
     
     //get dragged item
-    getDraggedItem():Array<Widget | DesignerToolsMenu>{
+    getDraggedItems():Array<Parent>{
         return this.draggedItems;
     }
-    setDraggeditem(item:Widget | DesignerToolsMenu, append?:boolean){
+    setDraggeditems(item:Parent, append?:boolean){
         if(append && append==true)
             this.draggedItems.push(item);
         else  
             this.draggedItems = [item];
     }
 
-    getDraggedObject():Array<ElementRef>{
+    getDraggedObjectPath():Array<ElementRef>{
         return this.draggedObject;
     }
-    setDraggedObject(obj){
+    setDraggedObjectPath(obj){
         this.draggedObject = obj;
     }
 

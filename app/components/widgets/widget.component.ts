@@ -6,7 +6,7 @@ import { MakeDraggable } from '../../directives/make-draggable.directive'
 import { DesignerDroppable } from '../../directives/designer-droppable.directive'
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
-import { WidgetComs } from '../../interfaces/widgetJSON.interface';
+import { WidgetComs, WidgetConfig } from '../../interfaces/widgetJSON.interface';
 import { WidgetResize } from '../../interfaces/WidgetResize.interface';
 
 @Component({
@@ -87,7 +87,7 @@ export class Widget{
     getChildren():Array<Widget>{
       return this.children;
     }
-    addChild(compRef:ComponentRef<Widget>, widgetJSON){
+    addChild(compRef:ComponentRef<Widget>, configJson:WidgetConfig){
       //Because Dynamically created components cannot leverage angular's Input/Ouput, 
       //we must subscript to the EventEmitter manually
       compRef.instance.parentActionReq.subscribe(compRef => this.removeChild(compRef));
@@ -98,10 +98,10 @@ export class Widget{
       this.children.push(compRef.instance);
       //There is potential use for this in the future. especially around automatin testing.
       //uncertain at this time.
-      this.addChildViaJSON(widgetJSON);
+      //this.addChildViaJSON(widgetJSON);
     }
-    addChildViaJSON(widgetJSON){
-      this.infants.push(widgetJSON);
+    addChildViaJSON(configJson:WidgetConfig){
+      //this.infants.push(widgetJSON);
     }
     checkIfCurrentlySelected(selectedArray:Array<Component>){
       //if this item exists in the list of currently selected items, mark it as such.
@@ -160,7 +160,6 @@ export class Widget{
     }
     //set the background Color
     setBackgroundColor(value?:string){
-      console.log(`why are you being called`);
       this.backgroundColor = (value && value.length)? value: 'transparent';
     }
     getBackgroundColor():string{

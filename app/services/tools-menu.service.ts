@@ -1,3 +1,23 @@
+/***************INSTRUCTIONS****************
+ * 
+ * The following should be considered when modifying the tools menu.
+ * 
+ * If you're adding a new tool type (Image, TextBox, Video)
+ * 
+ *      - It is NOT sufficient to simply add it in this JSON file.
+ *      - The corresponding Classes must be modified/added in the following files.
+ *              - app/components/designer-stage.component.ts Entry Components
+ *                  - the entry components must be updated to include your new widget type
+ *                  - Only Classes of type DesignerToolsMenu & classes that extend Widget are currently supported.
+ *                      - To increase support, expand the switch statement in the "childModified" method
+ *                  - This is required by Angular 2 
+ *              - app/components/widgets/[toolType].component.ts needs to be added to
+ *                  - this holds the logic for your new behavior
+ *              - app/components/widgets/widget-factory.ts
+ *                  - the "factoryMap" must be updated to reflect how the factory will map your text value to an Object  
+ * 
+ * 
+ * */
 export const MAIN_MENU = [
         {
             "value": "background",
@@ -40,7 +60,7 @@ export const MAIN_MENU = [
                             "draggable": true,
                             "icon": "font icon",
                             "widgetConfig":{
-                                "type": "image"
+                                "type": "textbox"
                             }
                         },
                         {

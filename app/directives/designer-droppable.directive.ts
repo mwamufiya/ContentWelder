@@ -4,6 +4,8 @@ import { Directive, ElementRef, Input, HostListener, ComponentFactoryResolver,
 import { ViewContainerRef } from '@angular/core';
 import { MakeDroppable} from './make-droppable.directive';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
+import { Parent } from '../components/parent';
+import { WidgetDrop } from '../interfaces/widget-drop.interface'
 
 @Directive({
     selector: '[designerDroppable]',
@@ -17,7 +19,7 @@ export class DesignerDroppable extends MakeDroppable{
     draggOverHelper: Node;          //Dom element displayed when something is dragged over
     prvDraggedOverEl: Element       //Previously draged over element
     prvInsertionPoint: boolean      //insert item before or afte item being dragged over
-    widgetAdded: EventEmitter<any>;
+    widgetAdded: EventEmitter<WidgetDrop>;
     reqInsertionPoint:Number;
 
     constructor(
@@ -47,19 +49,19 @@ export class DesignerDroppable extends MakeDroppable{
         super.ondrop(event);
         //Only add an child if a it meets our elligability rules
         if(this.isElligable(event))
-            this.addWidget(event, this.designerGlobals.getDraggedWidgetJSON());
+            this.addWidget(event, this.designerGlobals.getDraggedItems());
 
         this.removeDragOverHelper();
         //Return false to prevent event propogation
         return false;
     }
     //Notify parent that a new child has been added
-    addWidget(event, widgetConfig: JSON){
+    addWidget(event, items:Array<Parent>){
         this.widgetAdded.emit({
             value: 'add',
             templateRef: this.el,
             insertionPoint: this.reqInsertionPoint,
-            widgetConfig: widgetConfig            
+            items: items           
         });
         //console.log(this.childModified);
     }
@@ -69,7 +71,7 @@ export class DesignerDroppable extends MakeDroppable{
     isElligable(event){
         let isValid = true;
         //Do not allow an item to be dropped on itself to increse add a new child
-        let draggedEventPath = this.designerGlobals.getDraggedObject();
+        let draggedEventPath = this.designerGlobals.getDraggedObjectPath();
         if(draggedEventPath[0]===event.path[0])
             isValid = false;
 
