@@ -25,8 +25,8 @@
       // other libraries
       'rxjs':                       'npm:rxjs',
       'angular-in-memory-web-api':  'npm:angular-in-memory-web-api',
-      'jquery':                     'npm:jquery/dist/jquery.min.js',
-      'jqueryui':                   'npm:jquery/dist/jquery-ui.min.js',
+      'jquery':                     'npm:jqueryui/external/jquery/jquery.js',
+      'jqueryui':                   'npm:jqueryui/jquery-ui.min.js',
       'ng2-bootstrap':              'npm:ng2-bootstrap',
       'ng-semantic':                'npm:ng-semantic',
       'semantic':                   'vendor/semantic.min.js',

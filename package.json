@@ -30,7 +30,8 @@
     "rxjs": "5.0.0-beta.12",
     "systemjs": "0.19.39",
     "zone.js": "^0.6.25",
-    "jquery": "^3.1.0"
+    "jquery": "^3.1.0",
+    "angular2-color-picker": "mwamufiya/angular2-color-picker#OnInit-ColorChange-AsInputParameter"
   },
   "devDependencies": {
     "concurrently": "^3.0.0",
