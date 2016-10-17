@@ -1,18 +1,20 @@
 import { Component, HostListener, ViewContainerRef, ViewChild, ComponentFactoryResolver, 
-   AfterViewInit, ComponentRef, OnDestroy, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy
+   AfterViewInit, ComponentRef, OnDestroy, EventEmitter, Output, ChangeDetectorRef,
+   ChangeDetectionStrategy
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { MakeDraggable } from '../../directives/make-draggable.directive'
 import { DesignerDroppable } from '../../directives/designer-droppable.directive';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
 import { WidgetComs, WidgetConfig } from '../../interfaces/widgetJSON.interface';
 import { WidgetResize } from '../../interfaces/WidgetResize.interface';
-import { ImageWidget } from './image.component';
+import { FONTLIST } from '../../services/fonts.service';
 
 @Component({
   selector: 'designerWidget',
-  templateUrl: './app/components/widgets/widget.component.html',
+  //templateUrl: './app/components/widgets/widget.component.html',
+  //Angular 2 components require a template, however, templates are not currently inherited by derived classes
+  template: ``,
   styles:[`
     :host{
         display: flex;
@@ -29,6 +31,7 @@ export class Widget{
     y:number;
     name:string;
     desc:string;
+    fontSizeList:Array<number> = [8,10,12,14,16,18,20,24,28,32,36,40,44,48,54,60,66,72,80,88,96];
     opacity:number;
     layer:number;
     children:Array<Widget>;  //array of child widgets
@@ -44,9 +47,11 @@ export class Widget{
     curCompRef:ComponentRef<Widget>;
     changeDetectoRef:ChangeDetectorRef;
     borderStyle:string;
+    style:CSSStyleDeclaration;
+    fontList:Array<any>;
     /*********BACKGROUND************ */ 
     background:string;
-    backgroundColor:string = 'transparent';             //Hexadecimal value for the background color of this item
+
 
 
     constructor(
@@ -61,11 +66,19 @@ export class Widget{
         this.children = new Array;
         this.infants = new Array;
 
+        this.style = {} as CSSStyleDeclaration;
+        this.setupFonts();
+
         //subscript to the locally selected item
         this._selectedItemSubscription = this.designerGlobals.getSelectedItemsObservable().subscribe(
           value => this.checkIfCurrentlySelected(value),
           err => this.displayError(`Error encountered when subscribing to observable`)
         );
+    }
+    //Get the list of fonts
+    setupFonts():void{
+      //TODO this list should be obtained from a shared service so it isn't called with every initialization
+      this.fontList = FONTLIST;
     }
 
     childModified(event):void {
@@ -137,10 +150,12 @@ export class Widget{
       let markForChange = false;
       if(height != null && this.height !== height){
         this.height = height;
+        this.style.height = height.toString();
         markForChange = true;
       }
       if(width != null && this.width !== width){
         this.width = width;
+        this.style.width = width.toString();
         markForChange = true;
       }
       //Only request a ChangeDetection if we actually changed something.
@@ -161,13 +176,23 @@ export class Widget{
     }
     //set the background Color
     setBackgroundColor(value?:string){
-      this.backgroundColor = (value && value.length)? value: 'transparent';
+      this.style.backgroundColor = (value && value.length)? value: 'transparent';
     }
-    getBackgroundColor():string{
-      return this.backgroundColor;
+    //Set the text color
+    setTextColor(value?:string):void{
+      this.style.color = (value && value.length)? value: 'black';      
     }
     //Set the border styles
-    setBorderStyle(value:string){
-      this.borderStyle = value;
+    setBorderStyle(value?:string):void{
+      this.borderStyle = (value && value.length)? value: 'none';;
+    }
+    //set Text size
+    setTextSize(value?:string):void{
+      this.style.fontSize = (value && value.length)? value+'pt': '12pt'; 
+    }
+    //Set Font Family
+    setFontFamily(value?:string):void{
+      console.log(value);
+      this.style.fontFamily = (value && value.length)? value: 'Helvetica';
     }
 }

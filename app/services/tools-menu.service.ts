@@ -6,7 +6,7 @@
  * 
  *      - It is NOT sufficient to simply add it in this JSON file.
  *      - The corresponding Classes must be modified/added in the following files.
- *              - app/components/designer-stage.component.ts Entry Components
+ *              - app/components/Page.component.ts Entry Components
  *                  - the entry components must be updated to include your new widget type
  *                  - Only Classes of type DesignerToolsMenu & classes that extend Widget are currently supported.
  *                      - To increase support, expand the switch statement in the "childModified" method

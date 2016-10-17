@@ -1,7 +1,5 @@
-import { Directive, 
-    ElementRef, 
-    Input, 
-    HostListener, OnInit, EventEmitter, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, Input, HostListener, OnInit, EventEmitter,
+     ComponentFactoryResolver, ViewContainerRef, Compiler } from '@angular/core';
 import {WidgetFactory} from '../components/widgets/widget-factory';
 
 @Directive({
@@ -18,7 +16,7 @@ export class WidgetTemplateFactory implements OnInit{
     }
     ngOnInit(){
         this.widgetConfig = this.widgetConfig;
-        let componentFactory = new WidgetFactory().createWidget(this.componentFactoryResolver, this.widgetConfig.type);
+        let componentFactory = new WidgetFactory().getWidgetFactory(this.componentFactoryResolver, this.widgetConfig.type);
         return this.viewContainerRef.createComponent(componentFactory, 0, this.viewContainerRef.injector);
     }
 }

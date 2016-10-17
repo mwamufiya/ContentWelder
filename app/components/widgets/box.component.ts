@@ -1,5 +1,5 @@
 import { Component, HostListener, ChangeDetectorRef, forwardRef,
-    ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
+    ComponentFactoryResolver, ViewContainerRef, ViewChild, ComponentFactory} from '@angular/core';
 import { Widget } from './widget.component';
 import { WidgetContainer } from './widget-container.component';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
@@ -27,15 +27,13 @@ import { DesignerToolsMenu} from '../designer-tools-menu.component';
 export class BoxWidget extends Widget{
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
-    compResolver:ComponentFactoryResolver;
 
     constructor(
         componentFactoryResolver:ComponentFactoryResolver,
         viewContainer:ViewContainerRef,
         changeDetectorRef: ChangeDetectorRef,
         designerGlobals: DesignerGlobalsService){
-        super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
-        this.compResolver = componentFactoryResolver;
+        super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);    
     }
 
     @HostListener('click', ['$event']) onclick(event){
@@ -47,21 +45,10 @@ export class BoxWidget extends Widget{
     childModified(event:WidgetDrop){     
         //Loop through all items being added and add.
         let index:number = 0;
+        let factory = new WidgetFactory();
         for(let item of event.items){
-            //get the proper widgetType
-            let widgetType:string;
-            let widgetConfig:WidgetConfig;
-            //get the widget Config based on the type of item being added.
-            //TODO: this should probably be moved to some sort of factory.
-            console.log(item.constructor.name);
-            switch(item.constructor.name){
-                case "DesignerToolsMenu":
-                    widgetConfig = (item as DesignerToolsMenu).widgetConfig as WidgetConfig;
-                    break;
-                case "Widget":
-                    break;
-            }
-            let componentFactory = new WidgetFactory().createWidget(this.compResolver, widgetConfig.type);
+            let widgetConfig = factory.getWidgetConfigFromComponent(item);
+            let componentFactory = factory.getWidgetFactory(this.componentResolver, widgetConfig.type);
             let ref = this.container.createComponent(componentFactory);
 
             //if this item is the first in the array, do not append it. otherwise, we do;

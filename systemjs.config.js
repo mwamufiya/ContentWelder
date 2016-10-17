@@ -30,6 +30,7 @@
       'ng2-bootstrap':              'npm:ng2-bootstrap',
       'ng-semantic':                'npm:ng-semantic',
       'semantic':                   'vendor/semantic.min.js',
+      'angular2-color-picker':      'npm:angular2-color-picker'
 
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -51,6 +52,10 @@
       },
       'ng-semantic': {
           main: 'ng-semantic',
+          defaultExtension: 'js'
+      },
+      'angular2-color-picker': {
+          main:'index.js', 
           defaultExtension: 'js'
       }
     }

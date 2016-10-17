@@ -1,21 +1,22 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, ApplicationInitStatus, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SemanticModalComponent } from 'ng-semantic';
 import { Subscription } from 'rxjs/Subscription';
 import { Image } from './image';
 import { Video} from './video';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
-import { DesignerStageComponent } from './designer-stage.component';
+import { PageWidget } from './widgets/page.component';
 
 @Component({
   selector: 'my-designer',
   templateUrl: './app/components/designer.component.html',
   styleUrls: ['./app/components/designer.component.css']
 })
-export class DesignerComponent{
+export class DesignerComponent implements OnInit{
     @ViewChild('videoChooser', {read: SemanticModalComponent}) videoChooser: SemanticModalComponent;
     @ViewChild('imageChooser', {read: SemanticModalComponent}) imageChooser: SemanticModalComponent;
-    @ViewChild(DesignerStageComponent) private stageComponent: DesignerStageComponent;
+    @ViewChild(PageWidget) private stageComponent: PageWidget;
+    @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
     private mediaChooserSubscription: Subscription;
     private _selectedImageSubscription: Subscription;
     private _selectedVideoSubscription: Subscription;
@@ -23,12 +24,24 @@ export class DesignerComponent{
     private video:Video;
     private image:Image;
     private isSelected:boolean;
+    pageList:Array<any>;
     
     constructor(
+      private compFactoryResolver: ComponentFactoryResolver,
       private router: Router,
       private designerGlobals: DesignerGlobalsService){
         this.mediaChooserInit();
         this.initializeSubscribers();
+        
+    }
+    //Perform the task of fetching the Page Config from the server
+    //For now just default to 1 page item. 
+    ngOnInit():void{
+      //TODO make a call to a service to retrieve the list of pages
+      this.pageList = new Array();
+      for(let i=0; i<1; i++){
+        this.pageList.push(i);
+      }
     }
     //handles subscribing to events in order to toggle the correct viewer
     mediaChooserInit():void{
@@ -56,7 +69,7 @@ export class DesignerComponent{
     initializeSubscribers(){
         //subscript to the selected item
         this._selectedItemSubscription = this.designerGlobals.getSelectedItemsObservable().subscribe(
-          value => this.checkIfCurrentlySelected(value),
+          value => this.checkIfSelected(value),
           err => console.log(`Designer Component: Selected Item Subscription Error`)
         );
         //subscript to the selected Image
@@ -71,7 +84,7 @@ export class DesignerComponent{
         );
     }
     //Determines if this items is currently selected
-    checkIfCurrentlySelected(selectedArray:Array<Component>){
+    checkIfSelected(selectedArray:Array<Component>){
       //if this item exists in the list of currently selected items, mark it as such.
       this.isSelected = selectedArray.indexOf(this) != -1? true: null;
     }

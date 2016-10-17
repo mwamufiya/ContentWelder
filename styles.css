@@ -42,6 +42,7 @@ hr{
 }
 .widgetContainer{
   position: relative;
+  vertical-align: top;
 }
 .widgetMenu{
   margin:0;
@@ -52,12 +53,13 @@ hr{
   border-top-right-radius: 5px;
   list-style-type: none;
   position:absolute;
-  top:-3.5em;
+  top:-5em;
   font-size:1em;
   display:flex;
   border:1px solid #CCC;
   font-size:9pt;
-  width:250px;
+  min-width:250px;
+  color:black;
 }
 .widgetMenu li{
   display:inline;
@@ -90,4 +92,11 @@ hr{
 }
 .widgetMenu li li:hover{
   background: #EFEFEF;
+}
+.widgetMenu .colorPicker input{
+ width:35px;
+ height:33px;
+ border:1px solid #CCC;
+ border-radius: 5px;
+ cursor:pointer;
 }

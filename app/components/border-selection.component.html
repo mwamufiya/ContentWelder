@@ -1,6 +1,6 @@
 <sm-dropdown title="Border" class="pointing floating labeled icon button">
     <sm-item *ngFor="let item of borderTypes" (click)="changeBorderType(item.value)">
-        <div class="borderPreview" [ngStyle]="{'border-style': item.value}"></div>
+        <!--<div class="borderPreview" [ngStyle]="{'border-style': item.value}"></div>-->
         <label>{{item.value}}</label>
     </sm-item>
 </sm-dropdown>

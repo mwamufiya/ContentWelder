@@ -1,30 +1,47 @@
-import { ComponentFactoryResolver, ComponentFactory} from '@angular/core';
+import { ComponentFactoryResolver, ComponentFactory, ReflectiveInjector} from '@angular/core';
 import { Widget } from './widget.component';
 import { BoxWidget } from './box.component';
 import { ImageWidget } from './image.component';
 import { VideoWidget } from './video.component';
 import { TextboxWidget } from './textbox.component';
+import { PageWidget  } from './page.component';
+import { WidgetConfig } from '../../interfaces/widgetJSON.interface';
+import { DesignerToolsMenu} from '../designer-tools-menu.component';
 
 export class WidgetFactory{
-    //TODO: make the WidgetJson an interface so that the definition is known and can be used in IDE
-    //Might have to make it an Object, couldn't figure out a way to export an Interface for re-use
-    createWidget(
-        componentFactoryResolver: ComponentFactoryResolver,
+    //Returns the WidgetConfig for the provided Component
+    //TODO the parameter being passed should be "typed" defined to avoid confusion down the line
+    //INPUT: component                  supported: DesignterToolsMenu | Widget 
+    getWidgetConfigFromComponent(component):WidgetConfig{
+        let config:WidgetConfig;
+        switch(component.constructor.name){
+            case "DesignerToolsMenu":
+                config = (component as DesignerToolsMenu).widgetConfig as WidgetConfig;
+                break;
+            case "Widget":
+                break;
+        }
+        return config;
+    }
+    //Creates a ComponentFactory based on the provided componentType
+    getWidgetFactory(compFactoryResolver: ComponentFactoryResolver,
         componentType:string):ComponentFactory<Widget>{
-        
+       
+       componentType = componentType.toLowerCase();
+
         //Store the list of string to Object for later use
         let factoryMap = {
             image: ImageWidget,
             video: VideoWidget,
             box: BoxWidget,
-            textbox: TextboxWidget
+            textbox: TextboxWidget,
+            page: PageWidget
         }
-
-        componentType = componentType.toLowerCase();
+        
         if(!factoryMap[componentType])
             return;
 
-        let componentFactory = componentFactoryResolver.resolveComponentFactory(factoryMap[componentType]) as ComponentFactory<Widget>;
-        return componentFactory;
+        let componentFactory = compFactoryResolver.resolveComponentFactory(factoryMap[componentType]);
+        return componentFactory as ComponentFactory<Widget>;
     }
 }

@@ -28,8 +28,15 @@ export class DesignerGlobalsService {
     //Allow communications between components and a single Media-chooser
     private _mediaChooserObservable: Observable<string>; 
     private mediaChooserObserver: Observer<any>;
+    //Widget Factory Observable
+    private _widgetFactoryObservable: Observable<string>; 
+    private widgetFactoryObserver: Observer<any>;
     
     constructor(private http: Http) {
+        this.setupObservables();
+    }
+
+    setupObservables():void{
         //We need to create a 'Hot' observable to allow for subscription to occur at different intervals
         this.selItemList = [];
         this.draggedItems = [];

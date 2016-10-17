@@ -4,13 +4,12 @@ align-items: center;
 justify-content: center;
 flex-direction: column;
 }
-.stage{
+.cw-page{
     min-height:400px;
     min-width:80%;
-    border:2px dotted white;
 }
-.noBackground .stage{
-    background:white;
+.noBackground .cw-page{
+    border:2px dotted white;
 }
 
 /*Background VIdeo Code

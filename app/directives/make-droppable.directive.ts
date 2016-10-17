@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, HostListener, Inject} from '@angular/core';
+import { Directive, ElementRef, Input, HostListener} from '@angular/core';
 
 @Directive({
     selector: '[makeDroppable]'
@@ -7,33 +7,38 @@ import { Directive, ElementRef, Input, HostListener, Inject} from '@angular/core
 export class MakeDroppable{
     @Input('makeDroppable') data: any;
     el: ElementRef;
+    prvBckgColor:string;  //store the previous background color
 
-    backgroundColor:string;  
     constructor(el: ElementRef){
         this.el = el; 
-        this.backgroundColor = el.nativeElement.style.backgroundColor.toString();
     }
-    @HostListener('dragover', ['$event']) ondragover(event){
+    @HostListener('dragover', ['$event']) ondragover(event):boolean{
         event.stopPropagation();
-        this.el.nativeElement.style.backgroundColor = "yellow";
+        let e = this.el.nativeElement as HTMLElement;
+        if(!this.prvBckgColor && this.prvBckgColor!='yellow'){
+            this.prvBckgColor = e.style.backgroundColor;
+        }
+        e.style.backgroundColor = "yellow";
 
         //Return false to prevent event propogation
         return false;
     }
-    @HostListener('dragleave', ['$event']) ondragleave(event:Event){
+    @HostListener('dragleave', ['$event']) ondragleave(event:Event, colorOveride?:string):boolean{
         event.stopPropagation();
-        this.restoreBackgroundColor();
+        this.restoreBackgroundColor(colorOveride);
         return false;
     }
-    @HostListener('drop', ['$event']) ondrop(event:Event){
+    @HostListener('drop', ['$event']) ondrop(event:Event, colorOveride?:string):boolean{
         event.stopPropagation();
-        this.restoreBackgroundColor();
+        this.restoreBackgroundColor(colorOveride);
         //Return false to prevent event propogation
         return false;
     }
-
-    restoreBackgroundColor(){
-        this.el.nativeElement.style.backgroundColor = '';
+    //Resets the native items color unless otherwise specified
+    //colorOveride: allows calling methods to choose a different color.
+                    //this is done because the background color may have changed from the time of initialization until now; 
+    restoreBackgroundColor(colorOveride?:string):void{
+        this.el.nativeElement.style.backgroundColor = colorOveride? colorOveride : this.prvBckgColor;
     }
     getEl():ElementRef{
         return this.el;

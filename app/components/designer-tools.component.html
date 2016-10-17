@@ -73,3 +73,10 @@
     </ng-container>
     
 </div>
+        <template [ngIf]="activeToolSelection=='background'">
+            <ul>
+                <li>Color</li>
+                <li>Image</li>
+                <li (click)="editBackground('video')">Video <span class="statusIndicator">&#x2713;</span></li>                 
+            </ul>
+        </template>

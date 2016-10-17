@@ -16,31 +16,31 @@ import { routing }        from './app.routing';
 
 /**********Application Specific********************** */
 /************Components************/
-import { Widget } from './components/widgets/widget.component';
-import { DesignerComponent }  from './components/designer.component';
-import { DesignerToolsComponent }  from './components/designer-tools.component';
-import { DesignerToolsMenu } from './components/designer-tools-menu.component';
-import { ResizeHandles } from './components/resizeHandles.component';
-import { WidgetContainer } from './components/widgets/widget-container.component';
-import { ImageChooser } from './components/image/image-chooser.component';
-import { BorderSelection } from './components/border-selection.component';
-import { DesignerStageComponent }  from './components/designer-stage.component';
-import { BoxWidget } from './components/widgets/box.component';
-import { ImageWidget } from './components/widgets/image.component';
-import { VideoWidget } from './components/widgets/video.component';
-import { TextboxWidget } from './components/widgets/textbox.component';
+import { DesignerModule }    from './components/designer.module';
+//import { Widget } from './components/widgets/widget.component';
+//import { DesignerComponent }  from './components/designer.component';
+
+//import { DesignerToolsMenu } from './components/designer-tools-menu.component';
+//import { WidgetContainer } from './components/widgets/widget-container.component';
+//import { ImageChooser } from './components/image/image-chooser.component';
+//import { BorderSelection } from './components/border-selection.component';
+//import { DesignerStageComponent }  from './components/designer-stage.component';
+//import { BoxWidget } from './components/widgets/box.component';
+//import { ImageWidget } from './components/widgets/image.component';
+//import { VideoWidget } from './components/widgets/video.component';
+//import { TextboxWidget } from './components/widgets/textbox.component';
 
 
 /*************Directives***********/
-import { DesignerDroppable }  from './directives/designer-droppable.directive';
-import { DesignerDraggable }  from './directives/designer-draggable.directive';
-import { Resize }  from './directives/resize.directive';
-import { WidgetTemplateFactory } from './directives/widget-template-factory.directive';
+//import { DesignerDroppable }  from './directives/designer-droppable.directive';
+//import { DesignerDraggable }  from './directives/designer-draggable.directive';
+//import { Resize }  from './directives/resize.directive';
+//import { WidgetTemplateFactory } from './directives/widget-template-factory.directive';
 
 /*************Services************* */
-import { DesignerGlobalsService } from './services/designer-globals.service';
-import { ImageService } from './services/image.service';
-import { VideoService } from './services/video.service';
+//import { DesignerGlobalsService } from './services/designer-globals.service';
+//import { ImageService } from './services/image.service';
+//import { VideoService } from './services/video.service';
 
 
 @NgModule({
@@ -50,35 +50,13 @@ import { VideoService } from './services/video.service';
     FormsModule,
     routing,
     HttpModule,
-    ModalModule
+    ModalModule,
+    DesignerModule
   ],
   declarations: [
     AppComponent,
-    Widget,
-    WidgetContainer,
-    DesignerComponent,
-    DesignerToolsComponent,
-    DesignerDraggable,
-    DesignerDroppable,
-    WidgetTemplateFactory,
-    Resize,
-    ResizeHandles,
-    DesignerStageComponent,
-    ImageChooser,
-    BorderSelection,
-    BoxWidget, 
-    ImageWidget,
-    VideoWidget,
-    TextboxWidget,
-    DesignerToolsMenu
-  ],
-  providers: [
-    DesignerGlobalsService,
-    ImageService,
-    VideoService
   ],
   bootstrap: [ AppComponent ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
 }

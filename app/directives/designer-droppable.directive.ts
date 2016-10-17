@@ -5,6 +5,7 @@ import { ViewContainerRef } from '@angular/core';
 import { MakeDroppable} from './make-droppable.directive';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Parent } from '../components/parent';
+import { Widget } from '../components/widgets/widget.component';
 import { WidgetDrop } from '../interfaces/widget-drop.interface'
 
 @Directive({
@@ -21,16 +22,19 @@ export class DesignerDroppable extends MakeDroppable{
     prvInsertionPoint: boolean      //insert item before or afte item being dragged over
     widgetAdded: EventEmitter<WidgetDrop>;
     reqInsertionPoint:Number;
+    parentComp:Widget;
 
     constructor(
         el: ElementRef,
         private viewContainer: ViewContainerRef,
         //public templateRef: TemplateRef<any>,
         private componentFactoryResolver: ComponentFactoryResolver,
-        private designerGlobals: DesignerGlobalsService
+        private designerGlobals: DesignerGlobalsService,
+        parentComponent:Parent
         ){
         super(el);
         this.widgetAdded = new EventEmitter();
+        this.parentComp = parentComponent as Widget;
     }
     @HostListener('dragover', ['$event']) ondragover(event){
         if(this.isElligable(event)){
@@ -41,12 +45,14 @@ export class DesignerDroppable extends MakeDroppable{
         return false;
     }
     @HostListener('dragleave', ['$event']) ondragleave(event){
-        super.ondragleave(event);
+        super.ondragleave(event, this.parentComp.style.backgroundColor);
         this.removeDragOverHelper();
         return false;
     }
     @HostListener('drop', ['$event']) onDrop(event){
-        super.ondrop(event);
+        //get the widget's curren background color;
+        super.ondrop(event, this.parentComp.style.backgroundColor);
+        
         //Only add an child if a it meets our elligability rules
         if(this.isElligable(event))
             this.addWidget(event, this.designerGlobals.getDraggedItems());

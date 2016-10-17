@@ -6,6 +6,13 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
         <li>
             <button class="mini ui button green" (click)="launchVideoChooser()"><i class="image icon"></i>Choose Video</button>
         </li>
+        <li title="Background Color" class="colorPicker">
+            <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)" 
+            [style.background]="color" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+        </li>
+        <li>
+            <border-selection (borderChanged)="setBorderStyle($event)"></border-selection>
+        </li>
         <li *ngIf="video" class=".zoom75">
             <sm-button class="" icon="play" (click)="play(this)"></sm-button>
         </li>

@@ -24,8 +24,7 @@
 }
 .mainVenu{
     display:flex;
-    flex-direction:row;
-    height:90%;
+    flex-direction:column;
 }
 .mainVenu > div{
     flex:1;
@@ -43,7 +42,11 @@
     }   
 }
 .designer .pasteboard{
-    flex:6 1 80%;
+    border-bottom:1px dashed #CCC;
+    padding:1rem 0;
+}
+.designer .pasteboard:last-child{
+    border:0;
 }
 .designer .pasteboard video{
     position: fixed;

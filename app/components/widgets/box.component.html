@@ -2,16 +2,20 @@
 resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResize($event)">
     <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>       
     <ul *ngIf="isSelected==true" class="widgetMenu">
+        <li title="Background Color" class="colorPicker">
+            <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)" 
+            [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+        </li>
         <li>
             <border-selection (borderChanged)="setBorderStyle($event)"></border-selection>
-        </li>
+        </li>   
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
     <div [class.emptyContainer]="children.length==0"
          designerDroppable designerDraggable data-widgetType='box' (widgetAdded)="childModified($event)" 
          (parentActionReq)="removeChild($event)" data-widgetConfig='{"type":"box"}'
-         [ngStyle]="{'border-style':borderStyle, 'height': getHeight(true), 'width': getWidth(true)}">
+         [ngStyle]="style">
         <template #container></template>
         <designer-BoxWidget *ngFor="let widget of childWidgets" ></designer-BoxWidget>
     </div>

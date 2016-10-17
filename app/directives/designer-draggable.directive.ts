@@ -26,7 +26,9 @@ const DraggedObject = new OpaqueToken('draggedItem')
 export class DesignerDraggable extends MakeDraggable implements OnInit{
     widgetType: string;
 
-    constructor(el: ElementRef, private designerGlobals: DesignerGlobalsService, @Optional() private parentComponent:Parent){
+    constructor(el: ElementRef, 
+        private designerGlobals: DesignerGlobalsService, 
+        @Optional() private parentComponent:Parent){
         super(el);
     }
     

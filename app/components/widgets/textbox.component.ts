@@ -1,4 +1,3 @@
-
 import { Component, HostListener, ChangeDetectorRef, forwardRef, Host,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Widget } from './widget.component'
@@ -13,12 +12,12 @@ import { Parent } from '../parent';
     .widgetContainer{
         display:inline-block;
     }
-    .emptyContainer{
+    .emptyContainer, .emptyContainer div{
         min-width:140px;
         min-height:100px;
     }
     .widgetContainer div{
-        display:inline;
+    
     }
   `],
   providers: [
@@ -43,6 +42,11 @@ export class TextboxWidget extends Widget{
 
     @HostListener('click', ['$event']) onclick(event){
         return super.onclick(event);
+    }
+    //Allow the user to start editing text on double click
+    @HostListener('dblclick', ['$event']) ondblclick(event):boolean{
+        super.ondblclick(event);
+        return false;
     }
     updateContent(event: Event){
         this.content = event.srcElement.textContent.trim();

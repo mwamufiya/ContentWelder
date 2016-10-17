@@ -4,10 +4,17 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
     <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
     <ul *ngIf="isSelected==true" class="widgetMenu">
         <li>
-            <button class="mini ui button green" (click)="launchImageChooser()"><i class="image icon"></i> Change Picture</button>
+            <button class="mini ui button green" (click)="launchImageChooser()">Change</button>
+        </li>
+        <li title="Background Color" class="colorPicker">
+            <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)" 
+            [style.background]="color" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+        </li>
+        <li>
+            <border-selection (borderChanged)="setBorderStyle($event)"></border-selection>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <img designerDraggable data-widgetConfig='{"type":"image"}' src="{{imgPath}}"/>
+    <img designerDraggable data-widgetConfig='{"type":"image"}' [ngStyle]="style" src="{{imgPath}}"/>
 </div>
