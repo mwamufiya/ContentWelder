@@ -3,11 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DesignerComponent } from './components/designer.component';
 import { ImageChooser } from './components/image/image-chooser.component';
+import { FormWidget } from './components/widgets/widget-form.component';
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/designer',
+    redirectTo: '/forms',
     pathMatch: 'full'
   },
   {
@@ -17,6 +18,10 @@ const appRoutes: Routes = [
   {
     path:'image-chooser',
     component: ImageChooser
+  },
+  {
+    path:'forms',
+    component: FormWidget
   }
 ];
 

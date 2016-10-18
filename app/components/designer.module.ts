@@ -10,8 +10,14 @@ import { ImageWidget } from './widgets/widget-image.component';
 import { VideoWidget } from './widgets/widget-video.component';
 import { TextboxWidget } from './widgets/widget-textbox.component';
 import { PageWidget }  from './widgets/widget-page.component';
+import { FormWidget }  from './widgets/widget-form.component';
 import { DesignerToolsComponent }  from './designer-tools.component';
 import { DesignerComponent }  from './designer.component';
+
+/***********Forms****************** */
+import { QuestionService } from './forms/question.service';
+import { DynamicFormComponent } from './forms/dynamic-form.component';
+import { DynamicFormQuestionComponent } from './forms/dynamic-form-question.component';
 
 /************3rd party*********** */
 //import { ModalModule } from 'ng2-bootstrap/components/modal';
@@ -53,6 +59,7 @@ import { FONTLIST } from '../services/fonts.service';
     ImageWidget, 
     VideoWidget,
     TextboxWidget,
+    FormWidget,
     ResizeHandles,
     DesignerDraggable,
     DesignerDroppable,
@@ -62,7 +69,9 @@ import { FONTLIST } from '../services/fonts.service';
     DesignerToolsMenu,
     ImageChooser,
     DesignerToolsComponent,
-    ColorPickerDirective
+    ColorPickerDirective,
+    DynamicFormComponent,
+    DynamicFormQuestionComponent
   ],
   exports: [
     Widget,
@@ -76,7 +85,8 @@ import { FONTLIST } from '../services/fonts.service';
     DesignerGlobalsService,
     ImageService,
     VideoService,
-    ColorPickerService
+    ColorPickerService,
+    QuestionService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

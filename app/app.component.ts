@@ -21,6 +21,11 @@ export class AppComponent {
         title:`designer`,
         icon:`paint brush`,
         url:`designer`
+      },
+      {
+        title:`forms`,
+        icon:`paint brush`,
+        url:`forms`
       }
     ];
     return menuArr;

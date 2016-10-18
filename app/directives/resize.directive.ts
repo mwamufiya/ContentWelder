@@ -63,7 +63,8 @@ export class Resize implements OnInit{
                 e=e.parentElement;
             //we don't care about anything outside the Designer Stage
             //TODO: this should probably be configurable
-            if( e.parentElement.nodeName.toLocaleLowerCase()=='designer-page'){
+            if( e.parentElement.nodeName.toLocaleLowerCase()=='designer-page' 
+                || e.parentElement.nodeName.toLocaleLowerCase()=='body'){
                 e = null;
                 break;
             }

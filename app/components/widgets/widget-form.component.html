@@ -1,0 +1,50 @@
+<div class="widgetContainer" [class.emptyContainer]="imgPath" [class.activeWidget]="isSelected==true" 
+resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
+[ngStyle]="{'height':style.height,'width':style.width}">
+    <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
+    <ul *ngIf="isSelected==true" class="widgetMenu">
+        <li>
+            <button class="mini ui button green" (click)="launchImageChooser()">Change</button>
+        </li>
+        <li title="Background Color" class="colorPicker">
+            <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)" 
+            [style.background]="color" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+        </li>
+        <li>
+            <border-selection (borderChanged)="setBorderStyle($event)"></border-selection>
+        </li>
+        <li (click)="removeSelf($event)">&#x2716;</li>
+        <li>&#x2753;</li>
+    </ul>
+    <sm-menu class="ui menu">
+        <a sm-item (click)="displayQuestionProperties()" [icon]="'add circle icon'">Add Field</a>
+        <a sm-item [icon]="'trash icon'">Remove all</a>
+    </sm-menu>
+    <div class="devContainer">
+        <div class="ui form formContainer" [ngStyle]="style">
+            <dynamic-form *ngIf="questions && questions.length" [questions]="questions"></dynamic-form>
+        </div>
+        <div class="questionModifier ui form" *ngIf="editQuestion==true">
+            <form (ngSubmit)="saveQuestionChanges()">
+                <input type="hidden" name="index"/>
+                <label>Type</label>
+                <sm-select placeholder="Type" (onChange)="changeQuestionType($event)" class="fluid search">
+                    <option>TextBox</option>
+                    <option>Dropdown</option>
+                </sm-select>
+                <div *ngIf="model">
+                    <label>Field Name</label>
+                    <input [(ngModel)]="model.label" minlength="3" maxlength="50" pattern="[A-Za-z_0-9\\s]+" name="label" type="text" placeholder="Field Name..." required #fieldLabel/>
+                    <div class="alert alert-danger" [hidden]="fieldLabel.isValid || fieldLabel.isValid">{{model.label}} is required</div>
+                    <!--<label>Required</label>
+                    <input type="checkbox" [(ngModel)]="model.required" name="required"/>-->
+                    <!--Dropdown specific -->
+                    <template *ngIf="model.controlType=='dropdown'">
+                        <label>values</label>
+                        <input type="text" placeholder="option1, option2,..."/>
+                    </template>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

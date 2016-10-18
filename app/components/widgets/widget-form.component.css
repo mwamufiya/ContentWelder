@@ -1,0 +1,27 @@
+.formContainer{
+    padding:1em;
+}
+.remove{
+    cursor:pointer;
+    float:right;
+}
+.formContainer{
+    display:flex;
+    flex-direction: row;
+}
+.devContainer{
+    display:flex;
+    flex-direction: row;
+}
+.devContainer div{
+    flex-grow: 3;
+}
+.widgetContainer .questionModifier{
+    flex-grow: 1;
+    background: #EFEFEF;
+    padding: 1em;
+    font-size: 10pt;
+    border-radius: 5px;
+    border: 1px solid #CCC;
+    flex-grow: 1;
+}
