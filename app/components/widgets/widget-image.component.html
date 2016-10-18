@@ -6,12 +6,13 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
         <li>
             <button class="mini ui button green" (click)="launchImageChooser()">Change</button>
         </li>
+        <!-- Since image boxes should have images, it doesn't make sense to have background color
         <li title="Background Color" class="colorPicker">
-            <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)" 
+            <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('backgroundColor', $event)" 
             [style.background]="color" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
-        </li>
+        </li>-->
         <li>
-            <border-selection (borderChanged)="setBorderStyle($event)"></border-selection>
+            <border-selection (borderChanged)="setStyleProperty('borderStyle',$event)"></border-selection>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>

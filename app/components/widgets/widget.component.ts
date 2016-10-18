@@ -174,6 +174,13 @@ export class Widget{
         child.curCompRef.destroy();
       }
     }
+    setStyleProperty(name:string, value:string){
+      try{ 
+        this.style[name] = value;
+      }catch (e){
+        //TODO display an error message
+      }
+    }
     //set the background Color
     setBackgroundColor(value?:string){
       this.style.backgroundColor = (value && value.length)? value: 'transparent';
@@ -184,7 +191,7 @@ export class Widget{
     }
     //Set the border styles
     setBorderStyle(value?:string):void{
-      this.borderStyle = (value && value.length)? value: 'none';;
+      this.style.borderStyle = (value && value.length)? value: 'none';;
     }
     //set Text size
     setTextSize(value?:string):void{
