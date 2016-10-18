@@ -29,12 +29,12 @@ export const MAIN_MENU = [
                     "label": "Color"
                 },
                 {
-                    "value": "image",
+                    "value": "imagewidget",
                     "label": "Image",
                     "icon": "image icon",
                 },
                 {
-                    "value": "video",
+                    "value": "videowidget",
                     "label": "Video",
                     "isActive": true,
                     "click": "editBackground('video')",
@@ -53,14 +53,14 @@ export const MAIN_MENU = [
                     "title": "Text Box",
                     "children":[
                         {
-                            "value":"textbox",
+                            "value":"textboxwidget",
                             "label": "Text",
                             "title": "Text Box",
                             "isActive": true,
                             "draggable": true,
                             "icon": "font icon",
                             "widgetConfig":{
-                                "type": "textbox"
+                                "type": "textboxwidget"
                             }
                         },
                         {
@@ -75,13 +75,13 @@ export const MAIN_MENU = [
                             }
                         },
                         {
-                            "value":"image",
+                            "value":"imagewidget",
                             "label": "Image",
                             "isActive": true,
                             "draggable": true,
                             "icon": "image icon",
                             "widgetConfig":{
-                                "type": "image"
+                                "type": "imagewidget"
                             }
                         }
                     ]
@@ -92,13 +92,13 @@ export const MAIN_MENU = [
                     "title": "Container",
                     "children":[
                         {
-                            "value":"box",
+                            "value":"boxwidget",
                             "label": "Box",
                             "title": "Box",
                             "isActive": true,
                             "draggable": true,
                             "widgetConfig":{
-                                "type": "box"
+                                "type": "boxwidget"
                             }
                         }
                     ]
@@ -111,37 +111,37 @@ export const MAIN_MENU = [
             "isActive": true,
             "children":[
                 {
-                    "value":"video",
+                    "value":"videowidget",
                     "label": "Video",
                     "title": "Video",
                     "isActive": true,
                     "draggable": true,
                     "icon": "video play outline icon",
                     "widgetConfig":{
-                        "type": "video"
+                        "type": "videowidget"
                     }
                 },
                 {
-                    "value":"video",
+                    "value":"videowidget",
                     "label": "YoutTube",
                     "title": "YoutTube",
                     "isActive": false,
                     "draggable": true,
                     "icon": "youtube play icon",
                     "widgetConfig":{
-                        "type": "video",
+                        "type": "videowidget",
                         "source":"youtube"
                     }
                 },
                 {
-                    "value":"video",
+                    "value":"videowidget",
                     "label": "Vimeo",
                     "title": "Vimeo",
                     "isActive": false,
                     "draggable": true,
                     "icon": "vimeo square icon",
                     "widgetConfig":{
-                        "type": "video",
+                        "type": "videowidget",
                         "source":"vimeo"
                     }
                 }

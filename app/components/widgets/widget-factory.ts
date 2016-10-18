@@ -18,7 +18,8 @@ export class WidgetFactory{
             case "DesignerToolsMenu":
                 config = (component as DesignerToolsMenu).widgetConfig as WidgetConfig;
                 break;
-            case "Widget":
+            default:
+                config = {type: component.constructor.name}
                 break;
         }
         return config;
@@ -31,11 +32,11 @@ export class WidgetFactory{
 
         //Store the list of string to Object for later use
         let factoryMap = {
-            image: ImageWidget,
-            video: VideoWidget,
-            box: BoxWidget,
-            textbox: TextboxWidget,
-            page: PageWidget
+            imagewidget: ImageWidget,
+            videowidget: VideoWidget,
+            boxwidget: BoxWidget,
+            textboxwidget: TextboxWidget,
+            pagewidget: PageWidget
         }
         
         if(!factoryMap[componentType])

@@ -2,11 +2,11 @@ import { Widget } from '../components/widgets/widget.component';
 
 export interface WidgetConfig{
     type:string; //the type of WidgetJSON
-    position:number;    // array index for this current item within the parent's list of children
-    width:number;
-    height:number;
-    opacity:number;
-    children:Array<Widget>
+    position?:number;    // array index for this current item within the parent's list of children
+    width?:number;
+    height?:number;
+    opacity?:number;
+    children?:Array<Widget>
      
 }
 

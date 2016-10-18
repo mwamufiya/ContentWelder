@@ -45,7 +45,7 @@ export class Widget{
     removeCurrent:boolean = false; //marked to true when current item is requested to be removed;
     parentActionReq: EventEmitter<any> = new EventEmitter();
     curCompRef:ComponentRef<Widget>;
-    changeDetectoRef:ChangeDetectorRef;
+    changeDetectorRef:ChangeDetectorRef;
     borderStyle:string;
     style:CSSStyleDeclaration;
     fontList:Array<any>;
@@ -61,7 +61,7 @@ export class Widget{
       designerGlobals: DesignerGlobalsService){
         this.componentResolver = componentResolver;
         this.viewCont = viewCont;
-        this.changeDetectoRef = changeDetectorRef;
+        this.changeDetectorRef = changeDetectorRef;
         this.designerGlobals = designerGlobals;
         this.children = new Array;
         this.infants = new Array;
@@ -160,7 +160,7 @@ export class Widget{
       }
       //Only request a ChangeDetection if we actually changed something.
       if(markForChange == true)
-        this.changeDetectoRef.markForCheck();
+        this.changeDetectorRef.markForCheck();
     }    
 
     //called by Angular when a component is destroyed
