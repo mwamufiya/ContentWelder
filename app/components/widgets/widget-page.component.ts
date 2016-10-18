@@ -1,4 +1,4 @@
-import { Component, ViewChild, ComponentFactoryResolver, ClassDefinition, Host,
+import { Component, ViewChild, ComponentFactoryResolver, ClassDefinition, Host, TemplateRef,
     ComponentFactory, ViewContainerRef, ChangeDetectorRef, forwardRef} from '@angular/core';
 import { Router } from '@angular/router';   
 import { WidgetContainer} from './widget-container.component';
@@ -10,15 +10,15 @@ import { DesignerToolsMenu} from '../designer-tools-menu.component';
 import { WidgetFactory} from './widget-factory';
 import { Parent } from '../parent';
 /*****Entry Components****** */
-import { BoxWidget} from './box.component';
-import { ImageWidget } from './image.component';
-import { VideoWidget} from './video.component';
-import { TextboxWidget } from './textbox.component';
+import { BoxWidget} from './widget-box.component';
+import { ImageWidget } from './widget-image.component';
+import { VideoWidget} from './widget-video.component';
+import { TextboxWidget } from './widget-textbox.component';
 
 @Component({
   selector: 'designer-page',
-  templateUrl: './app/components/widgets/page.component.html',
-  styleUrls: ['./app/components/widgets/page.component.css'],
+  templateUrl: './app/components/widgets/widget-page.component.html',
+  styleUrls: ['./app/components/widgets/widget-page.component.css'],
   entryComponents:[ImageWidget, VideoWidget, BoxWidget, TextboxWidget],
   providers: [
       {
@@ -29,6 +29,7 @@ import { TextboxWidget } from './textbox.component';
 })
 export class PageWidget extends Widget{
     @Host() @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
+    @ViewChild('cont1') tpl1: TemplateRef<Object>; 
     childWidgets:Array<JSON>;
 
     constructor(
@@ -47,6 +48,12 @@ export class PageWidget extends Widget{
             let widgetConfig = factory.getWidgetConfigFromComponent(item);
             let componentFactory = factory.getWidgetFactory(this.componentResolver, widgetConfig.type);
             let ref = this.container.createComponent(componentFactory);
+
+            let v = this.tpl1.createEmbeddedView(ref);
+            this.viewCont.createEmbeddedView(this.tpl1, ref);
+            //let v = this.viewCont.createEmbeddedView(this.tpl1, item);
+            //let v = this.tpl1.createEmbeddedView(item);
+            console.log(v);
 
             //if this item is the first in the array, do not append it. otherwise, we do;
             this.designerGlobals.setSelectedComponent(ref.instance, index == 0? false : true);

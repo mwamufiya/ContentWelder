@@ -17,6 +17,5 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
          (parentActionReq)="removeChild($event)" data-widgetConfig='{"type":"box"}'
          [ngStyle]="style">
         <template #container></template>
-        <designer-BoxWidget *ngFor="let widget of childWidgets" ></designer-BoxWidget>
     </div>
 </div>

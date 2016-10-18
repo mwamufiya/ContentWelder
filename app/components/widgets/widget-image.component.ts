@@ -11,7 +11,7 @@ import { Parent } from '../parent';
 
 @Component({
   selector: 'designer-ImageWidget',
-  templateUrl: './app/components/widgets/image.component.html',
+  templateUrl: './app/components/widgets/widget-image.component.html',
   styles:[`
     img{
         height:100%;

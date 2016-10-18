@@ -11,7 +11,7 @@ import { DesignerToolsMenu} from '../designer-tools-menu.component';
 
 @Component({
   selector: 'designer-BoxWidget',
-  templateUrl: './app/components/widgets/box.component.html',
+  templateUrl: './app/components/widgets/widget-box.component.html',
   styles:[`
     .emptyContainer{
         min-height:50px;

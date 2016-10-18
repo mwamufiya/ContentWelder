@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'designer-videoWidget',
-  templateUrl: './app/components/widgets/video.component.html',
+  templateUrl: './app/components/widgets/widget-video.component.html',
   styles:[`
     img{
         height:100%;
@@ -33,7 +33,7 @@ export class VideoWidget extends Widget{
         private componentFactoryResolver:ComponentFactoryResolver,
         private viewContainer:ViewContainerRef,
         private elementRef: ElementRef,
-        private changeDetectorRef: ChangeDetectorRef,
+        changeDetectorRef: ChangeDetectorRef,
         designerGlobals: DesignerGlobalsService){
         super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
         //set starting dimensions

@@ -1,10 +1,10 @@
 import { ComponentFactoryResolver, ComponentFactory, ReflectiveInjector} from '@angular/core';
 import { Widget } from './widget.component';
-import { BoxWidget } from './box.component';
-import { ImageWidget } from './image.component';
-import { VideoWidget } from './video.component';
-import { TextboxWidget } from './textbox.component';
-import { PageWidget  } from './page.component';
+import { BoxWidget } from './widget-box.component';
+import { ImageWidget } from './widget-image.component';
+import { VideoWidget } from './widget-video.component';
+import { TextboxWidget } from './widget-textbox.component';
+import { PageWidget  } from './widget-page.component';
 import { WidgetConfig } from '../../interfaces/widgetJSON.interface';
 import { DesignerToolsMenu} from '../designer-tools-menu.component';
 

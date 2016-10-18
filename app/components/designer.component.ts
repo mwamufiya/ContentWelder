@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Image } from './image';
 import { Video} from './video';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
-import { PageWidget } from './widgets/page.component';
+import { PageWidget } from './widgets/widget-page.component';
 
 @Component({
   selector: 'my-designer',

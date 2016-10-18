@@ -7,7 +7,7 @@ import { Parent } from '../parent';
 
 @Component({
   selector: 'designer-TextboxWidget',
-  templateUrl: './app/components/widgets/textbox.component.html',
+  templateUrl: './app/components/widgets/widget-textbox.component.html',
   styles:[`
     .widgetContainer{
         display:inline-block;

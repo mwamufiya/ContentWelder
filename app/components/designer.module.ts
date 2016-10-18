@@ -1,15 +1,15 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
-import { FormsModule }    from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { HttpModule, XHRBackend } from '@angular/http';
 
 /**********Widget************** */
 import { Widget } from './widgets/widget.component';
-import { BoxWidget } from './widgets/box.component';
-import { ImageWidget } from './widgets/image.component';
-import { VideoWidget } from './widgets/video.component';
-import { TextboxWidget } from './widgets/textbox.component';
-import { PageWidget }  from './widgets/page.component';
+import { BoxWidget } from './widgets/widget-box.component';
+import { ImageWidget } from './widgets/widget-image.component';
+import { VideoWidget } from './widgets/widget-video.component';
+import { TextboxWidget } from './widgets/widget-textbox.component';
+import { PageWidget }  from './widgets/widget-page.component';
 import { DesignerToolsComponent }  from './designer-tools.component';
 import { DesignerComponent }  from './designer.component';
 
@@ -42,7 +42,8 @@ import { FONTLIST } from '../services/fonts.service';
     NgSemanticModule,
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ReactiveFormsModule
   ],
   declarations: [ 
     DesignerComponent,
