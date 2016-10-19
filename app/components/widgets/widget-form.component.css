@@ -1,10 +1,6 @@
 .formContainer{
     padding:1em;
 }
-.remove{
-    cursor:pointer;
-    float:right;
-}
 .formContainer{
     display:flex;
     flex-direction: row;
@@ -14,7 +10,7 @@
     flex-direction: row;
 }
 .devContainer div{
-    flex-grow: 3;
+    flex-grow: 10;
 }
 .widgetContainer .questionModifier{
     flex-grow: 1;
@@ -24,4 +20,26 @@
     border-radius: 5px;
     border: 1px solid #CCC;
     flex-grow: 1;
+}
+.removeModel{
+    text-align: center;
+    font-size: inherit;
+    font-weight:normal;
+}
+.removeModel span{
+    cursor:pointer;
+}
+.instructions{
+    color:#999;
+    font-weight:normal;
+    font-size:10pt;
+}
+.form-group label{
+    display:block;
+    padding: .5em 0;
+    color:#666;
+    font-weight:bold;
+}
+.curControlType{
+    text-transform: capitalize;
 }

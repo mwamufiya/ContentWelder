@@ -10,6 +10,10 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
             <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)" 
             [style.background]="color" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
         </li>
+        <li title="Text Color" class="colorPicker">
+            <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('color', $event)" 
+            [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [style.background]="color"/>
+        </li>
         <li>
             <border-selection (borderChanged)="setBorderStyle($event)"></border-selection>
         </li>
@@ -17,33 +21,51 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
         <li>&#x2753;</li>
     </ul>
     <sm-menu class="ui menu">
-        <a sm-item (click)="displayQuestionProperties()" [icon]="'add circle icon'">Add Field</a>
+        <a sm-item (click)="addQuestion()" [icon]="'add circle icon'">Add Field</a>
         <a sm-item [icon]="'trash icon'">Remove all</a>
     </sm-menu>
     <div class="devContainer">
         <div class="ui form formContainer" [ngStyle]="style">
-            <dynamic-form *ngIf="questions && questions.length" [questions]="questions"></dynamic-form>
+            <dynamic-form *ngIf="questions && questions.length" (actionRequested)="handleDynaCompAction($event)" [questions]="questions"></dynamic-form>
         </div>
         <div class="questionModifier ui form" *ngIf="editQuestion==true">
-            <form (ngSubmit)="saveQuestionChanges()">
+            <form #questionForm="ngForm" (ngSubmit)="saveQuestionChanges()">
                 <input type="hidden" name="index"/>
-                <label>Type</label>
-                <sm-select placeholder="Type" (onChange)="changeQuestionType($event)" class="fluid search">
-                    <option>TextBox</option>
-                    <option>Dropdown</option>
-                </sm-select>
-                <div *ngIf="model">
-                    <label>Field Name</label>
-                    <input [(ngModel)]="model.label" minlength="3" maxlength="50" pattern="[A-Za-z_0-9\\s]+" name="label" type="text" placeholder="Field Name..." required #fieldLabel/>
-                    <div class="alert alert-danger" [hidden]="fieldLabel.isValid || fieldLabel.isValid">{{model.label}} is required</div>
-                    <!--<label>Required</label>
-                    <input type="checkbox" [(ngModel)]="model.required" name="required"/>-->
-                    <!--Dropdown specific -->
-                    <template *ngIf="model.controlType=='dropdown'">
-                        <label>values</label>
-                        <input type="text" placeholder="option1, option2,..."/>
-                    </template>
+                <div class="form-group">
+                    <div class="curControlType" *ngIf="curModel">
+                        <i class="lock icon"></i>{{curModel.controlType}}
+                    </div>
+                    <sm-select *ngIf="!curModel" title="Type"
+                     placeholder="Type" (onChange)="changeQuestionType($event)" class="fluid search">
+                        <option>TextBox</option>
+                        <option>Dropdown</option>
+                    </sm-select>
                 </div>
+                <div *ngIf="curModel">
+                    <!-- Field Name -->
+                    <div class="form-group">
+                        <label>Field Name</label>
+                        <input (input)="cleanFieldName($event)" [(ngModel)]="curModel.label" minlength="3" maxlength="50" name="label" type="text" placeholder="Field Name..." required #fieldLabel/>
+                    </div>
+                    <!--TextBoxSpecific specific -->
+                    <div class="form-group" *ngIf="curModel.controlType=='textbox'">
+                        <label>Placeholder</label>
+                        <input [(ngModel)]="curModel.placeholder" maxlength="50" name="placeholder" type="text"/>
+                    </div>
+                    <!--Dropdown specific -->
+                    <div class="form-group" *ngIf="curModel.controlType=='dropdown'">
+                        <label>Values</label>
+                        <span class="instructions">Comma separated list of values</span>
+                        <input type="text" (input)="setOptions($event)" value="{{getOptionsAsString()}}" placeholder="option1, option2,..."/>
+                    </div>
+                    <!-- Required -->
+                    <div class="form-group">
+                        <label>Required</label>
+                        <input type="checkbox" [(ngModel)]="curModel.required" name="required" #required/>    
+                    </div>
+                </div>
+                <sm-button *ngIf="curModel" [disabled]="!questionForm.form.valid" class="ui small fluid positive" (click)="saveQuestionChanges()">Done</sm-button>
+                <h4 class="removeModel"><span (click)="removeCurrentModel()"><i class="icon trash outline"></i>Remove</span></h4>
             </form>
         </div>
     </div>

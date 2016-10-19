@@ -1,6 +1,11 @@
-<sm-dropdown title="Border" class="pointing floating labeled icon button">
+<sm-select placeholder="Style" class="fluid search" (change)="changeBorderType($event)">
+    <option *ngFor="let item of borderTypes">{{item.value}}</option>
+</sm-select>
+<!--<sm-dropdown title="Border" [(ngModel)]="borderStyle" class="pointing floating labeled icon button">
     <sm-item *ngFor="let item of borderTypes" (click)="changeBorderType(item.value)">
-        <!--<div class="borderPreview" [ngStyle]="{'border-style': item.value}"></div>-->
         <label>{{item.value}}</label>
     </sm-item>
-</sm-dropdown>
+</sm-dropdown>-->
+<input [(ngModel)]="borderSize" (input)="changeBorderSize($event)" minimum="0" size="2" maxlength="3" value="{{borderSize}}" />
+<!--<input [colorPicker]="color" (colorPickerChange)="setStyleProperty('color', $event)" 
+            [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [style.background]="color"/>-->

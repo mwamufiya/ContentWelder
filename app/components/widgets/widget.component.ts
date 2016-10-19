@@ -175,6 +175,7 @@ export class Widget{
       }
     }
     setStyleProperty(name:string, value:string){
+      this.log(`_______${value}`);
       try{ 
         this.style[name] = value;
       }catch (e){
@@ -201,5 +202,10 @@ export class Widget{
     setFontFamily(value?:string):void{
       console.log(value);
       this.style.fontFamily = (value && value.length)? value: 'Helvetica';
+    }
+
+    /************Development**************** */
+    log(val):void{
+      console.log(val);
     }
 }

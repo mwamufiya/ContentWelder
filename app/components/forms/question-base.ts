@@ -13,8 +13,6 @@ export class QuestionBase<T>{
       order?: number,
       controlType?: string
     } = {}) {
-    console.log(options);
-    console.log(options.key);
     this.value = options.value;
     this.key = options.key || '';
     this.label = options.label || '';

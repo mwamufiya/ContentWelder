@@ -18,11 +18,16 @@ import { Component, EventEmitter, Output} from '@angular/core';
         padding-left:1em;
     }
   `],
-  outputs: ['borderChanged']
+  outputs: ['borderChanged'],
+  inputs:['borderSize']
 })
 export class BorderSelection {
     borderChanged:EventEmitter<any> = new EventEmitter();
     borderTypes:Array<any> = new Array();
+    borderStyle:string = "none";
+    borderSize:number = 0;
+    borderColor:string = 'black';
+    sizeList:Array<number> = [8,10,12,14,16,18,20,24,28,32,36,40,44,48,54,60,66,72,80,88,96];
     
     constructor(){
         this.setBorderTypes();
@@ -43,7 +48,19 @@ export class BorderSelection {
         ];
     }
 
-    changeBorderType(borderType:string):void{
-        this.borderChanged.emit(borderType);
+    changeBorderType(event:Event):void{
+        let e = event.target as HTMLInputElement;
+        this.borderStyle = e.value;
+        this.updateBorder();
+    }
+    updateBorder(){
+        this.borderChanged.emit(`${this.borderSize}px ${this.borderStyle} ${this.borderColor}`);
+        console.log(this.borderChanged);
+    }
+    changeBorderSize(event:Event):void{
+        let e = event.target as HTMLInputElement;
+        this.borderSize = e.value.length ? parseInt(e.value) : 0;
+        this.updateBorder();
+
     }
 }

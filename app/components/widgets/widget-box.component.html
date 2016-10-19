@@ -7,10 +7,10 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
             [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
         </li>
         <li>
-            <border-selection (borderChanged)="setStyleProperty('borderStyle', $event)"></border-selection>
+            <border-selection (borderChanged)="setStyleProperty($event)"></border-selection>
         </li>   
         <li (click)="removeSelf($event)">&#x2716;</li>
-        <li>&#x2753;</li>
+        <li (click)="setStyleProperty($event)">&#x2753;</li>
     </ul>
     <div [class.emptyContainer]="children.length==0"
          designerDroppable designerDraggable data-widgetType='box' (widgetAdded)="childModified($event)" 

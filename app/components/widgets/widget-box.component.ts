@@ -57,6 +57,5 @@ export class BoxWidget extends Widget{
             
             index++;
         }
-    }
-    
+    }    
 }

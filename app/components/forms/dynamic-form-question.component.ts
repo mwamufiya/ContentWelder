@@ -1,19 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup }        from '@angular/forms';
 import { QuestionBase }     from './question-base';
 @Component({
   moduleId: module.id,
   selector: 'df-question',
-  templateUrl: 'dynamic-form-question.component.html'
+  templateUrl: 'dynamic-form-question.component.html',
+  styleUrls: [`dynamic-form-question.component.css`]
 })
 export class DynamicFormQuestionComponent {
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
-  get isValid() {
-    /*console.log(`------------------`);
-    console.log(this.form.controls);
-    console.log(this.question.key);
-    console.log(this.form.controls[this.question.key]); */
-    return this.form.controls[this.question.key].valid;
-   }
+  get isValid() {return this.form.controls[this.question.key].valid;}
 }

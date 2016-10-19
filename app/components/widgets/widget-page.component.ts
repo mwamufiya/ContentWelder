@@ -1,4 +1,4 @@
-import { Component, ViewChild, ComponentFactoryResolver, ClassDefinition, Host, TemplateRef,
+import { Component, ViewChild, ViewChildren, QueryList, ComponentFactoryResolver, ClassDefinition, Host, TemplateRef,
     ComponentFactory, ViewContainerRef, ChangeDetectorRef, forwardRef} from '@angular/core';
 import { Router } from '@angular/router';   
 import { WidgetContainer} from './widget-container.component';
@@ -14,12 +14,13 @@ import { BoxWidget} from './widget-box.component';
 import { ImageWidget } from './widget-image.component';
 import { VideoWidget} from './widget-video.component';
 import { TextboxWidget } from './widget-textbox.component';
+import { FormWidget } from './widget-form.component'
 
 @Component({
   selector: 'designer-page',
   templateUrl: './app/components/widgets/widget-page.component.html',
   styleUrls: ['./app/components/widgets/widget-page.component.css'],
-  entryComponents:[ImageWidget, VideoWidget, BoxWidget, TextboxWidget],
+  entryComponents:[ImageWidget, VideoWidget, BoxWidget, TextboxWidget, FormWidget],
   providers: [
       {
           provide: Parent,
