@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef, ViewChild, forwardRef } from '@angular/core';
 import { Form }                 from '@angular/forms';
 import { Widget  } from './widget.component';
 import { QuestionService  } from '../forms/question.service';
@@ -7,11 +7,18 @@ import { TextboxQuestion  } from '../forms/question-textbox';
 import { DropdownQuestion  } from '../forms/question-dropdown';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { DynamicFormComponent } from '../forms/dynamic-form.component';
+import { Parent } from '../parent';
 
 @Component({
   selector: 'designer-form',
   templateUrl: './app/components/widgets/widget-form.component.html',
-  styleUrls: ['./app/components/widgets/widget-form.component.css']
+  styleUrls: ['./app/components/widgets/widget-form.component.css'],
+  providers: [
+      {
+          provide: Parent,
+          useExisting: forwardRef(() => FormWidget)
+      }
+  ]
 })
 export class FormWidget extends Widget{
     questions:any[];

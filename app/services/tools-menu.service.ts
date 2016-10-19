@@ -203,7 +203,7 @@ export const MAIN_MENU = [
                     "isActive": true,
                     "draggable": true,
                     "widgetConfig":{
-                        "type": "custom"
+                        "type": "formwidget"
                     }
                 }
             ]
