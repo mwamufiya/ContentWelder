@@ -1,5 +1,7 @@
-import { Component, ViewChild, ViewChildren, QueryList, ComponentFactoryResolver, ClassDefinition, Host, TemplateRef,
-    ComponentFactory, ViewContainerRef, ChangeDetectorRef, forwardRef} from '@angular/core';
+import { Component, ViewChild, ViewChildren, QueryList, ComponentFactoryResolver, ClassDefinition,
+     Host, TemplateRef, ComponentFactory, ViewContainerRef, ChangeDetectorRef, forwardRef,
+    HostListener
+} from '@angular/core';
 import { Router } from '@angular/router';   
 import { WidgetContainer} from './widget-container.component';
 import { Widget } from './widget.component';
@@ -40,6 +42,9 @@ export class PageWidget extends Widget{
         designerGlobals: DesignerGlobalsService){
             super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
             super.setBackgroundColor('white');
+    }
+    @HostListener('click', ['$event']) onclick(event):boolean{
+        return super.onclick(event);
     }
     childModified(event:WidgetDrop){     
         //Loop through all items being added and add.

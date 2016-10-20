@@ -38,7 +38,7 @@
         border-right:1px solid #CCC;
         flex: 1 1 10%;
         height:auto;
-        font-size:9pt;
+        font-size:.7rem;
     }   
 }
 .designer .pasteboard{
@@ -68,6 +68,6 @@
 }
 .footer{
     border-top:1px solid #CCC;
-    font-size:9pt;
+    font-size:.7rem;
     padding:.25em;
 }

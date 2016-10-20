@@ -25,7 +25,7 @@ ul{
 li{
     margin:.5em 0;
     padding:.5em;
-    font-size:10pt;
+    font-size:.8rem;
     text-align: center;
     background: white;
     cursor:move;
@@ -48,7 +48,7 @@ li:hover{
 }
 .closeButton{
     text-align: right;
-    font-size:9pt;
+    font-size:.7rem;
     padding:.25em .25em 0 0;
 }
 .closeButton span{

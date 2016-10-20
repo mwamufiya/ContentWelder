@@ -1,6 +1,6 @@
 <div class="widgetContainer" [class.emptyContainer]="imgPath" [class.activeWidget]="isSelected==true" 
 resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
-[ngStyle]="{'height':style.height,'width':style.width}">
+[ngStyle]="{'height':style.height,'width':style.width}" [class.emptyContainer]="isEmpty()">
     <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
     <ul *ngIf="isSelected==true" class="widgetMenu">
         <li>
@@ -8,19 +8,19 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
         </li>
         <li title="Background Color" class="colorPicker">
             <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)" 
-            [style.background]="color" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+            [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
         </li>
         <li title="Text Color" class="colorPicker">
             <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('color', $event)" 
-            [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [style.background]="color"/>
+            [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [cpFireOnInit]="false" [style.background]="color"/>
         </li>
         <li>
-            <border-selection (borderChanged)="setBorderStyle($event)"></border-selection>
+            <border-selection (borderChanged)="setStyleProperty($event)"></border-selection>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <sm-menu class="ui menu">
+    <sm-menu class="ui small menu" *ngIf="isSelected==true">
         <a sm-item (click)="addQuestion()" [icon]="'add circle icon'">Add Field</a>
         <a sm-item [icon]="'trash icon'">Remove all</a>
     </sm-menu>
@@ -28,7 +28,7 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
         <div class="ui form formContainer" [ngStyle]="style">
             <dynamic-form *ngIf="questions && questions.length" (actionRequested)="handleDynaCompAction($event)" [questions]="questions"></dynamic-form>
         </div>
-        <div class="questionModifier ui form" *ngIf="editQuestion==true">
+        <div class="questionModifier ui form" *ngIf="enableQuestionProperties()">
             <form #questionForm="ngForm" (ngSubmit)="saveQuestionChanges()">
                 <input type="hidden" name="index"/>
                 <div class="form-group">

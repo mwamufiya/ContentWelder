@@ -1,4 +1,5 @@
-import { Component, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef, ViewChild, forwardRef } from '@angular/core';
+import { Component, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef,
+     ViewChild, forwardRef, HostListener } from '@angular/core';
 import { Form }                 from '@angular/forms';
 import { Widget  } from './widget.component';
 import { QuestionService  } from '../forms/question.service';
@@ -39,6 +40,9 @@ export class FormWidget extends Widget{
         //this.questions = questionService.getQuestions();
         //this.getQuestions();
         this.isSelected = true; 
+    }
+    @HostListener('click', ['$event']) onclick(event):boolean{
+        return super.onclick(event);
     }
     getQuestions(){
         this.questions = this.questionService.getJSONQuestions().map( (json) => {
@@ -175,5 +179,12 @@ export class FormWidget extends Widget{
                 break;
         }
 
+    }
+    //Help method for template since Bitwise operators are not supported in Angular 2 yet
+    isEmpty():boolean{
+        return !this.questions || !this.questions.length
+    }
+    enableQuestionProperties():boolean{
+        return this.editQuestion==true && this.isSelected==true
     }
 }

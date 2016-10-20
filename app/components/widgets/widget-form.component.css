@@ -1,3 +1,10 @@
+:host{
+    display:inline-block;
+}
+.emptyContainer{
+    min-height:5rem;
+    min-width:10rem;
+}
 .formContainer{
     padding:1em;
 }
@@ -16,7 +23,7 @@
     flex-grow: 1;
     background: #EFEFEF;
     padding: 1em;
-    font-size: 10pt;
+    font-size: .8rem;
     border-radius: 5px;
     border: 1px solid #CCC;
     flex-grow: 1;
@@ -32,7 +39,7 @@
 .instructions{
     color:#999;
     font-weight:normal;
-    font-size:10pt;
+    font-size:.8rem;
 }
 .form-group label{
     display:block;
