@@ -1,13 +1,7 @@
-import { Component, ViewChild, ComponentFactoryResolver, ClassDefinition,
-    ComponentFactory, ViewContainerRef, ChangeDetectorRef} from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ComponentFactoryResolver, ViewContainerRef, ChangeDetectorRef} from '@angular/core';
 
 import { Widget } from './widget.component';
-import { DesignerToolsMenu} from '../designer-tools-menu.component';
-import { WidgetFactory} from './widget-factory';
-import { DesignerGlobalsService } from '../../services/designer-globals.service';
-import { WidgetDrop } from '../../interfaces/widget-drop.interface';
-import { WidgetConfig } from '../../interfaces/widgetJSON.interface';
+import { DesignerGlobalsService } from '../services/designer-globals.service';
 
 @Component({
   selector: 'designer-widgetContainer',

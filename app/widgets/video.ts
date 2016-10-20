@@ -9,8 +9,8 @@ export class Video implements VideoConfigInterface{
     name:string;
     favorites:number;
     likes:number;
-    source:string;                  //the source of the image Google image, pixabay, instgram, contentwelder etc...
-    thumbnailLink:string;              //Link to the static image before the video loads.
+    source:string;                  //the source of the asset-chooser Google asset-chooser, pixabay, instgram, contentwelder etc...
+    thumbnailLink:string;              //Link to the static asset-chooser before the video loads.
     smallLink:VideoConfigInterface;
     mediumLink:VideoConfigInterface
     largeLink:VideoConfigInterface

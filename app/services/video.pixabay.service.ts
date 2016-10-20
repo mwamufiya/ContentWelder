@@ -1,5 +1,5 @@
-import { Http, Headers, Response, RequestOptionsArgs, URLSearchParams, QueryEncoder } from '@angular/http';
-import { Video } from '../components/video';
+import { Http, URLSearchParams} from '@angular/http';
+import { Video } from '../widgets/video';
 import { VideoSearchServiceInterface } from '../interfaces/media-search-service.interface';
 import 'rxjs/add/operator/toPromise';
 

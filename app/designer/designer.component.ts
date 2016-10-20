@@ -2,15 +2,15 @@ import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, OnIni
 import { Router, ActivatedRoute } from '@angular/router';
 import { SemanticModalComponent } from 'ng-semantic';
 import { Subscription } from 'rxjs/Subscription';
-import { Image } from './image';
-import { Video} from './video';
+import { Image } from '../widgets/image';
+import { Video} from '../widgets/video';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
-import { PageWidget } from './widgets/widget-page.component';
+import { PageWidget } from '../widgets/widget-page.component';
 
 @Component({
   selector: 'my-designer',
-  templateUrl: './app/components/designer.component.html',
-  styleUrls: ['./app/components/designer.component.css']
+  templateUrl: './app/designer/designer.component.html',
+  styleUrls: ['./app/designer/designer.component.css']
 })
 export class DesignerComponent implements OnInit{
     @ViewChild('videoChooser', {read: SemanticModalComponent}) videoChooser: SemanticModalComponent;
@@ -89,7 +89,7 @@ export class DesignerComponent implements OnInit{
       //if this item exists in the list of currently selected items, mark it as such.
       this.isSelected = selectedArray.indexOf(this) != -1? true: null;
     }
-    //handles setting the background image
+    //handles setting the background asset-chooser
     setImage(image:Image){
       if(!this.isSelected)
         return;

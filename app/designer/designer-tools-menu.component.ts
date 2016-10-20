@@ -2,12 +2,12 @@ import { Component, OnInit, ChangeDetectorRef, forwardRef } from '@angular/core'
 import { DesignerToolsMenuInterface } from '../interfaces/designer-tools-menu.interface';
 import { WidgetConfig} from '../interfaces/widgetJSON.interface';
 
-import { Parent } from './parent';
+import { Parent } from '../widgets/parent';
 
 @Component({
   selector: 'designer-tools-menu',
-  templateUrl: './app/components/designer-tools-menu.component.html',
-  styleUrls: ['./app/components/designer-tools-menu.component.css'],
+  templateUrl: './app/designer/designer-tools-menu.component.html',
+  styleUrls: ['./app/designer/designer-tools-menu.component.css'],
   inputs: ['configJson','isRoot'],
   providers: [
       {

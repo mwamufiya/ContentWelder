@@ -1,5 +1,5 @@
-import { Image } from '../components/image';
-import { Video } from '../components/video';
+import { Image } from '../widgets/image';
+import { Video } from '../widgets/video';
 
 export interface ImageSearchServiceInterface{
     search(query?:string):Promise<Image[]>

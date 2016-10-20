@@ -1,11 +1,11 @@
-import { Component, HostListener, ViewContainerRef, ViewChild, ComponentFactoryResolver, 
-   ComponentRef, OnDestroy, EventEmitter, ChangeDetectorRef
+import { Component, HostListener, ViewContainerRef, ComponentFactoryResolver,
+   ComponentRef, EventEmitter, ChangeDetectorRef
 } from '@angular/core';
-import { DesignerGlobalsService } from '../../services/designer-globals.service';
+import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
-import { WidgetComs, WidgetConfig } from '../../interfaces/widgetJSON.interface';
-import { WidgetResize } from '../../interfaces/WidgetResize.interface';
-import { FONTLIST } from '../../services/fonts.service';
+import { WidgetComs, WidgetConfig } from '../interfaces/widgetJSON.interface';
+import { WidgetResize } from '../interfaces/WidgetResize.interface';
+import { FONTLIST } from '../services/fonts.service';
 
 @Component({
   selector: 'designerWidget',
@@ -20,6 +20,10 @@ import { FONTLIST } from '../../services/fonts.service';
     }
   `]
 })
+/**
+ * @class Widget
+ * @classDesc base class used by all widg
+ */
 export class Widget{
     //@ViewChild('placeholder', {read: ViewContainerRef}) placeholder;
     width:number;
@@ -46,11 +50,17 @@ export class Widget{
     borderStyle:string;
     style:CSSStyleDeclaration;
     fontList:Array<any>;
-    /*********BACKGROUND************ */ 
+    /*********BACKGROUND************ */
     background:string;
 
 
-
+    /** @function
+     * @name constructor
+     * @param {ComponentFactoryResolver} componentResolver
+     * @param {ViewContainerRef} viewCont
+     * @param {ChangeDetectorRef} changeDetectorRef
+     * @param {DesignerGlobalsService} designerGlobals
+     */
     constructor(
       componentResolver:ComponentFactoryResolver,
       viewCont:ViewContainerRef,
@@ -72,7 +82,13 @@ export class Widget{
           err => this.displayError(`Error encountered when subscribing to observable`)
         );
     }
-    //Get the list of fonts
+
+    /**
+     * @function
+     * @name setupFonts
+     * @description Handles setting up of fonts
+     * @returns {void}
+     */
     setupFonts():void{
       //TODO this list should be obtained from a shared service so it isn't called with every initialization
       this.fontList = FONTLIST;
@@ -82,24 +98,38 @@ export class Widget{
     }
     getWidth(withUnits?:boolean){ return this.width + ((withUnits==true)?'px':''); }
     getHeight(withUnits?:boolean){ return this.height +((withUnits==true)?'px':''); }
-    
+
+    /**
+     * @function
+     * @name onclick
+     * @param {DOM Event} event
+     * @returns {boolean}
+     */
     @HostListener('click', ['$event']) onclick(event):boolean{
       event.stopPropagation();
       this.designerGlobals.setSelectedComponent(this, event.shiftKey? true : null);
       return false;
     }
+
+    /**
+     * @function
+     * @name ondlbClick
+     * @param {DOM Event} event
+     * @returns {boolean}
+     * @description placeholder for future handling of touch devices.
+     */
     @HostListener('dblclick', ['$event']) ondblclick(event):boolean{
       event.stopPropagation();
       this.designerGlobals.setSelectedComponent(this, event.shiftKey? true : null);
       return false;
     }
 
-    
+
     getChildren():Array<Widget>{
       return this.children;
     }
     addChild(compRef:ComponentRef<Widget>, configJson:WidgetConfig){
-      //Because Dynamically created components cannot leverage angular's Input/Ouput, 
+      //Because Dynamically created components cannot leverage angular's Input/Ouput,
       //we must subscript to the EventEmitter manually
       compRef.instance.parentActionReq.subscribe(compRef => this.removeChild(compRef));
       //Set the ComponentRef for use down the line.
@@ -114,6 +144,13 @@ export class Widget{
     addChildViaJSON(configJson:WidgetConfig){
       //this.infants.push(widgetJSON);
     }
+
+    /**
+     * @function
+     * @name checkIfCurrentlySelected
+     * @param {Array<Component> }selectedArray
+     * @description if this instance of Widget exists in the provided lists, this.isSelected is set to true
+     */
     checkIfCurrentlySelected(selectedArray:Array<Component>){
       //if this item exists in the list of currently selected items, mark it as such.
       this.isSelected = selectedArray.indexOf(this) != -1? true: false;
@@ -128,7 +165,7 @@ export class Widget{
         item: this
       });
     }
-    //Called upon receiving a parentActionReq.emit event requesting deletion of the current item. 
+    //Called upon receiving a parentActionReq.emit event requesting deletion of the current item.
     removeChild(eventJSON:WidgetComs){
       let targetItem = eventJSON.item
       let index = this.children.indexOf(targetItem);
@@ -158,10 +195,10 @@ export class Widget{
       //Only request a ChangeDetection if we actually changed something.
       if(markForChange == true)
         this.changeDetectorRef.markForCheck();
-    }    
+    }
 
     //called by Angular when a component is destroyed
-    //Handle cleanup for better performance. 
+    //Handle cleanup for better performance.
     ngOnDestroy(){
       //unsubscribe for performance gains.
       this._selectedItemSubscription.unsubscribe();
@@ -172,7 +209,7 @@ export class Widget{
       }
     }
     setStyleProperty(name:string, value:string){
-      try{ 
+      try{
         this.style[name] = value;
       }catch (e){
         //TODO display an error message
@@ -184,7 +221,7 @@ export class Widget{
     }
     //Set the text color
     setTextColor(value?:string):void{
-      this.style.color = (value && value.length)? value: 'black';      
+      this.style.color = (value && value.length)? value: 'black';
     }
     //Set the border styles
     setBorderStyle(value?:string):void{
@@ -192,7 +229,7 @@ export class Widget{
     }
     //set Text size
     setTextSize(value?:string):void{
-      this.style.fontSize = (value && value.length)? value+'pt': '12pt'; 
+      this.style.fontSize = (value && value.length)? value+'pt': '12pt';
     }
     //Set Font Family
     setFontFamily(value?:string):void{

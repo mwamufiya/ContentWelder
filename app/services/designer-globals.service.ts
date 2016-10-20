@@ -1,13 +1,11 @@
-import { Injectable,ElementRef, ComponentRef, Component }     from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Widget } from '../components/widgets/widget.component';
-import { DesignerToolsMenu } from '../components/designer-tools-menu.component';
-import { Image } from '../components/image';
-import { Video } from '../components/video';
+import { Injectable,ElementRef, Component }     from '@angular/core';
+import { Http} from '@angular/http';
+import { Image } from '../widgets/image';
+import { Video } from '../widgets/video';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/operator/share';
-import { Parent } from '../components/parent';
+import { Parent } from '../widgets/parent';
 
 @Injectable()
 export class DesignerGlobalsService {

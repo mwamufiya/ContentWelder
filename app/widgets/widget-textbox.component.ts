@@ -1,12 +1,12 @@
 import { Component, HostListener, ChangeDetectorRef, forwardRef,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Widget } from './widget.component'
-import { DesignerGlobalsService } from '../../services/designer-globals.service';
-import { Parent } from '../parent';
+import { DesignerGlobalsService } from '../services/designer-globals.service';
+import { Parent } from './parent';
 
 @Component({
   selector: 'designer-TextboxWidget',
-  templateUrl: './app/components/widgets/widget-textbox.component.html',
+  templateUrl: './app/widgets/widget-textbox.component.html',
   styles:[`
     .widgetContainer{
         display:inline-block;

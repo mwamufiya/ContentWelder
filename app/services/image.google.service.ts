@@ -1,5 +1,5 @@
-import { Http, Headers, Response, RequestOptionsArgs, URLSearchParams, QueryEncoder } from '@angular/http';
-import { Image } from '../components/image';
+import { Http, URLSearchParams} from '@angular/http';
+import { Image } from '../widgets/image';
 import { ImageSearchServiceInterface } from '../interfaces/media-search-service.interface';
 import 'rxjs/add/operator/toPromise';
 

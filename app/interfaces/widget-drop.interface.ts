@@ -1,5 +1,4 @@
 import { ElementRef } from '@angular/core';
-import { Parent } from '../components/parent';
 
 export interface WidgetDrop{
     value:string;

@@ -1,6 +1,6 @@
 import { Injectable }     from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Video } from '../components/video';
+import { Http } from '@angular/http';
+import { Video } from '../widgets/video';
 import { PixabayVideoSearchService } from './video.pixabay.service';
 import { VideoSearchServiceInterface } from '../interfaces/media-search-service.interface';
 

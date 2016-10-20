@@ -1,7 +1,4 @@
-import { Directive, ElementRef, Input, HostListener, EventEmitter, Output,
-    OnInit, OnChanges, SimpleChange, SimpleChanges, AfterViewInit, NgZone, ChangeDetectorRef } from '@angular/core';
-import { MakeDraggable} from './make-draggable.directive';
-import { DesignerGlobalsService } from '../services/designer-globals.service';
+import { Directive, ElementRef, EventEmitter, OnInit, SimpleChanges, NgZone, ChangeDetectorRef } from '@angular/core';
 
 declare var jQuery:any;
 @Directive({

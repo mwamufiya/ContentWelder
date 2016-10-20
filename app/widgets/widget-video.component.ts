@@ -1,14 +1,13 @@
 import { Component, ElementRef, HostListener, ChangeDetectorRef,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { Widget } from './widget.component'
-import { Video } from '../../components/Video';
-import { DesignerGlobalsService } from '../../services/designer-globals.service';
+import { Video } from './video';
+import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'designer-videoWidget',
-  templateUrl: './app/components/widgets/widget-video.component.html',
+  templateUrl: './app/widgets/widget-video.component.html',
   styles:[`
     img{
         height:100%;

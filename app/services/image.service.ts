@@ -1,6 +1,6 @@
 import { Injectable }     from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Image } from '../components/image';
+import { Http } from '@angular/http';
+import { Image } from '../widgets/image';
 import { GoogleImageSearchService } from './image.google.service';
 import { PixabayImageSearchService } from './image.pixabay.service';
 import { ImageSearchServiceInterface } from '../interfaces/media-search-service.interface';

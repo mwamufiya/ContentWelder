@@ -5,14 +5,14 @@ import { QuestionService  } from '../forms/question.service';
 import { QuestionBase  } from '../forms/question-base';
 import { TextboxQuestion  } from '../forms/question-textbox';
 import { DropdownQuestion  } from '../forms/question-dropdown';
-import { DesignerGlobalsService } from '../../services/designer-globals.service';
+import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { DynamicFormComponent } from '../forms/dynamic-form.component';
-import { Parent } from '../parent';
+import { Parent } from './parent';
 
 @Component({
   selector: 'designer-form',
-  templateUrl: './app/components/widgets/widget-form.component.html',
-  styleUrls: ['./app/components/widgets/widget-form.component.css'],
+  templateUrl: './app/widgets/widget-form.component.html',
+  styleUrls: ['./app/widgets/widget-form.component.css'],
   providers: [
       {
           provide: Parent,

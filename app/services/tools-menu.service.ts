@@ -31,7 +31,7 @@ export const MAIN_MENU = [
                 {
                     "value": "imagewidget",
                     "label": "Image",
-                    "icon": "image icon",
+                    "icon": "asset-chooser icon",
                 },
                 {
                     "value": "videowidget",
@@ -79,7 +79,7 @@ export const MAIN_MENU = [
                             "label": "Image",
                             "isActive": true,
                             "draggable": true,
-                            "icon": "image icon",
+                            "icon": "asset-chooser icon",
                             "widgetConfig":{
                                 "type": "imagewidget"
                             }

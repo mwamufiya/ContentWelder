@@ -6,8 +6,8 @@ import {MAIN_MENU } from '../services/tools-menu.service'
 
 @Component({
   selector: 'designer-tools',
-  templateUrl: './app/components/designer-tools.component.html',
-  styleUrls: ['./app/components/designer-tools.component.css'],
+  templateUrl: './app/designer/designer-tools.component.html',
+  styleUrls: ['./app/designer/designer-tools.component.css'],
   outputs: ['changeBkgEmitter']
 })
 export class DesignerToolsComponent implements OnInit{

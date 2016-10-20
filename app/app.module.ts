@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA }       from '@angular/core';
+import { NgModule}       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 
@@ -12,43 +12,20 @@ import { InMemoryBackendService } from 'angular-in-memory-web-api';
 import { InMemoryDataService }    from './services/in-memory-data.service';
 
 import { AppComponent }   from './app.component';
-import { routing }        from './app.routing';
+import { AppRoutingModule} from './app-routing.module'
+//import { routing }        from './app.routing';
 
 /**********Application Specific********************** */
 /************Components************/
-import { DesignerModule }    from './components/designer.module';
-//import { Widget } from './components/widgets/widget.component';
-//import { DesignerComponent }  from './components/designer.component';
-
-//import { DesignerToolsMenu } from './components/designer-tools-menu.component';
-//import { WidgetContainer } from './components/widgets/widget-container.component';
-//import { ImageChooser } from './components/image/image-chooser.component';
-//import { BorderSelection } from './components/border-selection.component';
-//import { DesignerStageComponent }  from './components/designer-stage.component';
-//import { BoxWidget } from './components/widgets/box.component';
-//import { ImageWidget } from './components/widgets/image.component';
-//import { VideoWidget } from './components/widgets/video.component';
-//import { TextboxWidget } from './components/widgets/textbox.component';
-
-
-/*************Directives***********/
-//import { DesignerDroppable }  from './directives/designer-droppable.directive';
-//import { DesignerDraggable }  from './directives/designer-draggable.directive';
-//import { Resize }  from './directives/resize.directive';
-//import { WidgetTemplateFactory } from './directives/widget-template-factory.directive';
-
-/*************Services************* */
-//import { DesignerGlobalsService } from './services/designer-globals.service';
-//import { ImageService } from './services/image.service';
-//import { VideoService } from './services/video.service';
-
+import { DesignerModule }    from './designer/designer.module';
+//import {AppRoutingModule}    from './app-routing.module';
 
 @NgModule({
   imports: [
     NgSemanticModule,
     BrowserModule,
     FormsModule,
-    routing,
+    AppRoutingModule,
     HttpModule,
     ModalModule,
     DesignerModule
@@ -56,7 +33,7 @@ import { DesignerModule }    from './components/designer.module';
   declarations: [
     AppComponent,
   ],
-  bootstrap: [ AppComponent ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule {
 }

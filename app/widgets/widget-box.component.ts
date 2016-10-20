@@ -1,16 +1,14 @@
 import { Component, HostListener, ChangeDetectorRef, forwardRef,
-    ComponentFactoryResolver, ViewContainerRef, ViewChild, ComponentFactory} from '@angular/core';
+    ComponentFactoryResolver, ViewContainerRef, ViewChild} from '@angular/core';
 import { Widget } from './widget.component';
-import { DesignerGlobalsService } from '../../services/designer-globals.service';
-import { Parent } from '../parent';
+import { DesignerGlobalsService } from '../services/designer-globals.service';
+import { Parent } from './parent';
 import { WidgetFactory} from './widget-factory';
-import { WidgetConfig } from '../../interfaces/widgetJSON.interface';
-import { WidgetDrop } from '../../interfaces/widget-drop.interface';
-import { DesignerToolsMenu} from '../designer-tools-menu.component';
+import { WidgetDrop } from '../interfaces/widget-drop.interface';
 
 @Component({
   selector: 'designer-BoxWidget',
-  templateUrl: './app/components/widgets/widget-box.component.html',
+  templateUrl: './app/widgets/widget-box.component.html',
   styles:[`
     .emptyContainer{
         min-height:50px;

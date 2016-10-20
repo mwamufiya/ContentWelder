@@ -1,6 +1,5 @@
-import { Directive, ElementRef, Input, HostListener, OnInit, EventEmitter,
-     ComponentFactoryResolver, ViewContainerRef, Compiler } from '@angular/core';
-import {WidgetFactory} from '../components/widgets/widget-factory';
+import { Directive, OnInit, ComponentFactoryResolver, ViewContainerRef} from '@angular/core';
+import {WidgetFactory} from '../widgets/widget-factory';
 
 @Directive({
     selector: '[widgetFactory]',

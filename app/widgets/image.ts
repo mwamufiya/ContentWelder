@@ -12,8 +12,8 @@ export class Image{
     highResLink:string;
     favorites:number;
     likes:number;
-    tags:string;                    //keywords associated with this image
-    source:string;                  //the source of the image Google image, pixabay, instgram, contentwelder etc...
+    tags:string;                    //keywords associated with this asset-chooser
+    source:string;                  //the source of the asset-chooser Google asset-chooser, pixabay, instgram, contentwelder etc...
     
     constructor( url:string, source:string, jsonConfig?:ImageConfigInterface){
         this.lowResLink = url;

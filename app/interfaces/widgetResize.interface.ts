@@ -1,4 +1,3 @@
-import { Widget } from '../components/widgets/widget.component';
 
 export interface WidgetResize{
     height:number;

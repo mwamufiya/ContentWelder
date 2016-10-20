@@ -1,11 +1,9 @@
-import { Directive, ElementRef, Input, HostListener, ViewChild, FactoryProvider,
-     OnInit, EventEmitter, Optional, Component, OpaqueToken, Host} from '@angular/core';
+import { Directive, ElementRef, HostListener, OnInit, Optional, OpaqueToken} from '@angular/core';
 import { MakeDraggable} from './make-draggable.directive';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
-import { DesignerToolsMenu } from '../components/designer-tools-menu.component';
-import { Widget } from '../components/widgets/widget.component';
+import { DesignerToolsMenu } from '../designer/designer-tools-menu.component';
 
-import { Parent } from '../components/parent';
+import { Parent } from '../widgets/parent';
 
 const DraggedObject = new OpaqueToken('draggedItem')
 

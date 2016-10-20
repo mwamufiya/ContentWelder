@@ -1,18 +1,16 @@
-import { Component, OnInit, ViewChild, EventEmitter,
-    ComponentRef, TemplateRef, ViewContainerRef, ChangeDetectorRef
+import { Component, OnInit, EventEmitter, ViewContainerRef, ChangeDetectorRef
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { Compiler} from '@angular/core';
-import { DesignerGlobalsService } from '../../services/designer-globals.service';
-import { ImageService } from '../../services/image.service';
-import { VideoService } from '../../services/video.service';
-import {Image} from './';
-import {Video} from '../video';
+
+import { DesignerGlobalsService } from '../services/designer-globals.service';
+import { ImageService } from '../services/image.service';
+import { VideoService } from '../services/video.service';
+import {Image} from '../widgets/image';
+import {Video} from '../widgets/video';
 
 @Component({
   selector: 'image-chooser',
-  templateUrl: './app/components/image/image-chooser.component.html',
-  styleUrls: ['./app/components/image/image-chooser.component.css'],
+  templateUrl: './app/asset-chooser/image-chooser.component.html',
+  styleUrls: ['./app/asset-chooser/image-chooser.component.css'],
   outputs: ['mediaChosen'],
   inputs:['searchType']
 })
@@ -40,7 +38,7 @@ export class ImageChooser implements OnInit{
     this.mediaSource = 'pixabay';
     this.performSearch();
   }
-  //Set list of image sources
+  //Set list of asset-chooser sources
   getImageSources():void{
     this.imageSources = [
       {
@@ -124,7 +122,7 @@ export class ImageChooser implements OnInit{
     this.searchTerm = searchTerm.trim();
     //TODO add additional data clensing to keyword search
   }
-  //alert appropriate liteners that image was selected
+  //alert appropriate liteners that asset-chooser was selected
   mediaSelected(selectedIndex){
     /*this.designerGlobals.setSelectedMedia(this.mediaList[selectedIndex]);
       this.mediaChosen.emit({

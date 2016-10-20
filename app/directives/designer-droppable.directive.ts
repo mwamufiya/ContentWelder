@@ -1,11 +1,10 @@
-import { Directive, ElementRef, Input, HostListener, ComponentFactoryResolver, 
-    ComponentFactory, ComponentRef, EmbeddedViewRef, TemplateRef, EventEmitter, Output
+import { Directive, ElementRef, HostListener, ComponentFactoryResolver, EventEmitter
  } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
 import { MakeDroppable} from './make-droppable.directive';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
-import { Parent } from '../components/parent';
-import { Widget } from '../components/widgets/widget.component';
+import { Parent } from '../widgets/parent';
+import { Widget } from '../widgets/widget.component';
 import { WidgetDrop } from '../interfaces/widget-drop.interface'
 
 @Directive({

@@ -2,8 +2,8 @@ import { Component, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'border-selection',
-  templateUrl: './app/components/border-selection.component.html',
-  styleUrls:[`./app/components/border-selection.component.css`],
+  templateUrl: './app/widgets/border-selection.component.html',
+  styleUrls:[`./app/widgets/border-selection.component.css`],
   outputs: ['borderChanged', 'borderRadiusChanged'],
   inputs:['borderSize']
 })
@@ -56,7 +56,6 @@ export class BorderSelection {
     changeBorderRadius(event:Event):void{
         let e = event.target as HTMLInputElement;
         this.borderRadius = e.value.length ? parseInt(e.value) : 0;
-        console.log(this.borderRadius);
         this.borderRadiusChanged.emit(`${this.borderRadius}px`);
     }
 }

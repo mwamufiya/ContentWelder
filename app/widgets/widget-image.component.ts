@@ -1,15 +1,14 @@
 import { Component, HostListener, ChangeDetectorRef, forwardRef,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Widget } from './widget.component';
-import { Image } from '../../components/Image';
-import { DesignerGlobalsService } from '../../services/designer-globals.service';
+import { Image } from './image';
+import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
-
-import { Parent } from '../parent';
+import { Parent } from './parent';
 
 @Component({
   selector: 'designer-ImageWidget',
-  templateUrl: './app/components/widgets/widget-image.component.html',
+  templateUrl: './app/widgets/widget-image.component.html',
   styles:[`
     img{
         height:100%;
@@ -61,7 +60,7 @@ export class ImageWidget extends Widget{
         return false;
     }
     setImage(image:Image){
-        //Do nothing if this image isn't the currently selected image.
+        //Do nothing if this asset-chooser isn't the currently selected asset-chooser.
         if(!this.isSelected)
             return;
 

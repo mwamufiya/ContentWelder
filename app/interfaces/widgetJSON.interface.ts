@@ -1,4 +1,4 @@
-import { Widget } from '../components/widgets/widget.component';
+import { Widget } from '../widgets/widget.component';
 
 export interface WidgetConfig{
     type:string; //the type of WidgetJSON

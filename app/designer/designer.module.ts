@@ -4,20 +4,20 @@ import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { HttpModule, XHRBackend } from '@angular/http';
 
 /**********Widget************** */
-import { Widget } from './widgets/widget.component';
-import { BoxWidget } from './widgets/widget-box.component';
-import { ImageWidget } from './widgets/widget-image.component';
-import { VideoWidget } from './widgets/widget-video.component';
-import { TextboxWidget } from './widgets/widget-textbox.component';
-import { PageWidget }  from './widgets/widget-page.component';
-import { FormWidget }  from './widgets/widget-form.component';
+import { Widget } from '../widgets/widget.component';
+import { BoxWidget } from '../widgets/widget-box.component';
+import { ImageWidget } from '../widgets/widget-image.component';
+import { VideoWidget } from '../widgets/widget-video.component';
+import { TextboxWidget } from '../widgets/widget-textbox.component';
+import { PageWidget }  from '../widgets/widget-page.component';
+import { FormWidget }  from '../widgets/widget-form.component';
 import { DesignerToolsComponent }  from './designer-tools.component';
 import { DesignerComponent }  from './designer.component';
 
 /***********Forms****************** */
-import { QuestionService } from './forms/question.service';
-import { DynamicFormComponent } from './forms/dynamic-form.component';
-import { DynamicFormQuestionComponent } from './forms/dynamic-form-question.component';
+import { QuestionService } from '../forms/question.service';
+import { DynamicFormComponent } from '../forms/dynamic-form.component';
+import { DynamicFormQuestionComponent } from '../forms/dynamic-form-question.component';
 
 /************3rd party*********** */
 //import { ModalModule } from 'ng2-bootstrap/components/modal';
@@ -26,16 +26,16 @@ import {ColorPickerDirective, ColorPickerService} from 'angular2-color-picker';
 
 /***********Helpers************ */
 
-import { ResizeHandles } from './resizeHandles.component';
+import { ResizeHandles } from '../directives/resizehandles.component';
 import { DesignerToolsMenu } from './designer-tools-menu.component';
-import { ImageChooser } from './image/image-chooser.component';
+import { ImageChooser } from '../asset-chooser/image-chooser.component';
 
 /*************Directives***********/
 import { DesignerDroppable }  from '../directives/designer-droppable.directive';
 import { DesignerDraggable }  from '../directives/designer-draggable.directive';
 import { Resize }  from '../directives/resize.directive';
 import { WidgetTemplateFactory } from '../directives/widget-template-factory.directive';
-import { BorderSelection } from './border-selection.component';
+import { BorderSelection } from '../widgets/border-selection.component';
 
 /*************Services************* */
 import { DesignerGlobalsService } from '../services/designer-globals.service';

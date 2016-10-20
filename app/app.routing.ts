@@ -1,18 +1,18 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DesignerComponent } from './components/designer.component';
-import { ImageChooser } from './components/image/image-chooser.component';
-import { FormWidget } from './components/widgets/widget-form.component';
+import { DesignerComponent } from './designer/designer.component';
+import { ImageChooser } from './asset-chooser/image-chooser.component';
+import { FormWidget } from './widgets/widget-form.component';
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/forms',
+    redirectTo: '/designer',
     pathMatch: 'full'
   },
   {
-    path:'designer',
+    path:'designer/:id',
     component: DesignerComponent
   },
   {
@@ -21,7 +21,8 @@ const appRoutes: Routes = [
   },
   {
     path:'forms',
-    component: FormWidget
+    component: FormWidget,
+
   }
 ];
 
