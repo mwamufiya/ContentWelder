@@ -6,7 +6,7 @@ import { Compiler} from '@angular/core';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { ImageService } from '../../services/image.service';
 import { VideoService } from '../../services/video.service';
-import {Image} from '../image';
+import {Image} from './';
 import {Video} from '../video';
 
 @Component({

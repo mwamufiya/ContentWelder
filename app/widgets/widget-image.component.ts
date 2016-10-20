@@ -1,8 +1,6 @@
 import { Component, HostListener, ChangeDetectorRef, forwardRef,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { Widget } from './widget.component';
-import { WidgetContainer } from './widget-container.component';
 import { Image } from '../../components/Image';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';

@@ -2,7 +2,6 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
-import { DesignerToolsMenu } from './designer-tools-menu.component';
 import {MAIN_MENU } from '../services/tools-menu.service'
 
 @Component({

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef, forwardRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, forwardRef } from '@angular/core';
 import { DesignerToolsMenuInterface } from '../interfaces/designer-tools-menu.interface';
 import { WidgetConfig} from '../interfaces/widgetJSON.interface';
 

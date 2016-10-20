@@ -1,6 +1,5 @@
 import { Component, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef,
      ViewChild, forwardRef, HostListener } from '@angular/core';
-import { Form }                 from '@angular/forms';
 import { Widget  } from './widget.component';
 import { QuestionService  } from '../forms/question.service';
 import { QuestionBase  } from '../forms/question-base';
@@ -66,7 +65,6 @@ export class FormWidget extends Widget{
         this.editQuestion= true;
         if(question)
             this.curModel = question;
-        //TODO set the currently selected question
     }
     //Save changes and close the Field modifier
     saveQuestionChanges():void{

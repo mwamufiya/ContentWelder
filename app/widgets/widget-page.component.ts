@@ -1,14 +1,10 @@
-import { Component, ViewChild, ViewChildren, QueryList, ComponentFactoryResolver, ClassDefinition,
-     Host, TemplateRef, ComponentFactory, ViewContainerRef, ChangeDetectorRef, forwardRef,
+import { Component, ViewChild, ViewChildren, QueryList, ComponentFactoryResolver,
+     Host, TemplateRef, ViewContainerRef, ChangeDetectorRef, forwardRef,
     HostListener
 } from '@angular/core';
-import { Router } from '@angular/router';   
-import { WidgetContainer} from './widget-container.component';
 import { Widget } from './widget.component';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { WidgetDrop } from '../../interfaces/widget-drop.interface';
-import { WidgetConfig } from '../../interfaces/widgetJSON.interface';
-import { DesignerToolsMenu} from '../designer-tools-menu.component';
 import { WidgetFactory} from './widget-factory';
 import { Parent } from '../parent';
 /*****Entry Components****** */

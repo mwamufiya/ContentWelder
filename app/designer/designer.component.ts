@@ -1,5 +1,5 @@
-import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, ApplicationInitStatus, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SemanticModalComponent } from 'ng-semantic';
 import { Subscription } from 'rxjs/Subscription';
 import { Image } from './image';
@@ -29,10 +29,11 @@ export class DesignerComponent implements OnInit{
     constructor(
       private compFactoryResolver: ComponentFactoryResolver,
       private router: Router,
+      private liveRoute: ActivatedRoute,
       private designerGlobals: DesignerGlobalsService){
         this.mediaChooserInit();
         this.initializeSubscribers();
-        
+        console.log(this.liveRoute.params);
     }
     //Perform the task of fetching the Page Config from the server
     //For now just default to 1 page item. 

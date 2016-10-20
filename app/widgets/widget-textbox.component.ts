@@ -1,7 +1,6 @@
-import { Component, HostListener, ChangeDetectorRef, forwardRef, Host,
+import { Component, HostListener, ChangeDetectorRef, forwardRef,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Widget } from './widget.component'
-import {WidgetFactory} from './widget-factory';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { Parent } from '../parent';
 

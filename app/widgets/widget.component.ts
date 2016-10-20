@@ -1,9 +1,6 @@
 import { Component, HostListener, ViewContainerRef, ViewChild, ComponentFactoryResolver, 
-   AfterViewInit, ComponentRef, OnDestroy, EventEmitter, Output, ChangeDetectorRef,
-   ChangeDetectionStrategy
+   ComponentRef, OnDestroy, EventEmitter, ChangeDetectorRef
 } from '@angular/core';
-import { MakeDraggable } from '../../directives/make-draggable.directive'
-import { DesignerDroppable } from '../../directives/designer-droppable.directive';
 import { DesignerGlobalsService } from '../../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
 import { WidgetComs, WidgetConfig } from '../../interfaces/widgetJSON.interface';
