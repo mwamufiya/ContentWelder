@@ -1,6 +1,5 @@
 <div class="widgetContainer" [class.activeWidget]="isSelected==true" [class.emptyContainer]="!content"
-resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResize($event)" 
-[ngStyle]="style">
+resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResize($event)" >
     <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
     <!--<ng-container *ngIf="isSelected==true"> 
         <sm-menu class="inverted grey">
@@ -33,7 +32,7 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
             [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [style.background]="color"/>
         </li>
         <li>
-            <border-selection (borderChanged)="setStyleProperty('borderStyle', $event)"></border-selection>
+            <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>

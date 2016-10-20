@@ -1,11 +1,17 @@
-<sm-select placeholder="Style" class="fluid search" (change)="changeBorderType($event)">
-    <option *ngFor="let item of borderTypes">{{item.value}}</option>
-</sm-select>
-<!--<sm-dropdown title="Border" [(ngModel)]="borderStyle" class="pointing floating labeled icon button">
-    <sm-item *ngFor="let item of borderTypes" (click)="changeBorderType(item.value)">
-        <label>{{item.value}}</label>
-    </sm-item>
-</sm-dropdown>-->
-<input [(ngModel)]="borderSize" (input)="changeBorderSize($event)" minimum="0" size="2" maxlength="3" value="{{borderSize}}" />
-<!--<input [colorPicker]="color" (colorPickerChange)="setStyleProperty('color', $event)" 
-            [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [style.background]="color"/>-->
+<ul>
+    <li>
+        <sm-select placeholder="Style" title="Border Style" class="fluid search" (change)="changeBorderType($event)">
+            <option *ngFor="let item of borderTypes">{{item.value}}</option>
+        </sm-select>
+    </li>
+    <li>
+        <input title="Border Size" [(ngModel)]="borderSize" (input)="changeBorderSize($event)" min="0" max="100" size="1" maxlength="3" value="{{borderSize}}" type="number" class="borderInput"
+         />
+    </li>
+    <li>
+        <input title="Border Color" [colorPicker]="color" (colorPickerChange)="setBorderColor($event)" class="colorPicker borderInput" [ngStyle]="{'color': borderColor}" [cpFireOnInit]="false" [style.background]="color"/>
+    </li>
+    <li>
+        <input title="Border Radius" [(ngModel)]="borderRaidus" (input)="changeBorderRadius($event)" min="0" max="100" size="1" maxlength="3" value="{{borderRaidus}}" type="number" class="borderInput" />
+    </li>
+</ul>

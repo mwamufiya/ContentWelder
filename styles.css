@@ -72,7 +72,7 @@ hr{
 .downArrow{
   transform: rotateZ(90deg);
 }
-.widgetMenu ul{
+.widgetMenu > ul{
   display:none;
   position:absolute;
   margin:.1em 0;
@@ -85,8 +85,13 @@ hr{
   min-width:150px;
   padding:0;
 }
+.widgetMenu ul
+{
+  padding:0;
+  margin:0;
+}
 .widgetMenu li:hover ul{
-  display:block;
+  /*display:block;*/
 }
 .widgetMenu li li{
   padding:.35em .75em;

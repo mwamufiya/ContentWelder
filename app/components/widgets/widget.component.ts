@@ -175,7 +175,6 @@ export class Widget{
       }
     }
     setStyleProperty(name:string, value:string){
-      this.log(`_______${value}`);
       try{ 
         this.style[name] = value;
       }catch (e){
