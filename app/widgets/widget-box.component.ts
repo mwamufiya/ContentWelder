@@ -4,7 +4,7 @@ import { Widget } from './widget.component';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Parent } from './parent';
 import { WidgetFactory} from './widget-factory';
-import { WidgetDrop } from '../interfaces/widget-drop.interface';
+import { WidgetDrop} from './widget.interface';
 
 @Component({
   selector: 'designer-BoxWidget',

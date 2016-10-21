@@ -1,0 +1,43 @@
+{
+  "widgets":[
+    {
+      "id": 1,
+      "name": "widgetEl",
+      "items":[
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "black"
+          },
+          "items": [
+            {
+              "widgetType": "boxwidget"
+            }
+          ]
+        },
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "white"
+          },
+          "items": [
+            {
+              "widgetType": "boxwidget"
+            }
+          ]
+        },
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "black"
+          },
+          "items": [
+            {
+              "widgetType": "boxwidget"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -43,7 +43,6 @@
 }
 .designer .pasteboard{
     border-bottom:1px dashed #CCC;
-    padding:1rem 0;
 }
 .designer .pasteboard:last-child{
     border:0;

@@ -22,6 +22,7 @@ export class DesignerDroppable extends MakeDroppable{
     widgetAdded: EventEmitter<WidgetDrop>;
     reqInsertionPoint:Number;
     parentComp:Widget;
+    prvBkgColor:string;
 
     constructor(
         el: ElementRef,
@@ -31,26 +32,31 @@ export class DesignerDroppable extends MakeDroppable{
         private designerGlobals: DesignerGlobalsService,
         parentComponent:Parent
         ){
-        super(el);
+        super(el, parentComponent);
         this.widgetAdded = new EventEmitter();
         this.parentComp = parentComponent as Widget;
     }
     @HostListener('dragover', ['$event']) ondragover(event){
-        if(this.isElligable(event)){
-            super.ondragover(event);
-            this.addDragOverHelper(event);
-        }
+        if(this.isElligable(event))
+            return false;
+
+        if(!this.prvBkgColor && this.prvBkgColor!='yellow')
+            this.prvBkgColor = this.parent.style.backgroundColor;
+
+        this.parent.setStyleProperty('backgroundColor', 'yellow');//.style.backgroundColor = "yellow";
+        this.addDragOverHelper(event);
+
         //Return false to prevent event propogation
         return false;
     }
     @HostListener('dragleave', ['$event']) ondragleave(event){
-        super.ondragleave(event, this.parentComp.style.backgroundColor);
+        this.restoreBackgroundColor();
         this.removeDragOverHelper();
         return false;
     }
     @HostListener('drop', ['$event']) onDrop(event){
-        //get the widget's curren background color;
-        super.ondrop(event, this.parentComp.style.backgroundColor);
+        //get the widget's current background color;
+        this.restoreBackgroundColor();
         
         //Only add an child if a it meets our elligability rules
         if(this.isElligable(event))
@@ -192,5 +198,8 @@ export class DesignerDroppable extends MakeDroppable{
         if((eventX < rect.left+(rect.width/2)) && (eventY < rect.top+(rect.height/2)))
                 insertionPoint = false;
         return insertionPoint;
+    }
+    restoreBackgroundColor(){
+        this.parentComp.setStyleProperty('backgroundColor', this.prvBkgColor);
     }
 }

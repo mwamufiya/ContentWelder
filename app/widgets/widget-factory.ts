@@ -6,7 +6,7 @@ import { VideoWidget } from './widget-video.component';
 import { TextboxWidget } from './widget-textbox.component';
 import { PageWidget  } from './widget-page.component';
 import { FormWidget  } from './widget-form.component';
-import { WidgetConfig } from '../interfaces/widgetJSON.interface';
+import { WidgetConfig} from './widget.interface';
 import { DesignerToolsMenu} from '../designer/designer-tools-menu.component';
 
 export class WidgetFactory{

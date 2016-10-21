@@ -12,10 +12,6 @@ const appRoutes: Routes = [
         pathMatch: 'full'
     },
     {
-        path:'designer',
-        component: DesignerComponent
-    },
-    {
         path:'image-chooser',
         component: ImageChooser
     },

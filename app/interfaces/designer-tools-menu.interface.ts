@@ -1,4 +1,4 @@
-import { WidgetConfig} from './widgetJSON.interface'
+import { WidgetConfig } from '../widgets/widget.interface'
 
 export interface DesignerToolsMenuInterface{
     value:string;
@@ -9,6 +9,6 @@ export interface DesignerToolsMenuInterface{
     icon:string;
     isRoot:boolean;
     draggable:boolean;
-    widgetConfig:WidgetConfig;
+    widgetConfig?:WidgetConfig;
     children:Array<DesignerToolsMenuInterface>;
 }

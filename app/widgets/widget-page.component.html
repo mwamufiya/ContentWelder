@@ -1,5 +1,12 @@
-<div class="workingArea">
-    <div designerDroppable (widgetAdded)="childModified($event)" (parentActionReq)="removeChild($event)" class="cw-page" [ngStyle]="style">
+<div class="workingArea" [ngStyle]="{'backgroundColor':style.backgroundColor}">
+    <!--<ng-container *ngIf="video">
+        <video [ngStyle]="{'background': getVideoBackgroundPath()}" designerDraggable data-widgetConfig='{"type":"video"}' autoplay loop>
+            <source src="{{video.mediumLink.url}}"  type="video/mp4">
+            <source src="{{video.mediumLink.url}}"  type="video/ogg">
+            Your browser does not support the video tag.
+        </video>
+    </ng-container>-->
+    <div designerDroppable (widgetAdded)="childModified($event)" (parentActionReq)="removeChild($event)" class="cw-page" [ngStyle]="style" [class.noBorder]="!style.borderWidth">
         <template #container></template>
         <template #cont1><!--<h1>Yo adrian!!!</h1>--></template>
     </div>

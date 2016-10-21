@@ -3,7 +3,7 @@ import { Component, HostListener, ViewContainerRef, ComponentFactoryResolver,
 } from '@angular/core';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
-import { WidgetComs, WidgetConfig } from '../interfaces/widgetJSON.interface';
+import { WidgetComs, WidgetConfig } from './widget.interface';
 import { WidgetResize } from '../interfaces/WidgetResize.interface';
 import { FONTLIST } from '../services/fonts.service';
 
@@ -47,7 +47,6 @@ export class Widget{
     parentActionReq: EventEmitter<any> = new EventEmitter();
     curCompRef:ComponentRef<Widget>;
     changeDetectorRef:ChangeDetectorRef;
-    borderStyle:string;
     style:CSSStyleDeclaration;
     fontList:Array<any>;
     /*********BACKGROUND************ */
@@ -240,5 +239,15 @@ export class Widget{
     /************Development**************** */
     log(val):void{
       console.log(val);
+    }
+
+    /**
+     * @function
+     * @desc Responses for taking a JSON object and updating this component
+     */
+    parseWidgetConfig(widgetConfig:WidgetConfig):void{
+
+        this.style = widgetConfig['style']? widgetConfig['style'] : this.style;
+
     }
 }

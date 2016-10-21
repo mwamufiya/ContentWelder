@@ -3,10 +3,8 @@ import { Widget } from '../widgets/widget.component';
 export interface WidgetConfig{
     type:string; //the type of WidgetJSON
     position?:number;    // array index for this current item within the parent's list of children
-    width?:number;
-    height?:number;
-    opacity?:number;
-    children?:Array<Widget>
+    style:CSSStyleDeclaration;
+    items?:Array<Widget>
      
 }
 

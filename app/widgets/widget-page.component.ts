@@ -1,5 +1,5 @@
-import { Component, ViewChild, ViewChildren, QueryList, ComponentFactoryResolver,
-     Host, TemplateRef, ViewContainerRef, ChangeDetectorRef, forwardRef,
+import { Component, ViewChild, ViewChildren, QueryList, Input, ComponentFactoryResolver,
+     Host, TemplateRef, ViewContainerRef, ChangeDetectorRef, forwardRef, OnInit,
     HostListener
 } from '@angular/core';
 import { Widget } from './widget.component';
@@ -7,6 +7,7 @@ import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { WidgetDrop } from '../interfaces/widget-drop.interface';
 import { WidgetFactory} from './widget-factory';
 import { Parent } from './parent';
+import { WidgetConfig } from './widget.interface';
 /*****Entry Components****** */
 import { BoxWidget} from './widget-box.component';
 import { ImageWidget } from './widget-image.component';
@@ -18,6 +19,7 @@ import { FormWidget } from './widget-form.component'
   selector: 'designer-page',
   templateUrl: './app/widgets/widget-page.component.html',
   styleUrls: ['./app/widgets/widget-page.component.css'],
+    inputs: ['widgetConfig'],
   entryComponents:[ImageWidget, VideoWidget, BoxWidget, TextboxWidget, FormWidget],
   providers: [
       {
@@ -31,9 +33,10 @@ import { FormWidget } from './widget-form.component'
  * @extends Widget
  * @classDesc Extends Page Widget. Handles actions taken on the stage
  */
-export class PageWidget extends Widget{
+export class PageWidget extends Widget implements OnInit{
     @Host() @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
-    @ViewChild('cont1') tpl1: TemplateRef<Object>; 
+    @ViewChild('cont1') tpl1: TemplateRef<Object>;
+    widgetConfig: WidgetConfig;
     childWidgets:Array<JSON>;
 
     /** @function
@@ -49,6 +52,14 @@ export class PageWidget extends Widget{
         designerGlobals: DesignerGlobalsService){
             super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
             super.setBackgroundColor('white');
+    }
+
+    /**
+     * @function
+     * @desc if a widget Config was passed, then it begins processing it.
+     */
+    ngOnInit(){
+        this.parseWidgetConfig();
     }
 
     /** @function
@@ -70,8 +81,8 @@ export class PageWidget extends Widget{
         let index:number = 0;
         let factory = new WidgetFactory();
         for(let item of event.items){
-            let widgetConfig = factory.getWidgetConfigFromComponent(item);
-            let componentFactory = factory.getWidgetFactory(this.componentResolver, widgetConfig.type);
+            let wConfig = factory.getWidgetConfigFromComponent(item);
+            let componentFactory = factory.getWidgetFactory(this.componentResolver, wConfig.type);
             let ref = this.container.createComponent(componentFactory);
 
             let v = this.tpl1.createEmbeddedView(ref);
@@ -81,9 +92,25 @@ export class PageWidget extends Widget{
 
             //if this item is the first in the array, do not append it. otherwise, we do;
             this.designerGlobals.setSelectedComponent(ref.instance, index == 0? false : true);
-            this.addChild(ref, widgetConfig);
+            this.addChild(ref, wConfig);
             
             index++;
         }
+    }
+
+    /**
+     * @function
+     * @desc handles creating any child widget components
+     */
+    parseWidgetConfig(){
+        //Do nothing if no widget config was provided
+        if(!this.widgetConfig)
+            return;
+
+        //First let the base class handle all common areas
+        super.parseWidgetConfig(this.widgetConfig);
+
+        //now process any Page specific configurations
+
     }
 }

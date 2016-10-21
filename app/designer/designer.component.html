@@ -23,17 +23,9 @@
         <!-- Disable the page navigation fow now. it may be re-activated once it's functioning' -->
         <!--<div class="pageNav">adfadf</div>-->
         <designer-tools (changeBkgEmitter)="changeBackground($event)"></designer-tools>
-         <div class="pasteboard" *ngFor="let page of pageList">
-             <ng-container *ngIf="video">
-                <video [ngStyle]="{'background': getVideoBackgroundPath()}" designerDraggable data-widgetConfig='{"type":"video"}' autoplay loop>  
-                    <source src="{{video.mediumLink.url}}"  type="video/mp4">
-                    <source src="{{video.mediumLink.url}}"  type="video/ogg">
-                    Your browser does not support the video tag.
-                </video>
-             </ng-container>
-            
+         <div class="pasteboard" *ngFor="let page of pageList; let i = index;">
             <template #container></template>
-            <designer-page (childModified)="childModified($event);"></designer-page>
+            <designer-page designerDroppable [widgetConfig]="page" (childModified)="childModified($event);"></designer-page>
         </div>
     </div>
     <div class="footer">

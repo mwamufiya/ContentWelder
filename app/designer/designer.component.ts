@@ -1,11 +1,13 @@
 import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SemanticModalComponent } from 'ng-semantic';
 import { Subscription } from 'rxjs/Subscription';
 import { Image } from '../widgets/image';
 import { Video} from '../widgets/video';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { PageWidget } from '../widgets/widget-page.component';
+import { WidgetService } from '../widgets/widget.service'
+import { WidgetConfig} from '../widgets/widget.interface'
 
 @Component({
   selector: 'my-designer',
@@ -24,25 +26,45 @@ export class DesignerComponent implements OnInit{
     private video:Video;
     private image:Image;
     private isSelected:boolean;
-    pageList:Array<any>;
-    
+    id: number;
+    pageList:Array<WidgetConfig>;
+
+
+    /**
+     * @constuctor
+     * @param {ComponentFactoryResolver} compFactoryResolver
+     * @param {Router} router
+     * @param {ActivatedRoute} route
+     * @param {DesignerGlobalsService} designerGlobals
+     */
     constructor(
-      private compFactoryResolver: ComponentFactoryResolver,
-      private router: Router,
-      private liveRoute: ActivatedRoute,
-      private designerGlobals: DesignerGlobalsService){
+        private compFactoryResolver: ComponentFactoryResolver,
+        private router: Router,
+        private route: ActivatedRoute,
+        private designerGlobals: DesignerGlobalsService,
+        private widgetService: WidgetService){
+        this.route = route;
+    }
+
+    /**
+     * @function
+     * @name ngOnInit
+     * @description Handles initialization once the lifecycle hook kicks in
+     */
+    ngOnInit():void{
         this.mediaChooserInit();
         this.initializeSubscribers();
-        console.log(this.liveRoute.params);
-    }
-    //Perform the task of fetching the Page Config from the server
-    //For now just default to 1 page item. 
-    ngOnInit():void{
-      //TODO make a call to a service to retrieve the list of pages
-      this.pageList = new Array();
-      for(let i=0; i<1; i++){
-        this.pageList.push(i);
-      }
+
+        //route.params is an observable that will fire on change
+        //route.snapshot will obtain the value only once.
+        //to handle future requests, params is used for now.
+        this.route.params.forEach((params: Params) => {
+            this.id = +params['id'];
+            this.widgetService.search('jsonserver', params)
+                .then(widgetConfig => {
+                    this.parseWidgetConfig(widgetConfig);
+                });
+        });
     }
     //handles subscribing to events in order to toggle the correct viewer
     mediaChooserInit():void{
@@ -109,5 +131,11 @@ export class DesignerComponent implements OnInit{
     }
     getVideoBackgroundPath():string{
      return `url('${this.video.mediumLink.url}')`; 
+    }
+    parseWidgetConfig(jsonConfig: WidgetConfig):void{
+        this.pageList = new Array<WidgetConfig>();
+        jsonConfig.items.forEach( page => {
+             this.pageList.push(page);
+        });
     }
 }

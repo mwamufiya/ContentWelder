@@ -1,15 +1,16 @@
 .workingArea{
-display:flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding:1rem 0;
 }
 .cw-page{
     min-height:400px;
     min-width:80%;
 }
-.noBackground .cw-page{
-    border:2px dotted white;
+.noBorder{
+    border:.15rem dotted #CCC;
 }
 
 /*Background VIdeo Code
