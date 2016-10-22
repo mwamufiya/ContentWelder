@@ -36,6 +36,7 @@ export class ImageWidget extends Widget{
     imgPath:string = this.defaultImgUrl;
     private _selectedImageSubscription: Subscription;
     image:Image;
+    widgetType:string = 'imagewidget';
 
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,

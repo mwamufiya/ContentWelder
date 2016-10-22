@@ -24,6 +24,7 @@ import { WidgetDrop} from './widget.interface';
 export class BoxWidget extends Widget{
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
+    widgetType:string = 'boxwidget';
 
     constructor(
         componentFactoryResolver:ComponentFactoryResolver,

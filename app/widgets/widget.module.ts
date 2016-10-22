@@ -47,7 +47,7 @@ import { FONTLIST } from '../services/fonts.service';
         FormsModule,
         HttpModule,
         ReactiveFormsModule,
-        NgSemanticModule,
+        NgSemanticModule
     ],
     declarations: [
         Widget,
@@ -64,6 +64,7 @@ import { FONTLIST } from '../services/fonts.service';
         DynamicFormComponent,
         DynamicFormQuestionComponent,
         ColorPickerDirective,
+        DesignerDroppable,
     ],
     exports: [
         Widget,

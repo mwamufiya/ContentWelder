@@ -27,6 +27,7 @@ export class VideoWidget extends Widget{
     private _selectedVideoSubscription: Subscription;
     video:Video;
     videoDomEl:HTMLVideoElement;                        //DOM element for the Video Tag
+    widgetType:string = 'videowidget';
 
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,

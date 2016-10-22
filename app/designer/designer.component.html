@@ -24,8 +24,9 @@
         <!--<div class="pageNav">adfadf</div>-->
         <designer-tools (changeBkgEmitter)="changeBackground($event)"></designer-tools>
          <div class="pasteboard" *ngFor="let page of pageList; let i = index;">
+            <sm-button class="ui mini fluid positive" (click)="saveConfig()" icon="cloud upload icon">Save</sm-button>
             <template #container></template>
-            <designer-page designerDroppable [widgetConfig]="page" (childModified)="childModified($event);"></designer-page>
+            <designer-page designerDroppable [widgetConfig]="page"></designer-page>
         </div>
     </div>
     <div class="footer">

@@ -21,7 +21,10 @@ export interface WidgetServiceInterface {
 export interface WidgetDrop{
     value:string;
     templateRef:ElementRef;
-    insertionPoint:Number;
     items:Array<Object>;
+    insertionPoint?:Number;
+}
+
+export interface WidgetJson{
 
 }

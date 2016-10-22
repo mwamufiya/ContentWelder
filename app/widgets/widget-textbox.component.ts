@@ -30,6 +30,7 @@ export class TextboxWidget extends Widget{
     // Component input
     content:string;
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
+    widgetType:string = 'textboxwidget';
 
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,

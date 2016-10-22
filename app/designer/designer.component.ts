@@ -1,4 +1,7 @@
-import { Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, OnInit } from '@angular/core';
+import {
+    Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, OnInit, ViewChildren,
+    QueryList
+} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SemanticModalComponent } from 'ng-semantic';
 import { Subscription } from 'rxjs/Subscription';
@@ -19,6 +22,7 @@ export class DesignerComponent implements OnInit{
     @ViewChild('imageChooser', {read: SemanticModalComponent}) imageChooser: SemanticModalComponent;
     @ViewChild(PageWidget) private stageComponent: PageWidget;
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
+    @ViewChildren (PageWidget) viewChildren: QueryList<PageWidget>;
     private mediaChooserSubscription: Subscription;
     private _selectedImageSubscription: Subscription;
     private _selectedVideoSubscription: Subscription;
@@ -137,5 +141,21 @@ export class DesignerComponent implements OnInit{
         jsonConfig.items.forEach( page => {
              this.pageList.push(page);
         });
+    }
+
+    /**
+     * @function
+     * @desc Save current configuration tos erver
+     */
+    saveConfig():void{
+
+        let pageListJson = [];
+
+        //loop through each page to gather the appropriate JSON
+        this.viewChildren.forEach( view => {
+            pageListJson.push(view.toJson());
+        })
+
+        console.log(JSON.stringify(pageListJson));
     }
 }

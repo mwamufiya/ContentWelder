@@ -26,6 +26,7 @@ export class FormWidget extends Widget{
     editQuestion:boolean;
     curModel: QuestionBase<any>;
     @ViewChild(DynamicFormComponent) private dynForm: DynamicFormComponent;
+    widgetType:string = 'formwidget';
 
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,

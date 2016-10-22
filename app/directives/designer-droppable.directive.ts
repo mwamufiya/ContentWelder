@@ -1,15 +1,14 @@
-import { Directive, ElementRef, HostListener, ComponentFactoryResolver, EventEmitter
+import { Directive, ElementRef, HostListener, ComponentFactoryResolver, EventEmitter, Output
  } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
 import { MakeDroppable} from './make-droppable.directive';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Parent } from '../widgets/parent';
 import { Widget } from '../widgets/widget.component';
-import { WidgetDrop } from '../interfaces/widget-drop.interface'
+import { WidgetDrop } from '../widgets/widget.interface'
 
 @Directive({
     selector: '[designerDroppable]',
-    inputs: ['designerDroppable'],
     outputs: ['widgetAdded']
 })
 
@@ -17,49 +16,49 @@ export class DesignerDroppable extends MakeDroppable{
     //childModified = new EventEmitter();
     el: null;
     draggOverHelper: Node;          //Dom element displayed when something is dragged over
-    prvDraggedOverEl: Element       //Previously draged over element
-    prvInsertionPoint: boolean      //insert item before or afte item being dragged over
-    widgetAdded: EventEmitter<WidgetDrop>;
-    reqInsertionPoint:Number;
-    parentComp:Widget;
-    prvBkgColor:string;
+    prvDraggedOverEl: Element;       //Previously draged over element
+    prvInsertionPoint: boolean;      //insert item before or after item being dragged over
+    widgetAdded: EventEmitter<WidgetDrop> = new EventEmitter<WidgetDrop>();
+    reqInsertionPoint: Number;
+    parentComp: Widget;
 
     constructor(
         el: ElementRef,
         private viewContainer: ViewContainerRef,
-        //public templateRef: TemplateRef<any>,
         private componentFactoryResolver: ComponentFactoryResolver,
         private designerGlobals: DesignerGlobalsService,
-        parentComponent:Parent
+        parentComponent: Parent
         ){
-        super(el, parentComponent);
-        this.widgetAdded = new EventEmitter();
+        super(el);
         this.parentComp = parentComponent as Widget;
     }
     @HostListener('dragover', ['$event']) ondragover(event){
-        if(this.isElligable(event))
+        event.stopPropagation();
+        if(!this.isEligible(event))
             return false;
 
         if(!this.prvBkgColor && this.prvBkgColor!='yellow')
-            this.prvBkgColor = this.parent.style.backgroundColor;
+            this.prvBkgColor = this.parentComp.style.backgroundColor;
 
-        this.parent.setStyleProperty('backgroundColor', 'yellow');//.style.backgroundColor = "yellow";
+        this.parentComp.setStyleProperty('backgroundColor', 'yellow');//.style.backgroundColor = "yellow";
         this.addDragOverHelper(event);
 
         //Return false to prevent event propogation
         return false;
     }
     @HostListener('dragleave', ['$event']) ondragleave(event){
+        event.stopPropagation();
         this.restoreBackgroundColor();
         this.removeDragOverHelper();
         return false;
     }
     @HostListener('drop', ['$event']) onDrop(event){
+        event.stopPropagation();
         //get the widget's current background color;
         this.restoreBackgroundColor();
         
         //Only add an child if a it meets our elligability rules
-        if(this.isElligable(event))
+        if(this.isEligible(event))
             this.addWidget(event, this.designerGlobals.getDraggedItems());
 
         this.removeDragOverHelper();
@@ -74,14 +73,13 @@ export class DesignerDroppable extends MakeDroppable{
             insertionPoint: this.reqInsertionPoint,
             items: items           
         });
-        //console.log(this.childModified);
     }
     getEl():ElementRef{
         return super.getEl();
     }
-    isElligable(event){
+    isEligible(event){
         let isValid = true;
-        //Do not allow an item to be dropped on itself to increse add a new child
+        //Do not allow an item to be dropped on itself to increase add a new child
         let draggedEventPath = this.designerGlobals.getDraggedObjectPath();
         if(draggedEventPath[0]===event.path[0])
             isValid = false;

@@ -42,8 +42,7 @@ import { DesignerDraggable }  from '../directives/designer-draggable.directive';
     DesignerToolsMenu,
     DesignerToolsComponent,
     ImageChooser,
-      DesignerDraggable,
-      DesignerDroppable,
+    DesignerDraggable
   ],
   providers: [
     DesignerGlobalsService,

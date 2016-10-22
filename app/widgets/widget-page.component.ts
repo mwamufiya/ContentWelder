@@ -7,13 +7,13 @@ import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { WidgetDrop } from '../interfaces/widget-drop.interface';
 import { WidgetFactory} from './widget-factory';
 import { Parent } from './parent';
-import { WidgetConfig } from './widget.interface';
+import { WidgetConfig, WidgetJson } from './widget.interface';
 /*****Entry Components****** */
 import { BoxWidget} from './widget-box.component';
 import { ImageWidget } from './widget-image.component';
 import { VideoWidget} from './widget-video.component';
 import { TextboxWidget } from './widget-textbox.component';
-import { FormWidget } from './widget-form.component'
+import { FormWidget } from './widget-form.component';
 
 @Component({
   selector: 'designer-page',
@@ -38,6 +38,7 @@ export class PageWidget extends Widget implements OnInit{
     @ViewChild('cont1') tpl1: TemplateRef<Object>;
     widgetConfig: WidgetConfig;
     childWidgets:Array<JSON>;
+    widgetType:string = 'pagewidget';
 
     /** @function
      * @param {ComponentFactoryResolver} componentFactoryResolver
@@ -76,7 +77,7 @@ export class PageWidget extends Widget implements OnInit{
      * @param {WidgetDrop Interface} event
      * @description Creates new components via ComponentFactory and places them as siblings of the ViewContainerRef
      */
-    childModified(event:WidgetDrop){     
+    childModified(event:WidgetDrop){
         //Loop through all items being added and add.
         let index:number = 0;
         let factory = new WidgetFactory();
@@ -112,5 +113,18 @@ export class PageWidget extends Widget implements OnInit{
 
         //now process any Page specific configurations
 
+    }
+    /**
+     * @function
+     * @desc returns a JSON representation of the current Widget Object
+     */
+    toJson():WidgetJson{
+        //let Base class do the bulk of the work
+        let json = super.toJson();
+
+        //Handle Page specific logic
+        //TODO add page specific saveing logic
+
+        return json;
     }
 }

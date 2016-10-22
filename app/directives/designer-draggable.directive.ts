@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, OnInit, Optional, OpaqueToken} from '@angular/core';
+import { Directive, ElementRef, HostListener, OnInit, Optional, OpaqueToken, TemplateRef} from '@angular/core';
 import { MakeDraggable} from './make-draggable.directive';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { DesignerToolsMenu } from '../designer/designer-tools-menu.component';
@@ -24,10 +24,11 @@ const DraggedObject = new OpaqueToken('draggedItem')
 export class DesignerDraggable extends MakeDraggable implements OnInit{
     widgetType: string;
 
-    constructor(el: ElementRef, 
+    constructor(el: ElementRef,
         private designerGlobals: DesignerGlobalsService, 
         @Optional() private parentComponent:Parent){
         super(el);
+
     }
     
     @HostListener('dragstart',['$event']) ondragstart(event){

@@ -3,7 +3,7 @@ import { Component, HostListener, ViewContainerRef, ComponentFactoryResolver,
 } from '@angular/core';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
-import { WidgetComs, WidgetConfig } from './widget.interface';
+import { WidgetComs, WidgetConfig, WidgetJson } from './widget.interface';
 import { WidgetResize } from '../interfaces/WidgetResize.interface';
 import { FONTLIST } from '../services/fonts.service';
 
@@ -26,6 +26,7 @@ import { FONTLIST } from '../services/fonts.service';
  */
 export class Widget{
     //@ViewChild('placeholder', {read: ViewContainerRef}) placeholder;
+    widgetType:string;
     width:number;
     height:number;
     x:number;
@@ -70,7 +71,7 @@ export class Widget{
         this.changeDetectorRef = changeDetectorRef;
         this.designerGlobals = designerGlobals;
         this.children = new Array;
-        this.infants = new Array;
+        //this.infants = new Array;
 
         this.style = {} as CSSStyleDeclaration;
         this.setupFonts();
@@ -93,8 +94,6 @@ export class Widget{
       this.fontList = FONTLIST;
     }
 
-    childModified(event):void {
-    }
     getWidth(withUnits?:boolean){ return this.width + ((withUnits==true)?'px':''); }
     getHeight(withUnits?:boolean){ return this.height +((withUnits==true)?'px':''); }
 
@@ -123,19 +122,19 @@ export class Widget{
       return false;
     }
 
-
     getChildren():Array<Widget>{
       return this.children;
     }
     addChild(compRef:ComponentRef<Widget>, configJson:WidgetConfig){
       //Because Dynamically created components cannot leverage angular's Input/Ouput,
-      //we must subscript to the EventEmitter manually
+      //we must subscript to the EventEmitter explicitly
       compRef.instance.parentActionReq.subscribe(compRef => this.removeChild(compRef));
       //Set the ComponentRef for use down the line.
       compRef.instance.curCompRef = compRef;
 
       //Add the the item to our list of children for future use
       this.children.push(compRef.instance);
+
       //There is potential use for this in the future. especially around automatin testing.
       //uncertain at this time.
       //this.addChildViaJSON(widgetJSON);
@@ -250,4 +249,28 @@ export class Widget{
         this.style = widgetConfig['style']? widgetConfig['style'] : this.style;
 
     }
+
+    /**
+     * @function
+     * @desc returns a JSON representation of the current Widget Object
+     */
+    toJson():WidgetJson{
+        let json = {};
+
+        json['widgetType'] = this.widgetType;
+        //TODO only save style if there is something to save
+        json['style'] = this.style;
+
+        //If there are no children, no further processing is required
+        if(!this.children.length)
+            return json;
+
+        json['items'] = [];
+        this.children.forEach( (item:Widget, index:number) => {
+            json['items'].push(item.toJson());
+        });
+
+        return json;
+    }
+
 }

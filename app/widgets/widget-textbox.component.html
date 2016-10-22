@@ -23,13 +23,13 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
                 <option *ngFor="let item of fontSizeList">{{item}}</option>
             </sm-select>
         </li>
+        <li title="Text Color" class="colorPicker">
+            <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('color', $event)"
+                   [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [style.background]="color"/>
+        </li>
         <li title="Background Color" class="colorPicker">
             <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('backgroundColor', $event)" 
             [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
-        </li>
-        <li title="Text Color" class="colorPicker">
-            <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('color', $event)" 
-            [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [style.background]="color"/>
         </li>
         <li>
             <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>

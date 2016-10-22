@@ -3,7 +3,7 @@ import { WidgetConfig, WidgetServiceInterface } from './widget.interface';
 
 
 export class JsonServerWidgetService implements WidgetServiceInterface {
-    SERVICE_URL:string = 'http://localhost:3001'
+    SERVICE_URL:string = 'http://localhost:3010'
     constructor(private http: Http){}
 
     /**

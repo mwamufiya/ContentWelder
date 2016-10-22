@@ -12,7 +12,7 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li (click)="setStyleProperty($event)">&#x2753;</li>
     </ul>
-    <div [class.emptyContainer]="children.length==0"
+    <div [class.emptyContainer]="!children.length"
          designerDroppable designerDraggable data-widgetType='box' (widgetAdded)="childModified($event)" 
          (parentActionReq)="removeChild($event)" data-widgetConfig='{"type":"box"}'
          [ngStyle]="style">
