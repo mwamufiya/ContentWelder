@@ -16,6 +16,7 @@ export interface WidgetComs{
 
 export interface WidgetServiceInterface {
     search(params:{}):Promise<WidgetConfig>
+    save(params:{}):Promise<JSON>
 }
 
 export interface WidgetDrop{

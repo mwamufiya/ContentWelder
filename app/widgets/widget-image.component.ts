@@ -5,12 +5,13 @@ import { Image } from './image';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Parent } from './parent';
-import { WidgetJson } from './widget.interface';
+import { WidgetJson, WidgetConfig } from './widget.interface';
 
 @Component({
-  selector: 'designer-ImageWidget',
-  templateUrl: './app/widgets/widget-image.component.html',
-  styles:[`
+    selector: 'designer-ImageWidget',
+    templateUrl: './app/widgets/widget-image.component.html',
+    inputs: ['widgetConfig'],
+    styles:[`
     img{
         height:100%;
         width:100%;
@@ -22,13 +23,13 @@ import { WidgetJson } from './widget.interface';
         width:140px;
         height:100px;
     }
-  `],
-  providers: [
+    `],
+    providers: [
       {
           provide: Parent,
           useExisting: forwardRef(() => ImageWidget)
       }
-  ]
+    ]
 })
 export class ImageWidget extends Widget{
     // Component input
@@ -38,6 +39,7 @@ export class ImageWidget extends Widget{
     private _selectedImageSubscription: Subscription;
     image:Image;
     widgetType:string = 'imagewidget';
+    widgetConfig: WidgetConfig;
 
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,
@@ -51,6 +53,13 @@ export class ImageWidget extends Widget{
           err => super.displayError(`Error encountered when subscribing to observable`)
         );
     }
+    /**
+     * @function
+     * @desc if a widget Config was passed, then it begins processing it.
+     */
+    ngOnInit(){
+        this.parseWidgetConfig();
+    }
 
     @HostListener('click', ['$event']) onclick(event):boolean{
         return super.onclick(event);
@@ -61,13 +70,22 @@ export class ImageWidget extends Widget{
         this.launchImageChooser();
         return false;
     }
-    setImage(image:Image){
+
+    /**
+     * @function
+     * @param image
+     * @param {Boolean} force   //overides validation that ensures the the image chooser is currently assigned to this item
+     */
+    setImage(image:Image, force:boolean = false){
         //Do nothing if this asset-chooser isn't the currently selected asset-chooser.
-        if(!this.isSelected)
+        if(!this.isSelected && !force)
             return;
 
         this.image = image;
         this.imgPath = this.image.medResLink;
+    }
+    hasImage():boolean{
+        return this.image? true : null;
     }
     launchImageChooser(){
         this.designerGlobals.launchMediaChooser('image');
@@ -86,5 +104,25 @@ export class ImageWidget extends Widget{
             json['image'] = this.image;
 
         return json;
+    }
+    /**
+     * @function
+     * @desc handles creating any child widget components
+     */
+    parseWidgetConfig(config?: WidgetConfig){
+        //Allows configuration to be set outside of OnInit.
+        if(config) this.widgetConfig = config;
+
+        //Do nothing if no widget config was provided
+        if(!this.widgetConfig)
+            return;
+
+        //First let the base class handle all common areas
+        super.parseWidgetConfig(this.widgetConfig);
+
+        //now process any Image  specific configurations
+        console.log(this.widgetConfig['image']);
+        if(this.widgetConfig['image']) this.setImage(this.widgetConfig['image'], true);
+
     }
 }

@@ -11,6 +11,7 @@ import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { PageWidget } from '../widgets/widget-page.component';
 import { WidgetService } from '../widgets/widget.service'
 import { WidgetConfig} from '../widgets/widget.interface'
+import {Widget} from "../widgets/widget.component";
 
 @Component({
   selector: 'my-designer',
@@ -30,7 +31,8 @@ export class DesignerComponent implements OnInit{
     private video:Video;
     private image:Image;
     private isSelected:boolean;
-    id: number;
+    id: number;                 //ID of the top level widget currently being worked on.
+    name: String;               //Name of the current widget;
     pageList:Array<WidgetConfig>;
 
 
@@ -138,6 +140,7 @@ export class DesignerComponent implements OnInit{
     }
     parseWidgetConfig(jsonConfig: WidgetConfig):void{
         this.pageList = new Array<WidgetConfig>();
+        this.name = jsonConfig['name']? jsonConfig['name'] : null;
         jsonConfig.items.forEach( page => {
              this.pageList.push(page);
         });
@@ -149,13 +152,27 @@ export class DesignerComponent implements OnInit{
      */
     saveConfig():void{
 
-        let pageListJson = [];
+        let saveJson = {};
 
+        //set the current object's ID if it exists so the service PUT/POST based on it's existance
+        if(this.id)
+            saveJson['id'] = this.id;
+
+        //set the name if it exists
+        if(this.name)
+            saveJson['name'] = this.name;
+
+        saveJson['items'] = [];
         //loop through each page to gather the appropriate JSON
-        this.viewChildren.forEach( view => {
-            pageListJson.push(view.toJson());
-        })
+        this.viewChildren.forEach( (view: Widget) => {
+            let v = view.toJson();
+            console.log(v);
+            saveJson['items'].push(v);
+        });
 
-        console.log(JSON.stringify(pageListJson));
+        console.log(saveJson);
+        console.log(JSON.stringify(saveJson));
+
+        this.widgetService.save('jsonserver', saveJson);
     }
 }

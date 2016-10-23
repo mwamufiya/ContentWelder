@@ -1,18 +1,7 @@
-<div class="widgetContainer" [class.activeWidget]="isSelected==true" [class.emptyContainer]="!content"
+<div class="widgetContainer" [class.activeWidget]="isSelected" [class.emptyContainer]="!content"
 resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResize($event)" >
-    <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
-    <!--<ng-container *ngIf="isSelected==true"> 
-        <sm-menu class="inverted grey">
-            <div sm-item>
-                <border-selection (borderChanged)="setBorderStyle($event)"></border-selection>
-            </div>
-            <div sm-item>
-                <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)" 
-                    [style.background]="color" [value]="color"/>
-            </div>
-        </sm-menu>  
-    </ng-container>-->
-    <ul  class="widgetMenu" *ngIf="isSelected==true">
+    <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
+    <ul  class="widgetMenu" *ngIf="isSelected">
         <li title="Font">
             <sm-select (onChange)="setStyleProperty('fontFamily', $event)" placeholder="Font..." class=" search">
                 <option *ngFor="let item of fontList" value="{{item.value}}">{{item.label}}</option>

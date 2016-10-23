@@ -34,8 +34,8 @@ export class TextboxWidget extends Widget{
     widgetType:string = 'textboxwidget';
 
     constructor(
-        private componentFactoryResolver:ComponentFactoryResolver,
-        private viewContainer:ViewContainerRef,
+        componentFactoryResolver:ComponentFactoryResolver,
+        viewContainer:ViewContainerRef,
         changeDetectorRef: ChangeDetectorRef,
         designerGlobals: DesignerGlobalsService){
         super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);

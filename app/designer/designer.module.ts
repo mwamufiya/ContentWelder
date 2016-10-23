@@ -27,6 +27,7 @@ import { FONTLIST } from '../services/fonts.service';
 import { DesignerDroppable }  from '../directives/designer-droppable.directive';
 import { DesignerDraggable }  from '../directives/designer-draggable.directive';
 
+
 @NgModule({
   imports:[
     BrowserModule,

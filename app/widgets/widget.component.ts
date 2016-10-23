@@ -4,6 +4,7 @@ import { Component, HostListener, ViewContainerRef, ComponentFactoryResolver,
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
 import { WidgetComs, WidgetConfig, WidgetJson } from './widget.interface';
+import { WidgetService } from './widget.service'
 import { WidgetResize } from '../interfaces/WidgetResize.interface';
 import { FONTLIST } from '../services/fonts.service';
 
@@ -70,6 +71,7 @@ export class Widget{
         this.viewCont = viewCont;
         this.changeDetectorRef = changeDetectorRef;
         this.designerGlobals = designerGlobals;
+
         this.children = new Array;
         //this.infants = new Array;
 
@@ -126,18 +128,23 @@ export class Widget{
       return this.children;
     }
     addChild(compRef:ComponentRef<Widget>, configJson:WidgetConfig){
-      //Because Dynamically created components cannot leverage angular's Input/Ouput,
-      //we must subscript to the EventEmitter explicitly
-      compRef.instance.parentActionReq.subscribe(compRef => this.removeChild(compRef));
-      //Set the ComponentRef for use down the line.
-      compRef.instance.curCompRef = compRef;
+        let instance = compRef.instance as Widget
+        instance.parseWidgetConfig(configJson);
 
-      //Add the the item to our list of children for future use
-      this.children.push(compRef.instance);
+        //Because Dynamically created components cannot leverage angular's Input/Ouput,
+        //we must subscript to the EventEmitter explicitly
+        instance.parentActionReq.subscribe(compRef => this.removeChild(compRef));
+        instance.changeDetectorRef.detectChanges();
 
-      //There is potential use for this in the future. especially around automatin testing.
-      //uncertain at this time.
-      //this.addChildViaJSON(widgetJSON);
+        //Set the ComponentRef for use down the line.
+        compRef.instance.curCompRef = compRef;
+
+        //Add the the item to our list of children for future use
+        this.children.push(compRef.instance);
+
+        //There is potential use for this in the future. especially around automatin testing.
+        //uncertain at this time.
+        //this.addChildViaJSON(widgetJSON);
     }
     addChildViaJSON(configJson:WidgetConfig){
       //this.infants.push(widgetJSON);
@@ -151,7 +158,9 @@ export class Widget{
      */
     checkIfCurrentlySelected(selectedArray:Array<Component>){
       //if this item exists in the list of currently selected items, mark it as such.
-      this.isSelected = selectedArray.indexOf(this) != -1? true: false;
+        this.isSelected = (selectedArray.indexOf(this) != -1)? true: null;
+        //trigger change detection so that template is update to date.
+        this.changeDetectorRef.detectChanges();
     }
     displayError(err:any){
       console.log(err);
@@ -244,10 +253,12 @@ export class Widget{
      * @function
      * @desc Responses for taking a JSON object and updating this component
      */
-    parseWidgetConfig(widgetConfig:WidgetConfig):void{
-
+    parseWidgetConfig(widgetConfig:WidgetConfig, markForChange:boolean = false):void{
+        console.log(widgetConfig);
         this.style = widgetConfig['style']? widgetConfig['style'] : this.style;
 
+        if(markForChange==true)
+            this.changeDetectorRef.markForCheck();
     }
 
     /**
@@ -266,7 +277,7 @@ export class Widget{
             return json;
 
         json['items'] = [];
-        this.children.forEach( (item:Widget, index:number) => {
+        this.children.forEach( (item:Widget) => {
             json['items'].push(item.toJson());
         });
 

@@ -1,7 +1,7 @@
-<div class="widgetContainer" [class.activeWidget]="isSelected==true" 
+<div class="widgetContainer" [class.activeWidget]="isSelected"
 resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResize($event)">
-    <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>       
-    <ul *ngIf="isSelected==true" class="widgetMenu">
+    <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
+    <ul *ngIf="isSelected" class="widgetMenu">
         <li title="Background Color" class="colorPicker">
             <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('backgroundColor', $event)" 
             [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>

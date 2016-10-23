@@ -1,15 +1,10 @@
-<div class="widgetContainer" [class.emptyContainer]="imgPath" [class.activeWidget]="isSelected==true" 
+<div class="widgetContainer" [class.emptyContainer]="!hasImage()" [class.activeWidget]="isSelected==true"
 resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)">
-    <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
-    <ul *ngIf="isSelected==true" class="widgetMenu">
+    <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
+    <ul *ngIf="isSelected" class="widgetMenu">
         <li>
             <button class="mini ui button green" (click)="launchImageChooser()">Change</button>
         </li>
-        <!-- Since image boxes should have images, it doesn't make sense to have background color
-        <li title="Background Color" class="colorPicker">
-            <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('backgroundColor', $event)" 
-            [style.background]="color" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
-        </li>-->
         <li>
             <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
         </li>
