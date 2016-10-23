@@ -37,9 +37,9 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <div contenteditable="true" designerDraggable data-widgetType='textbox' 
-        data-widgetConfig='{"type":"textbox"}'
-         [ngStyle]="style" (input)="updateContent($event)">
+    <div contenteditable="true" designerDraggable data-widgetType='textbox'
+        data-widgetConfig='{"type":"textbox"}' (input)="updateContent($event)"
+         [ngStyle]="style">
         <template #container></template>
     </div>
 </div>

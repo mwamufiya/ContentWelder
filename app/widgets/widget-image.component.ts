@@ -5,6 +5,7 @@ import { Image } from './image';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Parent } from './parent';
+import { WidgetJson } from './widget.interface';
 
 @Component({
   selector: 'designer-ImageWidget',
@@ -70,5 +71,20 @@ export class ImageWidget extends Widget{
     }
     launchImageChooser(){
         this.designerGlobals.launchMediaChooser('image');
+    }
+
+    /**
+     * @function
+     * @desc returns a JSON representation of the current Widget Object
+     */
+    toJson():WidgetJson{
+        //let Base class do the bulk of the work
+        let json = super.toJson();
+
+        //Handle Page specific logic
+        if(this.image)
+            json['image'] = this.image;
+
+        return json;
     }
 }

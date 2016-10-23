@@ -3,6 +3,7 @@ import { Component, HostListener, ChangeDetectorRef, forwardRef,
 import { Widget } from './widget.component'
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Parent } from './parent';
+import { WidgetJson } from './widget.interface';
 
 @Component({
   selector: 'designer-TextboxWidget',
@@ -50,5 +51,18 @@ export class TextboxWidget extends Widget{
     }
     updateContent(event: Event){
         this.content = event.srcElement.textContent.trim();
+    }
+    /**
+     * @function
+     * @desc returns a JSON representation of the current Widget Object
+     */
+    toJson():WidgetJson{
+        //let Base class do the bulk of the work
+        let json = super.toJson();
+
+        //Handle Page specific logic
+        json['content'] = this.content;
+
+        return json;
     }
 }

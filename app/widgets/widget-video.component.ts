@@ -4,6 +4,7 @@ import { Widget } from './widget.component'
 import { Video } from './video';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
+import { WidgetJson } from './widget.interface';
 
 @Component({
   selector: 'designer-videoWidget',
@@ -86,5 +87,19 @@ export class VideoWidget extends Widget{
     }
     pause(el):void{
         this.videoDomEl.pause();
+    }
+    /**
+     * @function
+     * @desc returns a JSON representation of the current Widget Object
+     */
+    toJson():WidgetJson{
+        //let Base class do the bulk of the work
+        let json = super.toJson();
+
+        //Handle Page specific logic
+        if(this.video)
+            json['video'] = this.video;
+
+        return json;
     }
 }

@@ -8,6 +8,7 @@ import { DropdownQuestion  } from '../forms/question-dropdown';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { DynamicFormComponent } from '../forms/dynamic-form.component';
 import { Parent } from './parent';
+import { WidgetJson } from './widget.interface';
 
 @Component({
   selector: 'designer-form',
@@ -185,5 +186,20 @@ export class FormWidget extends Widget{
     }
     enableQuestionProperties():boolean{
         return this.editQuestion==true && this.isSelected==true
+    }
+
+    /**
+     * @function
+     * @desc returns a JSON representation of the current Widget Object
+     */
+    toJson():WidgetJson{
+        //let Base class do the bulk of the work
+        let json = super.toJson();
+
+        //Handle Page specific logic
+        if(!this.isEmpty())
+            json['questions'] = this.questions;
+
+        return json;
     }
 }
