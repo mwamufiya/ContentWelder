@@ -68,7 +68,8 @@ export class DesignerComponent implements OnInit{
             this.id = +params['id'];
             this.widgetService.search('jsonserver', params)
                 .then(widgetConfig => {
-                    this.parseWidgetConfig(widgetConfig);
+                    if(widgetConfig && widgetConfig.items.length)
+                        this.parseWidgetConfig(widgetConfig);
                 });
         });
     }
@@ -165,9 +166,7 @@ export class DesignerComponent implements OnInit{
         saveJson['items'] = [];
         //loop through each page to gather the appropriate JSON
         this.viewChildren.forEach( (view: Widget) => {
-            let v = view.toJson();
-            console.log(v);
-            saveJson['items'].push(v);
+            saveJson['items'].push(view.toJson());
         });
 
         console.log(saveJson);
