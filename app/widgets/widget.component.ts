@@ -3,9 +3,8 @@ import { Component, HostListener, ViewContainerRef, ComponentFactoryResolver,
 } from '@angular/core';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
-import { WidgetComs, WidgetConfig, WidgetJson } from './widget.interface';
+import { WidgetComs, WidgetConfig, WidgetJson, WidgetResize } from './widget.interface';
 import { WidgetService } from './widget.service'
-import { WidgetResize } from '../interfaces/WidgetResize.interface';
 import { FONTLIST } from '../services/fonts.service';
 
 @Component({

@@ -20,7 +20,7 @@ export class WidgetFactory{
                 config = (component as DesignerToolsMenu).widgetConfig as WidgetConfig;
                 break;
             default:
-                config = {type: component.constructor.name}
+                config = {widgetType: component.constructor.name}
                 break;
         }
         return config;

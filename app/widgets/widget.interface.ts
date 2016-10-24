@@ -2,10 +2,10 @@ import { ElementRef } from '@angular/core';
 import { Widget } from './widget.component';
 
 export interface WidgetConfig{
-    type:string; //the type of WidgetJSON
-    position?:number;    // array index for this current item within the parent's list of children
-    style?:CSSStyleDeclaration;
-    items?:Array<WidgetConfig>
+    widgetType:string;                  //the type of WidgetJSON
+    name?:string;
+    style?:CSSStyleDeclaration;         //Holds all style attributes
+    items?:Array<WidgetConfig>          //Collection of child widgets
 
 }
 
@@ -28,4 +28,10 @@ export interface WidgetDrop{
 
 export interface WidgetJson{
 
+}
+
+export interface WidgetResize{
+    height:number;
+    width:number;
+    unit?:string;                //the unit of measurement that the dimensions are in (Future use)
 }

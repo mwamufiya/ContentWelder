@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ChangeDetectorRef, OnInit
+import { Component, ElementRef, HostListener, ChangeDetectorRef, OnInit,
     ComponentFactoryResolver, ViewContainerRef, ViewChild, Query } from '@angular/core';
 import { Widget } from './widget.component'
 import { Video } from './video';

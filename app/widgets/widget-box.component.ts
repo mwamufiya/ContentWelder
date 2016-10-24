@@ -46,7 +46,7 @@ export class BoxWidget extends Widget{
         let factory = new WidgetFactory();
         for(let item of event.items){
             let widgetConfig = factory.getWidgetConfigFromComponent(item);
-            let componentFactory = factory.getWidgetFactory(this.componentResolver, widgetConfig.type);
+            let componentFactory = factory.getWidgetFactory(this.componentResolver, widgetConfig.widgetType);
             let ref = this.container.createComponent(componentFactory);
 
             //if this item is the first in the array, do not append it. otherwise, we do;

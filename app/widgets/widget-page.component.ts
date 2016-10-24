@@ -4,10 +4,9 @@ import { Component, ViewChild, ViewChildren, QueryList, Input, ComponentFactoryR
 } from '@angular/core';
 import { Widget } from './widget.component';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
-import { WidgetDrop } from '../interfaces/widget-drop.interface';
 import { WidgetFactory} from './widget-factory';
 import { Parent } from './parent';
-import { WidgetConfig, WidgetJson } from './widget.interface';
+import { WidgetConfig, WidgetJson, WidgetDrop } from './widget.interface';
 /*****Entry Components****** */
 import { BoxWidget} from './widget-box.component';
 import { ImageWidget } from './widget-image.component';
@@ -83,7 +82,7 @@ export class PageWidget extends Widget implements OnInit{
         let factory = new WidgetFactory();
         for(let item of event.items){
             let wConfig = factory.getWidgetConfigFromComponent(item);
-            let componentFactory = factory.getWidgetFactory(this.componentResolver, wConfig.type);
+            let componentFactory = factory.getWidgetFactory(this.componentResolver, wConfig.widgetType);
             let ref = this.container.createComponent(componentFactory);
 
             let v = this.tpl1.createEmbeddedView(ref);
