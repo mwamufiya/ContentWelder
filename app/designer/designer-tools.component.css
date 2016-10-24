@@ -33,9 +33,13 @@ li{
 .basicTools li{
     border-radius: 1.5em;
     border:1px solid #CCC;
+    opacity:.9;
 }
 li:hover{
     cursor:pointer;
+}
+.basicTools li:hover{
+    opacity:1;
 }
 .toolSelection{
     background:white;
