@@ -60,7 +60,7 @@ export const MAIN_MENU = [
                             "draggable": true,
                             "icon": "font icon",
                             "widgetConfig":{
-                                "type": "textboxwidget"
+                                "widgetType": "textboxwidget"
                             }
                         },
                         {
@@ -71,7 +71,7 @@ export const MAIN_MENU = [
                             "draggable": true,
                             "icon": "header icon",
                             "widgetConfig":{
-                                "type": "heading"
+                                "widgetType": "heading"
                             }
                         },
                         {
@@ -81,7 +81,7 @@ export const MAIN_MENU = [
                             "draggable": true,
                             "icon": "asset-chooser icon",
                             "widgetConfig":{
-                                "type": "imagewidget"
+                                "widgetType": "imagewidget"
                             }
                         }
                     ]
@@ -98,7 +98,7 @@ export const MAIN_MENU = [
                             "isActive": true,
                             "draggable": true,
                             "widgetConfig":{
-                                "type": "boxwidget"
+                                "widgetType": "boxwidget"
                             }
                         }
                     ]
@@ -118,7 +118,7 @@ export const MAIN_MENU = [
                     "draggable": true,
                     "icon": "video play outline icon",
                     "widgetConfig":{
-                        "type": "videowidget"
+                        "widgetType": "videowidget"
                     }
                 },
                 {
@@ -129,7 +129,7 @@ export const MAIN_MENU = [
                     "draggable": true,
                     "icon": "youtube play icon",
                     "widgetConfig":{
-                        "type": "videowidget",
+                        "widgetType": "videowidget",
                         "source":"youtube"
                     }
                 },
@@ -141,7 +141,7 @@ export const MAIN_MENU = [
                     "draggable": true,
                     "icon": "vimeo square icon",
                     "widgetConfig":{
-                        "type": "videowidget",
+                        "widgetType": "videowidget",
                         "source":"vimeo"
                     }
                 }
@@ -159,7 +159,7 @@ export const MAIN_MENU = [
                     "isActive": false,
                     "draggable": true,
                     "widgetConfig":{
-                        "type": "internaldatasource"
+                        "widgetType": "internaldatasource"
                     }
                 },
                                 {
@@ -169,7 +169,7 @@ export const MAIN_MENU = [
                     "isActive": false,
                     "draggable": true,
                     "widgetConfig":{
-                        "type": "externaldatasource"
+                        "widgetType": "externaldatasource"
                     }
                 }
             ]
@@ -186,7 +186,7 @@ export const MAIN_MENU = [
                     "isActive": false,
                     "draggable": true,
                     "widgetConfig":{
-                        "type": "slideshow"
+                        "widgetType": "slideshow"
                     }
                 }
             ]
@@ -203,7 +203,7 @@ export const MAIN_MENU = [
                     "isActive": true,
                     "draggable": true,
                     "widgetConfig":{
-                        "type": "formwidget"
+                        "widgetType": "formwidget"
                     }
                 }
             ]
