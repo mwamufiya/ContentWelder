@@ -23,8 +23,9 @@
         </ul>
         <!-- Video result Display -->
         <ul class="videoResults" *ngIf="searchType=='video'">
-            <li class="card" *ngFor="let video of mediaList; let i=index;" (click)="mediaSelected(i)" (mouseover)="toggleVideo(i)" (mouseout)="toggleVideo(i)">
-                <img *ngIf="video.isActive==false" src="{{video.thumbnailLink}}">
+            <li class="card" *ngFor="let video of mediaList; let i=index;" (click)="mediaSelected(i)"
+                (mouseover)="toggleVideo(i)" (mouseout)="toggleVideo(i)"
+                [ngStyle]="{'background-image': 'url('+video.thumbnailLink+')', 'background-repeat':'no-repeat'}">
                 <video *ngIf="video.isActive==true" width="295px" height="196px" autoplay loop>
                     <source src="{{video.smallLink.url}}" type="video/mp4">
                     <source src="{{video.smallLink.url}}" type="video/ogg">
