@@ -1,5 +1,5 @@
 <div class="widgetContainer" [class.emptyContainer]="!hasImage()" [class.activeWidget]="isSelected==true"
-resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)">
+resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)" [ngStyle]="style">
     <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
     <ul *ngIf="isSelected" class="widgetMenu">
         <li>
@@ -11,5 +11,5 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)">
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <img designerDraggable data-widgetConfig='{"type":"image"}' [ngStyle]="style" src="{{imgPath}}"/>
+    <img designerDraggable data-widgetConfig='{"type":"image"}' src="{{imgPath}}"/>
 </div>

@@ -12,6 +12,9 @@ import { WidgetJson, WidgetConfig } from './widget.interface';
     templateUrl: './app/widgets/widget-image.component.html',
     inputs: ['widgetConfig'],
     styles:[`
+    :host{
+        display:inline-block;
+    }
     img{
         height:100%;
         width:100%;
@@ -121,7 +124,6 @@ export class ImageWidget extends Widget{
         super.parseWidgetConfig(this.widgetConfig);
 
         //now process any Image  specific configurations
-        console.log(this.widgetConfig['image']);
         if(this.widgetConfig['image']) this.setImage(this.widgetConfig['image'], true);
 
     }

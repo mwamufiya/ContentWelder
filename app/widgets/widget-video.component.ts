@@ -1,5 +1,5 @@
-import { Component, ElementRef, HostListener, ChangeDetectorRef,
-    ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ChangeDetectorRef, OnInit
+    ComponentFactoryResolver, ViewContainerRef, ViewChild, Query } from '@angular/core';
 import { Widget } from './widget.component'
 import { Video } from './video';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
@@ -10,13 +10,14 @@ import { WidgetJson } from './widget.interface';
   selector: 'designer-videoWidget',
   templateUrl: './app/widgets/widget-video.component.html',
   styles:[`
+    :host{
+        display:inline-block;
+    }
     img{
         height:100%;
         width:100%;
     }
-    .widgetContainer{
-        display:inline-block;
-        /*temporary until actual image loading and resizing workds*/
+    .emptyContainer{
         width:140px;
         height:100px;
     }
@@ -30,16 +31,20 @@ export class VideoWidget extends Widget{
     videoDomEl:HTMLVideoElement;                        //DOM element for the Video Tag
     widgetType:string = 'videowidget';
 
+    /**
+     * @class
+     * @param {ComponentFactoryResolver} componentFactoryResolver
+     * @param {ViewContainerRef} viewContainer
+     * @param {ChangeDetectorRef} changeDetectorRef
+     * @param {DesignerGlobalsService} designerGlobals
+     */
     constructor(
-        private componentFactoryResolver:ComponentFactoryResolver,
-        private viewContainer:ViewContainerRef,
-        private elementRef: ElementRef,
+        componentFactoryResolver:ComponentFactoryResolver,
+        viewContainer:ViewContainerRef,
         changeDetectorRef: ChangeDetectorRef,
         designerGlobals: DesignerGlobalsService){
         super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
-        //set starting dimensions
-        super.changeDimensions(150, 200);
-        
+
         //subscript to the selected video
         this._selectedVideoSubscription = this.designerGlobals.getSelectedVideoObservable().subscribe(
           video => this.setVideo(video),
@@ -56,6 +61,12 @@ export class VideoWidget extends Widget{
         this.launchVideoChooser();
         return false;
     }
+
+    /**
+     * @function
+     * @param {Video} video
+     * @desc sets the video for this widget & updates dimensions
+     */
     setVideo(video:Video):void{
         //Do nothing if this widget isn't currently selected
         if(!this.isSelected){
@@ -64,12 +75,17 @@ export class VideoWidget extends Widget{
         }
 
         this.video = video;
-        //get the Video Element for future Reference;
-        /*console.log(this.elementRef.nativeElement as HTMLBaseElement);
-        this.videoDomEl = (this.elementRef.nativeElement as HTMLBaseElement).querySelector('video');
-        console.log(this.videoDomEl);*/
+        //Change the dimensions to be proportional
+        let scaleValue = 200/this.video.smallLink.width;
+        this.changeDimensions(this.video.smallLink.height*scaleValue, this.video.smallLink.width*scaleValue);
+
     }
-    //Helper property so that the Template doesn't need to apply business logic
+
+    /**
+     * @function
+     * @returns {string} - url for the video
+     * @desc Helper property so that the Template doesn't need to be aware which size to display
+     */
     getVideoUrl():string{
         let url = '';
 
@@ -82,7 +98,6 @@ export class VideoWidget extends Widget{
         this.designerGlobals.launchMediaChooser('video');
     }
     play(el):void{
-        console.log(el);
         this.videoDomEl.play();
     }
     pause(el):void{

@@ -28,8 +28,6 @@ import { FONTLIST } from '../services/fonts.service';
 export class Widget{
     //@ViewChild('placeholder', {read: ViewContainerRef}) placeholder;
     widgetType:string;
-    width:number;
-    height:number;
     x:number;
     y:number;
     name:string;
@@ -95,9 +93,6 @@ export class Widget{
       //TODO this list should be obtained from a shared service so it isn't called with every initialization
       this.fontList = FONTLIST;
     }
-
-    getWidth(withUnits?:boolean){ return this.width + ((withUnits==true)?'px':''); }
-    getHeight(withUnits?:boolean){ return this.height +((withUnits==true)?'px':''); }
 
     /**
      * @function
@@ -186,22 +181,35 @@ export class Widget{
     handleResize(eventJSON:WidgetResize){
       this.changeDimensions(eventJSON.height, eventJSON.width);
     }
+
+    /**
+     * @function
+     * @param {Number} height - Height in Pixels
+     * @param {Number} width - Width in pixels
+     * @param {boolean} initChange - allows callers to skip the change detection. Defaults to true
+     */
     //update the dimensions of this widget upon completion of resize
-    changeDimensions(height:number, width:number){
+    changeDimensions(height:number, width:number, initChange:boolean = true){
       let markForChange = false;
-      if(height != null && this.height !== height){
-        this.height = height;
-        this.style.height = height.toString();
-        markForChange = true;
+      if(height != null && this.style.height != `${height}px`){
+        this.style.height = `${height}px`;
+        markForChange = initChange? true : false;
       }
-      if(width != null && this.width !== width){
-        this.width = width;
-        this.style.width = width.toString();
-        markForChange = true;
+      if(width != null && this.style.width != `${width}px`){
+        this.style.width = `${width}px`;
+        markForChange = initChange? true : false;
       }
       //Only request a ChangeDetection if we actually changed something.
       if(markForChange == true)
-        this.changeDetectorRef.markForCheck();
+        this.changeDetectorRef.detectChanges();
+    }
+
+    /**
+     * @function
+     * @desc Helper method for templates to retrieve properties
+     */
+    getStylePropert(propName:string):string{
+        return this.style[propName];
     }
 
     //called by Angular when a component is destroyed
@@ -254,7 +262,6 @@ export class Widget{
      * @desc Responses for taking a JSON object and updating this component
      */
     parseWidgetConfig(widgetConfig:WidgetConfig, markForChange:boolean = false):void{
-        console.log(widgetConfig);
         this.style = widgetConfig['style']? widgetConfig['style'] : this.style;
 
         if(markForChange==true)
