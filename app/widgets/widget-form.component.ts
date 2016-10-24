@@ -8,12 +8,13 @@ import { DropdownQuestion  } from '../forms/question-dropdown';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { DynamicFormComponent } from '../forms/dynamic-form.component';
 import { Parent } from './parent';
-import { WidgetJson } from './widget.interface';
+import { WidgetJson, WidgetConfig } from './widget.interface';
 
 @Component({
   selector: 'designer-form',
   templateUrl: './app/widgets/widget-form.component.html',
   styleUrls: ['./app/widgets/widget-form.component.css'],
+    inputs: ['widgetConfig'],
   providers: [
       {
           provide: Parent,
@@ -28,6 +29,7 @@ export class FormWidget extends Widget{
     curModel: QuestionBase<any>;
     @ViewChild(DynamicFormComponent) private dynForm: DynamicFormComponent;
     widgetType:string = 'formwidget';
+    widgetConfig: WidgetConfig;
 
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,
@@ -46,14 +48,21 @@ export class FormWidget extends Widget{
         return super.onclick(event);
     }
     getQuestions(){
-        this.questions = this.questionService.getJSONQuestions().map( (json) => {
-            let q:QuestionBase<any>;
-            switch(json.controlType){
-                case "dropdown":
-                    q = new DropdownQuestion(json.options); 
+        let qList = this.widgetConfig['questions'];
+        //Do nothing if there are no questions to process
+        if(!qList || !qList.length) {
+            this.questions = [];
+            return;
+        }
+
+        this.questions = qList.map( json => {
+           let q: QuestionBase<any>;
+            switch(json['controlType'].trim().toLowerCase()){
+                case 'dropdown':
+                    q = new DropdownQuestion(json);
                     break;
-                case "textbox":
-                    q = new TextboxQuestion(json.options);
+                case 'textbox':
+                    q = new TextboxQuestion(json);
                     break;
             }
             return q;
@@ -201,5 +210,26 @@ export class FormWidget extends Widget{
             json['questions'] = this.questions;
 
         return json;
+    }
+    /**
+     * @function
+     * @desc handles creating any child widget components
+     */
+    parseWidgetConfig(config?: WidgetConfig){
+        //Allows configuration to be set outside of OnInit.
+        if(config) this.widgetConfig = config;
+
+        //Do nothing if no widget config was provided
+        if(!this.widgetConfig)
+            return;
+
+        //First let the base class handle all common areas
+        super.parseWidgetConfig(this.widgetConfig);
+
+        //now process the Form Questions
+        let qList = this.widgetConfig['questions'];
+        if(qList && qList.length)
+            this.getQuestions();
+
     }
 }

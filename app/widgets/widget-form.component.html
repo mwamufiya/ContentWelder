@@ -1,8 +1,8 @@
-<div class="widgetContainer" [class.emptyContainer]="imgPath" [class.activeWidget]="isSelected==true" 
+<div class="widgetContainer" [class.emptyContainer]="imgPath" [class.activeWidget]="isSelected"
 resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
 [ngStyle]="{'height':style.height,'width':style.width}" [class.emptyContainer]="isEmpty()">
-    <designer-resizeHandles *ngIf="isSelected==true"></designer-resizeHandles>
-    <ul *ngIf="isSelected==true" class="widgetMenu">
+    <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
+    <ul *ngIf="isSelected" class="widgetMenu">
         <li>
             <button class="mini ui button green" (click)="launchImageChooser()">Change</button>
         </li>
@@ -22,7 +22,7 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
     </ul>
     <sm-menu class="ui small menu" *ngIf="isSelected==true">
         <a sm-item (click)="addQuestion()" [icon]="'add circle icon'">Add Field</a>
-        <a sm-item [icon]="'trash icon'">Remove all</a>
+        <a *ngIf="questions && questions.length" sm-item [icon]="'trash icon'">Remove all</a>
     </sm-menu>
     <div class="devContainer">
         <div class="ui form formContainer" [ngStyle]="style">
