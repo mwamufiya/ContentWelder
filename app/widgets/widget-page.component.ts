@@ -122,7 +122,6 @@ export class PageWidget extends Widget implements OnInit{
 
         let factory = new WidgetFactory();
         this.widgetConfig.items.forEach( (item: WidgetConfig, index:number) => {
-           console.log(item);
             let componentFactory = factory.getWidgetFactory(this.componentResolver, item['widgetType']);
             let ref = this.container.createComponent(componentFactory);
             this.designerGlobals.setSelectedComponent(ref.instance, false);
