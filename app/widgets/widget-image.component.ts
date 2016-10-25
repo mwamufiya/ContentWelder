@@ -1,5 +1,5 @@
-import { Component, HostListener, ChangeDetectorRef, forwardRef, Injector,
-    ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, HostListener, ChangeDetectorRef, forwardRef, Injector, OnInit,
+    ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
 import { Widget } from './widget.component';
 import { Image } from './image';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
@@ -21,9 +21,6 @@ import { WidgetJson, WidgetConfig } from './widget.interface';
     .widgetContainer{
         display:inline-block;
     }
-    .emptyContainer{
-        width:140px;
-    }
     `],
     providers: [
       {
@@ -32,7 +29,7 @@ import { WidgetJson, WidgetConfig } from './widget.interface';
       }
     ]
 })
-export class ImageWidget extends Widget{
+export class ImageWidget extends Widget implements OnInit, OnDestroy{
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
     defaultImgUrl:string = `http://placehold.it/140x100`;
@@ -66,6 +63,8 @@ export class ImageWidget extends Widget{
      * @description if a widget Config was passed, then it begins processing it.
      */
     ngOnInit(){
+        if(!this.style.width)
+            this.changeDimensions(null, 20);
         this.parseWidgetConfig();
     }
 
@@ -103,7 +102,7 @@ export class ImageWidget extends Widget{
      * @function
      * @description returns a JSON representation of the current Widget Object
      */
-    toJson():WidgetJson{
+    toJson():WidgetConfig{
         //let Base class do the bulk of the work
         let json = super.toJson();
 
@@ -131,5 +130,13 @@ export class ImageWidget extends Widget{
         //now process any Image  specific configurations
         if(this.widgetConfig['image']) this.setImage(this.widgetConfig['image'], true);
 
+    }
+
+    /**
+     * @function
+     * @description calls the base class to handle removal action
+     */
+    ngOnDestroy():void{
+        super.ngOnDestroy();
     }
 }

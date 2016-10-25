@@ -1,9 +1,9 @@
-import { Component, HostListener, ChangeDetectorRef, forwardRef,
+import { Component, HostListener, ChangeDetectorRef, forwardRef, OnDestroy,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Widget } from './widget.component'
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Parent } from './parent';
-import { WidgetJson } from './widget.interface';
+import { WidgetConfig } from './widget.interface';
 
 @Component({
   selector: 'designer-TextboxWidget',
@@ -32,7 +32,7 @@ import { WidgetJson } from './widget.interface';
       }
   ]
 })
-export class TextboxWidget extends Widget{
+export class TextboxWidget extends Widget implements OnDestroy{
     // Component input
     content:string;
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
@@ -61,7 +61,7 @@ export class TextboxWidget extends Widget{
      * @function
      * @desc returns a JSON representation of the current Widget Object
      */
-    toJson():WidgetJson{
+    toJson():WidgetConfig{
         //let Base class do the bulk of the work
         let json = super.toJson();
 
@@ -69,5 +69,13 @@ export class TextboxWidget extends Widget{
         json['content'] = this.content;
 
         return json;
+    }
+
+    /**
+     * @function
+     * @description calls the base class to handle removal action
+     */
+    ngOnDestroy():void{
+        super.ngOnDestroy();
     }
 }

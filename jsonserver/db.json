@@ -1,9 +1,10 @@
 {
-  "widgets":[
+  "widgets": [
     {
+      "widgetType": "document",
       "id": 1,
       "name": "widgetEl",
-      "items":[
+      "items": [
         {
           "widgetType": "pagewidget",
           "style": {
@@ -11,7 +12,32 @@
           },
           "items": [
             {
-              "widgetType": "boxwidget"
+              "widgetType": "textboxwidget",
+              "style": {}
+            },
+            {
+              "widgetType": "imagewidget",
+              "style": {
+                "height": "196",
+                "width": "417"
+              },
+              "image": {
+                "lowResLink": "https://pixabay.com/static/uploads/photo/2013/08/18/16/27/sky-173742_150.jpg",
+                "source": "pixabay",
+                "id": 173742,
+                "height": 2000,
+                "width": 3008,
+                "medResLink": "https://pixabay.com/get/e832b2082cf61c2ad65a5854e4484492e077e2c818b5164697f3c27fa3eb_640.jpg",
+                "favorites": 146,
+                "likes": 181
+              }
+            },
+            {
+              "widgetType": "boxwidget",
+              "style": {
+                "backgroundColor": "rgba(255,0,0,0.54)",
+                "border": "1px solid #fff"
+              }
             }
           ]
         },
@@ -22,7 +48,21 @@
           },
           "items": [
             {
-              "widgetType": "boxwidget"
+              "widgetType": "imagewidget",
+              "style": {
+                "height": "393",
+                "width": "739"
+              },
+              "image": {
+                "lowResLink": "https://pixabay.com/static/uploads/photo/2015/03/26/09/47/sky-690293_150.jpg",
+                "source": "pixabay",
+                "id": 690293,
+                "height": 1536,
+                "width": 2730,
+                "medResLink": "https://pixabay.com/get/ef3cb10d21f71c2ad65a5854e4484492e077e2c818b5164697f3c27fa3eb_640.jpg",
+                "favorites": 535,
+                "likes": 537
+              }
             }
           ]
         },
@@ -33,11 +73,245 @@
           },
           "items": [
             {
-              "widgetType": "boxwidget"
+              "widgetType": "formwidget",
+              "style": {
+                "color": "#fff",
+                "border": "0px ridge black"
+              },
+              "questions": [
+                {
+                  "key": "cw_formField_1",
+                  "label": "[Field_1]",
+                  "required": false,
+                  "order": 1,
+                  "controlType": "textbox",
+                  "type": "text",
+                  "placeholder": ""
+                }
+              ]
             }
           ]
         }
       ]
+    },
+    {
+      "id": 2,
+      "name": "Second WIdget",
+      "items": [
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "black"
+          },
+          "items": [
+            {
+              "widgetType": "videowidget",
+              "style": {
+                "height": "259px",
+                "width": "353px"
+              }
+            },
+            {
+              "widgetType": "boxwidget",
+              "style": {
+                "backgroundColor": "yellow"
+              }
+            },
+            {
+              "widgetType": "textboxwidget",
+              "style": {
+                "color": "#f00",
+                "backgroundColor": "#707070"
+              },
+              "content": "asdf asdf asdf asdf asdfasdf asdf;lk jas;dlfj a;sldj fasdf asd;kf hj;asdf\n        \n    asdfk; jhas;dflkj a;sldkfj ;alsdkjf afask;df j;aslkdjf ;laskdjf;laskjdf ;laksjdf;lkj asdfasdf"
+            },
+            {
+              "widgetType": "imagewidget",
+              "style": {}
+            }
+          ]
+        },
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "white"
+          },
+          "items": [
+            {
+              "widgetType": "imagewidget",
+              "style": {}
+            },
+            {
+              "widgetType": "textboxwidget",
+              "style": {}
+            },
+            {
+              "widgetType": "formwidget",
+              "style": {}
+            }
+          ]
+        },
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "green"
+          }
+        },
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "#336699"
+          }
+        }
+      ]
+    },
+    {
+      "name": "[Change Me]",
+      "items": [
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "white"
+          },
+          "items": [
+            {
+              "widgetType": "imagewidget",
+              "style": {},
+              "image": {
+                "lowResLink": "https://pixabay.com/static/uploads/photo/2016/03/23/21/03/smile-1275668_150.jpg",
+                "source": "pixabay",
+                "id": 1275668,
+                "height": 5744,
+                "width": 3829,
+                "medResLink": "https://pixabay.com/get/e837b60a2ef2093ed95c4518b74e4294e774e2d504b0154692f4c37caeedb4_640.jpg",
+                "favorites": 71,
+                "likes": 72
+              }
+            },
+            {
+              "widgetType": "boxwidget",
+              "style": {
+                "backgroundColor": "yellow"
+              },
+              "items": [
+                {
+                  "widgetType": "imagewidget",
+                  "style": {}
+                },
+                {
+                  "widgetType": "imagewidget",
+                  "style": {},
+                  "image": {
+                    "lowResLink": "https://pixabay.com/static/uploads/photo/2016/03/23/21/03/smile-1275668_150.jpg",
+                    "source": "pixabay",
+                    "id": 1275668,
+                    "height": 5744,
+                    "width": 3829,
+                    "medResLink": "https://pixabay.com/get/e837b60a2ef2093ed95c4518b74e4294e774e2d504b0154692f4c37caeedb4_640.jpg",
+                    "favorites": 71,
+                    "likes": 72
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType": "imagewidget",
+              "style": {},
+              "image": {
+                "lowResLink": "https://pixabay.com/static/uploads/photo/2016/03/23/21/03/smile-1275668_150.jpg",
+                "source": "pixabay",
+                "id": 1275668,
+                "height": 5744,
+                "width": 3829,
+                "medResLink": "https://pixabay.com/get/e837b60a2ef2093ed95c4518b74e4294e774e2d504b0154692f4c37caeedb4_640.jpg",
+                "favorites": 71,
+                "likes": 72
+              }
+            }
+          ]
+        }
+      ],
+      "id": 3
+    },
+    {
+      "name": "[Change Me]",
+      "items": [
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "white"
+          },
+          "items": [
+            {
+              "widgetType": "imagewidget",
+              "style": {}
+            },
+            {
+              "widgetType": "boxwidget",
+              "style": {
+                "backgroundColor": "yellow"
+              },
+              "items": [
+                {
+                  "widgetType": "imagewidget",
+                  "style": {}
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": 4
+    },
+    {
+      "name": "[Change Me]",
+      "items": [
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "white"
+          }
+        }
+      ],
+      "id": 5
+    },
+    {
+      "name": "[Change Me]",
+      "items": [
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "white"
+          },
+          "items": [
+            {
+              "widgetType": "boxwidget",
+              "style": {
+                "backgroundColor": "yellow"
+              },
+              "items": [
+                {
+                  "widgetType": "imagewidget",
+                  "style": {}
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": 6
+    },
+    {
+      "name": "[Change Me]",
+      "items": [
+        {
+          "widgetType": "pagewidget",
+          "style": {
+            "backgroundColor": "white"
+          }
+        }
+      ],
+      "id": 7
     }
   ]
 }

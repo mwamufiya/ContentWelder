@@ -28,22 +28,27 @@ export class WidgetFactory{
 
                 //if this is a widget then we don't need to create a new one
         //TODO find a better way of determining if this is a widget or not.
-        if(!(component as Widget).widgetType) {
-            let fty = this.getWidgetFactory(ftyResolver, config.widgetType);
+        let fty = this.getWidgetFactory(ftyResolver, config.widgetType);
 
-            //If an index was provided, we insert the created component at the desired location.
-            if (instIndex)
-                compRef = viewCont.createComponent(fty, instIndex);
-            else
-                compRef = viewCont.createComponent(fty);
+        //If an index was provided, we insert the created component at the desired location.
+        //Because teh ViewContainer.Move only works for embedded views, we need to create brand new components
+        if (instIndex)
+            compRef = viewCont.createComponent(fty, instIndex);
+        else
+            compRef = viewCont.createComponent(fty);
 
-        }else{
-            //TODO handle moving a component
-            let inst = component as Widget;
+        //Store the hostview in the widget for future reference, since Angular doesn't yet offer an easy means of retrieving this after creation
+        //compRef.instance.setHostView(compRef.instance.hostView);
 
-            viewCont.move(inst.curCompRef.hostView, instIndex );
-
-            compRef = inst.curCompRef;
+        //If this is an existing Widget, additional actions are neccessary
+        //1. get the widgetConfig
+        //2. Delete the dropped items
+        //3. pass widgetconfig to the new component
+        if((component as Widget).widgetType) {
+            //Get the JSon configure
+            let c = component as Widget;
+            compRef.instance.parseWidgetConfig(c.toJson());
+            c.removeSelf();
         }
 
         return {

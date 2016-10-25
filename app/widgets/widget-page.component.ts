@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList, Input, ComponentFactoryResolver,
-     Host, TemplateRef, ViewContainerRef, ChangeDetectorRef, forwardRef, OnInit, Injector,
+     Host, TemplateRef, ViewContainerRef, ChangeDetectorRef, forwardRef, OnInit, OnDestroy,
     HostListener
 } from '@angular/core';
 import { Widget } from './widget.component';
@@ -32,7 +32,7 @@ import { FormWidget } from './widget-form.component';
  * @extends Widget
  * @classDesc Extends Page Widget. Handles actions taken on the stage
  */
-export class PageWidget extends Widget implements OnInit{
+export class PageWidget extends Widget implements OnInit, OnDestroy{
     @Host() @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
     @ViewChild('cont1') tpl1: TemplateRef<Object>;
     widgetConfig: WidgetConfig;
@@ -128,7 +128,7 @@ export class PageWidget extends Widget implements OnInit{
      * @function
      * @desc returns a JSON representation of the current Widget Object
      */
-    toJson():WidgetJson{
+    toJson():WidgetConfig{
         //let Base class do the bulk of the work
         let json = super.toJson();
 
@@ -136,5 +136,13 @@ export class PageWidget extends Widget implements OnInit{
         //TODO add page specific saveing logic
 
         return json;
+    }
+
+    /**
+     * @function
+     * @description calls the base class to handle removal action
+     */
+    ngOnDestroy():void{
+        super.ngOnDestroy();
     }
 }

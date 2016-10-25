@@ -29,6 +29,7 @@ import { ResizeHandles } from '../directives/resizehandles.component';
 
 /*************Directives***********/
 import { CwDirectiveModule } from '../directives/directives.module';
+import { BorderSelection}  from './border-selection.component';
 
 /*************Services************* */
 import { ImageService } from '../services/image.service';
@@ -55,7 +56,8 @@ import { FONTLIST } from '../services/fonts.service';
         FormWidget,
         ResizeHandles,
         DynamicFormComponent,
-        DynamicFormQuestionComponent
+        DynamicFormQuestionComponent,
+        BorderSelection
     ],
     exports: [
         Widget,
@@ -64,7 +66,8 @@ import { FONTLIST } from '../services/fonts.service';
         ImageWidget,
         VideoWidget,
         TextboxWidget,
-        FormWidget
+        FormWidget,
+        BorderSelection
     ],
     providers: [
         QuestionService,

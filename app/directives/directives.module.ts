@@ -14,7 +14,6 @@ import { DesignerDroppable }  from '../directives/designer-droppable.directive';
 import { DesignerDraggable }  from '../directives/designer-draggable.directive';
 import { Resize }  from '../directives/resize.directive';
 import { WidgetTemplateFactory } from '../directives/widget-template-factory.directive';
-import { BorderSelection } from '../widgets/border-selection.component';
 import {ColorPickerDirective, ColorPickerService} from 'angular2-color-picker';
 
 @NgModule({
@@ -27,7 +26,6 @@ import {ColorPickerDirective, ColorPickerService} from 'angular2-color-picker';
     ],
     declarations: [
         Resize,
-        BorderSelection,
         WidgetTemplateFactory,
         DesignerDroppable,
         DesignerDraggable,
@@ -35,7 +33,6 @@ import {ColorPickerDirective, ColorPickerService} from 'angular2-color-picker';
     ],
     exports: [
         Resize,
-        BorderSelection,
         WidgetTemplateFactory,
         DesignerDroppable,
         DesignerDraggable,

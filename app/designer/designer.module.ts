@@ -25,7 +25,10 @@ import { VideoService } from '../services/video.service';
 import { FONTLIST } from '../services/fonts.service';
 
 
-
+/**
+ * @module
+ * @description
+ */
 @NgModule({
   imports:[
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef,
-     ViewChild, forwardRef, HostListener } from '@angular/core';
+     ViewChild, forwardRef, HostListener, OnDestroy } from '@angular/core';
 import { Widget  } from './widget.component';
 import { QuestionService  } from '../forms/question.service';
 import { QuestionBase  } from '../forms/question-base';
@@ -22,7 +22,7 @@ import { WidgetJson, WidgetConfig } from './widget.interface';
       }
   ]
 })
-export class FormWidget extends Widget{
+export class FormWidget extends Widget implements OnDestroy{
     questions:any[];
     questionService: QuestionService;
     editQuestion:boolean;
@@ -201,7 +201,7 @@ export class FormWidget extends Widget{
      * @function
      * @desc returns a JSON representation of the current Widget Object
      */
-    toJson():WidgetJson{
+    toJson():WidgetConfig{
         //let Base class do the bulk of the work
         let json = super.toJson();
 
@@ -231,5 +231,13 @@ export class FormWidget extends Widget{
         if(qList && qList.length)
             this.getQuestions();
 
+    }
+
+    /**
+     * @function
+     * @description calls the base class to handle removal action
+     */
+    ngOnDestroy():void{
+        super.ngOnDestroy();
     }
 }

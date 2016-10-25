@@ -1,10 +1,10 @@
-import { Component, ElementRef, HostListener, ChangeDetectorRef, OnInit,
-    ComponentFactoryResolver, ViewContainerRef, ViewChild, Query } from '@angular/core';
+import { Component, ElementRef, HostListener, ChangeDetectorRef, OnDestroy,
+    ComponentFactoryResolver, ViewContainerRef, ViewChild} from '@angular/core';
 import { Widget } from './widget.component'
 import { Video } from './video';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
-import { WidgetJson } from './widget.interface';
+import { WidgetConfig } from './widget.interface';
 
 @Component({
   selector: 'designer-videoWidget',
@@ -21,7 +21,7 @@ import { WidgetJson } from './widget.interface';
     }
   `]
 })
-export class VideoWidget extends Widget{
+export class VideoWidget extends Widget implements OnDestroy{
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
     private _selectedVideoSubscription: Subscription;
@@ -105,7 +105,7 @@ export class VideoWidget extends Widget{
      * @function
      * @desc returns a JSON representation of the current Widget Object
      */
-    toJson():WidgetJson{
+    toJson():WidgetConfig{
         //let Base class do the bulk of the work
         let json = super.toJson();
 
@@ -114,5 +114,13 @@ export class VideoWidget extends Widget{
             json['video'] = this.video;
 
         return json;
+    }
+
+    /**
+     * @function
+     * @description calls the base class to handle removal action
+     */
+    ngOnDestroy():void{
+        super.ngOnDestroy();
     }
 }

@@ -45,6 +45,7 @@ export class Widget{
     isSelected: boolean;
     removeCurrent:boolean = false; //marked to true when current item is requested to be removed;
     parentActionReq: EventEmitter<any> = new EventEmitter();
+    hostView: ViewRef;
     curCompRef:ComponentRef<Widget>;
     changeDetectorRef:ChangeDetectorRef;
     style:CSSStyleDeclaration;
@@ -122,7 +123,33 @@ export class Widget{
     getChildren():Array<Widget>{
       return this.children;
     }
-    addChild(compRef:ComponentRef<Widget>, configJson:WidgetConfig){
+
+    /**
+     * @function
+     * @param {ViewRef} hostView
+     * @description sets the host views so that it can be leveraged in the future
+     */
+    setHostView(hostView: ViewRef):void{
+        this.hostView = hostView;
+    }
+
+    /**
+     * @function
+     * @returns {ViewRef}
+     * @description get the hostView for a Widget Component.
+     */
+    getHostView():ViewRef{
+        return this.curCompRef.hostView;
+    }
+
+    /**
+     * @function
+     * @param {ComponentRef} compRef
+     * @param {WidgetConfig} configJson
+     * @param {number} index - the position this item it being inserted into.
+     * @description handles adding the children to the current Widget
+     */
+    addChild(compRef:ComponentRef<Widget>, configJson:WidgetConfig, index?:number){
         let instance = compRef.instance as Widget
         instance.parseWidgetConfig(configJson);
 
@@ -132,6 +159,7 @@ export class Widget{
         instance.changeDetectorRef.detectChanges();
 
         //Set the ComponentRef for use down the line.
+        //TODO: Determine the performance impact of storing this
         compRef.instance.curCompRef = compRef;
 
         //Add the the item to our list of children for future use
@@ -153,8 +181,13 @@ export class Widget{
     displayError(err:any){
       console.log(err);
     }
+
+    /**
+     * @function
+     * @description defers removal to the parent container
+     */
     //Emit an ouput event so that parent components can remove the current item
-    removeSelf(event){
+    removeSelf():void{
       this.parentActionReq.emit({
         action:"delete",
         item: this
@@ -267,25 +300,27 @@ export class Widget{
 
     /**
      * @function
-     * @desc returns a JSON representation of the current Widget Object
+     * @description {WidgetConfig} returns a WidgetConfig JSON representation of the current Widget Object
      */
-    toJson():WidgetJson{
-        let json = {};
+    toJson():WidgetConfig{
+        let config = {
+            widgetType: this.widgetType
+        };
 
-        json['widgetType'] = this.widgetType;
+        //json['widgetType'] = this.widgetType;
         //TODO only save style if there is something to save
-        json['style'] = this.style;
+        config['style'] = this.style;
 
         //If there are no children, no further processing is required
         if(!this.children.length)
-            return json;
+            return config;
 
-        json['items'] = [];
+        config['items'] = [];
         this.children.forEach( (item:Widget) => {
-            json['items'].push(item.toJson());
+            config['items'].push(item.toJson());
         });
 
-        return json;
+        return config;
     }
 
 }

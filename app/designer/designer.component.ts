@@ -200,8 +200,8 @@ export class DesignerComponent implements OnInit{
 
         saveJson['items'] = [];
         //loop through each page to gather the appropriate JSON
-        this.viewChildren.forEach( (view: Widget) => {
-            saveJson['items'].push(view.toJson());
+        this.viewChildren.forEach( (item: Widget) => {
+            saveJson['items'].push(item.toJson());
         });
 
         console.log(saveJson);
