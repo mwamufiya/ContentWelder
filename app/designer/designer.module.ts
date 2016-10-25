@@ -24,9 +24,6 @@ import { ImageService } from '../services/image.service';
 import { VideoService } from '../services/video.service';
 import { FONTLIST } from '../services/fonts.service';
 
-/*************Directives***********/
-import { DesignerDroppable }  from '../directives/designer-droppable.directive';
-import { DesignerDraggable }  from '../directives/designer-draggable.directive';
 
 
 @NgModule({
