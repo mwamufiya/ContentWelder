@@ -66,11 +66,15 @@ export class DesignerComponent implements OnInit{
         //to handle future requests, params is used for now.
         this.route.params.forEach((params: Params) => {
             this.id = +params['id'];
-            this.widgetService.search('jsonserver', params)
-                .then(widgetConfig => {
-                    if(widgetConfig && widgetConfig.items.length)
+            //if there is no ID then we must create a blank one.
+            if(!this.id)
+                this.parseWidgetConfig(null);
+            else {
+                this.widgetService.search('jsonserver', params)
+                    .then(widgetConfig => {
                         this.parseWidgetConfig(widgetConfig);
-                });
+                    });
+            }
         });
     }
     //handles subscribing to events in order to toggle the correct viewer
@@ -139,8 +143,22 @@ export class DesignerComponent implements OnInit{
     getVideoBackgroundPath():string{
      return `url('${this.video.mediumLink.url}')`; 
     }
+
+    /**
+     * @function
+     * @param {WidgetConfig} jsonConfig - JSON representation of a widget Hierarchy
+     * @description Parses the saved WidgetConfig Json. if non are found, a new empty page is created
+     */
     parseWidgetConfig(jsonConfig: WidgetConfig):void{
         this.pageList = new Array<WidgetConfig>();
+
+        //If no jsonconfig is returned, the we create a blank page.
+        if(!jsonConfig)
+            jsonConfig = this.getNewDocumentJson();
+
+        console.log(jsonConfig);
+
+        //At this point, we can be sure that there some widget configuration
         this.name = jsonConfig['name']? jsonConfig['name'] : null;
         jsonConfig.items.forEach( page => {
              this.pageList.push(page);
@@ -149,7 +167,24 @@ export class DesignerComponent implements OnInit{
 
     /**
      * @function
-     * @desc Save current configuration tos erver
+     * @returns {{widgetType: string, name: string, items: {widgetType: string}[]}} WidgetConfig
+     * @description returns the JSON for a blank document.
+     */
+    getNewDocumentJson():WidgetConfig{
+        return {
+            widgetType: "documentWidget",
+            name: "[Change Me]",
+            items: [
+                {
+                    widgetType: "pagewidget"
+                }
+            ]
+        };
+    }
+
+    /**
+     * @function
+     * @description Save current configuration tos erver
      */
     saveConfig():void{
 
