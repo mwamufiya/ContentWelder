@@ -29,12 +29,6 @@ import { ResizeHandles } from '../directives/resizehandles.component';
 
 /*************Directives***********/
 import { CwDirectiveModule } from '../directives/directives.module';
-import { DesignerDroppable }  from '../directives/designer-droppable.directive';
-import { DesignerDraggable }  from '../directives/designer-draggable.directive';
-import { Resize }  from '../directives/resize.directive';
-import { WidgetTemplateFactory } from '../directives/widget-template-factory.directive';
-import { BorderSelection } from '../widgets/border-selection.component';
-
 
 /*************Services************* */
 import { ImageService } from '../services/image.service';
