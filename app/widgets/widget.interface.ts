@@ -23,7 +23,7 @@ export interface WidgetDrop{
     value:string;
     templateRef:ElementRef;
     items:Array<Object>;
-    insertionPoint?:Number;
+    insertionPoint?:number;
 }
 
 export interface WidgetJson{
