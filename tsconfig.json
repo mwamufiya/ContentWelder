@@ -9,11 +9,9 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": false,
-    "paths":{
-      "services/*": ["app/services"],
-      "directives/*": ["app/directives"],
-      "components/*": ["app/components"]      
-    }
+    "typeRoots": [
+      "./node_modules/@types/"
+      ]
   },
    "exclude": ["node_modules"]
 }
