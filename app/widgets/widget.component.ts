@@ -1,5 +1,6 @@
-import { Component, HostListener, ViewContainerRef, ComponentFactoryResolver,
-   ComponentRef, EventEmitter, ChangeDetectorRef
+import {
+    Component, HostListener, ViewContainerRef, ComponentFactoryResolver, ViewRef,
+    ComponentRef, EventEmitter, ChangeDetectorRef, Injector
 } from '@angular/core';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -135,13 +136,6 @@ export class Widget{
 
         //Add the the item to our list of children for future use
         this.children.push(compRef.instance);
-
-        //There is potential use for this in the future. especially around automatin testing.
-        //uncertain at this time.
-        //this.addChildViaJSON(widgetJSON);
-    }
-    addChildViaJSON(configJson:WidgetConfig){
-      //this.infants.push(widgetJSON);
     }
 
     /**

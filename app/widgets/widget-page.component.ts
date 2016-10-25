@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList, Input, ComponentFactoryResolver,
-     Host, TemplateRef, ViewContainerRef, ChangeDetectorRef, forwardRef, OnInit,
+     Host, TemplateRef, ViewContainerRef, ChangeDetectorRef, forwardRef, OnInit, Injector,
     HostListener
 } from '@angular/core';
 import { Widget } from './widget.component';

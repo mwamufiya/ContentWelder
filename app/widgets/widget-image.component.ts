@@ -1,4 +1,4 @@
-import { Component, HostListener, ChangeDetectorRef, forwardRef,
+import { Component, HostListener, ChangeDetectorRef, forwardRef, Injector,
     ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { Widget } from './widget.component';
 import { Image } from './image';
@@ -42,9 +42,16 @@ export class ImageWidget extends Widget{
     widgetType:string = 'imagewidget';
     widgetConfig: WidgetConfig;
 
+    /**
+     * @class
+     * @param componentFactoryResolver
+     * @param viewContainer
+     * @param changeDetectorRef
+     * @param designerGlobals
+     */
     constructor(
-        private componentFactoryResolver:ComponentFactoryResolver,
-        private viewContainer:ViewContainerRef,
+        componentFactoryResolver:ComponentFactoryResolver,
+        viewContainer:ViewContainerRef,
         changeDetectorRef: ChangeDetectorRef,
         designerGlobals: DesignerGlobalsService){
         super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
@@ -56,7 +63,7 @@ export class ImageWidget extends Widget{
     }
     /**
      * @function
-     * @desc if a widget Config was passed, then it begins processing it.
+     * @description if a widget Config was passed, then it begins processing it.
      */
     ngOnInit(){
         this.parseWidgetConfig();
@@ -94,7 +101,7 @@ export class ImageWidget extends Widget{
 
     /**
      * @function
-     * @desc returns a JSON representation of the current Widget Object
+     * @description returns a JSON representation of the current Widget Object
      */
     toJson():WidgetJson{
         //let Base class do the bulk of the work

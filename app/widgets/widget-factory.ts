@@ -26,9 +26,7 @@ export class WidgetFactory{
 
         let config = this.getWidgetConfigFromComponent(component);
 
-        //let factoryMap= this.getFactoryMap();
-
-        //if this is a widget then we don't need to create a new one
+                //if this is a widget then we don't need to create a new one
         //TODO find a better way of determining if this is a widget or not.
         if(!(component as Widget).widgetType) {
             let fty = this.getWidgetFactory(ftyResolver, config.widgetType);
@@ -38,14 +36,14 @@ export class WidgetFactory{
                 compRef = viewCont.createComponent(fty, instIndex);
             else
                 compRef = viewCont.createComponent(fty);
+
         }else{
             //TODO handle moving a component
-            let inst =component as ComponentRef<Widget>;
-            if (instIndex)
-                viewCont.move(inst.hostView, instIndex);
-            else
-                viewCont.move(inst.hostView, null);
+            let inst = component as Widget;
 
+            viewCont.move(inst.curCompRef.hostView, instIndex );
+
+            compRef = inst.curCompRef;
         }
 
         return {
