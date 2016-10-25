@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, ComponentFactoryResolver, EventEmitter, Output
+import { Directive, ElementRef, HostListener, ComponentFactoryResolver, EventEmitter, Output, TemplateRef
  } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
 import { MakeDroppable} from './make-droppable.directive';
@@ -19,7 +19,7 @@ export class DesignerDroppable extends MakeDroppable{
     prvDraggedOverEl: Element;       //Previously draged over element
     prvInsertionPoint: boolean;      //insert item before or after item being dragged over
     widgetAdded: EventEmitter<WidgetDrop> = new EventEmitter<WidgetDrop>();
-    reqInsertionPoint: Number;
+    reqInsertionPoint: number;
     parentComp: Widget;
 
     constructor(
