@@ -11,15 +11,13 @@ import { WidgetJson } from './widget.interface';
   templateUrl: './app/widgets/widget-video.component.html',
   styles:[`
     :host{
-        display:inline-block;
+        display:inline;
     }
     img{
-        height:100%;
         width:100%;
     }
     .emptyContainer{
         width:140px;
-        height:100px;
     }
   `]
 })

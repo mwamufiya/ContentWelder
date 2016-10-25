@@ -3,7 +3,7 @@ import { Directive, ElementRef, EventEmitter, OnInit, SimpleChanges, NgZone, Cha
 declare var jQuery:any;
 @Directive({
     selector: '[resizeHandle]',
-    inputs:['enableResize','resizeConfig'],
+    inputs:['enableResize','resizeDirection'],
     outputs:['resizeDone']
 })
 
@@ -15,7 +15,7 @@ export class Resize implements OnInit{
     active:boolean = null;
     startingHeight:number;
     startingWidth:number;
-    resizeConfig:JSON = JSON.parse('{}');
+    resizeDirection:string;                             //both (default), Horizontal, Vertical
 
     constructor(private el: ElementRef,
     private _ngZone: NgZone,
@@ -35,7 +35,7 @@ export class Resize implements OnInit{
         //the current state of Angular frameworks don't yet have a resizable module
         //as such jQuery is being used outside the zone to minimize impact on events
         if(state==true){
-            let containmentEL = this.getResizeConstrainingElement();
+            let containmentEL = this.getResizeConstrainingElement(false);
             this._ngZone.runOutsideAngular(() => jQuery(e).resizable({
                 containment: containmentEL,
                 stop: (event, ui) => this.resizeComplete(event, ui)
@@ -48,40 +48,47 @@ export class Resize implements OnInit{
             this.jqueryResizeEnabled = false;
         }
     }
-    getResizeConstrainingElement():Element{
+    getResizeConstrainingElement(usePageAsLimit:boolean = true):Element{
         let e = this.el.nativeElement as Element; 
         let containEl; 
         while (!containEl) {
             //Putting a temporary hard stop contain at the stage level.
             //This needs to be made more dynamic so that the directive it not tied to the stage.
-            if(e.parentElement.hasAttribute('resizeContain')){
-                containEl=e.parentElement;
+            let parentEl = e.parentElement;
+            if(parentEl.hasAttribute('resizeContain')){
+                containEl=parentEl;
             }else
-                e=e.parentElement;
+                e=parentEl;
             //we don't care about anything outside the Designer Stage
             //TODO: this should probably be configurable
-            if( e.parentElement.nodeName.toLocaleLowerCase()=='designer-page' 
-                || e.parentElement.nodeName.toLocaleLowerCase()=='body'){
-                e = null;
+            let parentElName = parentEl.nodeName.toLocaleLowerCase();
+            if(parentEl.classList.contains('cw-page') || parentElName =='designer-page' || parentElName =='body'){
+                containEl = (usePageAsLimit==true)? parentEl : null;
                 break;
             }
         }
         return containEl;
     }
     resizeComplete(event, ui){
+
+        let e = this.el.nativeElement as HTMLElement;
+        //We must get the dimensions before we remove local styles
+        let rect = this.calculateDimensionRelativeToParent();
+        //remove the localstyles that Jquery-ui adds. this should handled by other properties
+        e.setAttribute('style', '');
         //TODO: this isn't currently taking into account that the system is displaying a 1px border all around.
         //this will perhaps need to be substracted from the value passed.
-        this.resizeDone.emit({height: ui.size.height, width: ui.size.width});
+        //this.resizeDone.emit({height: ui.size.height, width: ui.size.width});
 
         //if we want to pass percentage values, call this
-        //this.resizeDone.emit(this.calculateDimensionRelativeToParent());   
+        this.resizeDone.emit(rect);
         
     }
     //in order to allow for reactive design, we calculate the percentage height & width rather than Pixel based
     calculateDimensionRelativeToParent():{}{
         let e = this.el.nativeElement as Element;
         let rect = e.getBoundingClientRect();
-        let parentRect = e.parentElement.parentElement.getBoundingClientRect();        
+        let parentRect = this.getResizeConstrainingElement().getBoundingClientRect();
 
         return {"height": rect.height/parentRect.height*100, "width":rect.width/parentRect.width*100};
     }

@@ -190,14 +190,18 @@ export class Widget{
     //update the dimensions of this widget upon completion of resize
     changeDimensions(height:number, width:number, initChange:boolean = true){
       let markForChange = false;
-      if(height != null && this.style.height != `${height}px`){
+      /*if(height != null && this.style.height != `${height}px`){
         this.style.height = `${height}px`;
         markForChange = initChange? true : false;
-      }
-      if(width != null && this.style.width != `${width}px`){
-        this.style.width = `${width}px`;
+      }*/
+      if(width != null && this.style.width != `${width}%`){
+        this.style.width = `${width}%`;
         markForChange = initChange? true : false;
       }
+
+      //Remove the local styles assigned by Jquery-ui
+
+
       //Only request a ChangeDetection if we actually changed something.
       if(markForChange == true)
         this.changeDetectorRef.detectChanges();

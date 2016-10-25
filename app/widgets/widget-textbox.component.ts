@@ -9,15 +9,20 @@ import { WidgetJson } from './widget.interface';
   selector: 'designer-TextboxWidget',
   templateUrl: './app/widgets/widget-textbox.component.html',
   styles:[`
+    :host{
+        display:inline;
+    }
     .widgetContainer{
         display:inline-block;
     }
-    .emptyContainer, .emptyContainer div{
+    .emptyContainer{
         min-width:140px;
         min-height:100px;
     }
     .widgetContainer div{
-    
+        width:100%;
+        padding:.5rem;
+        line-height: initial;
     }
   `],
   providers: [

@@ -20,7 +20,7 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <sm-menu class="ui small menu" *ngIf="isSelected==true">
+    <sm-menu class="ui mini" *ngIf="isSelected==true">
         <a sm-item (click)="addQuestion()" [icon]="'add circle icon'">Add Field</a>
         <a *ngIf="questions && questions.length" sm-item [icon]="'trash icon'">Remove all</a>
     </sm-menu>

@@ -1,5 +1,5 @@
 :host{
-    display:inline-block;
+    display:inline;
 }
 .emptyContainer{
     min-height:5rem;
@@ -18,6 +18,9 @@
 }
 .devContainer div{
     flex-grow: 10;
+}
+.widgetContainer{
+    display:inline-block;
 }
 .widgetContainer .questionModifier{
     flex-grow: 1;
