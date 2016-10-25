@@ -79,20 +79,14 @@ export class PageWidget extends Widget implements OnInit{
     childModified(event:WidgetDrop){
         //Loop through all items being added and add.
         let index:number = 0;
-        let factory = new WidgetFactory();
+        let fty = new WidgetFactory();
         for(let item of event.items){
-            let wConfig = factory.getWidgetConfigFromComponent(item);
-            let componentFactory = factory.getWidgetFactory(this.componentResolver, wConfig.widgetType);
-            let ref = this.container.createComponent(componentFactory);
 
-            let v = this.tpl1.createEmbeddedView(ref);
-            this.viewCont.createEmbeddedView(this.tpl1, ref);
-            //let v = this.viewCont.createEmbeddedView(this.tpl1, item);
-            //let v = this.tpl1.createEmbeddedView(item);
+            let output= fty.addWidget(this.componentResolver, this.container, item, event.insertionPoint);
 
             //if this item is the first in the array, do not append it. otherwise, we do;
-            this.designerGlobals.setSelectedComponent(ref.instance, index == 0? false : true);
-            this.addChild(ref, wConfig);
+            this.designerGlobals.setSelectedComponent(output.compRef.instance, index == 0? false : true);
+            this.addChild(output.compRef, output.config);
             
             index++;
         }
