@@ -1,34 +1,19 @@
-import { Directive, ElementRef, HostListener, OnInit, Optional, OpaqueToken, TemplateRef} from '@angular/core';
+import { Directive, ElementRef, HostListener, Optional} from '@angular/core';
 import { MakeDraggable} from './make-draggable.directive';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
-import { DesignerToolsMenu } from '../designer/designer-tools-menu.component';
 
 import { Parent } from '../widgets/parent';
 
-const DraggedObject = new OpaqueToken('draggedItem')
-
 @Directive({
     selector: '[designerDraggable]',
-    inputs:['widgetType'],
-    providers:[
-        {
-            provide: DraggedObject,
-            useFactory: () =>{
-                console.log(`hello world`);  
-                return DesignerToolsMenu;
-            }
-        }
-    ]
 })
 
-export class DesignerDraggable extends MakeDraggable implements OnInit{
-    widgetType: string;
+export class DesignerDraggable extends MakeDraggable{
 
     constructor(el: ElementRef,
         private designerGlobals: DesignerGlobalsService, 
         @Optional() private parentComponent:Parent){
         super(el);
-
     }
     
     @HostListener('dragstart',['$event']) ondragstart(event){
@@ -53,9 +38,4 @@ export class DesignerDraggable extends MakeDraggable implements OnInit{
         this.designerGlobals.setDraggedObjectPath(event.path);
         //this.designerGlobals.setDraggedWidgetJSON(JSON.parse(super.getDomElement().nativeElement.getAttribute('data-widgetConfig')));
     }
-    ngOnInit(){
-        this.widgetType = this.widgetType;
-    }
-
-
 }
