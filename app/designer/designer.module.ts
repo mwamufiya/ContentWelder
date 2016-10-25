@@ -12,6 +12,7 @@ import { DesignerToolsMenu }  from './designer-tools-menu.component';
 import { DesignerComponent }  from './designer.component';
 import { WidgetModule  } from '../widgets/widget.module';
 import { ImageChooser } from '../asset-chooser/image-chooser.component';
+import { CwDirectiveModule } from '../directives/directives.module';
 
 /************3rd party*********** */
 //import { ModalModule } from 'ng2-bootstrap/components/modal';
@@ -36,14 +37,14 @@ import { DesignerDraggable }  from '../directives/designer-draggable.directive';
     ReactiveFormsModule,
     NgSemanticModule,
     DesignerRoutingModule,
-    WidgetModule
+    WidgetModule,
+    CwDirectiveModule
   ],
   declarations: [ 
     DesignerComponent,
     DesignerToolsMenu,
     DesignerToolsComponent,
     ImageChooser,
-    DesignerDraggable
   ],
   providers: [
     DesignerGlobalsService,

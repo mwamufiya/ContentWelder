@@ -28,12 +28,13 @@ import { DynamicFormQuestionComponent } from '../forms/dynamic-form-question.com
 import { ResizeHandles } from '../directives/resizehandles.component';
 
 /*************Directives***********/
+import { CwDirectiveModule } from '../directives/directives.module';
 import { DesignerDroppable }  from '../directives/designer-droppable.directive';
 import { DesignerDraggable }  from '../directives/designer-draggable.directive';
 import { Resize }  from '../directives/resize.directive';
 import { WidgetTemplateFactory } from '../directives/widget-template-factory.directive';
 import { BorderSelection } from '../widgets/border-selection.component';
-import {ColorPickerDirective, ColorPickerService} from 'angular2-color-picker';
+
 
 /*************Services************* */
 import { ImageService } from '../services/image.service';
@@ -47,7 +48,8 @@ import { FONTLIST } from '../services/fonts.service';
         FormsModule,
         HttpModule,
         ReactiveFormsModule,
-        NgSemanticModule
+        NgSemanticModule,
+        CwDirectiveModule
     ],
     declarations: [
         Widget,
@@ -58,13 +60,8 @@ import { FONTLIST } from '../services/fonts.service';
         TextboxWidget,
         FormWidget,
         ResizeHandles,
-        Resize,
-        BorderSelection,
-        WidgetTemplateFactory,
         DynamicFormComponent,
-        DynamicFormQuestionComponent,
-        ColorPickerDirective,
-        DesignerDroppable,
+        DynamicFormQuestionComponent
     ],
     exports: [
         Widget,
@@ -76,7 +73,6 @@ import { FONTLIST } from '../services/fonts.service';
         FormWidget
     ],
     providers: [
-        ColorPickerService,
         QuestionService,
         WidgetService
     ],
