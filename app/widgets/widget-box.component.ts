@@ -10,7 +10,9 @@ import { WidgetDrop} from './widget.interface';
   selector: 'designer-BoxWidget',
   templateUrl: './app/widgets/widget-box.component.html',
   styles:[`
-
+    .emptyContainer{
+        height: 5%;
+    }
   `],
   providers: [
       {
@@ -21,7 +23,7 @@ import { WidgetDrop} from './widget.interface';
 })
 export class BoxWidget extends Widget implements OnDestroy{
     // Component input
-    @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
+    @ViewChild('childCont', {read: ViewContainerRef}) childCont: ViewContainerRef;
     widgetType:string = 'boxwidget';
 
     constructor(
@@ -46,7 +48,7 @@ export class BoxWidget extends Widget implements OnDestroy{
         let fty = new WidgetFactory();
         for(let item of event.items){
 
-            let output= fty.addWidget(this.componentResolver, this.container, item, event.insertionPoint);
+            let output= fty.addWidget(this.componentResolver, this.childCont, item, event.insertionPoint);
 
             //if this item is the first in the array, do not append it. otherwise, we do;
             this.designerGlobals.setSelectedComponent(output.compRef.instance, index == 0? false : true);
