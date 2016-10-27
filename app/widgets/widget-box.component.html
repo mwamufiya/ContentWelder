@@ -1,6 +1,7 @@
-<div class="widgetContainer" [class.activeWidget]="isSelected"
-resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResize($event)">
-    <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
+<div class="widgetContainer" [class.activeWidget]="isSelected">
+<!-- a box is a container that should adjust according to it's contents. therefore, resize has been disabled for now.
+resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResize($event)"-->
+    <!--<designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>-->
     <ul *ngIf="isSelected" class="widgetMenu">
         <li title="Background Color" class="colorPicker">
             <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('backgroundColor', $event)" 
@@ -13,9 +14,9 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
         <li (click)="setStyleProperty($event)">&#x2753;</li>
     </ul>
     <div [class.emptyContainer]="!children.length"
-         designerDroppable designerDraggable data-widgetType='box' (widgetAdded)="childModified($event)" 
+         designerDroppable designerDraggable data-widgetType='box' (widgetAdded)="childModified($event)"
          (parentActionReq)="removeChild($event)" data-widgetConfig='{"type":"box"}'
          [ngStyle]="style">
-        <template #container></template>
+        <template #childCont></template>
     </div>
 </div>
