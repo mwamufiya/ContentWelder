@@ -51,6 +51,9 @@ export class WidgetFactory{
             c.removeSelf();
         }
 
+        //set the current index
+        compRef.instance.viewIndex = instIndex? instIndex : viewCont.length;
+
         return {
             compRef: compRef,
             config: config
@@ -115,5 +118,9 @@ export class WidgetFactory{
             pagewidget: PageWidget,
             formwidget: FormWidget
         };
+    }
+
+    isWidget(constructorName:string):boolean{
+        return this.getFactoryMap()[constructorName.toLowerCase()];
     }
 }

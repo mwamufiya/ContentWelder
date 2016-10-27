@@ -50,6 +50,7 @@ export class Widget{
     changeDetectorRef:ChangeDetectorRef;
     style:CSSStyleDeclaration;
     fontList:Array<any>;
+    viewIndex:number;                           //The index of the current view;
     /*********BACKGROUND************ */
     background:string;
 

@@ -1,11 +1,14 @@
-import { Directive, ElementRef, HostListener, ComponentFactoryResolver, EventEmitter, Output, TemplateRef
- } from '@angular/core';
-import { ViewContainerRef } from '@angular/core';
+import {
+    Directive, ElementRef, HostListener, ComponentFactoryResolver, EventEmitter,
+    Output, TemplateRef, Input, ViewContainerRef,
+} from '@angular/core';
 import { MakeDroppable} from './make-droppable.directive';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Parent } from '../widgets/parent';
 import { Widget } from '../widgets/widget.component';
-import { WidgetDrop } from '../widgets/widget.interface'
+import { WidgetDrop } from '../widgets/widget.interface';
+import { WidgetFactory} from '../widgets/widget-factory';
+
 
 @Directive({
     selector: '[designerDroppable]',
@@ -14,6 +17,7 @@ import { WidgetDrop } from '../widgets/widget.interface'
 
 export class DesignerDroppable extends MakeDroppable{
     //childModified = new EventEmitter();
+    defaultDragOverColor:string = 'yellow';
     el: null;
     draggOverHelper: Node;          //Dom element displayed when something is dragged over
     prvDraggedOverEl: Element;       //Previously draged over element
@@ -32,15 +36,16 @@ export class DesignerDroppable extends MakeDroppable{
         super(el);
         this.parentComp = parentComponent as Widget;
     }
+
     @HostListener('dragover', ['$event']) ondragover(event){
         event.stopPropagation();
         if(!this.isEligible(event))
             return false;
 
-        if(!this.prvBkgColor && this.prvBkgColor!='yellow')
+        if(!this.prvBkgColor)
             this.prvBkgColor = this.parentComp.style.backgroundColor;
 
-        this.parentComp.setStyleProperty('backgroundColor', 'yellow');//.style.backgroundColor = "yellow";
+        this.parentComp.setStyleProperty('backgroundColor', this.defaultDragOverColor);//.style.backgroundColor = "yellow";
         this.addDragOverHelper(event);
 
         //Return false to prevent event propogation
@@ -62,6 +67,10 @@ export class DesignerDroppable extends MakeDroppable{
             this.addWidget(event, this.designerGlobals.getDraggedItems());
 
         this.removeDragOverHelper();
+
+        //Clear out dragged item to avoid any downstream conflicts
+        //this.designerGlobals.setDraggeditems(null);
+
         //Return false to prevent event propogation
         return false;
     }
@@ -107,97 +116,148 @@ export class DesignerDroppable extends MakeDroppable{
     //Helper method to display a helper dom element when something is being dragged over.
     addDragOverHelper(event){
         //do nothing if we're already displaying an item
-        
-        let dropCont = super.getEl();
-        let dropEl = dropCont.nativeElement as Element;
-        //get the position of the Drop Element
-        //let dropIndex = dropCont.nativeElement.parentNode.children().indexOf(dropCont.nativeElement); 
 
-        //Get the position of the current item being dragged on
-        let children = Array.from(dropCont.nativeElement.parentNode.childNodes as Array<Node>); 
-        let position = children.indexOf(dropCont.nativeElement);                     
-        children = null;
+        let dropContEl = super.getEl().nativeElement;
 
-        //insert a temporary copy of the "Dragged" element to insert it.
-        
         let draggedOverEl = document.elementFromPoint(event.clientX, event.clientY);
-        let parentNode = draggedOverEl.parentNode as Element; 
-        let validNonTextNodes = Array.from(parentNode.childNodes).filter(n => n.nodeType == 1);
+
+        let targetEls = this.getContChildren(draggedOverEl);
+        let siblings = targetEls.nodeList;
+        let dragOverIndex = targetEls.index;
+
         //Determine if we're inserting before or after the currently dragged over object
-        let insertAfter = this.isInsertionPointAfter(draggedOverEl, event.clientX, event.clientY);
-        //do nothing if the current Helper is still avlid based on mouse position 
+        let insertAfter = true;
+        //we default to always inserting after
+        // only if the current dragged over item is not the container do we look for further clarification
+        if(draggedOverEl !== dropContEl)
+            insertAfter = this.isInsertionPointAfter(draggedOverEl, event.clientX, event.clientY);
+
+        //do nothing if the current Helper is still avlid based on mouse position
         //Else, remove the previous one, and update the new position.
-        
-        //If the item currently being dragged over is teh drop target, then we must adjust where the helper is shown
-
-
-        /*if(this.prvDraggedOverEl === draggedOverEl && insertAfter == this.prvInsertionPoint){
-            console.log('no creating new helper');
+        if(this.prvDraggedOverEl === draggedOverEl && insertAfter == this.prvInsertionPoint){
             return;
-        }else{*/
+        }else{
             this.removeDragOverHelper();
             this.prvInsertionPoint = insertAfter;
-            this.prvDraggedOverEl = (draggedOverEl===dropEl)? dropEl : draggedOverEl;
-        //}
+            this.prvDraggedOverEl = draggedOverEl;
+        }
+        console.log(`-------------------`);
+
+        //Get the dragged item from injection
+        let draggedItem = this.designerGlobals.getDraggedItems()[0];
 
         //Create the placeholderItem
-        this.draggOverHelper = document.createElement(`hr`);
-        let insertionPoint = null;
-        if(insertAfter==false){
-            let targetEl = draggedOverEl;
-            //if the item is being dragged over the current drop zone, 
-            //find the first child of this container and insert it before it.
-            if(draggedOverEl === dropEl){
-                dropEl.insertBefore(this.draggOverHelper, dropEl.childNodes[0] as Element);
-                insertionPoint = 0;    
-            }else{
-                parentNode.insertBefore(this.draggOverHelper, targetEl);
-                insertionPoint = validNonTextNodes.indexOf(targetEl);
-            }
-
+        let helperEl: Node;
+        //if we're dealing with a widget, then clone the DOM Element so the user gets better feeback
+        if(new WidgetFactory().isWidget(draggedItem.constructor.name)){
+            let w = draggedItem as Widget;
+            let e = document.createElement('div');
+            e.classList.add('clonePlaceholder');
+            let clone = w.viewCont.element.nativeElement.cloneNode(true);
+            helperEl = e.appendChild(clone) as Node;
         }else{
-            //IF there is no next sibling, then we must append this item as the last child in the parent container
-            //ELSE we must get the next sibling in order to user "node.InsertBeore()" method
-            let targetEl = dropEl;
-            if(draggedOverEl === dropEl){
-                dropEl.appendChild(this.draggOverHelper);
-                insertionPoint = null;
-            }else{
-                //TODO: review dependency on "template" tag.
-                //Because the "template" element is used in templates, we need to go one level above the current item to find the next sibling
-                //This does place a dependency on the "Template" tag.
-                //Given that Angular uses templates underneath the covers, should be low impact.
-                //however developers adding new component will need to be aware of this.
-                let nextEl = draggedOverEl.parentNode.nextSibling;
-                //If the next sibling is null, that means we can simply append the item to insert it as the last item.
-                if(nextEl==null){
-                    parentNode.appendChild(this.draggOverHelper);
-                   insertionPoint = null;
-                }else{
-                    nextEl.parentNode.insertBefore(this.draggOverHelper, nextEl);
-                    insertionPoint = Array.from(nextEl.parentNode.childNodes).filter(n => n.nodeType==1).indexOf(nextEl)-1;
-                }
+            //Otherwise use the default helper element
+            helperEl = document.createElement(`hr`) as Node;
+        }
+
+        this.draggOverHelper = helperEl;
+
+        let insertionPoint = dragOverIndex;
+        //if the dragged over element is the drop container, then always append it.
+        if(draggedOverEl === dropContEl || siblings.length == dragOverIndex || (insertAfter==true && (dragOverIndex+1 > siblings.length))){
+            (dropContEl as Node).appendChild(this.draggOverHelper);
+            this.reqInsertionPoint = null;
+        }else {
+
+            if(insertAfter==false){
+                let v = (insertAfter==false)? siblings[dragOverIndex]: siblings[dragOverIndex + 1];
             }
+            let targetEl = (insertAfter==false)? siblings[dragOverIndex]: siblings[dragOverIndex + 1];
+            (dropContEl as Node).insertBefore(this.draggOverHelper, targetEl);
         }
         this.reqInsertionPoint = insertionPoint;
     }
-    removeDragOverHelper(){
-        if(this.draggOverHelper) {
+
+    /**
+     * @function
+     * @param {Node} el
+     * @returns {{nodeList: Node[], index: number}}
+     * @description returns list of immediate child nodes from this Drop Directive. also returns the index of the parent item in which INPUT.el belongs to
+     */
+    getContChildren(el: Node): {nodeList: Array<Node>, index: number}{
+        let root = super.getEl().nativeElement;
+
+        let e = el;
+        let prvE: Node;
+        while(e !== root){
+            prvE = e;
+            e = e.parentNode;
+        }
+        let list = e.childNodes;
+        let index:number;
+
+
+        let nodeList = new Array<Node>();
+        //we only care about Node of type ==1
+        //get the index position while were here
+        for(let i = 0; i< list .length; i++) {
+            let n = list[i];
+            if(n.nodeType == 1)
+                nodeList.push(n)
+            if(n == prvE)
+                index = nodeList.length-1;
+        }
+
+        return {
+            nodeList: nodeList,
+            index: index
+        };
+    }
+
+    /**
+     * @function
+     * @description takes care of removing the helper Dom Element that is displayed on Drag Over
+     */
+    removeDragOverHelper(): void{
+        if(this.draggOverHelper && this.draggOverHelper.parentNode) {
             this.draggOverHelper.parentNode.removeChild(this.draggOverHelper);
             this.draggOverHelper = null;
         }
     }
-    //Returns the "After or before" based on the position of the 
+    //
+    /**
+     * @function
+     * @param el
+     * @param eventX
+     * @param eventY
+     * @returns {boolean}
+     * @description Returns the "Tue" if the items is to be placed before the target object. and vice versa
+     */
     isInsertionPointAfter(el:Element, eventX:Number, eventY:Number):boolean{
         let rect = el.getBoundingClientRect();
-        let insertionPoint = true;
+        let insertAfter = true;
         //We will only insert before if the 'X' is to the left of the horizontal center
         //AND the 'y' is above the vertical center.
-        if((eventX < rect.left+(rect.width/2)) && (eventY < rect.top+(rect.height/2)))
-                insertionPoint = false;
-        return insertionPoint;
+        //TODO review this logic after use.
+        /*
+        1. If mouse is to the left of the center, insert before
+            1A. mouse is below target box, insert after
+        2. If mouse is to the right of center, insert after
+            2A. if mouse is above target box, insert before
+         */
+        if((eventX < rect.left+(rect.width/2)) || eventY < rect.top)
+            insertAfter = false;
+
+        console.log(insertAfter);
+        return insertAfter;
     }
-    restoreBackgroundColor(){
+
+    /**
+     * @function
+     * @description Restores the background color to what it was prior to the drag over
+     */
+    restoreBackgroundColor(): void{
         this.parentComp.setStyleProperty('backgroundColor', this.prvBkgColor);
+        this.prvBkgColor = null;
     }
 }
