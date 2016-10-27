@@ -8,7 +8,7 @@ import { DropdownQuestion  } from '../forms/question-dropdown';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { DynamicFormComponent } from '../forms/dynamic-form.component';
 import { Parent } from './parent';
-import { WidgetJson, WidgetConfig } from './widget.interface';
+import { WidgetConfig } from './widget.interface';
 
 @Component({
   selector: 'designer-form',
@@ -29,7 +29,6 @@ export class FormWidget extends Widget implements OnDestroy{
     curModel: QuestionBase<any>;
     @ViewChild(DynamicFormComponent) private dynForm: DynamicFormComponent;
     widgetType:string = 'formwidget';
-    widgetConfig: WidgetConfig;
 
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,
