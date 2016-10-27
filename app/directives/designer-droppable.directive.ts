@@ -134,7 +134,8 @@ export class DesignerDroppable extends MakeDroppable{
 
         //do nothing if the current Helper is still avlid based on mouse position
         //Else, remove the previous one, and update the new position.
-        if(this.prvDraggedOverEl === draggedOverEl && insertAfter == this.prvInsertionPoint){
+        if(this.draggOverHelper === draggedOverEl ||
+            (this.prvDraggedOverEl === draggedOverEl && insertAfter == this.prvInsertionPoint)){
             return;
         }else{
             this.removeDragOverHelper();
@@ -163,17 +164,14 @@ export class DesignerDroppable extends MakeDroppable{
         this.draggOverHelper = helperEl;
 
         let insertionPoint = dragOverIndex;
+        dropContEl = dropContEl as Node;
         //if the dragged over element is the drop container, then always append it.
-        if(draggedOverEl === dropContEl || siblings.length == dragOverIndex || (insertAfter==true && (dragOverIndex+1 > siblings.length))){
-            (dropContEl as Node).appendChild(this.draggOverHelper);
+        if(draggedOverEl as Node === dropContEl || siblings.length == dragOverIndex || (insertAfter==true && (dragOverIndex+1 > siblings.length))){
+            dropContEl.appendChild(this.draggOverHelper);
             this.reqInsertionPoint = null;
         }else {
-
-            if(insertAfter==false){
-                let v = (insertAfter==false)? siblings[dragOverIndex]: siblings[dragOverIndex + 1];
-            }
             let targetEl = (insertAfter==false)? siblings[dragOverIndex]: siblings[dragOverIndex + 1];
-            (dropContEl as Node).insertBefore(this.draggOverHelper, targetEl);
+            dropContEl.insertBefore(this.draggOverHelper, targetEl);
         }
         this.reqInsertionPoint = insertionPoint;
     }
