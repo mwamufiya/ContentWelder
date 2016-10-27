@@ -8,6 +8,7 @@ import { WidgetConfig } from './widget.interface';
 @Component({
   selector: 'designer-TextboxWidget',
   templateUrl: './app/widgets/widget-textbox.component.html',
+    inputs: ['widgetConfig'],
   styles:[`
     :host{
         display:inline;
@@ -69,6 +70,26 @@ export class TextboxWidget extends Widget implements OnDestroy{
         json['content'] = this.content;
 
         return json;
+    }
+
+    /**
+     * @function
+     * @desc handles processing of widget config
+     */
+    parseWidgetConfig(config?: WidgetConfig){
+        //Allows configuration to be set outside of OnInit.
+        if(config) this.widgetConfig = config;
+
+        //Do nothing if no widget config was provided
+        if(!this.widgetConfig)
+            return;
+
+        //First let the base class handle all common areas
+        super.parseWidgetConfig(this.widgetConfig);
+
+        //now process any Image  specific configurations
+        if(this.widgetConfig['content']) this.content = this.widgetConfig['content'];
+
     }
 
     /**

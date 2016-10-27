@@ -4,11 +4,12 @@ import { Widget } from './widget.component';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Parent } from './parent';
 import { WidgetFactory} from './widget-factory';
-import { WidgetDrop} from './widget.interface';
+import { WidgetDrop, WidgetConfig} from './widget.interface';
 
 @Component({
   selector: 'designer-BoxWidget',
   templateUrl: './app/widgets/widget-box.component.html',
+    inputs: ['widgetConfig'],
   styles:[`
     .emptyContainer{
         height: 5%;
@@ -56,6 +57,53 @@ export class BoxWidget extends Widget implements OnDestroy{
 
             index++;
         }
+    }
+
+    /**
+     * @function
+     * @desc returns a JSON representation of the current Widget Object
+     */
+    toJson():WidgetConfig{
+        //let Base class do the bulk of the work
+        let json = super.toJson();
+
+        //Handle Page specific logic
+        //TODO add page specific saveing logic
+
+        return json;
+    }
+
+    /**
+     * @function
+     * @desc handles creating any child widget components
+     */
+    parseWidgetConfig(config?: WidgetConfig){
+        //Allows configuration to be set outside of OnInit.
+        if(config) this.widgetConfig = config;
+
+        //Do nothing if no widget config was provided
+        if(!this.widgetConfig)
+            return;
+
+        //First let the base class handle all common areas
+        super.parseWidgetConfig(this.widgetConfig);
+
+        //now process any Page specific configurations
+
+        //Do nothing if there are no children.
+        if(!this.widgetConfig.items || !this.widgetConfig.items.length)
+            return
+
+        let factory = new WidgetFactory();
+        this.widgetConfig.items.forEach( (item: WidgetConfig, index:number) => {
+            let componentFactory = factory.getWidgetFactory(this.componentResolver, item['widgetType']);
+            let ref = this.childCont.createComponent(componentFactory);
+            this.designerGlobals.setSelectedComponent(ref.instance, false);
+            this.addChild(ref, item);
+        });
+
+        this.changeDetectorRef.markForCheck();
+
     }
 
     /**

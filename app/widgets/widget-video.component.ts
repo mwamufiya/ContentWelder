@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ChangeDetectorRef, OnDestroy,
+import { Component, ElementRef, HostListener, ChangeDetectorRef, OnDestroy, OnInit, Input,
     ComponentFactoryResolver, ViewContainerRef, ViewChild} from '@angular/core';
 import { Widget } from './widget.component'
 import { Video } from './video';
@@ -9,6 +9,7 @@ import { WidgetConfig } from './widget.interface';
 @Component({
   selector: 'designer-videoWidget',
   templateUrl: './app/widgets/widget-video.component.html',
+    inputs: ['widgetConfig'],
   styles:[`
     :host{
         display:inline;
@@ -21,7 +22,7 @@ import { WidgetConfig } from './widget.interface';
     }
   `]
 })
-export class VideoWidget extends Widget implements OnDestroy{
+export class VideoWidget extends Widget implements OnInit, OnDestroy{
     // Component input
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
     private _selectedVideoSubscription: Subscription;
@@ -48,6 +49,18 @@ export class VideoWidget extends Widget implements OnDestroy{
           video => this.setVideo(video),
           err => super.displayError(`Error encountered when subscribing to observable`)
         );
+    }
+
+    /**
+     * @function
+     * @description if a widget Config was passed, then it begins processing it.
+     */
+    ngOnInit(){
+        //we set the starting height if no width is specified
+        //this is done so that images brought in start off small, then the user can resize them
+        if(!this.style.width)
+            this.changeDimensions(null, 15);
+        this.parseWidgetConfig();
     }
 
     @HostListener('click', ['$event']) onclick(event){
@@ -114,6 +127,26 @@ export class VideoWidget extends Widget implements OnDestroy{
             json['video'] = this.video;
 
         return json;
+    }
+
+    /**
+     * @function
+     * @desc handles creating any child widget components
+     */
+    parseWidgetConfig(config?: WidgetConfig){
+        //Allows configuration to be set outside of OnInit.
+        if(config) this.widgetConfig = config;
+
+        //Do nothing if no widget config was provided
+        if(!this.widgetConfig)
+            return;
+
+        //First let the base class handle all common areas
+        super.parseWidgetConfig(this.widgetConfig);
+
+        //now process any Image  specific configurations
+        if(this.widgetConfig['video']) this.setVideo(this.widgetConfig['video']);
+
     }
 
     /**
