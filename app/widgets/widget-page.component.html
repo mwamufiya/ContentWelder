@@ -1,7 +1,6 @@
 <div class="workingArea" [ngStyle]="{'backgroundColor':style.backgroundColor}">
     <div designerDroppable (widgetAdded)="childModified($event)" (parentActionReq)="removeChild($event)"
          class="cw-page" [ngStyle]="style" [class.noBorder]="!style.borderWidth">
-        <template #container></template>
-        <template #cont1></template>
+        <template #childCont></template>
     </div>
 </div>

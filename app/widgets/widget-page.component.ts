@@ -33,7 +33,7 @@ import { FormWidget } from './widget-form.component';
  * @classDesc Extends Page Widget. Handles actions taken on the stage
  */
 export class PageWidget extends Widget implements OnInit, OnDestroy{
-    @Host() @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
+    @Host() @ViewChild('childCont', {read: ViewContainerRef}) childCont: ViewContainerRef;
     @ViewChild('cont1') tpl1: TemplateRef<Object>;
     widgetConfig: WidgetConfig;
     childWidgets:Array<JSON>;
@@ -82,7 +82,7 @@ export class PageWidget extends Widget implements OnInit, OnDestroy{
         let fty = new WidgetFactory();
         for(let item of event.items){
 
-            let output= fty.addWidget(this.componentResolver, this.container, item, event.insertionPoint);
+            let output= fty.addWidget(this.componentResolver, this.childCont, item, event.insertionPoint);
 
             //if this item is the first in the array, do not append it. otherwise, we do;
             this.designerGlobals.setSelectedComponent(output.compRef.instance, index == 0? false : true);
@@ -116,7 +116,7 @@ export class PageWidget extends Widget implements OnInit, OnDestroy{
         let factory = new WidgetFactory();
         this.widgetConfig.items.forEach( (item: WidgetConfig, index:number) => {
             let componentFactory = factory.getWidgetFactory(this.componentResolver, item['widgetType']);
-            let ref = this.container.createComponent(componentFactory);
+            let ref = this.childCont.createComponent(componentFactory);
             this.designerGlobals.setSelectedComponent(ref.instance, false);
             this.addChild(ref, item);
         });
