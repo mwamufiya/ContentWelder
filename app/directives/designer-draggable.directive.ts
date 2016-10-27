@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener, Optional} from '@angular/core';
 import { MakeDraggable} from './make-draggable.directive';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
-
+import { Widget } from '../widgets/widget.component';
 import { Parent } from '../widgets/parent';
 
 @Directive({
