@@ -51,6 +51,7 @@ export class Widget{
     style:CSSStyleDeclaration;
     fontList:Array<any>;
     viewIndex:number;                           //The index of the current view;
+    widgetConfig:WidgetConfig;
     /*********BACKGROUND************ */
     background:string;
 

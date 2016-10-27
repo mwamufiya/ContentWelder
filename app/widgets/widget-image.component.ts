@@ -37,7 +37,6 @@ export class ImageWidget extends Widget implements OnInit, OnDestroy{
     private _selectedImageSubscription: Subscription;
     image:Image;
     widgetType:string = 'imagewidget';
-    widgetConfig: WidgetConfig;
 
     /**
      * @class
@@ -63,8 +62,10 @@ export class ImageWidget extends Widget implements OnInit, OnDestroy{
      * @description if a widget Config was passed, then it begins processing it.
      */
     ngOnInit(){
+        //we set the starting height if no width is specified
+        //this is done so that images brought in start off small, then the user can resize them
         if(!this.style.width)
-            this.changeDimensions(null, 20);
+            this.changeDimensions(null, 15);
         this.parseWidgetConfig();
     }
 
