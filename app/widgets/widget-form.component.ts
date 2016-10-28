@@ -38,10 +38,6 @@ export class FormWidget extends Widget implements OnDestroy{
         questionService: QuestionService){
         super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
         this.questionService = questionService;
-
-        //this.questions = questionService.getQuestions();
-        //this.getQuestions();
-        this.isSelected = true; 
     }
     @HostListener('click', ['$event']) onclick(event):boolean{
         return super.onclick(event);
