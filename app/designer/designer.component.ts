@@ -77,7 +77,10 @@ export class DesignerComponent implements OnInit{
             }
         });
     }
-    //handles subscribing to events in order to toggle the correct viewer
+    /**
+     * @function
+     * @description handles subscribing to events in order to toggle the correct viewer
+     */
     mediaChooserInit():void{
       this.mediaChooserSubscription = this.designerGlobals.getMediaChooserObservable().subscribe(
           mediaType => {
@@ -87,7 +90,12 @@ export class DesignerComponent implements OnInit{
           err => console.log(`Designer.component.ts: Failure in openeing a Media Chooser`)
         );
     }
-    //changes the background acording to the user selection
+
+    /**
+     * @function
+     * @param json
+     * @description changes the background acording to the user selection
+     */
     changeBackground(json):void{
       this.designerGlobals.setSelectedComponent(this);
       this.isSelected = true; 
@@ -99,8 +107,11 @@ export class DesignerComponent implements OnInit{
       else if(changeType=='image')
         this.imageChooser.show();
     }
-    //Subscribes to choices made for either Image or Video
-    initializeSubscribers(){
+    /**
+     * @function
+     * @description Subscribes to choices made for either Image or Video
+     */
+    initializeSubscribers():void{
         //subscript to the selected item
         this._selectedItemSubscription = this.designerGlobals.getSelectedItemsObservable().subscribe(
           value => this.checkIfSelected(value),
