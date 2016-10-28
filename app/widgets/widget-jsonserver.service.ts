@@ -52,22 +52,6 @@ export class JsonServerWidgetService implements WidgetServiceInterface {
             .then( response => this.handleSaveResponse(response))
             .catch( response => this.handleSaveError(response));
 
-        /*if(params['id'])
-            this.http.put(
-                `${this.SERVICE_URL}/widgets/${id}`,
-                params,
-                headers)
-                .toPromise()
-                .then( response => this.handleSaveError(response))
-                .catch( response => this.handleSaveError(response));
-        else
-            this.http.post(
-                `${this.SERVICE_URL}/widgets/`,
-                params,
-                headers)
-                .toPromise()
-                .then( response => this.handleSaveError(response))
-                .catch( response => this.handleSaveError(response));*/
     }
     handleSaveResponse(response):Promise<JSON>{
         console.log(response);
