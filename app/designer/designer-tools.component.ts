@@ -14,7 +14,13 @@ export class DesignerToolsComponent implements OnInit{
   private activeToolSelection: string;
   private changeBkgEmitter:EventEmitter<any> = new EventEmitter();
   private _selectedItemSubscription: Subscription;
-  private menuJSON:JSON;                    //Holds the JSON representation of the menu 
+  private menuJSON:JSON;                    //Holds the JSON representation of the menu
+
+  /**
+   * @class
+   * @param {Router} router
+   * @param {DesignerGlobalsService} designerGlobals
+   */
   constructor(
     private router: Router,
     private designerGlobals: DesignerGlobalsService){
@@ -29,21 +35,34 @@ export class DesignerToolsComponent implements OnInit{
     );
   }
 
-  //set activeToolSelection
+  /**
+   * @function
+   * @param {string} selection
+   * @description sets the currently selected tool group , so that the tool panels know which to expand
+   */
   setActiveToolSelection(selection?:string):void{
     if(this.activeToolSelection != selection)
       this.activeToolSelection = selection;
     else
       this.activeToolSelection = null;
   }
-  //Calls for the corresponding Editor to be activated
+  /**
+   * @function
+   * @param {string} changeType
+   * @description Calls for the corresponding Editor to be activated
+   */
   editBackground(changeType){
     this.setActiveToolSelection();
     this.changeBkgEmitter.emit({
       changeType: changeType
     });
   }
-  //return string version of json because Template doesn't have access to "JSON.stringify"
+  /**
+   * @function
+   * @param {Widget} item
+   * @returns {string}
+   * @description return string version of json because Template doesn't have access to "JSON.stringify"
+   */
   templateJsonStringify(item):string{
     return item.widgetConfig? JSON.stringify(item.widgetConfig): '';
   }
