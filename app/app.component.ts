@@ -26,6 +26,11 @@ export class AppComponent {
         title:`forms`,
         icon:`paint brush`,
         url:`forms`
+      },
+      {
+        title: "Data View",
+        icon: "grid layout icon",
+        url: "dataviewwidget"
       }
     ];
     return menuArr;
