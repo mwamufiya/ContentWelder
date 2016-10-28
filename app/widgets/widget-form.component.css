@@ -44,12 +44,6 @@
     font-weight:normal;
     font-size:.8rem;
 }
-.form-group label{
-    display:block;
-    padding: .5em 0;
-    color:#666;
-    font-weight:bold;
-}
 .curControlType{
     text-transform: capitalize;
 }
