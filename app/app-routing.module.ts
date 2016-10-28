@@ -14,11 +14,6 @@ const appRoutes: Routes = [
     {
         path:'image-chooser',
         component: ImageChooser
-    },
-    {
-        path:'forms',
-        component: FormWidget,
-
     }
 ];
 
