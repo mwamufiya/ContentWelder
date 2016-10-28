@@ -1,0 +1,15 @@
+<div *ngIf="!dataProvider" class="providerSelection">
+    <h1>Choose a Data Provider</h1>
+    <div class="dataProviderList">
+        <div *ngFor="let item of dataProviders" (click)="setProvider(item.name)">
+            <i class="{{item.icon}}" *ngIf="item.icon"></i>
+            <label>{{item.label}}</label> <span *ngIf="item.isActive" class="statusIndicator">&#x2713;</span>
+            <div class="description">{{item.desc}}</div>
+        </div>
+    </div>
+</div>
+<div class="dataProvider" [ngSwitch]="dataProvider">
+    <!-- REST Data view Configuration -->
+    <dataviewbuilder-rest *ngSwitchCase="'rest'"></dataviewbuilder-rest>
+
+</div>

@@ -18,6 +18,7 @@ import { VideoWidget } from '../widgets/widget-video.component';
 import { TextboxWidget } from '../widgets/widget-textbox.component';
 import { PageWidget }  from '../widgets/widget-page.component';
 import { FormWidget }  from '../widgets/widget-form.component';
+import { DataviewWidget }  from '../widgets/widget-dataview.component';
 
 /***********Forms****************** */
 import { QuestionService } from '../forms/question.service';
@@ -26,10 +27,15 @@ import { DynamicFormQuestionComponent } from '../forms/dynamic-form-question.com
 
 /***********Helpers************ */
 import { ResizeHandles } from '../directives/resizehandles.component';
+import { DataviewBuilderModule } from './dataview-builder/dataview-builder.module';
 
 /*************Directives***********/
 import { CwDirectiveModule } from '../directives/directives.module';
 import { BorderSelection}  from './border-selection.component';
+
+/***************Routing**********************/
+import { WidgetRoutingModule }  from './widget-routing.module';
+
 
 /*************Services************* */
 import { ImageService } from '../services/image.service';
@@ -44,7 +50,9 @@ import { FONTLIST } from '../services/fonts.service';
         HttpModule,
         ReactiveFormsModule,
         NgSemanticModule,
-        CwDirectiveModule
+        CwDirectiveModule,
+        WidgetRoutingModule,
+        DataviewBuilderModule
     ],
     declarations: [
         Widget,
@@ -57,7 +65,8 @@ import { FONTLIST } from '../services/fonts.service';
         ResizeHandles,
         DynamicFormComponent,
         DynamicFormQuestionComponent,
-        BorderSelection
+        BorderSelection,
+        DataviewWidget
     ],
     exports: [
         Widget,
@@ -67,7 +76,8 @@ import { FONTLIST } from '../services/fonts.service';
         VideoWidget,
         TextboxWidget,
         FormWidget,
-        BorderSelection
+        BorderSelection,
+        DataviewWidget
     ],
     providers: [
         QuestionService,

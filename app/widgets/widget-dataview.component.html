@@ -1,0 +1,17 @@
+<div designerDraggable  class="widgetContainer" [class.emptyContainer]="!restConfig" [class.activeWidget]="isSelected"
+     resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)" [ngStyle]="style">
+    <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
+    <ul *ngIf="isSelected" class="widgetMenu">
+        <li>
+            <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
+        </li>
+        <li (click)="removeSelf($event)">&#x2716;</li>
+        <li>&#x2753;</li>
+    </ul>
+    <sm-menu class="ui mini" *ngIf="isSelected">
+        <a sm-item (click)="toggleSettings()" [icon]="'settings icon'"></a>
+        <a *ngIf="restConfig" sm-item [icon]="'trash icon'">Delete</a>
+    </sm-menu>
+
+    <dataviewbuilder ></dataviewbuilder>
+</div>
