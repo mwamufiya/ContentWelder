@@ -230,4 +230,16 @@ export class DesignerComponent implements OnInit{
             widgetType: "pagewidget"
         });
     }
+
+    /**
+     * @function
+     * @param {number} index
+     * @description Removes the selected page
+     */
+    deletePage(index: number):void{
+        this.pageList.splice(index, 1);
+        //always make sure there is at least one page
+        if(!this.pageList.length)
+            this.addPage();
+    }
 }

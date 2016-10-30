@@ -23,11 +23,12 @@
         <!-- Disable the page navigation fow now. it may be re-activated once it's functioning' -->
         <!--<div class="pageNav">adfadf</div>-->
         <designer-tools (changeBkgEmitter)="changeBackground($event)"></designer-tools>
-        <ul class="secondaryMenu">
-            <li (click)="saveConfig()"><i class="cloud upload icon"></i> Save</li>
-            <li (click)="addPage()"><i class="add circle icon"></i> Page</li>
-        </ul>
          <div class="pasteboard" *ngFor="let page of pageList; let i = index;">
+             <ul class="secondaryMenu">
+                 <li (click)="saveConfig()"><i class="cloud upload icon"></i> Save</li>
+                 <li (click)="addPage()"><i class="add circle icon"></i> Page</li>
+                 <li (click)="deletePage(i)"><i class="trash icon"></i> Delete Page</li>
+             </ul>
 
             <template #container></template>
             <designer-page designerDroppable [widgetConfig]="page"></designer-page>
