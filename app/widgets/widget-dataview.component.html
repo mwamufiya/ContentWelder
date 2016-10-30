@@ -1,4 +1,4 @@
-<div designerDraggable  class="widgetContainer" [class.emptyContainer]="!restConfig" [class.activeWidget]="isSelected"
+<div designerDraggable  class="widgetContainer" [class.emptyContainer]="!builderConfig" [class.activeWidget]="isSelected"
      resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)" [ngStyle]="style">
     <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
     <ul *ngIf="isSelected" class="widgetMenu">
@@ -8,10 +8,12 @@
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <sm-menu class="ui mini" *ngIf="isSelected">
-        <a sm-item (click)="toggleSettings()" [icon]="'settings icon'"></a>
-        <a *ngIf="restConfig" sm-item [icon]="'trash icon'">Delete</a>
-    </sm-menu>
-
-    <dataviewbuilder ></dataviewbuilder>
+    <ng-container *ngIf="isSelected">
+        <sm-menu class="ui mini" *ngIf="isSelected">
+            <a sm-item (click)="toggleSettings()" [icon]="'settings icon'"></a>
+            <a *ngIf="restConfig" sm-item [icon]="'trash icon'">Delete</a>
+        </sm-menu>
+        <dataviewbuilder *ngIf="dispBuilderConfig" (dataViewFinished)="displayData($event)"></dataviewbuilder>
+    </ng-container>
+    <data-grid *ngIf="dataList" [data]="dataList"></data-grid>
 </div>
