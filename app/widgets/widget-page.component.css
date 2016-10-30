@@ -8,13 +8,17 @@
 .cw-page{
     min-height:400px;
     min-width:80%;
+    background-image: none !important;
 }
 .noBorder{
     border:.15rem dotted #CCC;
 }
 
-/*Background VIdeo Code
-video { 
+.widgetMenu{
+    top:inherit;
+}
+
+video#pageVideo {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -24,7 +28,7 @@ video {
     height: auto;
     z-index: -100;
     transform: translateX(-50%) translateY(-50%);
- background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
-  background-size: cover;
-  transition: 1s opacity;
-}*/
+    background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
+    background-size: cover;
+    transition: 1s opacity;
+}

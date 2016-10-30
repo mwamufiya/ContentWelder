@@ -1,6 +1,28 @@
-<div class="workingArea" [ngStyle]="{'backgroundColor':style.backgroundColor}">
+<video *ngIf="video" playsinline autoplay muted loop poster="polina.jpg" id="pageVideo">
+    <source src="{{video.smallLink.url}}"  type="video/mp4">
+    <source src="{{video.smallLink.url}}"  type="video/ogg">
+</video>
+<div class="workingArea" [ngStyle]="{'backgroundColor':style.backgroundColor,'backgroundImage': style.backgroundImage,
+                         'backgroundRepeat': style.backgroundRepeat, 'backgroundSize': style.backgroundSize}">
     <div designerDroppable (widgetAdded)="childModified($event)" (parentActionReq)="removeChild($event)"
-         class="cw-page" [ngStyle]="style" [class.noBorder]="!style.borderWidth">
+         class="cw-page" [ngStyle]="style" style="background-image: none'" [class.noBorder]="!style.borderWidth">
+        <ul *ngIf="isSelected" class="widgetMenu">
+            <li>
+                <button class="mini ui button green" (click)="launchVideoChooser()"><i class="image icon"></i>Video</button>
+            </li>
+            <li title="Background Color" class="colorPicker">
+                <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)"
+                       [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+            </li>
+            <li>
+                <button class="mini ui button green" (click)="launchImageChooser()">Image</button>
+            </li>
+            <li>
+                <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
+            </li>
+            <li (click)="removeSelf($event)">&#x2716;</li>
+            <li>&#x2753;</li>
+        </ul>
         <template #childCont></template>
     </div>
 </div>

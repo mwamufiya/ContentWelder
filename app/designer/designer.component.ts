@@ -14,10 +14,10 @@ import { WidgetConfig} from '../widgets/widget.interface'
 import {Widget} from "../widgets/widget.component";
 
 @Component({
-    moduleId: module.id,
+
   selector: 'my-designer',
-  templateUrl: 'designer.component.html',
-  styleUrls: ['designer.component.css']
+  templateUrl: './app/designer/designer.component.html',
+  styleUrls: ['./app/designer/designer.component.css']
 })
 export class DesignerComponent implements OnInit{
     @ViewChild('videoChooser', {read: SemanticModalComponent}) videoChooser: SemanticModalComponent;
@@ -26,8 +26,6 @@ export class DesignerComponent implements OnInit{
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
     @ViewChildren (PageWidget) viewChildren: QueryList<PageWidget>;
     private mediaChooserSubscription: Subscription;
-    private _selectedImageSubscription: Subscription;
-    private _selectedVideoSubscription: Subscription;
     private _selectedItemSubscription: Subscription;
     private video:Video;
     private image:Image;
@@ -99,8 +97,8 @@ export class DesignerComponent implements OnInit{
      */
     changeBackground(json):void{
       this.designerGlobals.setSelectedComponent(this);
-      this.isSelected = true; 
-      
+      this.isSelected = true;
+
       this.stageComponent.setBackgroundColor();
       let changeType = json.changeType;
       if(changeType=='video')
@@ -118,42 +116,11 @@ export class DesignerComponent implements OnInit{
           value => this.checkIfSelected(value),
           err => console.log(`Designer Component: Selected Item Subscription Error`)
         );
-        //subscript to the selected Image
-        this._selectedImageSubscription = this.designerGlobals.getSelectedImageObservable().subscribe(
-          image => this.setImage(image),
-          err => console.log(`Designer Component: Selected Image subscription Error`)
-        );
-        //subscript to the selected Video
-        this._selectedVideoSubscription = this.designerGlobals.getSelectedVideoObservable().subscribe(
-          video => this.setVideo(video),
-          err => console.log(`Designer Component: Selected Video Subscription Error`)
-        );
     }
     //Determines if this items is currently selected
     checkIfSelected(selectedArray:Array<Component>){
       //if this item exists in the list of currently selected items, mark it as such.
       this.isSelected = selectedArray.indexOf(this) != -1? true: null;
-    }
-    //handles setting the background asset-chooser
-    setImage(image:Image){
-      if(!this.isSelected)
-        return;
-
-      this.video = null;
-      this.image = null;
-      this.image = image; 
-    }
-    //handles setting the background video
-    setVideo(video:Video){
-      if(!this.isSelected)
-        return;
-
-      this.image = null;
-      this.video = null;
-      this.video = video;
-    }
-    getVideoBackgroundPath():string{
-     return `url('${this.video.mediumLink.url}')`; 
     }
 
     /**

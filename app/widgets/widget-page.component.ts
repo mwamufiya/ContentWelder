@@ -2,6 +2,7 @@ import { Component, ViewChild, ViewChildren, QueryList, Input, ComponentFactoryR
      Host, TemplateRef, ViewContainerRef, ChangeDetectorRef, forwardRef, OnInit, OnDestroy,
     HostListener
 } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { Widget } from './widget.component';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { WidgetFactory} from './widget-factory';
@@ -13,6 +14,9 @@ import { ImageWidget } from './widget-image.component';
 import { VideoWidget} from './widget-video.component';
 import { TextboxWidget } from './widget-textbox.component';
 import { FormWidget } from './widget-form.component';
+import { Video } from './video';
+import { Image } from './image';
+
 
 @Component({
     moduleId: module.id,
@@ -39,6 +43,11 @@ export class PageWidget extends Widget implements OnInit, OnDestroy{
     widgetConfig: WidgetConfig;
     childWidgets:Array<JSON>;
     widgetType:string = 'pagewidget';
+    _videoSub: Subscription;
+    _imageSub: Subscription;
+    video: Video;
+    image: Image;
+
 
     /** @function
      * @param {ComponentFactoryResolver} componentFactoryResolver
@@ -52,7 +61,18 @@ export class PageWidget extends Widget implements OnInit, OnDestroy{
         changeDetectorRef: ChangeDetectorRef,
         designerGlobals: DesignerGlobalsService){
             super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
-            super.setBackgroundColor('white');
+
+        //subscript to the selected video
+        this._videoSub = this.designerGlobals.getSelectedVideoObservable().subscribe(
+            video => this.setVideo(video),
+            err => super.displayError(`Error encountered when subscribing to observable`)
+        );
+
+        //subscript to the selected Image
+        this._imageSub = this.designerGlobals.getSelectedImageObservable().subscribe(
+            image => this.setImage(image),
+            err => super.displayError(`Error encountered when subscribing to observable`)
+        );
     }
 
     /**
@@ -145,5 +165,54 @@ export class PageWidget extends Widget implements OnInit, OnDestroy{
      */
     ngOnDestroy():void{
         super.ngOnDestroy();
+    }
+
+    /**
+     * @function
+     * @description request the video chooser to open
+     */
+    launchVideoChooser():void{
+        this.designerGlobals.launchMediaChooser('video');
+    }
+    /**
+     * @function
+     * @param {Video} video
+     * @desc sets the video for this widget & updates dimensions
+     */
+    setVideo(video:Video, force?:boolean):void{
+        //Do nothing if this widget isn't currently selected
+        if(!this.isSelected && !force)
+            return;
+        //clear out the image as only one can be set at a time.
+        this.image = null;
+        this.video = video;
+    }
+
+    /**
+     * @function
+     * @description request the image chooser be opened
+     */
+    launchImageChooser() {
+        this.designerGlobals.launchMediaChooser('image');
+    }
+
+        /**
+     * @function
+     * @param image
+     * @param {Boolean} force   //overides validation that ensures the the image chooser is currently assigned to this item
+     */
+    setImage(image?:Image, force?:boolean){
+        //Do nothing if this asset-chooser isn't the currently selected asset-chooser.
+        if(!this.isSelected && !force)
+            return;
+
+        //clear out the video as only one can be set at a time.
+        this.video = null;
+        this.style.backgroundColor = null;
+        this.image = image;
+        this.style.backgroundImage = `url('${this.image.medResLink}')`;
+        this.style.backgroundRepeat = `no-repeat`;
+        this.style.backgroundSize = 'cover';
+
     }
 }
