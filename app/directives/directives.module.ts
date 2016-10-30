@@ -13,7 +13,7 @@ import { NgSemanticModule } from 'ng-semantic';
 import { DesignerDroppable }  from '../directives/designer-droppable.directive';
 import { DesignerDraggable }  from '../directives/designer-draggable.directive';
 import { Resize }  from '../directives/resize.directive';
-import { WidgetTemplateFactory } from '../directives/widget-template-factory.directive';
+import { WidgetTemplateFactory } from './widget-template-factory.directive';
 import {ColorPickerDirective, ColorPickerService} from 'angular2-color-picker';
 
 @NgModule({
