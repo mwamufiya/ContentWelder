@@ -220,4 +220,14 @@ export class DesignerComponent implements OnInit{
 
         this.widgetService.save('jsonserver', saveJson);
     }
+
+    /**
+     * @function
+     * Add a new page to PageList
+     */
+    addPage():void{
+        this.pageList.push({
+            widgetType: "pagewidget"
+        });
+    }
 }

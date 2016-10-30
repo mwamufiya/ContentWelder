@@ -1,6 +1,3 @@
-.nobackground{
-    background:#EFEFEF;
-}
 * {
   -webkit-user-select: none;  /* Chrome all / Safari all */
   -moz-user-select: none;     /* Firefox all */
@@ -70,6 +67,18 @@
     font-size:.7rem;
     padding:.25em;
 }
-.devSave{
-
+.secondaryMenu{
+    list-style-type: none;
+    padding:0;
+    margin:0;
+    text-align: center;
+    font-size:.85rem;
+}
+.secondaryMenu li{
+    display:inline;
+    cursor:pointer;
+    padding:.5rem 1rem;
+}
+.secondaryMenu li:hover{
+    border-bottom:2px solid #CCC;
 }

@@ -18,13 +18,17 @@
         </div>
     </modal-actions>
 </sm-modal>
-<div class="designer" [class.nobackground]="!video && !image">
+<div class="designer">
     <div class="mainVenu">
         <!-- Disable the page navigation fow now. it may be re-activated once it's functioning' -->
         <!--<div class="pageNav">adfadf</div>-->
         <designer-tools (changeBkgEmitter)="changeBackground($event)"></designer-tools>
+        <ul class="secondaryMenu">
+            <li (click)="saveConfig()"><i class="cloud upload icon"></i> Save</li>
+            <li (click)="addPage()"><i class="add circle icon"></i> Page</li>
+        </ul>
          <div class="pasteboard" *ngFor="let page of pageList; let i = index;">
-            <sm-button class="ui mini fluid positive" (click)="saveConfig()" icon="cloud upload icon">Save</sm-button>
+
             <template #container></template>
             <designer-page designerDroppable [widgetConfig]="page"></designer-page>
         </div>
