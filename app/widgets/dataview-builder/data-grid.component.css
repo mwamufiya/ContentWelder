@@ -2,6 +2,7 @@
     width:100%;
     font-size: .85rem;
     border-radius: 5px;
+    color:inherit;
 }
 thead{
     border-bottom:2px solid #CCC;
