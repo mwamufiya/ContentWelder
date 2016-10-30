@@ -2,6 +2,24 @@
      resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)" [ngStyle]="style">
     <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
     <ul *ngIf="isSelected" class="widgetMenu">
+        <li title="Font">
+            <sm-select (onChange)="setStyleProperty('fontFamily', $event)" placeholder="Font..." class=" search">
+                <option *ngFor="let item of fontList" value="{{item.value}}">{{item.label}}</option>
+            </sm-select>
+        </li>
+        <li title="Adjust Font Size">
+            <sm-select (onChange)="setStyleProperty('fontSize', $event)" placeholder="Size..." class="fluid search">
+                <option *ngFor="let item of fontSizeList">{{item}}</option>
+            </sm-select>
+        </li>
+        <li title="Text Color" class="colorPicker">
+            <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('color', $event)"
+                   [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [style.background]="color"/>
+        </li>
+        <li title="Background Color" class="colorPicker">
+            <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('backgroundColor', $event)"
+                   [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+        </li>
         <li>
             <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
         </li>
