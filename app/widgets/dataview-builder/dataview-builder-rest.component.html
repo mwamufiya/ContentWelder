@@ -1,35 +1,51 @@
-<form (ngSubmit)="previewData()" #restForm="ngForm">
-    <div>
-        <label>Method</label>
-        <select [(ngModel)]="httpMethod" name="httpMethod" required>
-            <option *ngFor="let item of supportedRestMethods()" value="{{item}}">{{item | uppercase}}</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>URL:Port</label><input [(ngModel)]="host" name="host" type="text" placeholder="URL" required/>
-    </div>
-    <div class="form-group">
-        <label>Path</label>
-        <input [(ngModel)]="path" name="path" type="text" placeholder="users, contacts, images..."/>
-        <div>{{host}}<span *ngIf="path">/{{path}}</span></div>
-    </div>
-    <div class="form-group">
-        <h3>Headers <i class="add circle icon" (click)="addHeader()"></i></h3>
-
-        <div class="headerList" *ngFor="let header of headers; let i = index;">
-            <input type="text" placeholder="Header Name" value="{{header.headerName}}" required
-                   [(ngModel)]="header.headerName" name="{{'headerName'+i}}"/>
-            <input type="text" placeholder="Header Value" value="{{header.headerValue}}"
-                   [(ngModel)]="header.headerValue" name="{{'headerValue'+i}}"/>
+<div class="dataviewBuilder-rest">
+    <form (ngSubmit)="previewData()" #restForm="ngForm">
+        <div class="hostDetails">
+            <div class="form-group">
+                <select [(ngModel)]="httpMethod" name="httpMethod" required>
+                    <option *ngFor="let item of supportedRestMethods()" value="{{item}}">{{item | uppercase}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>URL</label>
+                <input [(ngModel)]="host" name="host" type="text" placeholder="URL:Port" required/>
+            </div>
+            <div class="form-group">
+                <label>Path</label>
+                <input [(ngModel)]="path" name="path" type="text" placeholder="users, contacts, images..."/>
+            </div>
         </div>
+        <div>{{host}}<span *ngIf="path">/{{path}}</span></div>
+
+        <ul class="tabList">
+            <li (click)="setListContext('headers')" [class.selectedTab]="listInputContext=='headers'">Headers</li>
+            <li (click)="setListContext('params')" [class.selectedTab]="listInputContext=='params'">Params</li>
+        </ul>
+        <div *ngIf="listInputContext=='headers'">
+            <label (click)="addHeader()"><i class="add circle icon"></i>Add</label>
+
+            <div class="headerList" *ngFor="let header of headers; let i = index;">
+               <i class="remove icon" (click)="removeHeader(i)"></i> <input type="text" placeholder="Header Name" value="{{header.name}}"
+                       [(ngModel)]="header.name" name="{{'headerNname'+i}}"/>
+                <input type="text" placeholder="Header Value" value="{{header.value}}"
+                       [(ngModel)]="header.value" name="{{'headerValue'+i}}"/>
+            </div>
+        </div>
+        <div *ngIf="listInputContext=='params'">
+            <label (click)="addParams()"><i class="add circle icon" ></i>Add</label>
+            <div class="headerList" *ngFor="let item of params; let i = index;">
+                <i class="remove icon" (click)="removeParams(i)"></i> <input type="text" placeholder="Header Name" value="{{item.name}}"
+                       [(ngModel)]="item.name" name="{{'paramName'+i}}"/>
+                <input type="text" placeholder="Header Value" value="{{item.value}}"
+                       [(ngModel)]="item.value" name="{{'paramValue'+i}}"/>
+            </div>
+        </div>
+        <button type="submit" class="ui mini primary button" (click)="previewData()" [disabled]="!restForm.form.valid">Preview</button>
+
+    </form>
+    <div *ngIf="loadingData">
+        <div class="loadingMsg"></div>
     </div>
-    <button type="submit" class="ui mini primary button" (click)="previewData()" [disabled]="!restForm.form.valid">Preview</button>
 
-</form>
-<div>
-    <label class="loadingMsg">loading</label>
-</div>
-<div class="preview" *ngIf="prvData">
-
-{{prvData | json}}
+    <data-grid *ngIf="prvData" [data]="prvData"></data-grid>
 </div>

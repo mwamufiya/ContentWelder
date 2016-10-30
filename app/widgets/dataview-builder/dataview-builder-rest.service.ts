@@ -7,18 +7,26 @@ import { RestDataViewBuilder_I } from './dataview-builder-rest.component';
 export class RestDataViewBuilerService implements DataViewBuilderService_I{
     constructor(private http: Http){}
 
-    fetch(builderConfig: BuilderConfig):Promise<JSON>{
+    fetch(config: RestDataViewBuilder_I):Promise<JSON> {
         //map to the correct format for typings
-        let config = builderConfig as RestDataViewBuilder_I;
+        //let config = builderConfig as RestDataViewBuilder_I;
 
         //process any headers
-        let headers = new Headers ();
-        if(config.headers) {
+        let headers = new Headers();
+        if (config.headers) {
             config.headers.forEach(header => {
-                headers.append(header.headerName, header.headerValue)
+                headers.append(header.name, header.value)
             });
-        }else{
+        } else {
             headers.append('Content-Type', 'application/json');
+        }
+
+        //Process any parameters
+        let prms = new URLSearchParams();
+        if(config.params && config.params.length){
+            config.params.forEach(param => {
+                prms.set(param.name, param.value);
+            });
         }
 
         let url = config.host + (config.path? `/${config.path}` : ``);
@@ -26,7 +34,8 @@ export class RestDataViewBuilerService implements DataViewBuilderService_I{
         let options = new RequestOptions({
            method: config.httpMethod,
             url: url,
-            headers: headers
+            headers: headers,
+            search: prms
         });
 
         return this.http.request(new Request(options))

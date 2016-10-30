@@ -13,7 +13,7 @@ import { NgSemanticModule } from 'ng-semantic';
 import { RestDataViewBuilder } from './dataview-builder-rest.component';
 import { DataViewBuilder } from './dataview-builder.component';
 import { DataViewBuilderService } from './dataview-builder.services';
-
+import { DataGrid } from './data-grid.component';
 
 @NgModule({
     imports:[
@@ -25,11 +25,14 @@ import { DataViewBuilderService } from './dataview-builder.services';
     ],
     declarations: [
         DataViewBuilder,
-        RestDataViewBuilder
+        RestDataViewBuilder,
+        DataGrid
     ],
     exports: [
         DataViewBuilder,
-        RestDataViewBuilder
+        RestDataViewBuilder,
+        DataGrid
+
     ],
     providers: [
         DataViewBuilderService

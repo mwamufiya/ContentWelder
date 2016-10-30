@@ -1,0 +1,30 @@
+:host{
+    padding:1em;
+}
+.dataProviderList{
+    padding:.5em;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.dataProviderList > div{
+    border:1px solid #CCC;
+    border-radius: 5px;
+    padding:.5em;
+    cursor:pointer;
+    margin:0 .5rem .5rem 0;
+}
+.dataProviderList > div:last-child{
+    margin-right:0;
+}
+h1{
+    font-size:1.2rem;
+}
+.dataProviderList label{
+    font-weight: bold;
+    font-size:1.1rem;
+}
+.description{
+    font-size: .85rem;
+    color:#607D8B;
+}

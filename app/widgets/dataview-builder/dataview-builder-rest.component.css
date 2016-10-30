@@ -1,3 +1,16 @@
+.dataviewBuilder-rest{
+    padding:.5em 1em;
+}
+.hostDetails{
+    display:flex;
+    flex-wrap: wrap;
+}
+.hostDetails .form-group{
+    margin:.5rem;
+}
+.hostDetails label{
+    display:inline;
+}
 .headerList{
     display:flex;
     flex-direction: row;
@@ -24,12 +37,35 @@ i{
 
 .loadingMsg{
     border-radius: 5px;
+    position:relative;
     color:white;
     background:#039be5;
-    animation: loading 5s infinite;
+    animation: loadingMove 5s infinite;
     animation-timing-function: ease;
+    border-bottom: 2px dotted #CCC;
 }
-@keyframes loading{
-    from {left: 0px;}
-    to {left: 100%;}
+@keyframes loadingMove{
+    0% {left: 0%; width:0%;}
+    25% {left:100%; width:50%}
+    50% {left: 100%; width:0%}
+    75% {left: 0%; width:50%;}
+    100% { left: 0%; width:0%;}
+}
+
+.tabList{
+    list-style-type: none;
+    margin:.5em 0;
+    padding:0;
+}
+.tabList li{
+    border-radius: 5px 5px 0 0;
+    border:1px solid #CCC;
+    border-bottom:0;
+    display:inline-block;
+    padding:.5rem;
+    cursor:pointer;
+}
+.selectedTab{
+    color:white;
+    background:#369;
 }
