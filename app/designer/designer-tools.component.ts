@@ -5,9 +5,10 @@ import { Subscription } from 'rxjs/Subscription';
 import {MAIN_MENU } from '../services/tools-menu.service'
 
 @Component({
+  moduleId: module.id,
   selector: 'designer-tools',
-  templateUrl: './app/designer/designer-tools.component.html',
-  styleUrls: ['./app/designer/designer-tools.component.css'],
+  templateUrl: 'designer-tools.component.html',
+  styleUrls: ['designer-tools.component.css'],
   outputs: ['changeBkgEmitter']
 })
 export class DesignerToolsComponent implements OnInit{

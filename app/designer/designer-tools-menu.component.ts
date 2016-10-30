@@ -5,9 +5,10 @@ import { WidgetConfig } from '../widgets/widget.interface';
 import { Parent } from '../widgets/parent';
 
 @Component({
+    moduleId: module.id,
   selector: 'designer-tools-menu',
-  templateUrl: './app/designer/designer-tools-menu.component.html',
-  styleUrls: ['./app/designer/designer-tools-menu.component.css'],
+  templateUrl: 'designer-tools-menu.component.html',
+  styleUrls: ['designer-tools-menu.component.css'],
   inputs: ['configJson','isRoot'],
   providers: [
       {

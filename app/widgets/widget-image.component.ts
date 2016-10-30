@@ -5,11 +5,12 @@ import { Image } from './image';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Parent } from './parent';
-import { WidgetJson, WidgetConfig } from './widget.interface';
+import {  WidgetConfig } from './widget.interface';
 
 @Component({
+    moduleId: module.id,
     selector: 'designer-ImageWidget',
-    templateUrl: './app/widgets/widget-image.component.html',
+    templateUrl: 'widget-image.component.html',
     inputs: ['widgetConfig'],
     styles:[`
     :host{

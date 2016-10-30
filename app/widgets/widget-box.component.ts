@@ -7,8 +7,9 @@ import { WidgetFactory} from './widget-factory';
 import { WidgetDrop, WidgetConfig} from './widget.interface';
 
 @Component({
+    moduleId: module.id,
   selector: 'designer-BoxWidget',
-  templateUrl: './app/widgets/widget-box.component.html',
+  templateUrl: 'widget-box.component.html',
     inputs: ['widgetConfig'],
   styles:[`
     .emptyContainer{

@@ -15,9 +15,10 @@ import { TextboxWidget } from './widget-textbox.component';
 import { FormWidget } from './widget-form.component';
 
 @Component({
+    moduleId: module.id,
   selector: 'designer-page',
-  templateUrl: './app/widgets/widget-page.component.html',
-  styleUrls: ['./app/widgets/widget-page.component.css'],
+  templateUrl: 'widget-page.component.html',
+  styleUrls: ['widget-page.component.css'],
     inputs: ['widgetConfig'],
   entryComponents:[ImageWidget, VideoWidget, BoxWidget, TextboxWidget, FormWidget],
   providers: [

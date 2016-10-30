@@ -11,9 +11,10 @@ import { Parent } from './parent';
 import { WidgetConfig } from './widget.interface';
 
 @Component({
+    moduleId: module.id,
   selector: 'designer-form',
-  templateUrl: './app/widgets/widget-form.component.html',
-  styleUrls: ['./app/widgets/widget-form.component.css'],
+  templateUrl: 'widget-form.component.html',
+  styleUrls: ['widget-form.component.css'],
     inputs: ['widgetConfig'],
   providers: [
       {

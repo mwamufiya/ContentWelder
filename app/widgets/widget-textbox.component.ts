@@ -6,8 +6,9 @@ import { Parent } from './parent';
 import { WidgetConfig } from './widget.interface';
 
 @Component({
+    moduleId: module.id,
   selector: 'designer-TextboxWidget',
-  templateUrl: './app/widgets/widget-textbox.component.html',
+  templateUrl: 'widget-textbox.component.html',
     inputs: ['widgetConfig'],
   styles:[`
     :host{

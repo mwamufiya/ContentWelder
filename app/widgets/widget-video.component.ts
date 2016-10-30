@@ -7,8 +7,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { WidgetConfig } from './widget.interface';
 
 @Component({
+    moduleId: module.id,
   selector: 'designer-videoWidget',
-  templateUrl: './app/widgets/widget-video.component.html',
+  templateUrl: 'widget-video.component.html',
     inputs: ['widgetConfig'],
   styles:[`
     :host{
@@ -18,7 +19,8 @@ import { WidgetConfig } from './widget.interface';
         width:100%;
     }
     .emptyContainer{
-        width:140px;
+        min-width: 10%;
+        min-height:5%;
     }
   `]
 })
