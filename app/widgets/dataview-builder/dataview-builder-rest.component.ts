@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef, OnInit,
-    ViewChild, forwardRef, HostListener, OnDestroy } from '@angular/core';
+    EventEmitter, Output } from '@angular/core';
 
 import { DataViewBuilder_I, BuilderConfig } from './dataview-builder.interface';
 import { DataViewBuilderService } from './dataview-builder.services';
@@ -21,7 +21,8 @@ export interface RestDataViewBuilder_I extends BuilderConfig{
     selector: 'dataviewbuilder-rest',
     templateUrl: 'dataview-builder-rest.component.html',
     styleUrls: ['dataview-builder-rest.component.css'],
-    inputs: ['builderConfig']
+    inputs: ['builderConfig'],
+    outputs:['dataViewFinished']
 })
 
 export class RestDataViewBuilder implements DataViewBuilder_I, RestDataViewBuilder_I, OnInit{
@@ -33,6 +34,7 @@ export class RestDataViewBuilder implements DataViewBuilder_I, RestDataViewBuild
     defaultHttpMethod:string = 'get';
     host:string;
     path:string;
+    dataViewFinished:EventEmitter<any> = new EventEmitter();
     headers:Array<{name:string, value:string}> = new Array<{name:string,value:string}>();
     params: Array<{name:string,value:string}> = new Array<{name:string,value:string}>();
     loadingData:boolean = false;
@@ -150,18 +152,22 @@ export class RestDataViewBuilder implements DataViewBuilder_I, RestDataViewBuild
         this.loadingData = true;
         this.prvData = null;
         //let json = this.toJson();
-        this.dataService.fetch('rest', this.toJson())
+        this.dataService.fetch(this.toJson())
             .then( json => {
-                this.displayPreview(json);
+                this.loadingData = false;
+                this.prvData = json;
             })
             .catch( response => {
                 //TODO handle error
             });
     }
 
-    displayPreview(json:JSON){
-        this.loadingData = false;
-        this.prvData = json;
+    /**
+     * @function
+     * @description Emits the 'done' event with the current BuilderConfig so that calling components can take action
+     */
+    closeBuilder(){
+        this.dataViewFinished.emit(this.toJson());
     }
 
     /**

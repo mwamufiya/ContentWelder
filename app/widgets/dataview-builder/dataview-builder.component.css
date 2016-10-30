@@ -14,17 +14,22 @@
     cursor:pointer;
     margin:0 .5rem .5rem 0;
 }
+.dataProviderList > div:hover{
+    border-color:#369;
+}
 .dataProviderList > div:last-child{
     margin-right:0;
 }
 h1{
-    font-size:1.2rem;
+    font-size:.9rem;
+    margin:0;
+    padding:.5rem;
 }
 .dataProviderList label{
     font-weight: bold;
-    font-size:1.1rem;
+    font-size:.9rem;
 }
 .description{
-    font-size: .85rem;
+    font-size: .8rem;
     color:#607D8B;
 }

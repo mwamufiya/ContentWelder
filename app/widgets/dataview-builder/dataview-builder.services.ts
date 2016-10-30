@@ -17,10 +17,10 @@ export class DataViewBuilderService{
      * @returns {WidgetServiceInterface}
      * @desc response for getting the widget service based on the requested source
      */
-    serviceFactory(source:string):DataViewBuilderService_I{
+    serviceFactory(config:BuilderConfig):DataViewBuilderService_I{
         let tgtServ: DataViewBuilderService_I;
 
-        switch(source){
+        switch(config.builderType){
             case 'rest':
                 tgtServ = new RestDataViewBuilerService (this.http);
                 break;
@@ -38,8 +38,8 @@ export class DataViewBuilderService{
      * @param { String } source - the source/server to retrieve the data from
      * @param { '{}' } params - parameters to search against
      */
-    fetch(source: string, params: BuilderConfig):Promise<JSON>{
-        return this.serviceFactory(source).fetch(params);
+    fetch(config: BuilderConfig):Promise<JSON>{
+        return this.serviceFactory(config).fetch(config);
     }
 
 }

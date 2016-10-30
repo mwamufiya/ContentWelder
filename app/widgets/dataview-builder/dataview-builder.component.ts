@@ -2,10 +2,9 @@
  * Created by mwamu on 10/28/2016.
  */
 import { Component, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef,
-    ViewChild, OnInit, forwardRef, HostListener, OnDestroy } from '@angular/core';
+    ViewChild, OnInit, EventEmitter} from '@angular/core';
 
 import { BuilderConfig, DataViewBuilder_I } from './dataview-builder.interface';
-import { RestDataViewBuilder } from './dataview-builder-rest.component';
 
 @Component({
     moduleId: module.id,
@@ -13,7 +12,7 @@ import { RestDataViewBuilder } from './dataview-builder-rest.component';
     templateUrl: 'dataview-builder.component.html',
     styleUrls: ['dataview-builder.component.css'],
     inputs: ['builderConfig'],
-    entryComponents: [RestDataViewBuilder]
+    outputs:['dataViewFinished']
 })
 
 export class DataViewBuilder implements  DataViewBuilder_I, OnInit{
@@ -22,6 +21,7 @@ export class DataViewBuilder implements  DataViewBuilder_I, OnInit{
     builderConfig: BuilderConfig;
     dataProviders:Array<any>;
     dataProvider:string;
+    dataViewFinished:EventEmitter<any> = new EventEmitter();
 
     constructor(
         private componentFactoryResolver:ComponentFactoryResolver,
@@ -107,6 +107,14 @@ export class DataViewBuilder implements  DataViewBuilder_I, OnInit{
                 desc: `Leverage your salesforce account`
             }
         ];
+    }
+
+    /**
+     * @function
+     * @description Bubble up the data view finish output
+     */
+    closeBuilder(config: BuilderConfig){
+        this.dataViewFinished.emit(config);
     }
 
 }

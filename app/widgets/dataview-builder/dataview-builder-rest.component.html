@@ -41,7 +41,7 @@
             </div>
         </div>
         <button type="submit" class="ui mini primary button" (click)="previewData()" [disabled]="!restForm.form.valid">Preview</button>
-
+        <button type="submit" class="ui mini primary button" (click)="closeBuilder()" [disabled]="!restForm.form.valid">Finished</button>
     </form>
     <div *ngIf="loadingData">
         <div class="loadingMsg"></div>

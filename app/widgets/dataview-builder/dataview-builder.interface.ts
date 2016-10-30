@@ -1,7 +1,9 @@
+import { EventEmitter } from '@angular/core';
 import Builder = webdriver.Builder;
 export interface BuilderConfig{
     builderType: string;
     settings?:{};
+    dataViewFinished?:EventEmitter<any>;
     name?:string;
     desc?:string;
 }

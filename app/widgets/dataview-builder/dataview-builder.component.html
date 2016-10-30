@@ -1,5 +1,5 @@
 <div *ngIf="!dataProvider" class="providerSelection">
-    <h1>Choose a Data Provider</h1>
+    <h1>Choose data provider</h1>
     <div class="dataProviderList">
         <div *ngFor="let item of dataProviders" (click)="setProvider(item.name)">
             <i class="{{item.icon}}" *ngIf="item.icon"></i>
@@ -10,6 +10,5 @@
 </div>
 <div class="dataProvider" [ngSwitch]="dataProvider">
     <!-- REST Data view Configuration -->
-    <dataviewbuilder-rest *ngSwitchCase="'rest'"></dataviewbuilder-rest>
-
+    <dataviewbuilder-rest (dataViewFinished)="closeBuilder($event)" *ngSwitchCase="'rest'"></dataviewbuilder-rest>
 </div>
