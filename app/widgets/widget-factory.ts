@@ -7,6 +7,7 @@ import { TextboxWidget } from './widget-textbox.component';
 import { PageWidget  } from './widget-page.component';
 import { FormWidget  } from './widget-form.component';
 import { WidgetConfig} from './widget.interface';
+import { DataviewWidget } from './widget-dataview.component';
 import { DesignerToolsMenu} from '../designer/designer-tools-menu.component';
 
 export class WidgetFactory{
@@ -116,7 +117,8 @@ export class WidgetFactory{
             boxwidget: BoxWidget,
             textboxwidget: TextboxWidget,
             pagewidget: PageWidget,
-            formwidget: FormWidget
+            formwidget: FormWidget,
+            dataviewwidget: DataviewWidget
         };
     }
 

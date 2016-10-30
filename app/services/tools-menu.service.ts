@@ -150,16 +150,16 @@ export const MAIN_MENU = [
         {
             "value":"datasource",
             "label":"Data",
-            "isActive": false,
+            "isActive": true,
             "children":[
                 {
-                    "value":"internaldata",
-                    "label": "Internal",
-                    "title": "Internal",
-                    "isActive": false,
+                    "value":"REST",
+                    "label": "REST",
+                    "title": "Rest",
+                    "isActive": true,
                     "draggable": true,
                     "widgetConfig":{
-                        "widgetType": "internaldatasource"
+                        "widgetType": "dataviewwidget"
                     }
                 },
                                 {
