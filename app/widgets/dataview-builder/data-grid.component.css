@@ -1,0 +1,23 @@
+.data-grid{
+    width:100%;
+    font-size: .85rem;
+    border-radius: 5px;
+}
+thead{
+    border-bottom:2px solid #CCC;
+    font-weight:bold;
+}
+th, td{
+    padding:.5rem 1rem;
+}
+tr{
+    border-bottom: 1px solid #EFEFEF;
+}
+tr:last-child{
+    border-bottom:0;
+}
+
+
+.number{
+    text-align: center;
+}

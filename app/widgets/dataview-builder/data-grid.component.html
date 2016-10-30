@@ -1,0 +1,16 @@
+<table cellspacing="0" cellpadding="0" class="data-grid">
+    <thead>
+        <th *ngFor="let item of rowList[0]; let i=index;">{{item.key}}<i *ngIf="item.type!='array'" (click)="toggleSort(i, item.key)" class="sort descending icon"></i> </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cols of rowList">
+            <td *ngFor="let item of cols" [class.number]="item.type=='number'">
+                <span [ngSwitch]="item.type">
+                    <!-- REST Data view Configuration -->
+                    <span *ngSwitchCase="'array'"></span>
+                    <span *ngSwitchDefault>{{item.value}} </span>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</table>
