@@ -15,61 +15,67 @@ import { WidgetFactory} from '../widgets/widget-factory';
     outputs: ['widgetAdded']
 })
 
-export class DesignerDroppable extends MakeDroppable{
+export class DesignerDroppable{
     //childModified = new EventEmitter();
     defaultDragOverColor:string = 'yellow';
-    el: null;
     draggOverHelper: Node;          //Dom element displayed when something is dragged over
     prvDraggedOverEl: Element;       //Previously draged over element
     prvInsertionPoint: boolean;      //insert item before or after item being dragged over
     widgetAdded: EventEmitter<WidgetDrop> = new EventEmitter<WidgetDrop>();
     reqInsertionPoint: number;
     parentComp: Widget;
+    prvBkgColor:string;  //store the previous background color
+    isElligable:boolean;
+    prvDraggedEl:ElementRef;
+    
 
     constructor(
-        el: ElementRef,
+        private el: ElementRef,
         private viewContainer: ViewContainerRef,
         private componentFactoryResolver: ComponentFactoryResolver,
         private designerGlobals: DesignerGlobalsService,
         parentComponent: Parent
         ){
-        super(el);
         this.parentComp = parentComponent as Widget;
     }
 
-    @HostListener('dragover', ['$event']) ondragover(event){
+    /**
+     * @function 
+     * @param {Event} event - DOM Event
+     * @description handles items being dragged over
+     */
+    @HostListener('dragover', ['$event']) ondragover(event: Event):boolean{
         event.stopPropagation();
-        if(!this.isEligible(event))
-            return false;
 
-        if(!this.prvBkgColor)
-            this.prvBkgColor = this.parentComp.style.backgroundColor;
+        //if the item being dragged is the same as a previous one, we do nothing
+        let draggedEl = this.designerGlobals.getDraggedObjectPath()[0];
 
-        this.parentComp.setStyleProperty('backgroundColor', this.defaultDragOverColor);//.style.backgroundColor = "yellow";
+        if(this.prvDraggedEl !== draggedEl){
+             this.isEligible(event);
+             this.setBackgroundColor();
+        }
+        
         this.addDragOverHelper(event);
 
         //Return false to prevent event propogation
         return false;
     }
-    @HostListener('dragleave', ['$event']) ondragleave(event){
+    @HostListener('dragleave', ['$event']) ondragleave(event:Event):boolean{
         event.stopPropagation();
         this.restoreBackgroundColor();
         this.removeDragOverHelper();
         return false;
     }
-    @HostListener('drop', ['$event']) onDrop(event){
+    @HostListener('drop', ['$event']) onDrop(event: Event):boolean{
         event.stopPropagation();
         //get the widget's current background color;
         this.restoreBackgroundColor();
         
         //Only add an child if a it meets our elligability rules
-        if(this.isEligible(event))
+        if(this.isEligible)
             this.addWidget(event, this.designerGlobals.getDraggedItems());
 
         this.removeDragOverHelper();
-
-        //Clear out dragged item to avoid any downstream conflicts
-        //this.designerGlobals.setDraggeditems(null);
 
         //Return false to prevent event propogation
         return false;
@@ -83,15 +89,23 @@ export class DesignerDroppable extends MakeDroppable{
             items: items           
         });
     }
-    getEl():ElementRef{
-        return super.getEl();
-    }
+    
     isEligible(event){
         let isValid = true;
         //Do not allow an item to be dropped on itself to increase add a new child
         let draggedEventPath = this.designerGlobals.getDraggedObjectPath();
+
         if(draggedEventPath[0]===event.path[0])
             isValid = false;
+
+        //becaue drag over fires continuously, in order to save on performance,
+        //we cache the previous dragged item.
+        //If the previous dragged item is the same as the current one being dragged, simply return the current 'isValid' value.
+        
+        if(this.prvDraggedEl === draggedEventPath[0])
+            return this.isEligible;
+        else
+            this.prvDraggedEl = draggedEventPath[0];
 
         //Do not allow a parent to be dragged into child elements
         if(event.path.length > draggedEventPath.length){
@@ -111,13 +125,15 @@ export class DesignerDroppable extends MakeDroppable{
                 }
             }
         }
-        return isValid;
+        this.isElligable = isValid;
+        
+        return this.isEligible;
     }
     //Helper method to display a helper dom element when something is being dragged over.
     addDragOverHelper(event){
         //do nothing if we're already displaying an item
 
-        let dropContEl = super.getEl().nativeElement;
+        let dropContEl = this.el.nativeElement;
 
         let draggedOverEl = document.elementFromPoint(event.clientX, event.clientY);
 
@@ -142,7 +158,6 @@ export class DesignerDroppable extends MakeDroppable{
             this.prvInsertionPoint = insertAfter;
             this.prvDraggedOverEl = draggedOverEl;
         }
-        console.log(`-------------------`);
 
         //Get the dragged item from injection
         let draggedItem = this.designerGlobals.getDraggedItems()[0];
@@ -183,7 +198,7 @@ export class DesignerDroppable extends MakeDroppable{
      * @description returns list of immediate child nodes from this Drop Directive. also returns the index of the parent item in which INPUT.el belongs to
      */
     getContChildren(el: Node): {nodeList: Array<Node>, index: number}{
-        let root = super.getEl().nativeElement;
+        let root = this.el.nativeElement;
 
         let e = el;
         let prvE: Node;
@@ -250,6 +265,10 @@ export class DesignerDroppable extends MakeDroppable{
         return insertAfter;
     }
 
+    setBackgroundColor():void{
+        this.prvBkgColor = this.parentComp.style.backgroundColor;
+        this.parentComp.setStyleProperty('backgroundColor', this.defaultDragOverColor);
+    }
     /**
      * @function
      * @description Restores the background color to what it was prior to the drag over
