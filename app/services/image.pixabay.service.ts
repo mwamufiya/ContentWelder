@@ -17,6 +17,7 @@ export class PixabayImageSearchService implements ImageSearchServiceInterface{
         params.set('key', this.API_KEY);
         params.set('q', this.searchTerm.replace(/ /g,"+"));
 
+
         return params;
     }
 
@@ -50,7 +51,8 @@ export class PixabayImageSearchService implements ImageSearchServiceInterface{
                     favorites: item.favorites,
                     likes: item.likes,
                     lowResLink: item.previewURL,
-                    medResLink: item.webformatURL
+                    medResLink: item.webformatURL,
+                    highResLink: item.fullHDURL? item.fullHDURL : item.largeImageURL
                 };
                 let img = new Image(item.link, 'pixabay', jsonConfig);
 

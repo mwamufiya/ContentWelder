@@ -36,6 +36,7 @@ export class Image{
          if(json.favorites) this.favorites = json.favorites;
          if(json.likes) this.likes = json.likes;
          if(json.tags) this.tags = json.tags;
+         if(json.highResLink) this.highResLink = json.highResLink;
      }
 
 }
