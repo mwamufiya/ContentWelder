@@ -61,6 +61,7 @@ export class TextboxWidget extends Widget implements OnDestroy{
     }
     /**
      * @function
+     * @returns {WidgetConfig}
      * @desc returns a JSON representation of the current Widget Object
      */
     toJson():WidgetConfig{
@@ -75,7 +76,8 @@ export class TextboxWidget extends Widget implements OnDestroy{
 
     /**
      * @function
-     * @desc handles processing of widget config
+     * @param {WidgetConfig} config - JSON WidgetConfig to be processed
+     * @description handles processing of widget config
      */
     parseWidgetConfig(config?: WidgetConfig){
         //Allows configuration to be set outside of OnInit.
