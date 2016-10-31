@@ -1,12 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
-import { HttpModule, XHRBackend } from '@angular/http';
-
-/**********Routing***************/
+import { HttpModule } from '@angular/http';
 
 /************3rd party*********** */
-//import { ModalModule } from 'ng2-bootstrap/components/modal';
 import { NgSemanticModule } from 'ng-semantic';
 
 /**************Module Specific**********************/
