@@ -1,6 +1,6 @@
 {
   "name": "ContentWelder",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "docker-build": "docker build -t ng2-quickstart .",
@@ -60,6 +60,9 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "^4.0.9",
     "rimraf": "^2.5.4",
+
+    "@angular/compiler-cli": "",
+    "@angular/platform-server": "",
 
     "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.45",
