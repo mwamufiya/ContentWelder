@@ -16,6 +16,7 @@
 
 .widgetMenu{
     top:inherit;
+    z-index:1;
 }
 
 video#pageVideo {
