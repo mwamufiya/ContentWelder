@@ -36,7 +36,6 @@ export class ImageChooser implements OnInit{
   ngOnInit(){
     this.searchType = this.searchType? this.searchType: 'image';
     this.mediaSource = 'pixabay';
-    this.performSearch();
   }
   //Set list of asset-chooser sources
   getImageSources():void{
