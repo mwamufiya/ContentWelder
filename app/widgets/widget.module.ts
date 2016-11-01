@@ -7,8 +7,8 @@ import { HttpModule, XHRBackend } from '@angular/http';
 /**********Routing***************/
 
 /************3rd party*********** */
-//import { ModalModule } from 'ng2-bootstrap/components/modal';
-import { NgSemanticModule } from 'ng-semantic';
+import { MaterialModule, MdIconRegistry} from '@angular/material';
+import { Ng2BootstrapModule } from 'ng2-bootstrap';
 
 /**********Widget************** */
 import { Widget } from '../widgets/widget.component';
@@ -32,6 +32,7 @@ import { DataviewBuilderModule } from './dataview-builder/dataview-builder.modul
 /*************Directives***********/
 import { CwDirectiveModule } from '../directives/directives.module';
 import { BorderSelection}  from './border-selection.component';
+import { TextStyleSelection } from './textstyle-selection.component';
 
 /***************Routing**********************/
 import { WidgetRoutingModule }  from './widget-routing.module';
@@ -49,10 +50,11 @@ import { FONTLIST } from '../services/fonts.service';
         FormsModule,
         HttpModule,
         ReactiveFormsModule,
-        NgSemanticModule,
+        MaterialModule,
         CwDirectiveModule,
         WidgetRoutingModule,
-        DataviewBuilderModule
+        DataviewBuilderModule,
+        Ng2BootstrapModule
     ],
     declarations: [
         Widget,
@@ -66,7 +68,8 @@ import { FONTLIST } from '../services/fonts.service';
         DynamicFormComponent,
         DynamicFormQuestionComponent,
         BorderSelection,
-        DataviewWidget
+        DataviewWidget,
+        TextStyleSelection
     ],
     exports: [
         Widget,
@@ -77,11 +80,13 @@ import { FONTLIST } from '../services/fonts.service';
         TextboxWidget,
         FormWidget,
         BorderSelection,
-        DataviewWidget
+        DataviewWidget,
+        TextStyleSelection
     ],
     providers: [
         QuestionService,
-        WidgetService
+        WidgetService,
+        MdIconRegistry
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

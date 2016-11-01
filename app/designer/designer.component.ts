@@ -3,7 +3,7 @@ import {
     QueryList
 } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { SemanticModalComponent } from 'ng-semantic';
+import { MediaChooser } from '../asset-chooser/media-chooser.component';
 import { Subscription } from 'rxjs/Subscription';
 import { Image } from '../widgets/image';
 import { Video} from '../widgets/video';
@@ -20,9 +20,8 @@ import {Widget} from "../widgets/widget.component";
   styleUrls: ['./app/designer/designer.component.css']
 })
 export class DesignerComponent implements OnInit{
-    @ViewChild('videoChooser', {read: SemanticModalComponent}) videoChooser: SemanticModalComponent;
-    @ViewChild('imageChooser', {read: SemanticModalComponent}) imageChooser: SemanticModalComponent;
-    @ViewChild(PageWidget) private stageComponent: PageWidget;
+    @ViewChild('videoChooser') videoChooser: MediaChooser;
+    @ViewChild('imageChooser') imageChooser: MediaChooser;
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
     @ViewChildren (PageWidget) viewChildren: QueryList<PageWidget>;
     private mediaChooserSubscription: Subscription;
@@ -33,6 +32,7 @@ export class DesignerComponent implements OnInit{
     id: number;                 //ID of the top level widget currently being worked on.
     name: String;               //Name of the current widget;
     pageList:Array<WidgetConfig>;
+    mediaChooser:string;
 
 
     /**
@@ -83,11 +83,21 @@ export class DesignerComponent implements OnInit{
     mediaChooserInit():void{
       this.mediaChooserSubscription = this.designerGlobals.getMediaChooserObservable().subscribe(
           mediaType => {
-              if(mediaType=='image') this.imageChooser.show();
-              else this.videoChooser.show();
+              this.displayMediaChooser(mediaType);
             },
           err => console.log(`Designer.component.ts: Failure in openeing a Media Chooser`)
         );
+    }
+
+    displayMediaChooser(mediaType:string){
+        this.mediaChooser = mediaType;
+        if(mediaType=='image'){
+            this.videoChooser.hide();
+            this.imageChooser.show();
+        }else{
+            this.imageChooser.hide();
+            this.videoChooser.show();
+        }
     }
 
     /**
@@ -99,7 +109,6 @@ export class DesignerComponent implements OnInit{
       this.designerGlobals.setSelectedComponent(this);
       this.isSelected = true;
 
-      this.stageComponent.setBackgroundColor();
       let changeType = json.changeType;
       if(changeType=='video')
         this.videoChooser.show();

@@ -3,7 +3,7 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 
 import { ModalModule } from 'ng2-bootstrap/components/modal';
-import { NgSemanticModule } from 'ng-semantic';
+import { MaterialModule } from '@angular/material';
 
 // Imports for loading & configuring the in-memory web api
 import { HttpModule, XHRBackend } from '@angular/http';
@@ -18,20 +18,25 @@ import { AppRoutingModule} from './app-routing.module'
 /**********Application Specific********************** */
 /************Components************/
 import { DesignerModule }    from './designer/designer.module';
+import { MaterialModule, MdIconRegistry} from '@angular/material';
 //import {AppRoutingModule}    from './app-routing.module';
 
 @NgModule({
   imports: [
-    NgSemanticModule,
+    MaterialModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpModule,
     ModalModule,
-    DesignerModule
+    DesignerModule,
+    MaterialModule
   ],
   declarations: [
     AppComponent,
+  ],
+  providers: [
+      MdIconRegistry
   ],
   bootstrap: [ AppComponent ]
 })

@@ -22,15 +22,15 @@
       '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+      '@angular/material': 'npm:@angular/material/material.umd.js',
       // other libraries
-      'rxjs':                       'npm:rxjs',
-      'angular-in-memory-web-api':  'npm:angular-in-memory-web-api',
-      'jquery':                     'npm:jquery/dist/jquery.min.js',
-      'jqueryui':                   'npm:jquery-ui-dist/jquery-ui.min.js',
+      'rxjs':                                     'npm:rxjs',
+      'angular-in-memory-web-api':                'npm:angular-in-memory-web-api',
+      'jquery':                                   'npm:jquery/dist/jquery.min.js',
+      'jqueryui':                                 'npm:jquery-ui-dist/jquery-ui.min.js',
+      'moment':                                   'npm:moment/moment.js',
       'ng2-bootstrap':              'npm:ng2-bootstrap',
-      'ng-semantic':                'npm:ng-semantic',
-      'semantic':                   'vendor/semantic.min.js',
-      'angular2-color-picker':      'npm:angular2-color-picker'
+      'angular2-color-picker':                    'npm:angular2-color-picker'
 
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -46,13 +46,9 @@
         main: './index.js',
         defaultExtension: 'js'
       },
-      'ng2-bootstrap':{
-        main: 'ng2-bootstrap',
+      'ng2-bootstrap': {
+        main: '/bundles/ng2-bootstrap.umd.js',
         defaultExtension: 'js'
-      },
-      'ng-semantic': {
-          main: 'ng-semantic',
-          defaultExtension: 'js'
       },
       'angular2-color-picker': {
           main:'index.js', 

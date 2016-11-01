@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DesignerComponent } from './designer/designer.component';
-import { ImageChooser } from './asset-chooser/image-chooser.component';
-import { FormWidget } from './widgets/widget-form.component';
+import { MediaChooser } from './asset-chooser/media-chooser.component';
 
 const appRoutes: Routes = [
     {
@@ -13,7 +11,7 @@ const appRoutes: Routes = [
     },
     {
         path:'image-chooser',
-        component: ImageChooser
+        component: MediaChooser
     }
 ];
 

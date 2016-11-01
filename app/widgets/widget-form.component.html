@@ -20,10 +20,10 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <sm-menu class="ui mini" *ngIf="isSelected==true">
-        <a sm-item (click)="addQuestion()" title="Add Field" [icon]="'add circle icon'"></a>
-        <a *ngIf="questions && questions.length" sm-item [icon]="'trash icon'">Remove all</a>
-    </sm-menu>
+    <div *ngIf="isSelected==true">
+        <a (click)="addQuestion()" title="Add Field"><md-icon>add_circle</md-icon></a>
+        <a *ngIf="questions && questions.length"><md-icon>delete</md-icon>Delete all</a>
+    </div>
     <div class="devContainer">
         <div class="ui form formContainer" [ngStyle]="style">
             <dynamic-form *ngIf="questions && questions.length" (actionRequested)="handleDynaCompAction($event)" [questions]="questions"></dynamic-form>
@@ -35,11 +35,16 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
                     <div class="curControlType" *ngIf="curModel">
                         <i class="lock icon"></i>{{curModel.controlType}}
                     </div>
-                    <sm-select *ngIf="!curModel" title="Type"
-                     placeholder="Type" (onChange)="changeQuestionType($event)" class="fluid search">
-                        <option>TextBox</option>
-                        <option>Dropdown</option>
-                    </sm-select>
+
+                    <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="fieldType" type="button" class="btn btn-primary" dropdownToggle>
+                            Type<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li>TextBox</li>
+                            <li>Dropdown</li>
+                        </ul>
+                    </div>
                 </div>
                 <div *ngIf="curModel">
                     <!-- Field Name -->
@@ -64,7 +69,7 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
                         <input type="checkbox" [(ngModel)]="curModel.required" name="required" #required/>    
                     </div>
                 </div>
-                <sm-button *ngIf="curModel" [disabled]="!questionForm.form.valid" class="ui small fluid positive" (click)="saveQuestionChanges()">Done</sm-button>
+                <button md-raised-button *ngIf="curModel" [disabled]="!questionForm.form.valid" (click)="saveQuestionChanges()">Done</button>
                 <h4 class="removeModel"><span (click)="removeCurrentModel()"><i class="icon trash outline"></i>Remove</span></h4>
             </form>
         </div>

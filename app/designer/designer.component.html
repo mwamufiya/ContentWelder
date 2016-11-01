@@ -1,23 +1,6 @@
-<sm-modal title="Choose Video" #videoChooser>
-    <modal-content>
-        <image-chooser (mediaChosen)="videoChooser.hide()" [searchType]="'video'"></image-chooser>
-    </modal-content>
-    <modal-actions>
-        <div class="ui buttons">
-            <div class="ui button primary" (click)="videoChooser.hide()">Close modal</div>
-        </div>
-    </modal-actions>
-</sm-modal>
-<sm-modal title="Choose an Image" #imageChooser>
-    <modal-content>
-        <image-chooser (mediaChosen)="imageChooser.hide()" [searchType]="'image'"></image-chooser>
-    </modal-content>
-    <modal-actions>
-        <div class="ui buttons">
-            <div class="ui button primary" (click)="imageChooser.hide()">Close modal</div>
-        </div>
-    </modal-actions>
-</sm-modal>
+<media-chooser bsModal #imageChooser="bs-modal"  *ngIf="mediaChooser=='image'" (mediaChosen)="imageChooser.hide()" [mode]="'modal'" [searchType]="'video'"></media-chooser>
+<media-chooser bsModal #videoChooser="bs-modal" *ngIf="mediaChooser=='video'" (mediaChosen)="videoChooser.hide()" [mode]="'modal'" [searchType]="'image'"></media-chooser>
+
 <div class="designer">
     <div class="mainVenu">
         <!-- Disable the page navigation fow now. it may be re-activated once it's functioning' -->
@@ -25,9 +8,9 @@
         <designer-tools (changeBkgEmitter)="changeBackground($event)"></designer-tools>
          <div class="pasteboard" *ngFor="let page of pageList; let i = index;">
              <ul class="secondaryMenu">
-                 <li (click)="saveConfig()"><i class="cloud upload icon"></i> Save</li>
-                 <li (click)="addPage()"><i class="add circle icon"></i> Page</li>
-                 <li (click)="deletePage(i)"><i class="trash icon"></i> Delete Page</li>
+                 <li (click)="saveConfig()"><md-icon>save</md-icon> Save</li>
+                 <li (click)="addPage()"><md-icon>add circle</md-icon> Page</li>
+                 <li (click)="deletePage(i)"><md-icon>delete</md-icon> Delete Page</li>
              </ul>
 
             <template #container></template>

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import 'jquery';
 import 'jqueryui';
-import 'semantic';
 
 @Component({
   selector: 'my-app',

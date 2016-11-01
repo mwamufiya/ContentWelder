@@ -35,11 +35,11 @@
     "rxjs": "5.0.0-beta.12",
     "zone.js": "^0.6.26",
 
+    "@angular/material":"",
     "angular2-color-picker": "github:mwamufiya/angular2-color-picker#OnInit-ColorChange-AsInputParameter",
     "jquery": "^3.1.0",
     "jquery-ui-dist": "",
     "json-server": "github:typicode/json-server",
-    "ng-semantic": "^1.1.11",
     "ng2-bootstrap": "^1.1.14"
   },
   "devDependencies": {

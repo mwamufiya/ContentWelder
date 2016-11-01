@@ -25,7 +25,7 @@ export class DesignerDroppable{
     reqInsertionPoint: number;
     parentComp: Widget;
     prvBkgColor:string;  //store the previous background color
-    isElligable:boolean;
+    isEligible:boolean;
     prvDraggedEl:ElementRef;
     
 
@@ -51,7 +51,7 @@ export class DesignerDroppable{
         let draggedEl = this.designerGlobals.getDraggedObjectPath()[0];
 
         if(this.prvDraggedEl !== draggedEl){
-             this.isEligible(event);
+             this.isDragEligible(event);
              this.setBackgroundColor();
         }
         
@@ -89,23 +89,24 @@ export class DesignerDroppable{
             items: items           
         });
     }
-    
-    isEligible(event){
+
+    isDragEligible(event){
         let isValid = true;
         //Do not allow an item to be dropped on itself to increase add a new child
         let draggedEventPath = this.designerGlobals.getDraggedObjectPath();
+        let draggedItem = draggedEventPath[0]
 
-        if(draggedEventPath[0]===event.path[0])
-            isValid = false;
+        if(draggedItem === event.path[0])
+            return this.isEligible = false;
 
         //becaue drag over fires continuously, in order to save on performance,
         //we cache the previous dragged item.
         //If the previous dragged item is the same as the current one being dragged, simply return the current 'isValid' value.
         
-        if(this.prvDraggedEl === draggedEventPath[0])
+        if(this.prvDraggedEl === draggedItem)
             return this.isEligible;
         else
-            this.prvDraggedEl = draggedEventPath[0];
+            this.prvDraggedEl = draggedItem;
 
         //Do not allow a parent to be dragged into child elements
         if(event.path.length > draggedEventPath.length){
@@ -113,21 +114,20 @@ export class DesignerDroppable{
 
             //Compare the Event.path array to determine if the "Drop" container is a child of the item currently being dragged
             //This is not the most efficient approach, and should be reviewed. However given that the Drop.Event doesn't contain the "dragg" item it needs to be obtained somehow
-            if(draggedEventPath[0]===event.path[(event.path.length - draggedEventPath.length)-1])
+            if(draggedItem === event.path[(event.path.length - draggedEventPath.length)-1])
                 arr = event.path.splice(0, (event.path.length - draggedEventPath.length)+1).reverse();  //Since any item being dragged into a child would be defined higher in the Event.path array, we reverse the array to make the query faster;
             else
                 arr = event.path;
 
             for(let i=0; i<arr.length; i++){
-                if(arr[i] === draggedEventPath[0]){
+                if(arr[i] === draggedItem){
                     isValid = false;
-                    return;
+                    break;
                 }
             }
         }
-        this.isElligable = isValid;
-        
-        return this.isEligible;
+
+        return this.isEligible = isValid;
     }
     //Helper method to display a helper dom element when something is being dragged over.
     addDragOverHelper(event){

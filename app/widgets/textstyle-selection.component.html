@@ -1,0 +1,26 @@
+<ul>
+    <li title="Font" *ngIf="showFamily">
+        <div class="btn-group" dropdown keyboardNav="true" (toggle)="setStyleProperty('fontFamily', $event)">
+            <button id="font-family" type="button" class="btn btn-primary" dropdownToggle>
+                Size <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                <li *ngFor="let item of fontList" value="{{item.value}}">{{item.label}}</li>
+            </ul>
+        </div>
+    </li>
+    <li title="Adjust Font Size" *ngIf="showSize">
+        <div class="btn-group" dropdown keyboardNav="true" (toggle)="setStyleProperty('fontFamily', $event)">
+            <button id="fontSize" type="button" class="btn btn-primary" dropdownToggle>
+                Size <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                <li *ngFor="let item of fontSizeList">{{item}}</li>
+            </ul>
+        </div>
+    </li>
+    <li title="Text Color" class="colorPicker" *ngIf="showColor">
+        <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('color', $event)"
+               [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [style.background]="color"/>
+    </li>
+</ul>

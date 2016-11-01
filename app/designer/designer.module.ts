@@ -11,12 +11,13 @@ import { DesignerToolsComponent }  from './designer-tools.component';
 import { DesignerToolsMenu }  from './designer-tools-menu.component';
 import { DesignerComponent }  from './designer.component';
 import { WidgetModule  } from '../widgets/widget.module';
-import { ImageChooser } from '../asset-chooser/image-chooser.component';
+import { MediaChooser } from '../asset-chooser/media-chooser.component';
 import { CwDirectiveModule } from '../directives/directives.module';
 
 /************3rd party*********** */
 //import { ModalModule } from 'ng2-bootstrap/components/modal';
-import { NgSemanticModule } from 'ng-semantic';
+import { MaterialModule, MdIconRegistry} from '@angular/material';
+import { Ng2BootstrapModule } from 'ng2-bootstrap';
 
 /*************Services************* */
 import { DesignerGlobalsService } from '../services/designer-globals.service';
@@ -35,7 +36,8 @@ import { FONTLIST } from '../services/fonts.service';
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
-    NgSemanticModule,
+    Ng2BootstrapModule,
+    MaterialModule,
     DesignerRoutingModule,
     WidgetModule,
     CwDirectiveModule
@@ -44,12 +46,13 @@ import { FONTLIST } from '../services/fonts.service';
     DesignerComponent,
     DesignerToolsMenu,
     DesignerToolsComponent,
-    ImageChooser,
+    MediaChooser,
   ],
   providers: [
     DesignerGlobalsService,
     ImageService,
     VideoService,
+    MdIconRegistry
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

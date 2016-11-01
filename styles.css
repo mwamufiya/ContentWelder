@@ -131,3 +131,11 @@ form input{
 .form-group .ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
 }
+
+/***************Color********************/
+.primary{
+  background: #039be5;
+}
+.primary > *{
+  color:white;
+}

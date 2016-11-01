@@ -255,12 +255,34 @@ export class Widget{
         child.curCompRef.destroy();
       }
     }
+
+    /**
+     * @function
+     * @param {string} name
+     * @param {string} value
+     * @description set a CSS STyle property by providing a name/value
+     */
     setStyleProperty(name:string, value:string){
       try{
         this.style[name] = value;
       }catch (e){
         //TODO display an error message
       }
+    }
+
+    /**
+     * @function
+     * @param {CSSStyleDeclaration} style -
+     * @description allows setting of multiple style properties from a style object
+     */
+    setMulStyleProperties(style: CSSStyleDeclaration):void{
+        for( let key in style){
+            try{
+                this.style[key] = style[key];
+            }catch(e){
+                //TODO: display an error
+            }
+        }
     }
     //set the background Color
     setBackgroundColor(value?:string){

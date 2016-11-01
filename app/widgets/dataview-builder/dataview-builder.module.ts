@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 /************3rd party*********** */
-import { NgSemanticModule } from 'ng-semantic';
+import { MaterialModule} from '@angular/material';
 
 /**************Module Specific**********************/
 import { RestDataViewBuilder } from './dataview-builder-rest.component';
@@ -18,7 +18,7 @@ import { DataGrid } from './data-grid.component';
         FormsModule,
         HttpModule,
         ReactiveFormsModule,
-        NgSemanticModule,
+        MaterialModule,
     ],
     declarations: [
         DataViewBuilder,

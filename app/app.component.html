@@ -1,10 +1,4 @@
-<sm-menu title="ContentWelder" class="inverted teal" logo="http://www.desknetinc.com/wp-content/uploads/2014/02/DeskNetInc_Integrated_Customer_Communications.png">
-    <a sm-item *ngFor="let item of menuItems" routerLink="{{item.url}}" [icon]="item.icon">{{item?.title}}</a>
-
-    <sm-menu class="menu right secondary">
-        <a sm-item href="designer" routerLink="designer"
-            image="http://semantic-ui.com/images/avatar/small/stevie.jpg">Elliot Fu</a>
-        <a sm-item icon="sidebar big"></a>
-    </sm-menu>
-</sm-menu>
+<ul class="topMenu primary">
+    <li *ngFor="let item of menuItems" routerLink="{{item.url}}"><md-icon *ngIf="item.icon">{{item.icon}}</md-icon>{{item?.title}}</li>
+</ul>
 <router-outlet></router-outlet>

@@ -1,25 +1,29 @@
-import { Component, OnInit, EventEmitter, ViewContainerRef, ChangeDetectorRef
+import { Component, OnInit, EventEmitter, ViewContainerRef, ChangeDetectorRef, ViewChild,
 } from '@angular/core';
 
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { ImageService } from '../services/image.service';
 import { VideoService } from '../services/video.service';
+import { ModalDirective } from 'ng2-bootstrap';
 import {Image} from '../widgets/image';
 import {Video} from '../widgets/video';
 
 @Component({
-  selector: 'image-chooser',
-  templateUrl: './app/asset-chooser/image-chooser.component.html',
-  styleUrls: ['./app/asset-chooser/image-chooser.component.css'],
+  moduleId: module.id,
+  selector: 'media-chooser',
+  templateUrl: 'media-chooser.component.html',
+  styleUrls: ['media-chooser.component.css'],
   outputs: ['mediaChosen'],
-  inputs:['searchType']
+  inputs:['searchType', 'mode']
 })
-export class ImageChooser implements OnInit{
+export class MediaChooser implements OnInit{
   imageSources:Array<any> = new Array();
   videoSources:Array<any> = new Array();
   mediaList:Array<Image | Video> = new Array();
+  @ViewChild('modalContainer') public modalContainer:ModalDirective
   mediaSource:string;
   searchTerm:string;
+  mode:string;                                            //modal or inline. Default to inline
   searchType:string;                                      //Video or Image
   mediaChosen:EventEmitter<any> = new EventEmitter();
 
@@ -151,5 +155,22 @@ export class ImageChooser implements OnInit{
       else
         vid.isActive=false;
     }
+  }
+
+  /**
+   * @function
+   * @description Open a modal dialog if the mode=='modal'
+   */
+  show():void{
+    if(this.mode=='modal')
+      this.modalContainer.show();
+  }
+  /**
+   * @function
+   * @description Hide a modal dialog if the mode=='modal'
+   */
+  hide():void{
+    if(this.mode=='modal')
+      this.modalContainer.hide();
   }
 }

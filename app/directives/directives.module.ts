@@ -8,7 +8,7 @@ import { HttpModule, XHRBackend } from '@angular/http';
 
 /************3rd party*********** */
 //import { ModalModule } from 'ng2-bootstrap/components/modal';
-import { NgSemanticModule } from 'ng-semantic';
+import { MaterialModule} from '@angular/material';
 
 import { DesignerDroppable }  from '../directives/designer-droppable.directive';
 import { DesignerDraggable }  from '../directives/designer-draggable.directive';
@@ -22,7 +22,7 @@ import {ColorPickerDirective, ColorPickerService} from 'angular2-color-picker';
         FormsModule,
         HttpModule,
         ReactiveFormsModule,
-        NgSemanticModule,
+        MaterialModule,
     ],
     declarations: [
         Resize,
