@@ -20,29 +20,6 @@
  * */
 export const MAIN_MENU = [
         {
-            "value": "background",
-            "label":"Bkg",
-            "isActive": true,
-            "children":[
-                {
-                    "value": "color",
-                    "label": "Color"
-                },
-                {
-                    "value": "imagewidget",
-                    "label": "Image",
-                    "icon": "asset-chooser icon",
-                },
-                {
-                    "value": "videowidget",
-                    "label": "Video",
-                    "isActive": true,
-                    "click": "editBackground('video')",
-                    "icon": "video play outline icon"
-                }
-            ]
-        },
-        {
             "value":"basic",
             "label":"Basic",
             "isActive": true,
@@ -58,7 +35,7 @@ export const MAIN_MENU = [
                             "title": "Text Box",
                             "isActive": true,
                             "draggable": true,
-                            "icon": "font icon",
+                            "icon": "text_fields",
                             "widgetConfig":{
                                 "widgetType": "textboxwidget"
                             }
@@ -79,7 +56,7 @@ export const MAIN_MENU = [
                             "label": "Image",
                             "isActive": true,
                             "draggable": true,
-                            "icon": "asset-chooser icon",
+                            "icon": "photo_size_select_actual",
                             "widgetConfig":{
                                 "widgetType": "imagewidget"
                             }
@@ -95,6 +72,7 @@ export const MAIN_MENU = [
                             "value":"boxwidget",
                             "label": "Box",
                             "title": "Box",
+                            "icon": "picture_in_picture_alt",
                             "isActive": true,
                             "draggable": true,
                             "widgetConfig":{
@@ -116,7 +94,7 @@ export const MAIN_MENU = [
                     "title": "Video",
                     "isActive": true,
                     "draggable": true,
-                    "icon": "video play outline icon",
+                    "icon": "video_library",
                     "widgetConfig":{
                         "widgetType": "videowidget"
                     }
@@ -156,6 +134,7 @@ export const MAIN_MENU = [
                     "value":"REST",
                     "label": "REST",
                     "title": "Rest",
+                    "icon": "storage",
                     "isActive": true,
                     "draggable": true,
                     "widgetConfig":{
@@ -201,6 +180,7 @@ export const MAIN_MENU = [
                     "label": "Basic",
                     "title": "Basic Form",
                     "isActive": true,
+                    "icon": "playlist_add_check",
                     "draggable": true,
                     "widgetConfig":{
                         "widgetType": "formwidget"
