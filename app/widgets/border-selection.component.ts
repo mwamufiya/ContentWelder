@@ -1,13 +1,13 @@
-import { Component, EventEmitter} from '@angular/core';
+import { Component, EventEmitter, OnInit} from '@angular/core';
 
 @Component({
   selector: 'border-selection',
   templateUrl: './app/widgets/border-selection.component.html',
   styleUrls:[`./app/widgets/border-selection.component.css`],
-  outputs: ['borderChanged', 'borderRadiusChanged'],
-  inputs:['borderSize']
+  outputs: ['styleChanged'],
+    inputs:['inputStyle: style']
 })
-export class BorderSelection {
+export class BorderSelection implements OnInit {
     borderChanged:EventEmitter<any> = new EventEmitter();
     borderRadiusChanged:EventEmitter<any> = new EventEmitter();
     borderTypes:Array<any> = new Array();
@@ -16,6 +16,9 @@ export class BorderSelection {
     borderColor:string = 'black';
     borderRadius:number = 0;
     sizeList:Array<number> = [8,10,12,14,16,18,20,24,28,32,36,40,44,48,54,60,66,72,80,88,96];
+    styleChanged: EventEmitter<any> = new EventEmitter();
+    inputStyle: CSSStyleDeclaration;
+    style: CSSStyleDeclaration = {} as CSSStyleDeclaration;
     
     constructor(){
         this.setBorderTypes();
@@ -36,26 +39,24 @@ export class BorderSelection {
         ];
     }
 
-    changeBorderType(event:Event):void{
-        let e = event.target as HTMLInputElement;
-        this.borderStyle = e.value;
-        this.updateBorder();
+    ngOnInit(){
+        //because the Input style may contain more additional style properties beyond font-family, size & color,
+        // we only take what we need and ignore the rest. this will allow the downstream process not to return undesired style properties
+        if(this.inputStyle){
+            if(this.inputStyle.borderStyle) this.style.borderStyle= this.inputStyle.borderStyle;
+            if(this.inputStyle.borderRadius) this.style.borderRadius = this.inputStyle.borderRadius;
+            if(this.inputStyle.borderColor) this.style.borderColor = this.inputStyle.borderColor;
+            if(this.inputStyle.borderWidth) this.style.borderWidth= this.inputStyle.borderWidth;
+        }
     }
-    updateBorder():void{
-        this.borderChanged.emit(`${this.borderSize}px ${this.borderStyle} ${this.borderColor}`);
-    }
-    changeBorderSize(event:Event):void{
-        let e = event.target as HTMLInputElement;
-        this.borderSize = e.value.length ? parseInt(e.value) : 0;
-        this.updateBorder();
-    }
-    setBorderColor(color:string):void{
-        this.borderColor = (!color || !color.length)? 'black' : color;
-        this.updateBorder();
-    }
-    changeBorderRadius(event:Event):void{
-        let e = event.target as HTMLInputElement;
-        this.borderRadius = e.value.length ? parseInt(e.value) : 0;
-        this.borderRadiusChanged.emit(`${this.borderRadius}px`);
+
+    setStyleProperty(name:string, value:string){
+        try{
+            this.style[name] = value;
+        }catch (e){
+            //TODO display an error message
+        }
+
+        this.styleChanged.emit(this.style);
     }
 }

@@ -2,7 +2,7 @@
     display:flex;
     padding:0;
 }
-ul{
+:host > ul{
     display:flex;
 }
 .borderPreview{

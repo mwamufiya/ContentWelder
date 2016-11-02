@@ -1,17 +1,22 @@
 <ul>
     <li>
-        <sm-select placeholder="Style" title="Border Style" class="fluid search" (change)="changeBorderType($event)">
-            <option *ngFor="let item of borderTypes">{{item.value}}</option>
-        </sm-select>
+        <div class="btn-group" dropdown keyboardNav="true">
+            <button id="borderSelection" type="button" class="btn btn-primary" dropdownToggle>
+                Style<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="borderSelection">
+                <li role="menuitem" *ngFor="let item of borderTypes" (click)="setStyleProperty('borderStyle', item.value)">{{item.value}}</li>
+            </ul>
+        </div>
     </li>
     <li>
-        <input title="Border Size" [(ngModel)]="borderSize" (input)="changeBorderSize($event)" min="0" max="100" size="1" maxlength="3" value="{{borderSize}}" type="number" class="borderInput"
+        <input title="Border Size" [(ngModel)]="style.borderWidth" (input)="setStyleProperty('borderWidth', $event.target.value)" min="0" size="1" maxlength="3" value="{{style.borderWidth}}" type="number" class="borderInput"
          />
     </li>
     <li>
-        <input title="Border Color" [colorPicker]="color" (colorPickerChange)="setBorderColor($event)" class="colorPicker borderInput" [ngStyle]="{'color': borderColor}" [cpFireOnInit]="false" [style.background]="color"/>
+        <input title="Border Color" [colorPicker]="style.borderColor" (colorPickerChange)="setStyleProperty('borderColor', $event)" class="colorPicker borderInput" [ngStyle]="{'color': style.borderColor}" [cpFireOnInit]="false" [style.background]="color"/>
     </li>
     <li>
-        <input title="Border Radius" [(ngModel)]="borderRaidus" (input)="changeBorderRadius($event)" min="0" max="100" size="1" maxlength="3" value="{{borderRaidus}}" type="number" class="borderInput" />
+        <input title="Border Radius" [(ngModel)]="style.borderRadius" (input)="setStyleProperty('borderRadius', $event.target.value+'px')" min="0" size="1" maxlength="3" value="{{style.borderRadius}}" type="number" class="borderInput" />
     </li>
 </ul>

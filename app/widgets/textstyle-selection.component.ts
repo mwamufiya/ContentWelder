@@ -2,6 +2,7 @@
  * Created by emwamufiya on 11/1/2016.
  */
 import { Component, EventEmitter, OnInit} from '@angular/core';
+import { FONTLIST } from '../services/fonts.service'
 
 @Component({
     moduleId: module.id,
@@ -9,20 +10,26 @@ import { Component, EventEmitter, OnInit} from '@angular/core';
     templateUrl: 'textstyle-selection.component.html',
     styleUrls:[`textstyle-selection.component.css`],
     outputs: ['styleChanged'],
-    inputs:['style', 'mode']
+    inputs:['inputStyle: style', 'mode']
 })
 export class TextStyleSelection implements OnInit{
     styleChanged: EventEmitter<any> = new EventEmitter();
-    style: CSSStyleDeclaration;
+    inputStyle: CSSStyleDeclaration;
+    style: CSSStyleDeclaration = {} as CSSStyleDeclaration;
     mode: string;                                   //empty/all, family, size, color allowed options. Default is "empty/all"
+    fontList:Array<{label:string, value:string}>;
     sizeList:Array<number> = [8,10,12,14,16,18,20,24,28,32,36,40,44,48,54,60,66,72,80,88,96];
     showFamily: boolean= true;
     showSize: boolean = true;
     showColor: boolean = true;
 
+    constructor(){
+        this.fontList = FONTLIST;
+    }
+
     ngOnInit(){
 
-        if(!this.mode.length || this.mode!='all')
+        if(!this.mode || !this.mode.length || this.mode!='all')
             return;
 
         //parse 'mode' to determine what values should be displayed.
@@ -47,6 +54,14 @@ export class TextStyleSelection implements OnInit{
                     break;
             }
         });
+
+        //because the Input style may contain more additional style properties beyond font-family, size & color,
+        // we only take what we need and ignore the rest. this will allow the downstream process not to return undesired style properties
+        if(this.inputStyle){
+            if(this.inputStyle.color) this.style.color = this.inputStyle.color;
+            if(this.inputStyle.fontFamily) this.style.fontFamily = this.inputStyle.fontFamily;
+            if(this.inputStyle.fontSize) this.style.fontSize = this.inputStyle.fontSize;
+        }
     }
 
     setStyleProperty(name:string, value:string){
