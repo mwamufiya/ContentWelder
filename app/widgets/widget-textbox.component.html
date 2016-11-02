@@ -3,14 +3,14 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
     <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
     <ul  class="widgetMenu" *ngIf="isSelected">
         <li title="Font">
-            <textstyle-selection (styleChanged)="setMulStyleProperties($event)"></textstyle-selection>
+            <textstyle-selection (styleChanged)="setMulStyleProperties($event)" [style]="style"></textstyle-selection>
         </li>
         <li title="Background Color" class="colorPicker">
             <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('backgroundColor', $event)" 
             [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
         </li>
         <li>
-            <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
+            <border-selection (styleChanged)="setMulStyleProperties($event)" [style]="style"></border-selection>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>

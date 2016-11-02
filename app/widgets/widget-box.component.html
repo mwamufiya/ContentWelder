@@ -8,7 +8,7 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
             [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
         </li>
         <li>
-            <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
+            <border-selection (styleChanged)="setMulStyleProperties($event)"></border-selection>
         </li>   
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li (click)="setStyleProperty($event)">&#x2753;</li>

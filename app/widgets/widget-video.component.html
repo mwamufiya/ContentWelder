@@ -4,27 +4,26 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
     <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
     <ul *ngIf="isSelected" class="widgetMenu">
         <li>
-            <button class="mini ui button green" (click)="launchVideoChooser()"><i class="image icon"></i>Change</button>
+            <button class="mini ui button green" (click)="launchVideoChooser()" md-raised-button color="primary">Change</button>
         </li>
         <li title="Background Color" class="colorPicker">
             <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)" 
             [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
         </li>
         <li>
-            <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
+            <border-selection (styleChanged)="setMulStyleProperties($event)"></border-selection>
         </li>
         <li *ngIf="video" class=".zoom75">
-            <sm-button class="" icon="play" (click)="play(this)"></sm-button>
+            <button (click)="vid.play()" md-icon-button ><md-icon>play_arrow</md-icon></button>
         </li>
         <li *ngIf="video" class=".zoom75">
-            <sm-button class="" icon="pause" (click)="pause(this)"></sm-button>
+            <button (click)="vid.pause()" md-icon-button><md-icon>pause</md-icon></button>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <video *ngIf="video" [ngStyle]="{'height':'100%', 'width':'100%'}" designerDraggable data-widgetConfig='{"type":"video"}' controls>
-        <source src="{{video.smallLink.url}}"  type="video/mp4">
-        <source src="{{video.smallLink.url}}"  type="video/ogg">
+    <video #vid [ngStyle]="{'width':'100%'}" designerDraggable data-widgetConfig='{"type":"video"}'>
+        <source *ngIf="video" src="{{video.smallLink.url}}"  type="video/mp4">
         Your browser does not support the video tag.
     </video>
 </div>

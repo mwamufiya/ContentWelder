@@ -15,7 +15,7 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
             [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [cpFireOnInit]="false" [style.background]="color"/>
         </li>
         <li>
-            <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
+            <border-selection (styleChanged)="setMulStyleProperties($event)"></border-selection>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
@@ -40,9 +40,9 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
                         <button id="fieldType" type="button" class="btn btn-primary" dropdownToggle>
                             Type<span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                            <li>TextBox</li>
-                            <li>Dropdown</li>
+                        <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="fieldType">
+                            <li (click)="changeQuestionType('textbox')">TextBox</li>
+                            <li (click)="changeQuestionType('dropdown')">Dropdown</li>
                         </ul>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
                     <!--Dropdown specific -->
                     <div class="form-group" *ngIf="curModel.controlType=='dropdown'">
                         <label>Values</label>
-                        <span class="instructions">Comma separated list of values</span>
+                        <span class="instructions">Comma separated list of values</span><br/>
                         <input type="text" (input)="setOptions($event)" value="{{getOptionsAsString()}}" placeholder="option1, option2,..."/>
                     </div>
                     <!-- Required -->
@@ -70,7 +70,7 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
                     </div>
                 </div>
                 <button md-raised-button *ngIf="curModel" [disabled]="!questionForm.form.valid" (click)="saveQuestionChanges()">Done</button>
-                <h4 class="removeModel"><span (click)="removeCurrentModel()"><i class="icon trash outline"></i>Remove</span></h4>
+                <label (click)="removeCurrentModel()" class="md-14"><md-icon>delete</md-icon>remove</label>
             </form>
         </div>
     </div>

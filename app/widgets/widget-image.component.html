@@ -3,10 +3,10 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)" [ng
     <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
     <ul *ngIf="isSelected" class="widgetMenu">
         <li>
-            <button class="mini ui button green" (click)="launchImageChooser()">Change</button>
+            <button md-button class="mini ui button green" (click)="launchImageChooser()"><md-icon>image</md-icon></button>
         </li>
         <li>
-            <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
+            <border-selection (styleChanged)="setMulStyleProperties($event)"></border-selection>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>

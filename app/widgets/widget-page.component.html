@@ -8,14 +8,14 @@
          class="cw-page" [ngStyle]="style" style="background-image: none'" [class.noBorder]="!style.borderWidth">
         <ul *ngIf="isSelected" class="widgetMenu">
             <li>
-                <button class="mini ui button green" (click)="launchVideoChooser()"><i class="image icon"></i>Video</button>
+                <button (click)="launchVideoChooser()"  md-raised-button color="primary">Video</button>
             </li>
             <li title="Background Color" class="colorPicker">
                 <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)"
                        [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
             </li>
             <li>
-                <button class="mini ui button green" (click)="launchImageChooser()">Image</button>
+                <button (click)="launchImageChooser()"  md-raised-button color="primary">Image</button>
             </li>
             <li>
                 <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
