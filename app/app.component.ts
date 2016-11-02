@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import 'jquery';
 import 'jqueryui';
+import 'hammerjs';
 
 @Component({
   selector: 'my-app',

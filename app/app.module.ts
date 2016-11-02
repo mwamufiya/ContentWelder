@@ -2,8 +2,6 @@ import { NgModule}       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 
-import { ModalModule } from 'ng2-bootstrap/components/modal';
-import { MaterialModule } from '@angular/material';
 
 // Imports for loading & configuring the in-memory web api
 import { HttpModule, XHRBackend } from '@angular/http';
@@ -23,14 +21,12 @@ import { MaterialModule, MdIconRegistry} from '@angular/material';
 
 @NgModule({
   imports: [
-    MaterialModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpModule,
-    ModalModule,
-    DesignerModule,
-    MaterialModule
+    MaterialModule,
+    DesignerModule
   ],
   declarations: [
     AppComponent,
