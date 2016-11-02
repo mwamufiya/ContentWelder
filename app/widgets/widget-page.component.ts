@@ -62,6 +62,8 @@ export class PageWidget extends Widget implements OnInit, OnDestroy{
         designerGlobals: DesignerGlobalsService){
             super(componentFactoryResolver, viewContainer, changeDetectorRef, designerGlobals);
 
+        this.changeDimensions(20, null);
+
         //subscript to the selected video
         this._videoSub = this.designerGlobals.getSelectedVideoObservable().subscribe(
             video => this.setVideo(video),
@@ -185,6 +187,7 @@ export class PageWidget extends Widget implements OnInit, OnDestroy{
             return;
         //clear out the image as only one can be set at a time.
         this.image = null;
+        this.setStyleProperty('backgroundImage', null);
         this.video = video;
     }
 
