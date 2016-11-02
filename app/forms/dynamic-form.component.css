@@ -1,0 +1,14 @@
+.fieldMenu{
+    float:right;
+    display:none;
+}
+.fieldMenuIcon{
+    font-size:1rem;
+    cursor:pointer;
+}
+.fieldMenu i{
+    cursor:pointer;
+}
+.form-row:hover .fieldMenu{
+    display:block;
+}
