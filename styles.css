@@ -139,3 +139,9 @@ form input{
 .primary > *{
   color:white;
 }
+
+/*************ng2 bootstrap overide**************************/
+.dropdown-menu{
+  padding:0;
+  margin:0;
+}
