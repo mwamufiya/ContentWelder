@@ -6,20 +6,9 @@ import { QuestionControlService }    from './question-control.service';
   moduleId: module.id,
   selector: 'dynamic-form',
   templateUrl: 'dynamic-form.component.html',
+  styleUrls: ['dynamic-form.component.css'],
   providers: [ QuestionControlService ],
-  outputs: ['onSubmit', 'actionRequested'],
-  styles: [`
-    .fieldMenu{
-      float:right;
-      display:none;
-    }
-    .fieldMenu i{
-      cursor:pointer;
-    }
-    .form-row:hover .fieldMenu{
-      display:block;
-    }
-  `]
+  outputs: ['onSubmit', 'actionRequested']
 })
 export class DynamicFormComponent implements OnInit {
   @Input() questions: QuestionBase<any>[] = [];

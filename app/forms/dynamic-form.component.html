@@ -2,8 +2,8 @@
   <form (ngSubmit)="handleSubmit()" [formGroup]="form">
     <div *ngFor="let question of questions; let i=index;" class="form-row">
       <div class="fieldMenu">
-        <i class="icon edit" (click)="requestAction(i,'edit')"></i>
-        <i class="icon remove" (click)="requestAction(i,'remove')"></i>
+        <md-icon (click)="requestAction(i,'edit')" class="fieldMenuIcon">mode_edit</md-icon>
+        <md-icon (click)="requestAction(i,'remove')" class="fieldMenuIcon">cancel</md-icon>
       </div>
       <df-question [question]="question" [form]="form"></df-question>
     </div>

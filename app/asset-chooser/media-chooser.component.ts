@@ -2,11 +2,13 @@ import { Component, OnInit, EventEmitter, ViewContainerRef, ChangeDetectorRef, V
 } from '@angular/core';
 
 import { DesignerGlobalsService } from '../services/designer-globals.service';
+import {MediaChooserService} from './media-chooser-service';
 import { ImageService } from '../services/image.service';
 import { VideoService } from '../services/video.service';
 import { ModalDirective } from 'ng2-bootstrap';
 import {Image} from '../widgets/image';
 import {Video} from '../widgets/video';
+import {FormControl} from "@angular/forms";
 
 @Component({
   moduleId: module.id,
@@ -20,7 +22,8 @@ export class MediaChooser implements OnInit{
   imageSources:Array<any> = new Array();
   videoSources:Array<any> = new Array();
   mediaList:Array<Image | Video> = new Array();
-  @ViewChild('modalContainer') public modalContainer:ModalDirective
+  @ViewChild('modalContainer') public modalContainer:ModalDirective;
+  searchTermControl: FormControl = new FormControl();
   mediaSource:string;
   searchTerm:string;
   mode:string;                                            //modal or inline. Default to inline
@@ -30,6 +33,7 @@ export class MediaChooser implements OnInit{
   constructor( private viewContainer:ViewContainerRef,
         private changeDetectorRef: ChangeDetectorRef,
         private designerGlobals: DesignerGlobalsService,
+        private mediaService: MediaChooserService,
         private imageService: ImageService,
         private videoService: VideoService){
           
@@ -40,51 +44,18 @@ export class MediaChooser implements OnInit{
   ngOnInit(){
     this.searchType = this.searchType? this.searchType: 'image';
     this.mediaSource = 'pixabay';
+
+    this.searchTermControl.valueChanges
+        .debounceTime(500)
+        .subscribe( (searchTerm:string) => this.performSearch(searchTerm));
   }
   //Set list of asset-chooser sources
   getImageSources():void{
-    this.imageSources = [
-      {
-        name: 'Pixabay',
-        value: 'pixabay',
-        icon: 'https://pixabay.com/apple-touch-icon-144x144.png'
-      },
-      {
-        name: 'google',
-        value: 'google',
-        icon: 'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Google-Search-icon.png'
-      },
-      {
-        name: 'Image Library',
-        value: 'internal',
-        icon: 'images/instagram.png'
-      },
-      {
-        name: 'instagram',
-        value: 'ig',
-        icon: 'images/instagram.png'
-      },
-      {
-        name: 'facebook',
-        value: 'fb',
-        icon: 'images/facebook.png'
-      }
-    ];
+    this.imageSources = this.mediaService.getImageSources();
   }
   //Set list of video sources
   getVideoSources():void{
-    this.videoSources = [
-      {
-        name: 'Pixabay',
-        value: 'pixabay',
-        icon: 'https://pixabay.com/apple-touch-icon-144x144.png'
-      },
-      {
-        name: 'google',
-        value: 'google',
-        icon: 'http://icons.iconarchive.com/icons/dtafalonso/android-l/512/Google-Search-icon.png'
-      }
-    ];
+    this.videoSources = this.mediaService.getVideoSources();
 
   }
   //Change the source of images upon user action

@@ -1,49 +1,56 @@
-<div #modalContainer class="imageChooser">
-    <ul class="searchOptions">
-        <li>
-
-            <div class="btn-group" dropdown keyboardNav="true">
-                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" dropdownToggle>
-                    Image Source<span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                    <li role="menuitem" *ngFor="let item of imageSources" (onToggle)="changeMediaSource(item.value)"><img src="{{item.icon}}"> {{item.name}}</li>
-                </ul>
+<div bsModal #modalContainer="bs-modal" class="imageChooser modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                {{searchType}}
             </div>
+            <div class="modal-body">
+                <ul class="searchOptions">
+                <li>
 
-            <div class="btn-group" dropdown keyboardNav="true">
-                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" dropdownToggle>
-                    Video Source<span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                    <li role="menuitem" *ngFor="let item of videoSources" (onToggle)="changeMediaSource(item.value)"><img src="{{item.icon}}"> {{item.name}}</li>
-                </ul>
+                    <div *ngIf="searchType=='image'" class="btn-group" dropdown keyboardNav="true">
+                        <button id="imageSources" type="button" class="btn btn-primary" dropdownToggle>
+                            Source<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="imageSources">
+                            <li role="menuitem" *ngFor="let item of imageSources" (click)="changeMediaSource(item.value)"><img src="{{item.icon}}"> {{item.name}}</li>
+                        </ul>
+                    </div>
+
+                    <div *ngIf="searchType=='video'" class="btn-group" dropdown keyboardNav="true">
+                        <button id="videoSources" type="button" class="btn btn-primary" dropdownToggle>
+                            Source<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="videoSources">
+                            <li role="menuitem" *ngFor="let item of videoSources" (click)="changeMediaSource(item.value)"><img src="{{item.icon}}"> {{item.name}}</li>
+                        </ul>
+                    </div>
+                   <md-icon>search</md-icon> <input [formControl]="searchTermControl" placeholder="search..."/>
+                </li>
+            </ul>
+                <div class="resultPanel" *ngIf="searchTerm">
+                    <h3>Search for "{{searchTerm}}"</h3>
+                    <!-- Image result Display -->
+                    <ul class="imageResults" *ngIf="searchType=='image'">
+                        <li class="card" *ngFor="let image of mediaList; let i=index;" (click)="mediaSelected(i)" title="{{image.name}}">
+                            <img src="{{image.lowResLink}}">
+                            <div class="description">{{image.name}}</div>
+                        </li>
+                    </ul>
+                    <!-- Video result Display -->
+                    <ul class="videoResults" *ngIf="searchType=='video'">
+                        <li class="card" *ngFor="let video of mediaList; let i=index;" (click)="mediaSelected(i)"
+                            (mouseover)="toggleVideo(i)" (mouseout)="toggleVideo(i)"
+                            [ngStyle]="{'background-image': 'url('+video.thumbnailLink+')', 'background-repeat':'no-repeat'}">
+                            <video *ngIf="video.isActive==true" width="295px" height="196px" autoplay loop>
+                                <source src="{{video.smallLink.url}}" type="video/mp4">
+                                <source src="{{video.smallLink.url}}" type="video/ogg">
+                                Your browser does not support the video tag.
+                            </video>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </li>
-        <li class="imageSearchBox">
-            <sm-search placeholder="Search..." (onSearch)="performSearch($event)" [icon]="true" class="fluid" [debounce]="500"></sm-search>
-        </li>
-    </ul>
-    <div class="resultPanel">
-        <h3 *ngIf="searchTerm!=''">Search for "{{searchTerm}}"</h3>
-        <!-- Image result Display -->
-        <ul class="imageResults" *ngIf="searchType=='image'">
-            <li class="card" *ngFor="let image of mediaList; let i=index;" (click)="mediaSelected(i)" title="{{image.name}}">
-                <img src="{{image.lowResLink}}">
-                <div class="description">{{image.name}}</div>
-            </li>
-        </ul>
-        <!-- Video result Display -->
-        <ul class="videoResults" *ngIf="searchType=='video'">
-            <li class="card" *ngFor="let video of mediaList; let i=index;" (click)="mediaSelected(i)"
-                (mouseover)="toggleVideo(i)" (mouseout)="toggleVideo(i)"
-                [ngStyle]="{'background-image': 'url('+video.thumbnailLink+')', 'background-repeat':'no-repeat'}">
-                <video *ngIf="video.isActive==true" width="295px" height="196px" autoplay loop>
-                    <source src="{{video.smallLink.url}}" type="video/mp4">
-                    <source src="{{video.smallLink.url}}" type="video/ogg">
-                    Your browser does not support the video tag.
-                </video>
-            </li>
-        </ul>
+        </div>
     </div>
 </div>

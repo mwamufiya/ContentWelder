@@ -3,8 +3,12 @@
     margin:0;
     list-style-type: none;
 }
-.searchOptions li{
-    display:inline-block;;
+.searchOptions .btn-group li{
+    padding:.5rem;
+    cursor:pointer;
+}
+.searchOptions .btn-group li:hover{
+    background:#EFEFEF;
 }
 .imageSearchBox{
     width:50%;
@@ -17,6 +21,8 @@
     margin:0;
     padding:0;
     list-style-type: none;
+    height:75%;
+    overflow-y: scroll;
 }
 .card{
     display:inline-block;
