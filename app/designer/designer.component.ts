@@ -1,6 +1,6 @@
 import {
     Component, ViewChild, ComponentFactoryResolver, ViewContainerRef, OnInit, ViewChildren,
-    QueryList
+    QueryList, Query
 } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MediaChooser } from '../asset-chooser/media-chooser.component';
@@ -20,8 +20,8 @@ import {Widget} from "../widgets/widget.component";
   styleUrls: ['./app/designer/designer.component.css']
 })
 export class DesignerComponent implements OnInit{
-    @ViewChild('videoChooser') videoChooser: MediaChooser;
-    @ViewChild('imageChooser') imageChooser: MediaChooser;
+    @ViewChild('videoChooser', {read: MediaChooser }) videoChooser: MediaChooser;
+    @ViewChild('imageChooser', {read: MediaChooser }) imageChooser: MediaChooser;
     @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
     @ViewChildren (PageWidget) viewChildren: QueryList<PageWidget>;
     private mediaChooserSubscription: Subscription;

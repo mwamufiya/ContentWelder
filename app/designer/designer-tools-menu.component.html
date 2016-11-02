@@ -8,7 +8,7 @@
 </ng-container>
 <ng-container *ngIf="!children.length">
     <li (click)="click? click : ''" designerDraggable title="{{label}}">
-        <i *ngIf="icon" class="{{icon}}"></i><br *ngIf="icon"/>
+        <md-icon *ngIf="icon">{{icon}}</md-icon><br *ngIf="icon"/>
         {{label}} <span *ngIf="isActive" class="statusIndicator">&#x2713;</span>
     </li>
 </ng-container>

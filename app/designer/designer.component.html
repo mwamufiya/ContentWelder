@@ -1,5 +1,5 @@
-<media-chooser bsModal #imageChooser="bs-modal"  *ngIf="mediaChooser=='image'" (mediaChosen)="imageChooser.hide()" [mode]="'modal'" [searchType]="'video'"></media-chooser>
-<media-chooser bsModal #videoChooser="bs-modal" *ngIf="mediaChooser=='video'" (mediaChosen)="videoChooser.hide()" [mode]="'modal'" [searchType]="'image'"></media-chooser>
+<media-chooser #imageChooser (mediaChosen)="imageChooser.hide()" [mode]="'modal'" [searchType]="'image'"></media-chooser>
+<media-chooser #videoChooser (mediaChosen)="videoChooser.hide()" [mode]="'modal'" [searchType]="'video'"></media-chooser>
 
 <div class="designer">
     <div class="mainVenu">
