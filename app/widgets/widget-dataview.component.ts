@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef,
-    ViewChild, forwardRef, HostListener, OnDestroy } from '@angular/core';
+    OnInit, forwardRef, HostListener, OnDestroy } from '@angular/core';
 import { Http } from '@angular/http';
 import { Widget  } from './widget.component';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
@@ -22,7 +22,7 @@ import { DataViewBuilderService } from './dataview-builder/dataview-builder.serv
     ]
 })
 
-export class DataviewWidget extends Widget implements OnDestroy{
+export class DataviewWidget extends Widget implements OnDestroy, OnInit{
     widgetType:string = 'dataviewwidget';
     dispBuilderConfig:boolean;
     dataBuilerConfig: BuilderConfig;
@@ -56,6 +56,15 @@ export class DataviewWidget extends Widget implements OnDestroy{
      */
     toggleSettings():void{
         this.dispBuilderConfig = (this.dispBuilderConfig==true)? null : true;
+    }
+
+    /**
+     * @function
+     * @description sets the extracts teh databuilder config from the WidgetConfig. & redirect the user to choose a data source if no databuilderconfig is set
+     */
+    ngOnInit():void{
+        if(this.widgetConfig) this.dataBuilerConfig = this.widgetConfig['dataBuilerConfig'];
+        if(!this.dataBuilerConfig) this.dispBuilderConfig = true;
     }
 
     /**

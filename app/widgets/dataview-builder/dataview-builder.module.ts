@@ -4,7 +4,8 @@ import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 /************3rd party*********** */
-import { MaterialModule} from '@angular/material';
+import { MaterialModule, MdIconRegistry} from '@angular/material';
+import { Ng2BootstrapModule } from 'ng2-bootstrap';
 
 /**************Module Specific**********************/
 import { RestDataViewBuilder } from './dataview-builder-rest.component';
@@ -19,6 +20,7 @@ import { DataGrid } from './data-grid.component';
         HttpModule,
         ReactiveFormsModule,
         MaterialModule,
+        Ng2BootstrapModule
     ],
     declarations: [
         DataViewBuilder,
@@ -29,10 +31,10 @@ import { DataGrid } from './data-grid.component';
         DataViewBuilder,
         RestDataViewBuilder,
         DataGrid
-
     ],
     providers: [
-        DataViewBuilderService
+        DataViewBuilderService,
+        MdIconRegistry
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

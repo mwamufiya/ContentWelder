@@ -31,6 +31,8 @@ export class DataViewBuilder implements  DataViewBuilder_I, OnInit{
 
     ngOnInit(){
         this.dataProviders = this.getDataProviders();
+        //process teh BuilderConfig if it was provided
+        this.parseConfig(this.builderConfig);
     }
 
 
@@ -49,13 +51,14 @@ export class DataViewBuilder implements  DataViewBuilder_I, OnInit{
      */
     parseConfig(config?: BuilderConfig){
         //Allows configuration to be set outside of OnInit.
-        if(config) this.builderConfig= config;
+        this.builderConfig = config;
 
         //Do nothing if no widget config was provided
         if(!this.builderConfig)
             return;
 
         //TODO add any additional logic if neccessary
+        this.dataProvider = this.builderConfig.builderType;
     }
 
     /**

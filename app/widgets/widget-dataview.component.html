@@ -10,7 +10,7 @@
                    [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
         </li>
         <li>
-            <border-selection (borderChanged)="setStyleProperty('border', $event)" (borderRadiusChanged)="setStyleProperty('borderRadius', $event)"></border-selection>
+            <border-selection (styleChanged)="setMulStyleProperties($event)"></border-selection>
         </li>
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
@@ -20,7 +20,7 @@
             <a sm-item (click)="toggleSettings()"><md-icon>settings</md-icon></a>
             <a *ngIf="restConfig" sm-item><md-icon>delete</md-icon></a>
         </div>
-        <dataviewbuilder *ngIf="dispBuilderConfig" (dataViewFinished)="displayData($event)"></dataviewbuilder>
+        <dataviewbuilder *ngIf="dispBuilderConfig" [builderConfig]="dataBuilerConfig" (dataViewFinished)="displayData($event)"></dataviewbuilder>
     </ng-container>
     <data-grid *ngIf="dataList" [data]="dataList"></data-grid>
 </div>
