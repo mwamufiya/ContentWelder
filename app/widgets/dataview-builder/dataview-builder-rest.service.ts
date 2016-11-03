@@ -19,6 +19,7 @@ export class RestDataViewBuilerService implements DataViewBuilderService_I{
             });
         } else {
             headers.append('Content-Type', 'application/json');
+            headers.append('Accept-Encoding', 'gzip, deflate');
         }
 
         //Process any parameters
