@@ -1,5 +1,5 @@
-import { NgModule}       from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
+import { NgModule, Injectable}       from '@angular/core';
+import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 
 
@@ -19,6 +19,10 @@ import { DesignerModule }    from './designer/designer.module';
 import { MaterialModule, MdIconRegistry} from '@angular/material';
 //import {AppRoutingModule}    from './app-routing.module';
 
+//temporary workaround for Material because Hammer.js currently ovverides the native Drag Start & DragENd
+@Injectable()
+export class AppGestureConfig extends HammerGestureConfig { }
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -32,7 +36,8 @@ import { MaterialModule, MdIconRegistry} from '@angular/material';
     AppComponent,
   ],
   providers: [
-      MdIconRegistry
+      MdIconRegistry,
+    { provide: HAMMER_GESTURE_CONFIG, useClass: AppGestureConfig }
   ],
   bootstrap: [ AppComponent ]
 })
