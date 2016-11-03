@@ -42,7 +42,7 @@ export class DataGrid implements OnInit{
      * @description since Input values are set onInit, if the value is not provided, we initialize it.
      */
     ngOnInit():void {
-        this.rowList = this.formatData(this.data);
+        this.rowList = this.formatData(this.data, true);
         console.log(this.rowList);
     }
 
@@ -53,7 +53,7 @@ export class DataGrid implements OnInit{
      * @description transform JSON into an array so that the template can parse it.
      * TODO this approach will need to be re-evaluated with respect to performance. loading 5000 rows showed problems
      */
-    formatData(data):Array<DataGridColumn_I>{
+    formatData(data, isRoot?:boolean):Array<DataGridColumn_I>{
         let output;
 
         if(data.constructor.name === 'Array'){
@@ -79,9 +79,9 @@ export class DataGrid implements OnInit{
                     type: data[key].constructor.name.toLowerCase(),
                     value: this.formatData(data[key])
                 });
-                //output= new Array();
-                //output[key] = this.formatData(data[key]);
             }
+            // if this is the root, then we nest this item in an array since the data grid is expecting an array
+            if(isRoot) output = [output];
         }else{
             output = data;
         }
