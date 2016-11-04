@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-
-import 'jquery';
+import { } from 'jquery';
 import 'jqueryui';
 import 'hammerjs';
 
 @Component({
+  moduleId: module.id,
   selector: 'my-app',
-  templateUrl: `app/app.component.html`,
-  styleUrls: ['app/app.component.css'],
+  templateUrl: `app.component.html`,
+  styleUrls: ['app.component.css'],
 })
 export class AppComponent {
   menuItems:Array<any>;
@@ -36,10 +36,3 @@ export class AppComponent {
     return menuArr;
   }
 }
-
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

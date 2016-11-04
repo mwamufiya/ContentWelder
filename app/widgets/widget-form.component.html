@@ -1,4 +1,4 @@
-<div class="widgetContainer" [class.emptyContainer]="imgPath" [class.activeWidget]="isSelected"
+<div class="widgetContainer" [class.emptyContainer]="!questions.length" [class.activeWidget]="isSelected"
 resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
 [ngStyle]="{'height':style.height,'width':style.width}" [class.emptyContainer]="isEmpty()">
     <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>

@@ -9,12 +9,15 @@ import { HttpModule, XHRBackend } from '@angular/http';
 /************3rd party*********** */
 //import { ModalModule } from 'ng2-bootstrap/components/modal';
 import { MaterialModule} from '@angular/material';
+import { ColorPickerModule } from 'angular2-color-picker';
 
 import { DesignerDroppable }  from '../directives/designer-droppable.directive';
 import { DesignerDraggable }  from '../directives/designer-draggable.directive';
 import { Resize }  from '../directives/resize.directive';
 import { WidgetTemplateFactory } from './widget-template-factory.directive';
 import {ColorPickerDirective, ColorPickerService} from 'angular2-color-picker';
+import { MakeDroppable } from './make-droppable.directive'
+import { MakeDraggable} from './make-draggable.directive'
 
 @NgModule({
     imports:[
@@ -23,23 +26,21 @@ import {ColorPickerDirective, ColorPickerService} from 'angular2-color-picker';
         HttpModule,
         ReactiveFormsModule,
         MaterialModule,
+        ColorPickerModule
     ],
     declarations: [
         Resize,
         WidgetTemplateFactory,
         DesignerDroppable,
         DesignerDraggable,
-        ColorPickerDirective
+        MakeDroppable,
+        MakeDraggable
     ],
     exports: [
         Resize,
         WidgetTemplateFactory,
         DesignerDroppable,
-        DesignerDraggable,
-        ColorPickerDirective
-    ],
-    providers: [
-        ColorPickerService
+        DesignerDraggable
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

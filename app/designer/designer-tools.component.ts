@@ -12,10 +12,9 @@ import {MAIN_MENU } from '../services/tools-menu.service'
   outputs: ['changeBkgEmitter']
 })
 export class DesignerToolsComponent implements OnInit{
-  private activeToolSelection: string;
-  private changeBkgEmitter:EventEmitter<any> = new EventEmitter();
+  public activeToolSelection: string;
   private _selectedItemSubscription: Subscription;
-  private menuJSON:JSON;                    //Holds the JSON representation of the menu
+  public menuJSON:JSON;                    //Holds the JSON representation of the menu
 
   /**
    * @class
@@ -46,17 +45,6 @@ export class DesignerToolsComponent implements OnInit{
       this.activeToolSelection = selection;
     else
       this.activeToolSelection = null;
-  }
-  /**
-   * @function
-   * @param {string} changeType
-   * @description Calls for the corresponding Editor to be activated
-   */
-  editBackground(changeType){
-    this.setActiveToolSelection();
-    this.changeBkgEmitter.emit({
-      changeType: changeType
-    });
   }
   /**
    * @function

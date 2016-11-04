@@ -14,7 +14,7 @@
          />
     </li>
     <li>
-        <input title="Border Color" [colorPicker]="style.borderColor" (colorPickerChange)="setStyleProperty('borderColor', $event)" class="colorPicker borderInput" [ngStyle]="{'color': style.borderColor}" [cpFireOnInit]="false" [style.background]="color"/>
+        <input title="Border Color" [colorPicker]="style.borderColor" (colorPickerChange)="setStyleProperty('borderColor', $event)" class="colorPicker borderInput" [cpFireOnInit]="false" [style.background]="style.borderColor"/>
     </li>
     <li>
         <input title="Border Radius" [(ngModel)]="style.borderRadius" (input)="setStyleProperty('borderRadius', $event.target.value+'px')" min="0" size="1" maxlength="3" value="{{style.borderRadius}}" type="number" class="borderInput" />

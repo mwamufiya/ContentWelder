@@ -1,4 +1,4 @@
-<div designerDraggable  class="widgetContainer" [class.emptyContainer]="!builderConfig" [class.activeWidget]="isSelected"
+<div designerDraggable  class="widgetContainer" [class.emptyContainer]="!dataBuilerConfig" [class.activeWidget]="isSelected"
      resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)" [ngStyle]="style">
     <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
     <ul *ngIf="isSelected" class="widgetMenu">

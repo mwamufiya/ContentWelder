@@ -9,6 +9,7 @@ import { HttpModule, XHRBackend } from '@angular/http';
 /************3rd party*********** */
 import { MaterialModule, MdIconRegistry} from '@angular/material';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
+import { ColorPickerModule } from 'angular2-color-picker';
 
 /**********Widget************** */
 import { Widget } from '../widgets/widget.component';
@@ -54,7 +55,8 @@ import { FONTLIST } from '../services/fonts.service';
         CwDirectiveModule,
         WidgetRoutingModule,
         DataviewBuilderModule,
-        Ng2BootstrapModule
+        Ng2BootstrapModule,
+        ColorPickerModule
     ],
     declarations: [
         Widget,

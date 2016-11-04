@@ -31,7 +31,11 @@
       'moment':                                   'npm:moment/moment.js',
       'ng2-bootstrap':              'npm:ng2-bootstrap',
       'angular2-color-picker':                    'npm:angular2-color-picker',
-      'hammerjs':                                 'npm:hammerjs/hammer.min.js'
+      'hammerjs':                                 'npm:hammerjs/hammer.min.js',
+      'rollup':                                   'npm:rollup',
+      'rollup-plugin-node-resolve':               'npm:rollup-plugin-node-resolve',
+      'rollup-plugin-commonjs':                   'npm:rollup-plugin-commonjs',
+      'rollup-plugin-uglify':                     'npm:rollup-plugin-uglify'
 
     },
     // packages tells the System loader how to load when no filename and/or no extension

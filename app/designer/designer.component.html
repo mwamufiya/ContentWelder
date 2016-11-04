@@ -5,7 +5,7 @@
     <div class="mainVenu">
         <!-- Disable the page navigation fow now. it may be re-activated once it's functioning' -->
         <!--<div class="pageNav">adfadf</div>-->
-        <designer-tools (changeBkgEmitter)="changeBackground($event)"></designer-tools>
+        <designer-tools></designer-tools>
          <div class="pasteboard" *ngFor="let page of pageList; let i = index;">
              <ul class="secondaryMenu">
                  <li (click)="saveConfig()"><md-icon>save</md-icon> Save</li>

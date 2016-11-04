@@ -14,10 +14,10 @@ import { WidgetConfig} from '../widgets/widget.interface'
 import {Widget} from "../widgets/widget.component";
 
 @Component({
-
+    moduleId: module.id,
   selector: 'my-designer',
-  templateUrl: './app/designer/designer.component.html',
-  styleUrls: ['./app/designer/designer.component.css']
+  templateUrl: 'designer.component.html',
+  styleUrls: ['designer.component.css']
 })
 export class DesignerComponent implements OnInit{
     @ViewChild('videoChooser', {read: MediaChooser }) videoChooser: MediaChooser;

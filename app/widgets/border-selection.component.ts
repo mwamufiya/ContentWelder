@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit} from '@angular/core';
 
 @Component({
+    moduleId: module.id,
   selector: 'border-selection',
-  templateUrl: './app/widgets/border-selection.component.html',
-  styleUrls:[`./app/widgets/border-selection.component.css`],
+  templateUrl: 'border-selection.component.html',
+  styleUrls:[`border-selection.component.css`],
   outputs: ['styleChanged'],
     inputs:['inputStyle: style']
 })

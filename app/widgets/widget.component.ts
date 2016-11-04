@@ -1,11 +1,10 @@
 import {
     Component, HostListener, ViewContainerRef, ComponentFactoryResolver, ViewRef,
-    ComponentRef, EventEmitter, ChangeDetectorRef, Injector
+    ComponentRef, EventEmitter, ChangeDetectorRef
 } from '@angular/core';
 import { DesignerGlobalsService } from '../services/designer-globals.service';
 import { Subscription } from 'rxjs/Subscription';
-import { WidgetComs, WidgetConfig, WidgetJson, WidgetResize } from './widget.interface';
-import { WidgetService } from './widget.service'
+import { WidgetComs, WidgetConfig, WidgetResize } from './widget.interface';
 import { FONTLIST } from '../services/fonts.service';
 
 @Component({
@@ -28,32 +27,24 @@ import { FONTLIST } from '../services/fonts.service';
 export class Widget{
     //@ViewChild('placeholder', {read: ViewContainerRef}) placeholder;
     widgetType:string;
-    x:number;
-    y:number;
     name:string;
     desc:string;
-    fontSizeList:Array<number> = [8,10,12,14,16,18,20,24,28,32,36,40,44,48,54,60,66,72,80,88,96];
-    opacity:number;
-    layer:number;
-    children:Array<Widget>;  //array of child widgets
-    infants:Array<JSON>;     //JSON array of children.
-    config:JSON;            //JSON configuration for the widget
+    children:Array<Widget>;                                         //array of child widgets
+    config:JSON;                                                    //JSON configuration for the widget
     componentResolver:ComponentFactoryResolver;
     viewCont:ViewContainerRef;
     designerGlobals: DesignerGlobalsService;
     private _selectedItemSubscription: Subscription;
     isSelected: boolean;
-    removeCurrent:boolean = false; //marked to true when current item is requested to be removed;
+    removeCurrent:boolean = false;                                  //marked to true when current item is requested to be removed;
     parentActionReq: EventEmitter<any> = new EventEmitter();
     hostView: ViewRef;
     curCompRef:ComponentRef<Widget>;
     changeDetectorRef:ChangeDetectorRef;
     style:CSSStyleDeclaration;
     fontList:Array<any>;
-    viewIndex:number;                           //The index of the current view;
+    viewIndex:number;                                                //The index of the current view;
     widgetConfig:WidgetConfig;
-    /*********BACKGROUND************ */
-    background:string;
 
 
     /** @function
@@ -73,7 +64,7 @@ export class Widget{
         this.changeDetectorRef = changeDetectorRef;
         this.designerGlobals = designerGlobals;
 
-        this.children = new Array;
+        this.children = [];
         //this.infants = new Array;
 
         this.style = {} as CSSStyleDeclaration;
@@ -197,7 +188,7 @@ export class Widget{
     }
     //Called upon receiving a parentActionReq.emit event requesting deletion of the current item.
     removeChild(eventJSON:WidgetComs){
-      let targetItem = eventJSON.item
+      let targetItem = eventJSON.item;
       let index = this.children.indexOf(targetItem);
       //if the item exists in the array, remove it.
       if(index != -1){
@@ -294,7 +285,7 @@ export class Widget{
     }
     //Set the border styles
     setBorderStyle(value?:string):void{
-      this.style.borderStyle = (value && value.length)? value: 'none';;
+      this.style.borderStyle = (value && value.length)? value: 'none';
     }
     //set Text size
     setTextSize(value?:string):void{
@@ -304,11 +295,6 @@ export class Widget{
     setFontFamily(value?:string):void{
       console.log(value);
       this.style.fontFamily = (value && value.length)? value: 'Helvetica';
-    }
-
-    /************Development**************** */
-    log(val):void{
-      console.log(val);
     }
 
     /**

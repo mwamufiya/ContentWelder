@@ -28,7 +28,7 @@ export class FormWidget extends Widget implements OnDestroy{
     questionService: QuestionService;
     editQuestion:boolean;
     curModel: QuestionBase<any>;
-    @ViewChild(DynamicFormComponent) private dynForm: DynamicFormComponent;
+    @ViewChild(DynamicFormComponent) dynForm: DynamicFormComponent;
     widgetType:string = 'formwidget';
 
     constructor(
