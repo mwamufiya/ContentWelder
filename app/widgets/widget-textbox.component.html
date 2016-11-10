@@ -1,13 +1,13 @@
 <div class="widgetContainer" [class.activeWidget]="isSelected" [class.emptyContainer]="!content"
-resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResize($event)" >
+resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResize($event)" [ngStyle]="{'backgroundColor': style.backgroundColor}" >
     <designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>
     <ul  class="widgetMenu" *ngIf="isSelected">
         <li title="Font">
             <textstyle-selection (styleChanged)="setMulStyleProperties($event)" [style]="style"></textstyle-selection>
         </li>
         <li title="Background Color" class="colorPicker">
-            <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('backgroundColor', $event)" 
-            [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+            <input [colorPicker]="style.backgroundColor" (colorPickerChange)="setStyleProperty('backgroundColor', $event)"
+                   [cpFallbackColor]="'rgba(0,0,0,0)'" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
         </li>
         <li>
             <border-selection (styleChanged)="setMulStyleProperties($event)" [style]="style"></border-selection>
@@ -15,9 +15,8 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
         <li (click)="removeSelf($event)">&#x2716;</li>
         <li>&#x2753;</li>
     </ul>
-    <div contenteditable="true" designerDraggable data-widgetType='textbox'
-        data-widgetConfig='{"type":"textbox"}' (input)="updateContent($event)"
-         [ngStyle]="style">
+    <div contenteditable="true" designerDraggable
+        (input)="updateContent($event)">
         <template #container></template>
     </div>
 </div>

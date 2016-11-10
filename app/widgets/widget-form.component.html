@@ -7,12 +7,12 @@ resizeHandle [enableResize]="isSelected" (resizeDone)="handleResize($event)"
             <button class="mini ui button green" (click)="launchImageChooser()">Change</button>
         </li>
         <li title="Background Color" class="colorPicker">
-            <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)" 
-            [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+            <input [colorPicker]="style.backgroundColor" (colorPickerChange)="setBackgroundColor($event)"
+                   [cpFallbackColor]="'rgba(0,0,0,0)'" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
         </li>
         <li title="Text Color" class="colorPicker">
-            <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('color', $event)" 
-            [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [cpFireOnInit]="false" [style.background]="color"/>
+            <input [colorPicker]="style.color" (colorPickerChange)="setStyleProperty('color', $event)"
+            [ngStyle]="{'color': style.color}" [cpFallbackColor]="'rgba(0,0,0,0)'"/>
         </li>
         <li>
             <border-selection (styleChanged)="setMulStyleProperties($event)"></border-selection>

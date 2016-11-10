@@ -20,7 +20,7 @@
         </div>
     </li>
     <li title="Text Color" class="colorPicker" *ngIf="showColor">
-        <input [colorPicker]="style.color" (colorPickerChange)="setStyleProperty('color', $event)"
-               [ngStyle]="{'color': style.color}" [cpFireOnInit]="false" [style.background]="color"/>
+        <input [colorPicker]="style.color" (colorPickerChange)="setStyleProperty('color', $event)" [cpFallbackColor]="'rgba(0,0,0,0)'"
+               [ngStyle]="{'backgroundColor': style.color}"/>
     </li>
 </ul>

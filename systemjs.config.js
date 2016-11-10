@@ -52,7 +52,7 @@
         defaultExtension: 'js'
       },
       'ng2-bootstrap': {
-        main: '/bundles/ng2-bootstrap.umd.js',
+        main: '/ng2-bootstrap.js',
         defaultExtension: 'js'
       },
       'angular2-color-picker': {

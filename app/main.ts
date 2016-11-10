@@ -1,10 +1,15 @@
 // main entry point
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppModule } from './app.module';
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+//import 'jquery';
+//import 'jqueryui';
+//import 'hammerjs';
 
-//import { platformBrowser} from '@angular/platform-browser';
-//import { AppModuleNgFactory } from '../dist/app/app.module.ngfactory';
+//import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+//import { AppModule } from './app.module';
 
-//platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);
+//platformBrowserDynamic().bootstrapModule(AppModule);
+
+import { platformBrowser} from '@angular/platform-browser';
+import { AppModuleNgFactory } from '../dist/app/app.module.ngfactory';
+
+platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);

@@ -4,8 +4,8 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
     <!--<designer-resizeHandles *ngIf="isSelected"></designer-resizeHandles>-->
     <ul *ngIf="isSelected" class="widgetMenu">
         <li title="Background Color" class="colorPicker">
-            <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('backgroundColor', $event)" 
-            [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+            <input [colorPicker]="style.backgroundColor" (colorPickerChange)="setStyleProperty('backgroundColor', $event)"
+            [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
         </li>
         <li>
             <border-selection (styleChanged)="setMulStyleProperties($event)"></border-selection>
@@ -14,9 +14,8 @@ resizeHandle [enableResize]="isSelected" resizeContain (resizeDone)="handleResiz
         <li (click)="setStyleProperty($event)">&#x2753;</li>
     </ul>
     <div [class.emptyContainer]="!children.length"
-         designerDroppable designerDraggable data-widgetType='box' (widgetAdded)="childModified($event)"
-         (parentActionReq)="removeChild($event)" data-widgetConfig='{"type":"box"}'
-         [ngStyle]="style">
+         designerDroppable designerDraggable (widgetAdded)="childModified($event)"
+         (parentActionReq)="removeChild($event)" [ngStyle]="style">
         <template #childCont></template>
     </div>
 </div>

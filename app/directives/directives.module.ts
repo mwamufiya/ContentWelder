@@ -9,13 +9,11 @@ import { HttpModule, XHRBackend } from '@angular/http';
 /************3rd party*********** */
 //import { ModalModule } from 'ng2-bootstrap/components/modal';
 import { MaterialModule} from '@angular/material';
-import { ColorPickerModule } from 'angular2-color-picker';
 
 import { DesignerDroppable }  from '../directives/designer-droppable.directive';
 import { DesignerDraggable }  from '../directives/designer-draggable.directive';
 import { Resize }  from '../directives/resize.directive';
 import { WidgetTemplateFactory } from './widget-template-factory.directive';
-import {ColorPickerDirective, ColorPickerService} from 'angular2-color-picker';
 import { MakeDroppable } from './make-droppable.directive'
 import { MakeDraggable} from './make-draggable.directive'
 
@@ -25,8 +23,7 @@ import { MakeDraggable} from './make-draggable.directive'
         FormsModule,
         HttpModule,
         ReactiveFormsModule,
-        MaterialModule,
-        ColorPickerModule
+        MaterialModule
     ],
     declarations: [
         Resize,

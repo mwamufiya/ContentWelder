@@ -16,7 +16,7 @@ export class TextStyleSelection implements OnInit{
     styleChanged: EventEmitter<any> = new EventEmitter();
     inputStyle: CSSStyleDeclaration;
     style: CSSStyleDeclaration = {} as CSSStyleDeclaration;
-    mode: string;                                   //empty/all, family, size, color allowed options. Default is "empty/all"
+    mode: string = 'all';                                   //empty/all, family, size, color allowed options. Default is "empty/all"
     fontList:Array<{label:string, value:string}>;
     sizeList:Array<number> = [8,10,12,14,16,18,20,24,28,32,36,40,44,48,54,60,66,72,80,88,96];
     showFamily: boolean= true;
@@ -29,7 +29,7 @@ export class TextStyleSelection implements OnInit{
 
     ngOnInit(){
 
-        if(!this.mode || !this.mode.length || this.mode!='all')
+        if(this.mode && !this.mode.length)
             return;
 
         //parse 'mode' to determine what values should be displayed.
@@ -52,6 +52,10 @@ export class TextStyleSelection implements OnInit{
                 case 'color':
                     this.showColor = true;
                     break;
+                default:
+                    this.showFamily = true;
+                    this.showSize = true;
+                    this.showColor = true;
             }
         });
 

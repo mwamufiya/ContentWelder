@@ -11,8 +11,8 @@
                 <button (click)="launchVideoChooser()"  md-raised-button color="primary">Video</button>
             </li>
             <li title="Background Color" class="colorPicker">
-                <input [colorPicker]="color" (colorPickerChange)="setBackgroundColor($event)"
-                       [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+                <input [colorPicker]="style.backgroundColor" (colorPickerChange)="setStyleProperty('backgroundColor', $event)"
+                       [cpFallbackColor]="'rgba(0,0,0,0)'" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
             </li>
             <li>
                 <button (click)="launchImageChooser()"  md-raised-button color="primary">Image</button>

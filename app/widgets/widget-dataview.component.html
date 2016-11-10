@@ -6,8 +6,8 @@
             <textstyle-selection (styleChanged)="setMulStyleProperties($event)"></textstyle-selection>
         </li>
         <li title="Background Color" class="colorPicker">
-            <input [colorPicker]="color" (colorPickerChange)="setStyleProperty('backgroundColor', $event)"
-                   [style.background]="color" [cpFireOnInit]="false" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
+            <input [colorPicker]="style.backgroundColor" (colorPickerChange)="setStyleProperty('backgroundColor', $event)"
+                   [cpFallbackColor]="'rgba(0,0,0,0)'" [ngStyle]="{'backgroundColor': style.backgroundColor}"/>
         </li>
         <li>
             <border-selection (styleChanged)="setMulStyleProperties($event)"></border-selection>
