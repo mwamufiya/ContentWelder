@@ -35,7 +35,7 @@
     "zone.js": "^0.6.26",
     "@angular/material": "",
     "hammerjs": "~2.0.8",
-    "angular2-color-picker": "",
+    "angular2-color-picker": "https://github.com/mwamufiya/angular2-color-picker.git",
     "jquery": "^3.1.0",
     "jquery-ui-dist": "",
     "json-server": "github:typicode/json-server",
